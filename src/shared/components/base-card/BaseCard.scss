@@ -1,0 +1,10 @@
+.base-card {
+  .base-card__image__wrapper {
+    height: 274px;
+    position: relative;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}

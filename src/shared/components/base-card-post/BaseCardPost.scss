@@ -1,0 +1,12 @@
+.base-card-post {
+  height: 413px;
+  .base-card-post__image__wrapper {
+    height: 246px;
+    position: relative;
+    img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+}

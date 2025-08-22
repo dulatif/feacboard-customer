@@ -1,0 +1,23 @@
+.base-footer {
+  background: #201f23;
+  color: var(--color-white);
+  padding-top: 72px;
+  padding-bottom: 72px;
+  height: auto;
+  .base-footer__divider {
+    background: var(--color-white);
+  }
+  .footer__email-input-field {
+    background-color: var(--color-white);
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #201f23;
+    width: 359px;
+    &:focus {
+      outline: none;
+    }
+  }
+}

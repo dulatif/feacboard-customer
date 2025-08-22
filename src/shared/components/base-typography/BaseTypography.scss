@@ -1,0 +1,78 @@
+.base-typography {
+  /* Font variant */
+  &.base-typography__aleo {
+    font-family: var(--font-aleo);
+  }
+
+  &.base-typography__urbanist {
+    font-family: var(--font-urbanist);
+  }
+
+  /* Font weight */
+  &.base-typography__regular {
+    font-weight: 400;
+  }
+  &.base-typography__medium {
+    font-weight: 500;
+  }
+  &.base-typography__semibold {
+    font-weight: 600;
+  }
+  &.base-typography__bold {
+    font-weight: 700;
+  }
+
+  /* Font size / line height / letter spacing */
+  &.base-typography__header1 {
+    font-size: 4.5rem; // 72px
+    line-height: 5.625rem; // 90px
+    letter-spacing: -2%;
+  }
+  &.base-typography__header2 {
+    font-size: 3.75rem; // 60px
+    line-height: 4.5rem; // 72px
+    letter-spacing: -2%;
+  }
+  &.base-typography__header3 {
+    font-size: 3rem; // 48px
+    line-height: 3.75rem; // 60px
+    letter-spacing: -2%;
+  }
+  &.base-typography__header4 {
+    font-size: 2.25rem; // 36px
+    line-height: 2.75rem; // 44px
+    letter-spacing: -2%;
+  }
+  &.base-typography__header5 {
+    font-size: 1.875rem; // 30px
+    line-height: 2.375rem; // 38px
+  }
+  &.base-typography__header6 {
+    font-size: 1.5rem; // 24px
+    line-height: 2rem; // 32px
+  }
+  &.base-typography__subtitle1 {
+    font-size: 1.25rem; // 20px
+    line-height: 1.875rem; // 30px
+  }
+  &.base-typography__subtitle2 {
+    font-size: 1.125rem; // 18px
+    line-height: 1.75rem; // 28px
+  }
+  &.base-typography__body1 {
+    font-size: 1rem; // 16px
+    line-height: 1.5rem; // 24px
+  }
+  &.base-typography__body2 {
+    font-size: 0.875rem; // 14px
+    line-height: 1.25rem; // 20px
+  }
+  &.base-typography__caption {
+    font-size: 0.75rem; // 12px
+    line-height: 1.125rem; // 18px
+  }
+  &.base-typography__overline {
+    font-size: 0.625rem; // 10px
+    line-height: 1rem; // 16px
+  }
+}

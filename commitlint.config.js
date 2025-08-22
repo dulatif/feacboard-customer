@@ -26,10 +26,7 @@ module.exports = {
           if (type && subject) {
             return [true, 'Commit message format is correct']
           }
-          return [
-            false,
-            'Commit message format is incorrect. It should be "<type>: <subject>"',
-          ]
+          return [false, 'Commit message format is incorrect. It should be "<type>: <subject>"']
         },
       },
     },

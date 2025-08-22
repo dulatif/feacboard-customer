@@ -1,0 +1,20 @@
+.nearby-service {
+  .nearby-service__wrapper {
+    background: linear-gradient(79.64deg, #fdefef 0%, #fdf5f3 100%) !important;
+    .nearby-service__card__other {
+      background: linear-gradient(79.64deg, #d86f87 0%, #fc99a6 100%);
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 21px;
+      .nearby-service__card__other__action {
+        position: absolute;
+        bottom: 42px;
+        left: 52px;
+        right: 52px;
+      }
+    }
+  }
+}

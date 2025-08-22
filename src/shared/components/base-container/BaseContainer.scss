@@ -1,0 +1,17 @@
+.base-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  &.variant-576 {
+    max-width: 576px;
+  }
+  &.variant-768 {
+    max-width: 768px;
+  }
+  &.variant-992 {
+    max-width: 992px;
+  }
+  &.variant-1200 {
+    max-width: 1200px;
+  }
+}
