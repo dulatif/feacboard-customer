@@ -1,0 +1,98 @@
+.container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow: hidden;
+  .banner {
+    background-image: url(/images/login/background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    .banner__content {
+      height: 100%;
+      padding: 42px 120px 109px 120px !important;
+    }
+    /* <= 1200px */
+    @media (max-width: 1200px) {
+      .banner__content {
+        padding: 42px 100px 109px 100px !important;
+      }
+    }
+    /* <= 992px */
+    @media (max-width: 992px) {
+      .banner__content {
+        padding: 42px 80px 109px 80px !important;
+      }
+    }
+    /* <= 768px */
+    @media (max-width: 768px) {
+      .banner__content {
+        padding: 42px 30px 109px 30px !important;
+      }
+    }
+    /* <= 576px */
+    @media (max-width: 576px) {
+      .banner__content {
+        padding: 42px 20px 109px 20px !important;
+      }
+    }
+  }
+  .content {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .content__form {
+      width: 455px;
+      .content__form__auth-button {
+        display: grid !important;
+        grid-template-columns: 16px 1fr;
+        gap: 8px;
+        border: none !important;
+        &.--kakotalk {
+          background-color: #FEE500 !important;
+          color: var(--color-black) !important;
+          &:hover {
+            background-color: #FED500 !important;
+          }
+        }
+        &.--facebook {
+          background-color: #0866FF !important;
+          color: var(--color-white) !important;
+          &:hover {
+            background-color: #0846FF !important;
+          }
+        }
+        &.--google {
+          background-color: var(--color-white) !important;
+          color: var(--color-black) !important;
+          border: 1px solid var(--color-black) !important;
+          &:hover {
+            background-color: var(--color-neutral-100) !important;
+          }
+        }
+        &.--apple {
+          background-color: var(--color-black) !important;
+          color: var(--color-white) !important;
+          &:hover {
+            background-color: var(--color-neutral-900) !important;
+          }
+        }
+      }
+      .content__form__link {
+        background-color: white !important;
+        border: 1px solid var(--color-primary-700) !important;
+        color: var(--color-primary-700) !important;
+        display: grid !important;
+        grid-template-columns: 1fr 16px;
+        gap: 8px;
+        [stroke] {
+          stroke: var(--color-primary-700) !important;
+        }
+        &:hover {
+          background-color: var(--color-primary-50) !important;
+        }
+      }
+    }
+  }
+}

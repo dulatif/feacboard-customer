@@ -27,6 +27,7 @@ export default function RootLayout({
   const useNavbar = [`/`].includes(pathName)
   const useFooter = [`/`].includes(pathName)
   const useHeroBg = [`/`].includes(pathName)
+  const useNoContainer = ['/auth/login'].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']
@@ -42,7 +43,11 @@ export default function RootLayout({
               {useHeroBg && <div className="hero-bg"></div>}
               <div className="content-wrapper">
                 {useNavbar && <Navbar />}
-                <BaseContainer>{children}</BaseContainer>
+                {
+                  useNoContainer ? children : (
+                    <BaseContainer>{children}</BaseContainer>
+                  )
+                }
                 {useFooter && (
                   <div className="content__footer">
                     <Footer />

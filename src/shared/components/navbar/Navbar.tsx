@@ -17,7 +17,7 @@ export interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const pathName = usePathname()
-  const isAuthenticated = true
+  const isAuthenticated = false
 
   return (
     <div className={`base-navbar`}>
