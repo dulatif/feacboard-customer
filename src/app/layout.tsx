@@ -43,11 +43,7 @@ export default function RootLayout({
               {useHeroBg && <div className="hero-bg"></div>}
               <div className="content-wrapper">
                 {useNavbar && <Navbar />}
-                {
-                  useNoContainer ? children : (
-                    <BaseContainer>{children}</BaseContainer>
-                  )
-                }
+                {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
                 {useFooter && (
                   <div className="content__footer">
                     <Footer />

@@ -11,7 +11,7 @@ import Image from 'next/image'
 export const Footer = () => {
   return (
     <div className="base-footer">
-      <BaseContainer>
+      <BaseContainer variant={1440}>
         <BaseFlex vertical gap="spacing-40px">
           <BaseFlex gap="spacing-40px" justify="space-between">
             <div>

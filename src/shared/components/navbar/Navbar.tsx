@@ -21,7 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <div className={`base-navbar`}>
-      <BaseContainer>
+      <BaseContainer variant={1440}>
         <BaseFlex gap="spacing-20px" justify="space-between" align="center">
           <div>
             <BaseTypography as="h1" variant="aleo" size="header5" weight="bold" color="neutral-700">

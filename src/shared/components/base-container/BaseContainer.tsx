@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import './BaseContainer.scss'
 import { Spacing } from '@/shared/types/spacing'
 
-export type BaseContainerVariant = 576 | 768 | 992 | 1200 | 'fullwidth'
+export type BaseContainerVariant = 576 | 768 | 992 | 1200 | 1440 | 'fullwidth'
 
 export interface BaseContainerProps {
   children: React.ReactNode
@@ -21,6 +21,7 @@ const BaseContainer: React.FC<BaseContainerProps> = ({ children, variant = 'full
     768: 'spacing-24px',
     992: 'spacing-32px',
     1200: 'spacing-48px',
+    1440: 'spacing-120px',
     fullwidth: 'spacing-120px',
   }
 
