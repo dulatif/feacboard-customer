@@ -1,6 +1,6 @@
 import React from 'react'
 import './Footer.scss'
-import BaseContainer from '../base-container/BaseContainer'
+import { BaseContainer } from '../base-container/BaseContainer'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { Divider } from 'antd'
 import { BaseTypography } from '../base-typography/BaseTypography'

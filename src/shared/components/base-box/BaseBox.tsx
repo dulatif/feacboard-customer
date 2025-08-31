@@ -31,7 +31,7 @@ export interface BaseBoxProps {
   className?: string
 }
 
-const BaseBox: React.FC<BaseBoxProps> = ({
+export const BaseBox: React.FC<BaseBoxProps> = ({
   children,
   padding = { x: 'spacing-16px', y: 'spacing-16px' },
   radius = 'radius-16px',
@@ -67,5 +67,3 @@ const BaseBox: React.FC<BaseBoxProps> = ({
     </div>
   )
 }
-
-export default BaseBox

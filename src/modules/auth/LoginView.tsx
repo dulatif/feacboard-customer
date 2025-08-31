@@ -1,22 +1,26 @@
 'use client'
 import React from 'react'
-import styles from './Login.module.scss'
-import BaseContainer from '@/shared/components/base-container/BaseContainer'
+import styles from './LoginView.module.scss'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { Divider } from 'antd'
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import Image from 'next/image'
+import Link from 'next/link'
 
-export const Login = () => {
+export const LoginView = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['banner']}>
         <BaseFlex vertical gap="spacing-20px" justify="space-between" className={styles['banner__content']}>
-          <BaseTypography as="h1" variant="aleo" size="header4" weight="bold" color="white">
-            Faceboard
-          </BaseTypography>
+          <div>
+            <Link href={'/'}>
+              <BaseTypography as="h1" variant="aleo" size="header4" weight="bold" color="white">
+                Faceboard
+              </BaseTypography>
+            </Link>
+          </div>
           <div>
             <BaseFlex vertical gap="spacing-16px">
               <BaseTypography as="p" variant="aleo" size="header5" weight="medium" color="white">

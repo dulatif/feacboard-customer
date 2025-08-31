@@ -1,9 +1,10 @@
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseCard } from '@/shared/components/base-card/BaseCard'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseSection } from '@/shared/components/base-section/BaseSection'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
+import StarIcon from '@/shared/components/icons/StarIcon'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import React from 'react'
@@ -36,7 +37,7 @@ export const ProductsSold = () => {
                   title={'플럼 세럼'}
                   subtitle={
                     <BaseFlex gap="spacing-8px" align="center">
-                      <Image src={'/icons/badge/star.svg'} width={20} height={20} alt="" />
+                      <StarIcon width={20} height={20} />
                       <BaseTypography as="p" color="neutral-500" size="body1">
                         4.8 (129 리뷰)
                       </BaseTypography>

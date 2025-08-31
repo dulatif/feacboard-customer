@@ -15,7 +15,12 @@ export interface BaseContainerProps {
   className?: string
 }
 
-const BaseContainer: React.FC<BaseContainerProps> = ({ children, variant = 'fullwidth', padding, className }) => {
+export const BaseContainer: React.FC<BaseContainerProps> = ({
+  children,
+  variant = 'fullwidth',
+  padding,
+  className,
+}) => {
   const defaultPaddingX: Record<BaseContainerVariant, Spacing> = {
     576: 'spacing-16px',
     768: 'spacing-24px',
@@ -38,5 +43,3 @@ const BaseContainer: React.FC<BaseContainerProps> = ({ children, variant = 'full
 
   return <div className={containerClass}>{children}</div>
 }
-
-export default BaseContainer

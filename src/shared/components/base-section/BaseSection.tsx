@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { BaseTypography, BaseTypographyProps } from '../base-typography/BaseTypography'
 import { BaseFlex } from '../base-flex/BaseFlex'
-import BaseBox, { BaseBoxProps } from '../base-box/BaseBox'
+import { BaseBox, BaseBoxProps } from '../base-box/BaseBox'
 import './BaseSection.scss'
 
 export interface BaseSectionProps extends BaseBoxProps {

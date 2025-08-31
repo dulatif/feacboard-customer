@@ -1,0 +1,32 @@
+.shop-view {
+  .shop-view__banner {
+    background: url(/images/shop-background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 48px;
+    padding-bottom: 64px;
+    position: relative;
+    .shop-view__banner__overlay {
+      background: #00000059;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+    }
+    .shop-view__banner__content {
+      position: relative;
+    }
+    .shop-view__banner__breadcrumb {
+      margin-bottom: 102px;
+    }
+  }
+  .shop-view__content {
+    padding: 64px 0px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    background-color: var(--color-white);
+    margin-top: -24px;
+  }
+}

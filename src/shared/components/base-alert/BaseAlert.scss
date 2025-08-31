@@ -1,0 +1,10 @@
+.base-alert {
+  .base-alert__icon {
+    display: flex;
+    align-items: center;
+    &.base-alert__icon--start {
+    }
+    &.base-alert__icon--end {
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import BaseBox from '../base-box/BaseBox'
+import { BaseBox } from '../base-box/BaseBox'
 import Image from 'next/image'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { BaseTypography } from '../base-typography/BaseTypography'

@@ -1,13 +1,23 @@
 import React, { ReactNode } from 'react'
 import './BaseBadge.scss'
 import classNames from 'classnames'
-import { BaseFlex } from '../base-flex/BaseFlex'
+import { BaseFlex, BaseFlexProps } from '../base-flex/BaseFlex'
 
 export interface BaseBadgeProps {
-  variant?: 'primary-25' | 'secondary-25' | 'warning-25'
+  variant?:
+    | 'primary-25'
+    | 'secondary-25'
+    | 'warning-25'
+    | 'warning-100'
+    | 'info-100'
+    | 'success-100'
+    | 'danger-100'
+    | 'pink-gradient'
+    | 'brown-gradient'
   className?: string
   icon?: ReactNode
   iconPosition?: 'start' | 'end'
+  padding?: BaseFlexProps['padding']
   children: ReactNode
 }
 export const BaseBadge = ({
@@ -15,13 +25,14 @@ export const BaseBadge = ({
   className,
   icon,
   iconPosition = 'start',
+  padding = { x: 'spacing-8px', y: 'spacing-4px' },
   children,
 }: BaseBadgeProps) => {
   const badgeClass = classNames('base-badge', `base-badge--${variant}`, className)
 
   return (
     <div className={badgeClass}>
-      <BaseFlex gap="spacing-8px" align="center">
+      <BaseFlex gap="spacing-8px" align="center" padding={padding}>
         {icon && iconPosition === 'start' && <span className="base-badge__icon base-badge__icon--start">{icon}</span>}
         {children && <span className="base-badge__text">{children}</span>}
         {icon && iconPosition === 'end' && <span className="base-badge__icon base-badge__icon--end">{icon}</span>}

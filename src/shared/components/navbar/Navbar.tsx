@@ -1,15 +1,15 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { BaseTypography } from '../base-typography/BaseTypography'
 import './Navbar.scss'
 import Image from 'next/image'
-import BaseButton from '../base-button/BaseButton'
+import { BaseButton } from '../base-button/BaseButton'
 import BellIcon from '../icons/BellIcon'
 import MenuIcon from '../icons/MenuIcon'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import BaseContainer from '../base-container/BaseContainer'
+import { BaseContainer } from '../base-container/BaseContainer'
 import { menuItems } from './Navbar.utils'
 import { Avatar } from 'antd'
 
@@ -17,28 +17,50 @@ export interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const pathName = usePathname()
-  const isAuthenticated = false
+  const isAuthenticated = true
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 144) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <div className={`base-navbar`}>
+    <div className={`base-navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <BaseContainer variant={1440}>
         <BaseFlex gap="spacing-20px" justify="space-between" align="center">
           <div>
-            <BaseTypography as="h1" variant="aleo" size="header5" weight="bold" color="neutral-700">
-              Faceboard
-            </BaseTypography>
+            <Link href={'/'}>
+              <BaseTypography as="h1" variant="aleo" size="header5" weight="bold" color="neutral-700">
+                Faceboard
+              </BaseTypography>
+            </Link>
           </div>
           <div>
             <BaseFlex gap="spacing-40px" className="base-navbar__menu">
               {menuItems.map((item, i) => {
-                const isActive = pathName === item.path
+                const isActive =
+                  pathName === item.path ||
+                  (item.path === '/' && pathName === '/shop') ||
+                  (item.path === '/reservation' && pathName.includes('/reservation'))
                 return (
                   <div
                     key={i}
                     className={`base-navbar__menu__item ${isActive ? 'base-navbar__menu__item--active' : ''}`}
                   >
                     <Link href={item.path}>
-                      <BaseTypography as="p" size="body1" color={isActive ? 'neutral-900' : undefined}>
+                      <BaseTypography
+                        as="p"
+                        size="body1"
+                        weight={isActive ? 'semibold' : 'regular'}
+                        color={isActive ? 'neutral-900' : undefined}
+                      >
                         {item.label}
                       </BaseTypography>
                     </Link>

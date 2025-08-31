@@ -1,11 +1,12 @@
 import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseCard } from '@/shared/components/base-card/BaseCard'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseSection } from '@/shared/components/base-section/BaseSection'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import styles from './PopularDesigner.module.scss'
+import StarIcon from '@/shared/components/icons/StarIcon'
 
 export const PopularDesigner = () => {
   return (
@@ -35,10 +36,7 @@ export const PopularDesigner = () => {
                   title={'한별 팀장'}
                   subtitle={'글래드 뷰티, 강남'}
                   footer={
-                    <BaseBadge
-                      variant={'warning-25'}
-                      icon={<Image src={'/icons/badge/star.svg'} width={20} height={20} alt="" />}
-                    >
+                    <BaseBadge variant={'warning-25'} icon={<StarIcon width={20} height={20} />}>
                       4.8 (129 리뷰)
                     </BaseBadge>
                   }

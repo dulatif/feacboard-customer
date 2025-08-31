@@ -1,5 +1,5 @@
 import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseCard } from '@/shared/components/base-card/BaseCard'
 import { BaseSection } from '@/shared/components/base-section/BaseSection'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'

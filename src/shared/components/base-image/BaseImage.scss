@@ -1,0 +1,12 @@
+.base-image {
+  .base-image__img__wrapper {
+    position: relative;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+    }
+  }
+  .base-image__empty {
+    background-color: #d9d9d9;
+  }
+}

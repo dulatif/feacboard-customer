@@ -1,0 +1,10 @@
+.color-analyst {
+  .color-analyst__wrapper {
+    .color-analyst__filter {
+      display: grid;
+      grid-template-columns: 1fr 320px auto;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+}

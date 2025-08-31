@@ -3,8 +3,7 @@ import { Carousel } from 'antd'
 import React, { useRef } from 'react'
 import Image from 'next/image'
 import styles from './Banner.module.scss'
-import './Banner.scss'
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import ChevronLeftIcon from '@/shared/components/icons/ChevronLeftIcon'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 
@@ -37,7 +36,7 @@ export const Banner = () => {
 
   return (
     <div className={styles['banner']}>
-      <Carousel ref={carouselRef} afterChange={onChange} className="banner__carousel">
+      <Carousel ref={carouselRef} afterChange={onChange}>
         {sliderItems.map((e, i) => (
           <div key={i} className={styles['banner__carousel-item']}>
             <Image src={e.image} fill alt="" />

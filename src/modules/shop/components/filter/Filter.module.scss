@@ -1,0 +1,7 @@
+.filter {
+  .filter__content {
+    display: grid;
+    grid-template-columns: 320px 1fr 102px;
+    gap: 16px;
+  }
+}

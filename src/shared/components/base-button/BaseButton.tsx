@@ -6,7 +6,15 @@ import './BaseButton.scss'
 export interface BaseButtonProps
   extends Omit<ButtonProps, 'variant' | 'danger' | 'color' | 'shape' | 'size' | 'icon' | 'iconPosition'> {
   variant?: 'default' | 'link' | 'fullwidth'
-  color?: 'primary' | 'secondary' | 'secondary-neutral' | 'tertiary' | 'tertiary-neutral' | 'danger'
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'secondary-neutral'
+    | 'tertiary'
+    | 'tertiary-neutral'
+    | 'danger'
+    | 'grey'
+    | 'success'
   shape?: 'default' | 'circle'
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   icon?: ReactNode
@@ -15,9 +23,10 @@ export interface BaseButtonProps
   loading?: boolean
   disabled?: boolean
   onClick?: () => void
+  outlined?: boolean
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({
+export const BaseButton: React.FC<BaseButtonProps> = ({
   variant = 'default',
   color = 'primary',
   shape = 'default',
@@ -29,6 +38,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   disabled = false,
   onClick,
   className,
+  outlined = false,
   ...props
 }) => {
   const isDisabled = disabled || loading
@@ -39,6 +49,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
     `base-button--${shape}`,
     `base-button--${size}`,
     `base-button--${variant}`,
+    `base-button--${outlined ? 'outlined' : ''}`,
     {
       'base-button--loading': loading,
       'base-button--disabled': isDisabled,
@@ -54,5 +65,3 @@ const BaseButton: React.FC<BaseButtonProps> = ({
     </Button>
   )
 }
-
-export default BaseButton

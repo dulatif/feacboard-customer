@@ -14,20 +14,31 @@ body {
   .layout-wrapper {
     position: relative;
     .hero-bg {
-      background: #75e1d1;
-      height: 377px;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
       position: absolute;
       top: 0px;
       left: 0px;
       right: 0px;
+      &.solid-green {
+        height: 377px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        background: var(--color-primary-600);
+      }
+      &.gradient-green {
+        height: 567px;
+        border-bottom-left-radius: 24px;
+        border-bottom-right-radius: 24px;
+        background: linear-gradient(79.64deg, #3297ae 0%, #49c3d0 100%);
+      }
     }
     .content-wrapper {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       min-height: 100vh;
       overflow-x: hidden;
+      &--with-navbar {
+        padding-top: 144px;
+      }
       .content__footer {
         margin-top: 93px;
       }

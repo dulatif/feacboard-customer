@@ -1,0 +1,21 @@
+.base-breadcrumb {
+  li {
+    font-family: Urbanist;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0%;
+    margin-inline: 2px !important;
+  }
+  &.base-breadcrumb--neutral-900 {
+    li {
+      color: var(--color-neutral-900);
+    }
+  }
+  &.base-breadcrumb--white {
+    li {
+      color: var(--color-white);
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import BaseButton from '@/shared/components/base-button/BaseButton'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { Col, Row } from 'antd'

@@ -1,0 +1,7 @@
+.reservation-card {
+  .reservation-card__items__item {
+    display: grid;
+    grid-template-columns: 136px 1fr;
+    gap: 48px;
+  }
+}

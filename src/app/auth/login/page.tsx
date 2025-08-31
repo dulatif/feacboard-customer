@@ -1,10 +1,10 @@
+import { LoginView } from '@/modules/auth/LoginView'
 import React from 'react'
-import { Login as LoginComponent } from '@/modules/auth/Login'
 
 const Login = () => {
   return (
     <div>
-      <LoginComponent />
+      <LoginView />
     </div>
   )
 }

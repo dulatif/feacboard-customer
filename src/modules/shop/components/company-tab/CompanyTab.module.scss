@@ -1,0 +1,15 @@
+.item__card__wrapper {
+  .item__card__item {
+    flex: 1;
+    .item__card__image__wrapper {
+      height: 399px;
+      width: 100%;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      .item__card__image {
+        object-fit: cover;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import BaseBox from '../base-box/BaseBox'
+import { BaseBox } from '../base-box/BaseBox'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { BaseTypography } from '../base-typography/BaseTypography'
 import { Avatar } from 'antd'

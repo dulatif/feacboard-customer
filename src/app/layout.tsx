@@ -1,12 +1,15 @@
 'use client'
 import { Urbanist, Aleo } from 'next/font/google'
 import './globals.scss'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import TanstackProvider from '@/shared/providers/TanstackProvider'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import BaseContainer from '@/shared/components/base-container/BaseContainer'
-import { usePathname } from 'next/navigation'
+import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
+import { useParams, usePathname } from 'next/navigation'
 import { Navbar } from '@/shared/components/navbar/Navbar'
 import { Footer } from '@/shared/components/footer/Footer'
+import { ConfigProvider } from 'antd'
 
 const urbanist = Urbanist({
   variable: '--font-urbainst',
@@ -24,10 +27,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const pathName = usePathname()
-  const useNavbar = [`/`].includes(pathName)
-  const useFooter = [`/`].includes(pathName)
-  const useHeroBg = [`/`].includes(pathName)
-  const useNoContainer = ['/auth/login'].includes(pathName)
+  const { id } = useParams()
+  const useNavbar = [`/`, `/shop`, `/reservation`].includes(pathName)
+  const useFooter = [`/`, `/shop`, `/reservation`].includes(pathName)
+  const useHeroBgSolidGreen = [`/`].includes(pathName)
+  const useHeroBgGradientGreen = [''].includes(pathName)
+  const useNoContainer = ['/auth/login', '/shop', `/reservation`].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']
@@ -39,18 +44,21 @@ export default function RootLayout({
       <body className={`${urbanist.variable} ${aleo.variable}`}>
         <TanstackProvider>
           <AntdRegistry>
-            <div className={getLayoutClassName()}>
-              {useHeroBg && <div className="hero-bg"></div>}
-              <div className="content-wrapper">
-                {useNavbar && <Navbar />}
-                {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
-                {useFooter && (
-                  <div className="content__footer">
-                    <Footer />
-                  </div>
-                )}
+            <ConfigProvider>
+              <div className={getLayoutClassName()}>
+                {useHeroBgSolidGreen && <div className={`hero-bg solid-green`}></div>}
+                {useHeroBgGradientGreen && <div className={`hero-bg gradient-green`}></div>}
+                <div className={`content-wrapper ${useNavbar ? 'content-wrapper--with-navbar' : ''}`}>
+                  {useNavbar && <Navbar />}
+                  {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
+                  {useFooter && (
+                    <div className="content__footer">
+                      <Footer />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            </ConfigProvider>
           </AntdRegistry>
         </TanstackProvider>
       </body>

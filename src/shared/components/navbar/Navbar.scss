@@ -1,6 +1,15 @@
 .base-navbar {
-  padding-top: 42px;
-  padding-bottom: 42px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 999;
+  transition: 0.3s;
+  &.navbar--scrolled {
+    background-color: var(--color-white);
+  }
   .base-navbar__menu {
     .base-navbar__menu__item {
       cursor: pointer;

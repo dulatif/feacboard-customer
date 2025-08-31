@@ -1,0 +1,10 @@
+.shop__designer__item {
+  .item__card__wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    gap: 24px;
+    padding-bottom: 12px;
+  }
+}

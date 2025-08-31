@@ -1,0 +1,10 @@
+.reservation-list {
+  .reservation-list__wrapper {
+    .reservation-list__filter {
+      display: grid;
+      grid-template-columns: 1fr 320px auto;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+}
