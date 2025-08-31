@@ -14,7 +14,8 @@
     }
   }
   &.base-breadcrumb--white {
-    li {
+    li,
+    span {
       color: var(--color-white);
     }
   }

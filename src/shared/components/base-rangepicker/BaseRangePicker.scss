@@ -57,11 +57,11 @@
                 letter-spacing: 0%;
                 transition: 0.2s;
                 &:hover {
-                  background-color: #F9FAFB;
+                  background-color: #f9fafb;
                 }
                 &.base-rangepicker__presets--active {
-                  background-color: #49C3D0;
-                  color: #FFFFFF;
+                  background-color: #49c3d0;
+                  color: #ffffff;
                 }
               }
             }
@@ -73,7 +73,8 @@
             .ant-picker-date-panel {
               .ant-picker-header {
                 padding-bottom: 12px;
-                .ant-picker-header-super-prev-btn,.ant-picker-header-super-next-btn {
+                .ant-picker-header-super-prev-btn,
+                .ant-picker-header-super-next-btn {
                   display: none;
                 }
                 .ant-picker-header-view {
@@ -98,22 +99,23 @@
                   }
                   td.ant-picker-cell {
                     padding: 2px;
-                    &.ant-picker-cell-range-start,&.ant-picker-cell-range-end {
+                    &.ant-picker-cell-range-start,
+                    &.ant-picker-cell-range-end {
                       &::before {
                         height: 38px;
-                        background: #F9FAFB;
+                        background: #f9fafb;
                       }
                       .ant-picker-cell-inner {
-                        background: #49C3D0;
+                        background: #49c3d0;
                       }
                     }
-                    &.ant-picker-cell-in-range{
+                    &.ant-picker-cell-in-range {
                       &::before {
                         height: 38px;
-                        background: #F9FAFB;
+                        background: #f9fafb;
                       }
                       .ant-picker-cell-inner {
-                        background: #F9FAFB;
+                        background: #f9fafb;
                       }
                     }
                     .ant-picker-cell-inner {
@@ -143,7 +145,7 @@
               height: 40px;
               padding: 10px 14px;
               border-radius: 8px;
-              border: 1px solid #D0D5DD;
+              border: 1px solid #d0d5dd;
               display: flex;
               align-items: center;
             }

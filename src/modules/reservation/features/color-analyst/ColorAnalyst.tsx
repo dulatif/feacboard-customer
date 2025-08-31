@@ -55,7 +55,7 @@ export const ColorAnalyst = () => {
     },
   ]
 
-  const [selectedDate, setSelectedDate] = useState<{from: Dayjs | null;to: Dayjs | null} | undefined>()
+  const [selectedDate, setSelectedDate] = useState<{ from: Dayjs | null; to: Dayjs | null } | undefined>()
   const handleOnChaneDateRangePicker: BaseRangePickerProps['onChange'] = (value) => {
     setSelectedDate(value)
   }
@@ -66,15 +66,17 @@ export const ColorAnalyst = () => {
           <div className={styles['color-analyst__filter']}>
             <BaseInput placeholder="찾다 ..." prefix={<SearchIcon width={20} height={20} />} />
             <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
-            <BaseRangePicker 
-              onChange={handleOnChaneDateRangePicker} 
-              value={selectedDate} 
-              {...(selectedDate ? {
-                title: `
+            <BaseRangePicker
+              onChange={handleOnChaneDateRangePicker}
+              value={selectedDate}
+              {...(selectedDate
+                ? {
+                    title: `
                   ${selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
                   ${selectedDate?.to ? ` - ${selectedDate.to.format('MMM DD, YYYY')}` : ''}
-                ` 
-              }:{})}
+                `,
+                  }
+                : {})}
             />
           </div>
           <BaseFlex gap="spacing-24px" align="center" justify="space-between">

@@ -10,10 +10,7 @@ export const presetOptions = [
   },
   {
     key: 'Yesterday',
-    value: [
-      dayjs().subtract(1, 'day').startOf('day'),
-      dayjs().subtract(1, 'day').endOf('day'),
-    ],
+    value: [dayjs().subtract(1, 'day').startOf('day'), dayjs().subtract(1, 'day').endOf('day')],
   },
   {
     key: 'This Week',
@@ -21,10 +18,7 @@ export const presetOptions = [
   },
   {
     key: 'Last Week',
-    value: [
-      dayjs().subtract(1, 'week').startOf('week'),
-      dayjs().subtract(1, 'week').endOf('week'),
-    ],
+    value: [dayjs().subtract(1, 'week').startOf('week'), dayjs().subtract(1, 'week').endOf('week')],
   },
   {
     key: 'This Month',
@@ -32,10 +26,7 @@ export const presetOptions = [
   },
   {
     key: 'Last Month',
-    value: [
-      dayjs().subtract(1, 'month').startOf('month'),
-      dayjs().subtract(1, 'month').endOf('month'),
-    ],
+    value: [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')],
   },
   {
     key: 'This Year',
@@ -43,9 +34,6 @@ export const presetOptions = [
   },
   {
     key: 'Last Year',
-    value: [
-      dayjs().subtract(1, 'year').startOf('year'),
-      dayjs().subtract(1, 'year').endOf('year'),
-    ],
+    value: [dayjs().subtract(1, 'year').startOf('year'), dayjs().subtract(1, 'year').endOf('year')],
   },
 ]

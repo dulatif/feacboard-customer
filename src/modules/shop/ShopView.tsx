@@ -21,11 +21,7 @@ export const ShopView = () => {
         <div className={styles['shop-view__banner__overlay']}></div>
         <div className={styles['shop-view__banner__content']}>
           <BaseContainer variant={1440}>
-            <BaseBreadcrumb 
-              color='white'
-              items={breadcrumbItems} 
-              className={styles['shop-view__banner__breadcrumb']} 
-            />
+            <BaseBreadcrumb color="white" items={breadcrumbItems} className={styles['shop-view__banner__breadcrumb']} />
             <Filter />
           </BaseContainer>
         </div>

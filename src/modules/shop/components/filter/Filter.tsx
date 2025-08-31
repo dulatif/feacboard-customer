@@ -12,7 +12,7 @@ export const Filter = () => {
   return (
     <div className={styles['filter']}>
       <BaseFlex vertical gap="spacing-48px">
-        <BaseTypography as="h4" size="header4" weight='semibold' color="white">
+        <BaseTypography as="h4" size="header4" weight="semibold" color="white">
           당신에게 맞는 헤어 트리트먼트를 찾으세요 😊
         </BaseTypography>
         <BaseBox
@@ -24,7 +24,7 @@ export const Filter = () => {
         >
           <BaseInput size="large" prefix={<MapMarkerIcon />} placeholder="강남" />
           <BaseInput size="large" placeholder="무언가를 검색하다" />
-          <BaseButton icon={<SearchIcon />} size='xl'>
+          <BaseButton icon={<SearchIcon />} size="xl">
             찾다
           </BaseButton>
         </BaseBox>

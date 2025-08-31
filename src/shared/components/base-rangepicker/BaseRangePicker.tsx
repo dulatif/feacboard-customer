@@ -14,8 +14,8 @@ export interface BaseRangePickerProps {
   className?: string
   title?: string
   popupAlign?: AlignType
-  onChange: (val: {from: Dayjs | null;to: Dayjs | null}) => void
-  value?: {from: Dayjs | null;to: Dayjs | null}
+  onChange: (val: { from: Dayjs | null; to: Dayjs | null }) => void
+  value?: { from: Dayjs | null; to: Dayjs | null }
 }
 
 export const BaseRangePicker: React.FC<BaseRangePickerProps> = ({
@@ -31,9 +31,9 @@ export const BaseRangePicker: React.FC<BaseRangePickerProps> = ({
   ...props
 }) => {
   const [isRangePickerOpen, setIsRangePickerOpen] = React.useState(false)
-  const [selectedDate, setSelectedDate] = useState<{from: Dayjs | null;to: Dayjs | null} | undefined>(value)
+  const [selectedDate, setSelectedDate] = useState<{ from: Dayjs | null; to: Dayjs | null } | undefined>(value)
   useEffect(() => {
-    if(isRangePickerOpen && value) {
+    if (isRangePickerOpen && value) {
       setSelectedDate(value)
       checkForMatchingPreset([value.from, value.to])
     }
@@ -83,13 +83,12 @@ export const BaseRangePicker: React.FC<BaseRangePickerProps> = ({
     if (dates) {
       setSelectedDate({
         from: dates[0],
-        to: dates[1]
+        to: dates[1],
       })
     } else {
       setSelectedDate(undefined)
     }
   }
-  
 
   const handleCancel = () => {
     setIsRangePickerOpen(false)
@@ -109,11 +108,9 @@ export const BaseRangePicker: React.FC<BaseRangePickerProps> = ({
         onClick={handleOpenRangePicker}
         size="lg"
       >
-        {
-          value && value?.from && value?.to && value.from.format('MMM DD, YYYY') === value.to.format('MMM DD, YYYY') ? (
-            value.from.format('MMM DD, YYYY')
-          ):title
-        }
+        {value && value?.from && value?.to && value.from.format('MMM DD, YYYY') === value.to.format('MMM DD, YYYY')
+          ? value.from.format('MMM DD, YYYY')
+          : title}
       </BaseButton>
       {isRangePickerOpen && (
         <RangePicker
@@ -123,29 +120,25 @@ export const BaseRangePicker: React.FC<BaseRangePickerProps> = ({
           onChange={onRangeChange}
           popupAlign={popupAlign}
           value={selectedDate ? [selectedDate.from, selectedDate.to] : undefined}
-          renderExtraFooter={
-            () => (
-              <BaseFlex gap='spacing-12px' justify='space-between'>
-                <BaseFlex gap='spacing-12px'>
-                  <div className='base-range-picker__input-result'>
-                    {selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
-                  </div>
-                  <span>-</span>
-                  <div className='base-range-picker__input-result'>
-                    {selectedDate?.to ? selectedDate.to.format('MMM DD, YYYY') : ''}
-                  </div>
-                </BaseFlex>
-                <BaseFlex gap='spacing-12px'>
-                  <BaseButton color='secondary-neutral' onClick={handleCancel}>
-                    Cancel
-                  </BaseButton>
-                  <BaseButton onClick={handleApply}>
-                    Apply
-                  </BaseButton>
-                </BaseFlex>
+          renderExtraFooter={() => (
+            <BaseFlex gap="spacing-12px" justify="space-between">
+              <BaseFlex gap="spacing-12px">
+                <div className="base-range-picker__input-result">
+                  {selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
+                </div>
+                <span>-</span>
+                <div className="base-range-picker__input-result">
+                  {selectedDate?.to ? selectedDate.to.format('MMM DD, YYYY') : ''}
+                </div>
               </BaseFlex>
-            )
-          }
+              <BaseFlex gap="spacing-12px">
+                <BaseButton color="secondary-neutral" onClick={handleCancel}>
+                  Cancel
+                </BaseButton>
+                <BaseButton onClick={handleApply}>Apply</BaseButton>
+              </BaseFlex>
+            </BaseFlex>
+          )}
         />
       )}
       {isRangePickerOpen && <div onClick={handleCancel} className="base-range-picker__overlay"></div>}
