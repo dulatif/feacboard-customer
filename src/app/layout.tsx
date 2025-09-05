@@ -28,11 +28,11 @@ export default function RootLayout({
 }>) {
   const pathName = usePathname()
   const { id } = useParams()
-  const useNavbar = [`/`, `/shop`, `/reservation`].includes(pathName)
-  const useFooter = [`/`, `/shop`, `/reservation`].includes(pathName)
+  const useNavbar = [`/`, `/shop`, `/reservation`, `/my-account`].includes(pathName)
+  const useFooter = [`/`, `/shop`, `/reservation`, `/my-account`].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
-  const useNoContainer = ['/auth/login', '/shop', `/reservation`].includes(pathName)
+  const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/my-account`].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']

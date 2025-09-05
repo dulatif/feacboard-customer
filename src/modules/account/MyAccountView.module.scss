@@ -1,0 +1,21 @@
+.my-account {
+  .my-account__banner {
+    background: linear-gradient(79.64deg, #3297ae 0%, #49c3d0 100%);
+    height: 268px;
+    padding: 24px 0px;
+  }
+  .my-account__content {
+    display: grid;
+    grid-template-columns: 384px 1fr;
+    gap: 48px;
+    align-items: start;
+    position: relative;
+    margin-top: -24px;
+    .my-account__content__menu-wrapper {
+      top: 0px;
+      position: sticky;
+      bottom: 50px;
+      height: fit-content;
+    }
+  }
+}

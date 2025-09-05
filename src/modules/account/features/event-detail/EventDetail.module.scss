@@ -1,0 +1,13 @@
+.event-detail {
+  .event-detail__other {
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    display: flex;
+    gap: 32px;
+    width: 661px;
+    .event-detail__other__item {
+      flex: 0 0 auto;
+      width: 494px;
+    }
+  }
+}

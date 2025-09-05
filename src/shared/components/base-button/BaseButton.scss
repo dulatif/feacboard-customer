@@ -271,7 +271,11 @@
   }
 
   &.base-button--link {
+    min-height: unset;
     padding: 0px;
+    padding-inline: unset;
+    width: fit-content;
+    background: transparent;
     &:hover {
       background-color: inherit;
     }
