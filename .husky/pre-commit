@@ -4,5 +4,11 @@
 echo "🔍 Running lint..."
 npm run lint || exit 1
 
+echo "➕ Format code..."
+npm run format || exit 1
+
+echo "➕ Adding fixed files..."
+git add . || exit 1
+
 echo "🏗️ Running build..."
 npm run build || exit 1

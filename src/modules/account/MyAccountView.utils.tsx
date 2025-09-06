@@ -39,12 +39,7 @@ export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {
   return [
     {
       key: MenuKey['PointEarned'],
-      icon:
-        selectedMenu === MenuKey['PointEarned'] ? (
-          <Image src={'/icons/account/point-filled.png'} width={24} height={24} alt="" />
-        ) : (
-          <Image src={'/icons/account/point.png'} width={24} height={24} alt="" />
-        ),
+      icon: selectedMenu === MenuKey['PointEarned'] ? <PointFilledIcon /> : <PointIcon />,
       label: '포인트 내역',
     },
     {
