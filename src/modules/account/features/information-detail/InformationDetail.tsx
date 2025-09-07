@@ -97,6 +97,7 @@ export const InformationDetail: React.FC<InformationDetailProps> = ({ setSelecte
                     className={styles['information-detail__other__item']}
                     key={i}
                     onClick={() => handleRedirect(e.id)}
+                    style={{ cursor: 'pointer' }}
                   >
                     <EventCard banner={e.banner} date={e.date} title={e.title} />
                   </div>

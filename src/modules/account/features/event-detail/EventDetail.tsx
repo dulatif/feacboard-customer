@@ -20,7 +20,7 @@ export const EventDetail: React.FC<EventDetailProps> = ({ setSelectedMenu, id, s
     setSelectedMenu(MenuKey['Event'])
   }
   const handleRedirect = (id: number) => {
-    setSelectedMenu(MenuKey['Event'])
+    setSelectedMenu(MenuKey['EventDetail'])
     setId(id)
   }
 
@@ -94,7 +94,12 @@ export const EventDetail: React.FC<EventDetailProps> = ({ setSelectedMenu, id, s
               </BaseTypography>
               <div className={styles['event-detail__other']}>
                 {data.map((e, i) => (
-                  <div className={styles['event-detail__other__item']} key={i} onClick={() => handleRedirect(e.id)}>
+                  <div
+                    className={styles['event-detail__other__item']}
+                    key={i}
+                    onClick={() => handleRedirect(e.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <EventCard banner={e.banner} date={e.date} title={e.title} />
                   </div>
                 ))}

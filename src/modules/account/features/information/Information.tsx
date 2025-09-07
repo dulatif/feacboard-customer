@@ -47,7 +47,7 @@ export const Information: React.FC<InformationProps> = ({ setSelectedMenu, setId
         <BaseInput prefix={<SearchIcon width={20} height={20} />} placeholder="상품명 검색" size="large" />
         <BaseFlex vertical gap="spacing-48px">
           {data.map((e, i) => (
-            <div key={i} onClick={() => handleRedirect(e.id)}>
+            <div key={i} onClick={() => handleRedirect(e.id)} style={{ cursor: 'pointer' }}>
               <EventCard banner={e.banner} date={e.date} title={e.title} />
             </div>
           ))}
