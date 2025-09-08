@@ -34,32 +34,32 @@ export const Service = () => {
     {
       icon: '/icons/percal-shop.svg',
       label: '퍼컬샵',
-      link: '/shop?category=퍼컬샵',
+      link: '/',
     },
     {
       icon: '/icons/hair.svg',
       label: '헤어',
-      link: '/',
+      link: '/shop?category=hair',
     },
     {
       icon: '/icons/makeup.svg',
       label: '메이크업',
-      link: '/',
+      link: '/shop?category=makeup',
     },
     {
       icon: '/icons/nail.svg',
       label: '네일',
-      link: '/shop?category=네일',
+      link: '/shop?category=nail',
     },
     {
       icon: '/icons/studio.svg',
       label: '스튜디오',
-      link: '/shop?category=스튜디오',
+      link: '/shop?category=studio',
     },
     {
       icon: '/icons/treatment.svg',
       label: '미용/시술',
-      link: '/shop?category=미용/시술',
+      link: '/',
     },
     {
       icon: '/icons/color-talk.svg',

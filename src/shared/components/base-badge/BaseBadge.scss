@@ -41,6 +41,10 @@
     background-color: var(--color-danger-100);
     color: var(--color-danger-600);
   }
+  &--neutral-100 {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-500);
+  }
   &--pink-gradient {
     background: linear-gradient(272.84deg, #eaafbc 2.01%, #e18ea0 99.65%);
     color: var(--color-white);

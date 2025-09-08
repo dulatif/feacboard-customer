@@ -75,12 +75,14 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 <BaseFlex gap="spacing-16px" align="center">
                   <Avatar size={48} src={`/dummy/navbar-profile.png`} shape="circle" />
                   <div className={`base-navbar__profile-info`}>
-                    <BaseTypography as="p" size="body1" lineClamp={2}>
-                      <BaseTypography as="span" size="body1" weight="semibold">
-                        정건우님 안녕하세요,
+                    <BaseFlex vertical gap="spacing-0px">
+                      <BaseTypography as="span" size="caption" color="neutral-500">
+                        안녕하세요!
                       </BaseTypography>
-                      페이스보드에 오신 것을 환영합니다J 👋🏻
-                    </BaseTypography>
+                      <BaseTypography as="span" size="body1" weight="semibold">
+                        텡쿠 후안샤 👋🏻
+                      </BaseTypography>
+                    </BaseFlex>
                   </div>
                 </BaseFlex>
                 <BaseFlex gap="spacing-20px" align="center">

@@ -51,12 +51,7 @@ export const ReservationView = () => {
               <BaseTypography as="h6" weight="semibold" size="header6">
                 예약 세부 정보
               </BaseTypography>
-              <BaseTabs
-                defaultActiveKey="1"
-                items={tabItems}
-                onChange={onChange}
-                className={'reservation-view__tabs'}
-              />
+              <BaseTabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
             </BaseFlex>
           </BaseBox>
         </BaseFlex>

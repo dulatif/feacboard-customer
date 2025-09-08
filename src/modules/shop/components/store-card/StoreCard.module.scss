@@ -1,0 +1,14 @@
+.store-card {
+  .store-card__images {
+    display: grid;
+    grid-template-columns: 713px 1fr;
+    gap: 16px;
+    .store-card__images__primary {
+    }
+    .store-card__images__others {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+}

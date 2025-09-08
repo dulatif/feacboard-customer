@@ -35,7 +35,7 @@ export const Event: React.FC<EventProps> = ({ setId, setSelectedMenu }) => {
       className={styles['my-account__event']}
     >
       <BaseFlex vertical gap="spacing-24px">
-        <BaseTabs defaultActiveKey="1" items={tabItems} className={'reservation-view__tabs'} />
+        <BaseTabs defaultActiveKey="1" items={tabItems} />
       </BaseFlex>
     </BaseBox>
   )

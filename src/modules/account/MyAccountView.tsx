@@ -76,7 +76,7 @@ export const MyAccountView = () => {
       confirm('are you sure?')
     }
     return <PointEarned />
-  }, [selectedMenu])
+  }, [selectedMenu, id])
 
   return (
     <div className={styles['my-account']}>

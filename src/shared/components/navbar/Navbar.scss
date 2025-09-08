@@ -1,6 +1,6 @@
 .base-navbar {
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -24,6 +24,6 @@
     }
   }
   .base-navbar__profile-info {
-    width: 254px;
+    max-width: 254px;
   }
 }
