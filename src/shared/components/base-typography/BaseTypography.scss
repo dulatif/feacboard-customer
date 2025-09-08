@@ -75,4 +75,9 @@
     font-size: 0.625rem; // 10px
     line-height: 1rem; // 16px
   }
+  &.base-typography__tiny {
+    font-size: 7px;
+    line-height: 10px;
+    letter-spacing: 0%;
+  }
 }

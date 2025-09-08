@@ -5,8 +5,14 @@ import './BaseTabs.scss'
 
 export interface BaseTabsProps extends TabsProps {
   gapContent?: '24px' | '80px'
+  variant?: 'default' | 'filled'
 }
-export const BaseTabs: React.FC<BaseTabsProps> = ({ className, gapContent = '24px', ...props }) => {
-  const tabClass = classNames('base-tabs', `base-tabs--gap-content-${gapContent}`, className)
+export const BaseTabs: React.FC<BaseTabsProps> = ({
+  variant = 'default',
+  className,
+  gapContent = '24px',
+  ...props
+}) => {
+  const tabClass = classNames('base-tabs', `base-tabs--${variant}`, `base-tabs--gap-content-${gapContent}`, className)
   return <Tabs {...props} className={tabClass} />
 }

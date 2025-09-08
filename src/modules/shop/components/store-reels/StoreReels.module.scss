@@ -1,0 +1,16 @@
+.store-reels {
+  overflow: scroll;
+  .store-reels__item {
+    position: relative;
+    .store-reels__item__play {
+      z-index: 2;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+}

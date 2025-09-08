@@ -53,4 +53,8 @@
     background: linear-gradient(272.84deg, #c17170 2.01%, #b05857 99.65%);
     color: var(--color-white);
   }
+  &--secondary-700 {
+    background-color: var(--color-secondary-700);
+    color: var(--color-white);
+  }
 }

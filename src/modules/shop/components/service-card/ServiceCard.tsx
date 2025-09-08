@@ -33,7 +33,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, c
         </BaseTypography>
         {categories && (
           <BaseFlex gap="spacing-14px">
-            <BaseButton size="sm">{categories[0]}</BaseButton>
+            <BaseButton size="sm" color="secondary-neutral">
+              {categories[0]}
+            </BaseButton>
             <BaseButton size="sm" color="secondary-neutral">
               {categories[1]}
             </BaseButton>

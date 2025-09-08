@@ -1,0 +1,11 @@
+.ant-progress.base-progress {
+  &--primary {
+    .ant-progress-outer {
+      .ant-progress-inner {
+        .ant-progress-bg {
+          background: var(--color-primary-600);
+        }
+      }
+    }
+  }
+}

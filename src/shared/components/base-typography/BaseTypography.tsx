@@ -15,6 +15,7 @@ export type FontSize =
   | 'body2'
   | 'caption'
   | 'overline'
+  | 'tiny'
 
 export type FontWeight = 'regular' | 'medium' | 'semibold' | 'bold'
 export type Variant = 'aleo' | 'urbanist'

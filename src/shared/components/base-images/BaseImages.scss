@@ -1,0 +1,16 @@
+.base-images {
+  display: grid;
+  grid-template-columns: 713px 1fr;
+  gap: 16px;
+  &.base-images--one-image {
+    display: inline-block;
+  }
+  .base-images__primary {
+    width: 100%;
+  }
+  .base-images__others {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}

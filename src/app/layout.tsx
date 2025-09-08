@@ -28,8 +28,8 @@ export default function RootLayout({
 }>) {
   const pathName = usePathname()
   const { id } = useParams()
-  const useNavbar = [`/`, `/shop`, `/reservation`, `/my-account`].includes(pathName)
-  const useFooter = [`/`, `/shop`, `/reservation`, `/my-account`].includes(pathName)
+  const useNavbar = [`/`, `/shop`, `/reservation`, `/my-account`, `/shop/${id}/details`].includes(pathName)
+  const useFooter = [`/`, `/shop`, `/reservation`, `/my-account`, `/shop/${id}/details`].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
   const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/my-account`].includes(pathName)

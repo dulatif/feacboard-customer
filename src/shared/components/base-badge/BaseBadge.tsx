@@ -15,6 +15,7 @@ export interface BaseBadgeProps {
     | 'pink-gradient'
     | 'brown-gradient'
     | 'neutral-100'
+    | 'secondary-700'
   className?: string
   icon?: ReactNode
   iconPosition?: 'start' | 'end'

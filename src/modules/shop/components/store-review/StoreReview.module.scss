@@ -1,0 +1,9 @@
+.store-review {
+  display: grid;
+  grid-template-columns: 384px 1fr;
+  gap: 24px;
+  width: 100%;
+  .store-review__right {
+    overflow: hidden;
+  }
+}
