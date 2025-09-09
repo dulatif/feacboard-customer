@@ -45,16 +45,18 @@ export const StoreCard: React.FC<StoreCardProps> = ({
   return (
     <BaseBox className={styles['store-card']} {...containerProps}>
       <BaseFlex vertical gap="spacing-24px">
-        <div className={styles['store-card__images']}>
-          <div className={styles['store-card__images__primary']}>
-            <BaseImage src={images[0]} height={427} alt="" />
+        <Link href={'/shop/123/details'}>
+          <div className={styles['store-card__images']}>
+            <div className={styles['store-card__images__primary']}>
+              <BaseImage src={images[0]} height={427} alt="" />
+            </div>
+            <div className={styles['store-card__images__others']}>
+              {images.slice(1, 5).map((image, i) => (
+                <BaseImage key={i} src={image} height={204} alt="" />
+              ))}
+            </div>
           </div>
-          <div className={styles['store-card__images__others']}>
-            {images.slice(1, 5).map((image, i) => (
-              <BaseImage key={i} src={image} height={204} alt="" />
-            ))}
-          </div>
-        </div>
+        </Link>
         <BaseFlex justify="space-between" gap="spacing-14px" align="center">
           <BaseFlex vertical gap="spacing-16px">
             <Link href={'/shop/123/details'}>
