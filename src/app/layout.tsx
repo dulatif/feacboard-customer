@@ -28,11 +28,27 @@ export default function RootLayout({
 }>) {
   const pathName = usePathname()
   const { id } = useParams()
-  const useNavbar = [`/`, `/shop`, `/reservation`, `/my-account`, `/shop/${id}/details`].includes(pathName)
-  const useFooter = [`/`, `/shop`, `/reservation`, `/my-account`, `/shop/${id}/details`].includes(pathName)
+
+  const accountPaths = [
+    `/my-account`,
+    `/my-account/bookmarked-feeds`,
+    `/my-account/customer-service`,
+    `/my-account/event`,
+    `/my-account/event/${id}`,
+    `/my-account/faq`,
+    `/my-account/information`,
+    `/my-account/information/${id}`,
+    `/my-account/license-information`,
+    `/my-account/notification-settings`,
+    `/my-account/point-details`,
+    `/my-account/terms-and-conditions`,
+    `/my-account/license`,
+  ]
+  const useNavbar = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, ...accountPaths].includes(pathName)
+  const useFooter = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, ...accountPaths].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
-  const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/my-account`].includes(pathName)
+  const useNoContainer = ['/auth/login', '/shop', `/reservation`, ...accountPaths].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']

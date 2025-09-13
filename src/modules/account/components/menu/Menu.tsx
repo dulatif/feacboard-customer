@@ -1,3 +1,6 @@
+'use client'
+import { BaseMenu } from '@/shared/components/base-menu/BaseMenu'
+import React, { SetStateAction } from 'react'
 import { MenuItem } from '@/shared/components/base-menu/BaseMenu'
 import PointIcon from '@/shared/components/icons/PointIcon'
 import InformationIcon from '@/shared/components/icons/InformationIcon'
@@ -18,14 +21,14 @@ import BellFilledIcon from '@/shared/components/icons/BellFilledIcon'
 import VerifiedFilledIcon from '@/shared/components/icons/VerifiedFilledIcon'
 import SettingFilledIcon from '@/shared/components/icons/SettingFilledIcon'
 import PointFilledIcon from '@/shared/components/icons/PointFilledIcon'
-import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export enum MenuKey {
-  PointEarned = 'point-earned',
+  PointDetails = 'point-details',
   Information = 'information',
-  InformationDetail = 'information-detail',
+  // InformationDetail = 'information-detail',
   Event = 'event',
-  EventDetail = 'event-detail',
+  // EventDetail = 'event-detail',
   CustomerService = 'customer-service',
   Faq = 'faq',
   BookmarkedFeed = 'bookmarked-feed',
@@ -35,11 +38,56 @@ export enum MenuKey {
   Signout = 'signout',
 }
 
+export interface MenuProps {
+  selectedMenu: MenuKey
+}
+export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
+  const router = useRouter()
+  const handleRedirect = (val: any) => {
+    switch (val.key) {
+      case MenuKey['PointDetails']:
+        router.push('/my-account/point-details')
+        break
+      case MenuKey['Information']:
+        router.push('/my-account/information')
+        break
+      case MenuKey['Event']:
+        router.push('/my-account/event')
+        break
+      case MenuKey['CustomerService']:
+        router.push('/my-account/customer-service')
+        break
+      case MenuKey['Faq']:
+        router.push('/my-account/faq')
+        break
+      case MenuKey['BookmarkedFeed']:
+        router.push('/my-account/bookmarked-feeds')
+        break
+      case MenuKey['NotificationSettings']:
+        router.push('/my-account/notification-settings')
+        break
+      case MenuKey['Terms']:
+        router.push('/my-account/terms-and-conditions')
+        break
+      case MenuKey['License']:
+        router.push('/my-account/license')
+        break
+      case MenuKey['Signout']:
+        confirm('are you sure?')
+        break
+
+      default:
+        break
+    }
+  }
+  return <BaseMenu selectedKeys={[selectedMenu]} items={menuItems(selectedMenu)} onSelect={handleRedirect} />
+}
+
 export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {
   return [
     {
-      key: MenuKey['PointEarned'],
-      icon: selectedMenu === MenuKey['PointEarned'] ? <PointFilledIcon /> : <PointIcon />,
+      key: MenuKey['PointDetails'],
+      icon: selectedMenu === MenuKey['PointDetails'] ? <PointFilledIcon /> : <PointIcon />,
       label: '포인트 내역',
     },
     {

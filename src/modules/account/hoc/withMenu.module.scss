@@ -1,0 +1,14 @@
+.with-menu-container {
+  display: grid;
+  grid-template-columns: 384px 1fr;
+  gap: 48px;
+  align-items: start;
+  position: relative;
+  margin-top: -24px;
+  .with-menu-container__menu-wrapper {
+    top: 0px;
+    position: sticky;
+    bottom: 50px;
+    height: fit-content;
+  }
+}

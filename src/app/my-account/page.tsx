@@ -1,12 +1,13 @@
-import { MyAccountView } from '@/modules/account/MyAccountView'
-import React from 'react'
+'use client'
+import { usePathname, useRouter } from 'next/navigation'
 
 const MyAccount = () => {
-  return (
-    <div>
-      <MyAccountView />
-    </div>
-  )
+  const pathname = usePathname()
+  const router = useRouter()
+  if (['/my-account', '/my-account/'].includes(pathname)) {
+    router.push('/my-account/point-details')
+  }
+  return null
 }
 
 export default MyAccount

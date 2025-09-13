@@ -1,19 +1,39 @@
+'use client'
+import { BannerProfile } from '../../components/banner-profile/BannerProfile'
+import { MenuKey } from '../../components/menu/Menu'
+import { withMenu } from '../../hoc/withMenu'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BasePagination } from '@/shared/components/base-pagination/BasePagination'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import SearchIcon from '@/shared/components/icons/SearchIcon'
-import React, { SetStateAction } from 'react'
-import { MenuKey } from '../../MyAccountView.utils'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 import { EventCard } from '../../components/event-card/EventCard'
 
-export interface InformationProps {
-  setSelectedMenu: React.Dispatch<SetStateAction<MenuKey>>
-  setId: React.Dispatch<SetStateAction<string | number | undefined>>
+export const InformationView = () => {
+  const breadcrumbItems = [
+    {
+      title: '홈',
+    },
+    {
+      title: '내 계정',
+    },
+    {
+      title: '정보',
+    },
+  ]
+  return (
+    <div>
+      <BannerProfile breadcrumbItems={breadcrumbItems} />
+      <Content />
+    </div>
+  )
 }
 
-export const Information: React.FC<InformationProps> = ({ setSelectedMenu, setId }) => {
+const Content = withMenu(() => {
+  const router = useRouter()
   const data = [
     {
       id: 1,
@@ -34,9 +54,8 @@ export const Information: React.FC<InformationProps> = ({ setSelectedMenu, setId
       date: '2024-11-15',
     },
   ]
-  const handleRedirect = (id: number) => {
-    setSelectedMenu(MenuKey['InformationDetail'])
-    setId(id)
+  const redirectToInformationDetail = (id: number) => {
+    router.push(`/my-account/information/${id}`)
   }
   return (
     <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" shadow="lg">
@@ -47,7 +66,7 @@ export const Information: React.FC<InformationProps> = ({ setSelectedMenu, setId
         <BaseInput prefix={<SearchIcon width={20} height={20} />} placeholder="상품명 검색" size="large" />
         <BaseFlex vertical gap="spacing-48px">
           {data.map((e, i) => (
-            <div key={i} onClick={() => handleRedirect(e.id)} style={{ cursor: 'pointer' }}>
+            <div key={i} onClick={() => redirectToInformationDetail(e.id)} style={{ cursor: 'pointer' }}>
               <EventCard banner={e.banner} date={e.date} title={e.title} />
             </div>
           ))}
@@ -56,4 +75,4 @@ export const Information: React.FC<InformationProps> = ({ setSelectedMenu, setId
       </BaseFlex>
     </BaseBox>
   )
-}
+}, MenuKey.Information)

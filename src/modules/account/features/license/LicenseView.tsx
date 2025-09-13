@@ -1,10 +1,33 @@
+'use client'
+import { BannerProfile } from '../../components/banner-profile/BannerProfile'
+import { MenuKey } from '../../components/menu/Menu'
+import { withMenu } from '../../hoc/withMenu'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import React from 'react'
 
-export const License = () => {
-  const text = `1. 귀하의 동의
+export const LicenseView = () => {
+  const breadcrumbItems = [
+    {
+      title: '홈',
+    },
+    {
+      title: '내 계정',
+    },
+    {
+      title: '정보',
+    },
+  ]
+  return (
+    <div>
+      <BannerProfile breadcrumbItems={breadcrumbItems} />
+      <Content />
+    </div>
+  )
+}
+
+const text = `1. 귀하의 동의
 본 사이트를 이용함으로써 귀하는 본 이용 약관의 구속력을 받고 이를 준수하는 데 동의합니다. 본 이용 약관에 동의하지 않으시면 본 사이트를 이용하지 마십시오.
 
 참고: 당사는 단독 재량으로 언제든지 본 이용 약관을 변경, 수정 또는 기타 방식으로 변경할 권리를 보유합니다. 달리 명시되지 않는 한, 수정 사항은 즉시 효력을 발생합니다. 본 이용 약관을 정기적으로 검토하시기 바랍니다. 변경 및/또는 수정 사항이 게시된 후에도 본 사이트를 계속 사용하는 경우, 귀하는 개정된 이용 약관 및 변경 사항 고지 기준의 합당성에 동의하는 것으로 간주됩니다. 참고로, 본 페이지는 본 이용 약관 상단에 표시된 날짜를 기준으로 최종 업데이트되었습니다.
@@ -25,6 +48,8 @@ B. 귀하는 과실을 포함하되 이에 국한되지 않는 어떠한 상황�
 6. 제외 및 제한
 일부 관할권에서는 특정 보증의 제외 또는 부수적 또는 결과적 손해에 대한 책임의 제한 또는 제외를 허용하지 않습니다. 따라서 해당 관할권에서 당사의 책임은 법률이 허용하는 최대 한도로 제한됩니다.
 `
+
+const Content = withMenu(() => {
   return (
     <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" shadow="lg">
       <BaseFlex vertical gap="spacing-24px">
@@ -42,4 +67,4 @@ B. 귀하는 과실을 포함하되 이에 국한되지 않는 어떠한 상황�
       </BaseFlex>
     </BaseBox>
   )
-}
+}, MenuKey.License)
