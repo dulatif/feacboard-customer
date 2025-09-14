@@ -48,7 +48,8 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 const isActive =
                   pathName === item.path ||
                   (item.path === '/' && pathName === '/shop') ||
-                  (item.path === '/reservation' && pathName.includes('/reservation'))
+                  (item.path === '/reservation' && pathName.includes('/reservation')) ||
+                  (item.path === '/my-account' && pathName.includes('/my-account'))
                 return (
                   <div
                     key={i}
