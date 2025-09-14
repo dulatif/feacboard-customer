@@ -11,12 +11,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { BaseContainer } from '../base-container/BaseContainer'
 import { menuItems } from './Navbar.utils'
-import { Avatar } from 'antd'
+import { Avatar, MenuProps } from 'antd'
+import { useApp } from '@/shared/providers/AppProvider'
+import { BaseDropdown } from '../base-dropdown/BaseDropdown'
+import { useTranslation } from 'react-i18next'
 
 export interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = ({}) => {
+  const { t } = useTranslation()
   const pathName = usePathname()
+  const { language, setLanguage } = useApp()
   const isAuthenticated = true
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -30,6 +35,35 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <BaseFlex gap="spacing-8px">
+          <BaseTypography as="p" size="body1">
+            Korean
+          </BaseTypography>
+        </BaseFlex>
+      ),
+      onClick: () => {
+        setLanguage('ko')
+      },
+    },
+    {
+      key: '2',
+      label: (
+        <BaseFlex gap="spacing-8px">
+          <BaseTypography as="p" size="body1">
+            English
+          </BaseTypography>
+        </BaseFlex>
+      ),
+      onClick: () => {
+        setLanguage('en')
+      },
+    },
+  ]
 
   return (
     <div className={`base-navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
@@ -62,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                         weight={isActive ? 'semibold' : 'regular'}
                         color={isActive ? 'neutral-900' : undefined}
                       >
-                        {item.label}
+                        {t(item.labelKey)}
                       </BaseTypography>
                     </Link>
                   </div>
@@ -78,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                   <div className={`base-navbar__profile-info`}>
                     <BaseFlex vertical gap="spacing-0px">
                       <BaseTypography as="span" size="caption" color="neutral-500">
-                        안녕하세요!
+                        {t(`navbar.profile.hello`)}
                       </BaseTypography>
                       <BaseTypography as="span" size="body1" weight="semibold">
                         텡쿠 후안샤 👋🏻
@@ -95,6 +129,21 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                     shape="circle"
                     icon={<Image src={`/icons/stamp.svg`} width={24} height={24} alt="Stamp" />}
                   />
+                  <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+                    <BaseButton
+                      size="xl"
+                      color="tertiary-neutral"
+                      shape="circle"
+                      icon={
+                        <Image
+                          src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
+                          width={24}
+                          height={24}
+                          alt="Stamp"
+                        />
+                      }
+                    />
+                  </BaseDropdown>
                 </BaseFlex>
               </BaseFlex>
             </div>

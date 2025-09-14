@@ -7,68 +7,70 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import Image from 'next/image'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 export const Service = () => {
+  const { t } = useTranslation()
   const router = useRouter()
   const services = [
     {
       icon: '/icons/shop.svg',
-      label: '쇼핑',
+      labelKey: 'home.service.shopping',
       link: '/',
     },
     {
       icon: '/icons/personal-color.svg',
-      label: '퍼스널컬러',
+      labelKey: 'home.service.personalColor',
       link: '/',
     },
     {
       icon: '/icons/color-playground.svg',
-      label: '컬러놀이터',
+      labelKey: 'home.service.colorPlayground',
       link: '/',
     },
     {
       icon: '/icons/face-shape.svg',
-      label: '얼굴형',
+      labelKey: 'home.service.faceShape',
       link: '/',
     },
     {
       icon: '/icons/percal-shop.svg',
-      label: '퍼컬샵',
+      labelKey: 'home.service.personalColorShop',
       link: '/',
     },
     {
       icon: '/icons/hair.svg',
-      label: '헤어',
+      labelKey: 'home.service.hair',
       link: '/shop?category=hair',
     },
     {
       icon: '/icons/makeup.svg',
-      label: '메이크업',
+      labelKey: 'home.service.makeup',
       link: '/shop?category=makeup',
     },
     {
       icon: '/icons/nail.svg',
-      label: '네일',
+      labelKey: 'home.service.nail',
       link: '/shop?category=nail',
     },
     {
       icon: '/icons/studio.svg',
-      label: '스튜디오',
+      labelKey: 'home.service.studio',
       link: '/shop?category=studio',
     },
     {
       icon: '/icons/treatment.svg',
-      label: '미용/시술',
+      labelKey: 'home.service.beautyProcedure',
       link: '/',
     },
     {
       icon: '/icons/color-talk.svg',
-      label: '컬러톡',
+      labelKey: 'home.service.colorTalk',
       link: '/',
     },
     {
       icon: '/icons/community.svg',
-      label: '커뮤니티',
+      labelKey: 'home.service.community',
       link: '/',
     },
   ]
@@ -90,9 +92,9 @@ export const Service = () => {
             onClick={() => handleRedirect(e.link)}
           >
             <BaseFlex vertical gap="spacing-12px" justify="center" align="center" style={{ cursor: 'pointer' }}>
-              <Image src={e.icon} width={40} height={40} alt={e.label} />
-              <BaseTypography as="p" size="body1">
-                {e.label}
+              <Image src={e.icon} width={40} height={40} alt={e.labelKey} />
+              <BaseTypography as="p" size="body1" textAlign="center">
+                {t(e.labelKey)}
               </BaseTypography>
             </BaseFlex>
           </Col>

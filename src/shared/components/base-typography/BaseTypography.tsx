@@ -31,6 +31,7 @@ export interface BaseTypographyProps {
   className?: string
   style?: React.CSSProperties
   textTransform?: 'none' | 'uppercase' | 'capitalize' | 'lowercase'
+  textAlign?: 'center' | 'left' | 'right'
 }
 
 export const BaseTypography: React.FC<BaseTypographyProps> = ({
@@ -44,6 +45,7 @@ export const BaseTypography: React.FC<BaseTypographyProps> = ({
   style,
   as: ElementType,
   textTransform = 'none',
+  textAlign = 'left',
   ...props
 }) => {
   const fontFamilyClass = `base-typography__${variant}`
@@ -69,6 +71,7 @@ export const BaseTypography: React.FC<BaseTypographyProps> = ({
       style={{
         ...lineClampStyle,
         ...style,
+        textAlign,
       }}
       {...props}
     >

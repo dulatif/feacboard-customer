@@ -10,6 +10,7 @@ import { useParams, usePathname } from 'next/navigation'
 import { Navbar } from '@/shared/components/navbar/Navbar'
 import { Footer } from '@/shared/components/footer/Footer'
 import { ConfigProvider } from 'antd'
+import { AppProvider } from '@/shared/providers/AppProvider'
 
 const urbanist = Urbanist({
   variable: '--font-urbainst',
@@ -61,19 +62,21 @@ export default function RootLayout({
         <TanstackProvider>
           <AntdRegistry>
             <ConfigProvider>
-              <div className={getLayoutClassName()}>
-                {useHeroBgSolidGreen && <div className={`hero-bg solid-green`}></div>}
-                {useHeroBgGradientGreen && <div className={`hero-bg gradient-green`}></div>}
-                <div className={`content-wrapper ${useNavbar ? 'content-wrapper--with-navbar' : ''}`}>
-                  {useNavbar && <Navbar />}
-                  {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
-                  {useFooter && (
-                    <div className="content__footer">
-                      <Footer />
-                    </div>
-                  )}
+              <AppProvider>
+                <div className={getLayoutClassName()}>
+                  {useHeroBgSolidGreen && <div className={`hero-bg solid-green`}></div>}
+                  {useHeroBgGradientGreen && <div className={`hero-bg gradient-green`}></div>}
+                  <div className={`content-wrapper ${useNavbar ? 'content-wrapper--with-navbar' : ''}`}>
+                    {useNavbar && <Navbar />}
+                    {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
+                    {useFooter && (
+                      <div className="content__footer">
+                        <Footer />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </AppProvider>
             </ConfigProvider>
           </AntdRegistry>
         </TanstackProvider>

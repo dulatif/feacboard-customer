@@ -7,8 +7,10 @@ import { BaseTypography } from '../base-typography/BaseTypography'
 import { menuItems } from '../navbar/Navbar.utils'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 export const Footer = () => {
+  const { t } = useTranslation()
   return (
     <div className="base-footer">
       <BaseContainer variant={1440}>
@@ -33,7 +35,7 @@ export const Footer = () => {
                     {menuItems.map((item, i) => (
                       <Link href={item.path} key={i}>
                         <BaseTypography as="p" size="subtitle1" textTransform="uppercase" color={'white'}>
-                          {item.label}
+                          {t(item.labelKey)}
                         </BaseTypography>
                       </Link>
                     ))}
