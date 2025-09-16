@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
       label: (
         <BaseFlex gap="spacing-8px">
           <BaseTypography as="p" size="body1">
-            Korean
+            한국어
           </BaseTypography>
         </BaseFlex>
       ),
@@ -122,7 +122,6 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                 </BaseFlex>
                 <BaseFlex gap="spacing-20px" align="center">
                   <BaseButton size="xl" color="tertiary-neutral" shape="circle" icon={<BellIcon />} />
-                  <BaseButton size="xl" color="tertiary-neutral" shape="circle" icon={<MenuIcon />} />
                   <BaseButton
                     size="xl"
                     color="tertiary-neutral"
