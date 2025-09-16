@@ -45,7 +45,7 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
             <Avatar src={picture} size={64} style={{ background: '#CFC3A7' }} />
             <BaseFlex vertical gap="spacing-12px">
               <BaseFlex gap="spacing-16px">
-                <BaseTypography as="h1" size="subtitle1" weight="semibold">
+                <BaseTypography as="h1" size="body1" weight="semibold">
                   {name}
                 </BaseTypography>
                 <BaseFlex gap="spacing-8px" align="center">

@@ -1,6 +1,9 @@
 .service-card {
   .service-card__content {
-    min-height: 170px;
+    .service-card__content__header {
+      display: grid;
+      grid-template-columns: 1fr 68px;
+    }
     .service-card__content__footer {
     }
   }
