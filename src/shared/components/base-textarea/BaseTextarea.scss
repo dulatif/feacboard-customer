@@ -1,0 +1,22 @@
+.ant-input.base-textarea {
+  &.base-textarea--default {
+    min-height: 44px;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  &.base-textarea--large {
+    min-height: 48px;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  &:hover {
+    border: 1px solid #98a2b3;
+    box-shadow: 0px 1px 2px 0px #1018280d;
+  }
+  &:focus {
+    border: 1px solid #a3fbed;
+    box-shadow: 0px 0px 0px 4px #cbeafe;
+  }
+}

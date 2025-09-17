@@ -81,7 +81,7 @@ const ShopViewContent = () => {
           </BaseFlex>
         </BaseContainer>
       </div>
-      <BaseFloatButton icon={<CartIcon width={36} height={36} />} />
+      <BaseFloatButton href="/cart" icon={<CartIcon width={36} height={36} />} />
     </div>
   )
 }

@@ -45,11 +45,11 @@ export default function RootLayout({
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
   ]
-  const useNavbar = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, ...accountPaths].includes(pathName)
-  const useFooter = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, ...accountPaths].includes(pathName)
+  const useNavbar = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, `/cart`, ...accountPaths].includes(pathName)
+  const useFooter = [`/`, `/shop`, `/reservation`, `/shop/${id}/details`, `/cart`, ...accountPaths].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
-  const useNoContainer = ['/auth/login', '/shop', `/reservation`, ...accountPaths].includes(pathName)
+  const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/cart`, ...accountPaths].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']
