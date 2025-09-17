@@ -1,0 +1,18 @@
+.ant-switch.base-switch {
+  height: 24px;
+  padding: 2px;
+  background: var(--color-neutral-100);
+  &.ant-switch-checked {
+    background: var(--color-primary-600);
+    .ant-switch-handle {
+      inset-inline-start: calc(100% - 22px);
+    }
+    &:hover:not(.ant-switch-disabled) {
+      background: var(--color-primary-600);
+    }
+  }
+  .ant-switch-handle {
+    height: 20px;
+    width: 20px;
+  }
+}
