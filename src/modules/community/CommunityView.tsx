@@ -6,6 +6,7 @@ import styles from './CommunityView.module.scss'
 import Post from './components/Post'
 import CreatePost from './components/CreatePost'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const dummyPhotos = [
   '/dummy/community-post.jpg',
@@ -30,9 +31,11 @@ const CommunityView = () => {
           <BaseTypography as="p" size="caption">
             홈 / 커뮤니티
           </BaseTypography>
-          <Button style={{ marginTop: 24 }} icon={<CaretLeft weight="bold" />}>
-            뒤로가기
-          </Button>
+          <Link href="/community">
+            <Button style={{ marginTop: 24 }} icon={<CaretLeft weight="bold" />}>
+              뒤로가기
+            </Button>
+          </Link>
         </div>
         <div className={styles['community__content']}>
           {postId ? (

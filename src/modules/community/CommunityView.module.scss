@@ -78,11 +78,18 @@
         justify-content: space-around;
         padding-bottom: 12px;
 
-        .button {
+        .button,
+        .button_like {
           border: none;
           box-shadow: none;
           svg {
             margin-top: 4px;
+          }
+        }
+        .button_like {
+          &:hover,
+          &.liked {
+            color: red;
           }
         }
       }

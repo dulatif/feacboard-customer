@@ -37,6 +37,7 @@ const Post: React.FC<PostProps> = ({
 }) => {
   const postId = '123'
   const [showModalDelete, setShowModalDelete] = useState(false)
+  const [liked, setLiked] = useState(false)
   const settings = {
     className: 'center',
     centerMode: true,
@@ -47,7 +48,7 @@ const Post: React.FC<PostProps> = ({
   }
 
   const onLikeClick = () => {
-    console.log('like')
+    setLiked(!liked)
   }
 
   return (
@@ -132,7 +133,11 @@ const Post: React.FC<PostProps> = ({
           )}
         </div>
         <div className={styles['post__footer']}>
-          <Button className={styles['button']} icon={<Heart size={20} />} onClick={onLikeClick}>
+          <Button
+            className={`${styles['button_like']} ${liked ? styles['liked'] : ''}`}
+            icon={<Heart size={20} weight={liked ? 'fill' : 'regular'} />}
+            onClick={onLikeClick}
+          >
             {likes}개 좋아요
           </Button>
           <Link href={`/community/posts/${postId}`}>
