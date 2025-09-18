@@ -1,24 +1,24 @@
-import React from 'react'
-import styles from './Summary.module.scss'
-import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
+import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
+import { BaseDivider } from '@/shared/components/base-divider/BaseDivider'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
-import { BaseDivider } from '@/shared/components/base-divider/BaseDivider'
-import { BaseButton } from '@/shared/components/base-button/BaseButton'
-import ChevronLeftIcon from '@/shared/components/icons/ChevronLeftIcon'
-import { BaseInput } from '@/shared/components/base-input/BaseInput'
-import UserIcon from '@/shared/components/icons/UserIcon'
-import PhoneIcon from '@/shared/components/icons/PhoneIcon'
-import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
-import { Avatar } from 'antd'
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
+import ChevronLeftIcon from '@/shared/components/icons/ChevronLeftIcon'
+import PhoneIcon from '@/shared/components/icons/PhoneIcon'
+import UserIcon from '@/shared/components/icons/UserIcon'
+import { Avatar } from 'antd'
 import {
   CartServiceItemCard,
   CartServiceItemCardProps,
 } from '../../components/cart-service-item-card/CartServiceItemCard'
+import styles from './Summary.module.scss'
 
-export const Summary = () => {
+export interface SummaryProps {
+  onBack: () => void
+}
+export const Summary: React.FC<SummaryProps> = ({ onBack }) => {
   const data: CartServiceItemCardProps[] = [
     {
       image: '/dummy/service01.jpg',
@@ -51,7 +51,7 @@ export const Summary = () => {
           <BaseBox padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
             <BaseFlex vertical gap="spacing-32px">
               <div>
-                <BaseButton onClick={() => alert('back')} color="secondary-neutral" icon={<ChevronLeftIcon />}>
+                <BaseButton onClick={onBack} color="secondary-neutral" icon={<ChevronLeftIcon />}>
                   뒤로가기
                 </BaseButton>
               </div>

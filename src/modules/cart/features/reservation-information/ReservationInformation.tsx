@@ -12,7 +12,10 @@ import UserIcon from '@/shared/components/icons/UserIcon'
 import PhoneIcon from '@/shared/components/icons/PhoneIcon'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 
-export const ReservationInformation = () => {
+export interface ReservationInformationProps {
+  onBack: () => void
+}
+export const ReservationInformation: React.FC<ReservationInformationProps> = ({ onBack }) => {
   return (
     <BaseContainer variant={1440}>
       <div className={styles['container']}>
@@ -20,7 +23,7 @@ export const ReservationInformation = () => {
           <BaseBox padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
             <BaseFlex vertical gap="spacing-32px">
               <div>
-                <BaseButton onClick={() => alert('back')} color="secondary-neutral" icon={<ChevronLeftIcon />}>
+                <BaseButton onClick={onBack} color="secondary-neutral" icon={<ChevronLeftIcon />}>
                   뒤로가기
                 </BaseButton>
               </div>
