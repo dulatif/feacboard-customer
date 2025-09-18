@@ -4,9 +4,10 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import { Avatar, Button, Dropdown, Space } from 'antd'
 import Image from 'next/image'
 import { ChatCenteredText, DotsThreeVertical, Heart, NotePencil, Trash, User } from 'phosphor-react'
-import React from 'react'
+import React, { useState } from 'react'
 import Slider from 'react-slick'
 import styles from '../CommunityView.module.scss'
+import ModalDelete from './ModalDelete'
 
 export interface PostProps {
   user?: {
@@ -34,6 +35,7 @@ const Post: React.FC<PostProps> = ({
   onLikeClick,
   onCommentClick,
 }) => {
+  const [showModalDelete, setShowModalDelete] = useState(false)
   const settings = {
     className: 'center',
     centerMode: true,
@@ -44,92 +46,102 @@ const Post: React.FC<PostProps> = ({
   }
 
   return (
-    <BaseBox className={styles['post']}>
-      <div className={styles['post__header']}>
-        <div className={styles['user']}>
-          <Avatar
-            className={styles['avatar']}
-            size={48}
-            icon={isMine ? '/dummy/navbar-profile.png' : !user?.avatar && <User weight="bold" />}
-            src={isMine ? '/dummy/navbar-profile.png' : user?.avatar}
-          />
-          <BaseTypography as="p" size="body1" weight="bold">
-            {isMine ? '나' : user?.name}
-          </BaseTypography>
-        </div>
-        <Space>
-          <BaseTypography as="p" size="caption">
-            {time}
-          </BaseTypography>
-          {isMine && (
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: 'delete',
-                    label: '삭제',
-                    icon: <Trash size={16} />,
-                    onClick: () => {},
-                    danger: true,
-                  },
-                  {
-                    key: 'edit',
-                    label: '수정',
-                    icon: <NotePencil size={16} />,
-                    onClick: () => {},
-                    className: styles['post__btn_edit'],
-                    style: {
-                      color: '#49C3D0',
-                    },
-                  },
-                ],
-              }}
-              trigger={['click']}
-              placement="bottomRight"
-            >
-              <Button className={styles['post__action_btn']}>
-                <DotsThreeVertical weight="bold" size={20} />
-              </Button>
-            </Dropdown>
-          )}
-        </Space>
-      </div>
-      <div
-        className={styles['post__content']}
-        style={{ marginBottom: !images || images.length === 0 ? '24px' : '0px' }}
-      >
-        <BaseTypography as="p" size="body1">
-          {content}
-        </BaseTypography>
-        {!!images && images.length > 0 && (
-          <div className={styles['slider-container']}>
-            <Slider {...settings}>
-              {images.map((image, index) => (
-                <div key={index} className={styles['slider-item']}>
-                  <Image
-                    src={image}
-                    alt=""
-                    width={320}
-                    height={400}
-                    style={{
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
-              ))}
-            </Slider>
+    <>
+      <BaseBox className={styles['post']}>
+        <div className={styles['post__header']}>
+          <div className={styles['user']}>
+            <Avatar
+              className={styles['avatar']}
+              size={48}
+              icon={isMine ? '/dummy/navbar-profile.png' : !user?.avatar && <User weight="bold" />}
+              src={isMine ? '/dummy/navbar-profile.png' : user?.avatar}
+            />
+            <BaseTypography as="p" size="body1" weight="bold">
+              {isMine ? '나' : user?.name}
+            </BaseTypography>
           </div>
-        )}
-      </div>
-      <div className={styles['post__footer']}>
-        <Button className={styles['button']} icon={<Heart size={20} />} onClick={onLikeClick}>
-          {likes}개 좋아요
-        </Button>
-        <Button className={styles['button']} icon={<ChatCenteredText size={20} />} onClick={onCommentClick}>
-          {comments}개의 댓글
-        </Button>
-      </div>
-    </BaseBox>
+          <Space>
+            <BaseTypography as="p" size="caption">
+              {time}
+            </BaseTypography>
+            {isMine && (
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: 'delete',
+                      label: '삭제',
+                      icon: <Trash size={16} />,
+                      onClick: () => {
+                        setShowModalDelete(true)
+                      },
+                      danger: true,
+                    },
+                    {
+                      key: 'edit',
+                      label: '수정',
+                      icon: <NotePencil size={16} />,
+                      onClick: () => {},
+                      className: styles['post__btn_edit'],
+                      style: {
+                        color: '#49C3D0',
+                      },
+                    },
+                  ],
+                }}
+                trigger={['click']}
+                placement="bottomRight"
+              >
+                <Button className={styles['post__action_btn']}>
+                  <DotsThreeVertical weight="bold" size={20} />
+                </Button>
+              </Dropdown>
+            )}
+          </Space>
+        </div>
+        <div
+          className={styles['post__content']}
+          style={{ marginBottom: !images || images.length === 0 ? '24px' : '0px' }}
+        >
+          <BaseTypography as="p" size="body1">
+            {content}
+          </BaseTypography>
+          {!!images && images.length > 0 && (
+            <div className={styles['slider-container']}>
+              <Slider {...settings}>
+                {images.map((image, index) => (
+                  <div key={index} className={styles['slider-item']}>
+                    <Image
+                      src={image}
+                      alt=""
+                      width={320}
+                      height={400}
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          )}
+        </div>
+        <div className={styles['post__footer']}>
+          <Button className={styles['button']} icon={<Heart size={20} />} onClick={onLikeClick}>
+            {likes}개 좋아요
+          </Button>
+          <Button className={styles['button']} icon={<ChatCenteredText size={20} />} onClick={onCommentClick}>
+            {comments}개의 댓글
+          </Button>
+        </div>
+      </BaseBox>
+      <ModalDelete
+        isOpen={showModalDelete}
+        onClose={() => {
+          setShowModalDelete(false)
+        }}
+      />
+    </>
   )
 }
 
