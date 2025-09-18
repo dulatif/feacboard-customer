@@ -67,7 +67,13 @@ export const CartView = () => {
         </BaseContainer>
       </div>
       <div className={styles['cart__body']}>
-        {activeStep === 2 ? <ReservationInformation /> : activeStep === 3 ? <Summary /> : <ServiceInformation />}
+        {activeStep === 2 ? (
+          <ReservationInformation onBack={() => setActiveStep(1)} />
+        ) : activeStep === 3 ? (
+          <Summary onBack={() => setActiveStep(2)} />
+        ) : (
+          <ServiceInformation />
+        )}
       </div>
     </div>
   )
