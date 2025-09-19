@@ -1,20 +1,20 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { BaseFlex } from '../base-flex/BaseFlex'
-import { BaseTypography } from '../base-typography/BaseTypography'
-import './Navbar.scss'
+import { useApp } from '@/shared/providers/AppProvider'
+import { checkToken } from '@/shared/utils/auth'
+import { Avatar, MenuProps } from 'antd'
 import Image from 'next/image'
-import { BaseButton } from '../base-button/BaseButton'
-import BellIcon from '../icons/BellIcon'
-import MenuIcon from '../icons/MenuIcon'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BaseContainer } from '../base-container/BaseContainer'
-import { menuItems } from './Navbar.utils'
-import { Avatar, MenuProps } from 'antd'
-import { useApp } from '@/shared/providers/AppProvider'
-import { BaseDropdown } from '../base-dropdown/BaseDropdown'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BaseButton } from '../base-button/BaseButton'
+import { BaseContainer } from '../base-container/BaseContainer'
+import { BaseDropdown } from '../base-dropdown/BaseDropdown'
+import { BaseFlex } from '../base-flex/BaseFlex'
+import { BaseTypography } from '../base-typography/BaseTypography'
+import BellIcon from '../icons/BellIcon'
+import './Navbar.scss'
+import { menuItems } from './Navbar.utils'
 
 export interface NavbarProps {}
 
@@ -22,7 +22,15 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const { t } = useTranslation()
   const pathName = usePathname()
   const { language, setLanguage } = useApp()
-  const isAuthenticated = true
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  useEffect(() => {
+    ;(async () => {
+      const res = await checkToken()
+      setIsAuthenticated(res.loggedIn)
+    })()
+  }, [])
+
+  // START HANDLE SCROLL
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+  // END HANDLE SCROLL
 
   const items: MenuProps['items'] = [
     {
@@ -147,11 +156,26 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               </BaseFlex>
             </div>
           ) : (
-            <div>
+            <BaseFlex gap="spacing-20px" align="center">
               <BaseButton color="tertiary" size="xl" href="/auth/login">
                 로그인 / 회원가입
               </BaseButton>
-            </div>
+              <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+                <BaseButton
+                  size="xl"
+                  color="tertiary-neutral"
+                  shape="circle"
+                  icon={
+                    <Image
+                      src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
+                      width={24}
+                      height={24}
+                      alt="Stamp"
+                    />
+                  }
+                />
+              </BaseDropdown>
+            </BaseFlex>
           )}
         </BaseFlex>
       </BaseContainer>

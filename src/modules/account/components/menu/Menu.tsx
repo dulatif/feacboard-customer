@@ -22,13 +22,12 @@ import VerifiedFilledIcon from '@/shared/components/icons/VerifiedFilledIcon'
 import SettingFilledIcon from '@/shared/components/icons/SettingFilledIcon'
 import PointFilledIcon from '@/shared/components/icons/PointFilledIcon'
 import { useRouter } from 'next/navigation'
+import { logout } from '@/shared/utils/auth'
 
 export enum MenuKey {
   PointDetails = 'point-details',
   Information = 'information',
-  // InformationDetail = 'information-detail',
   Event = 'event',
-  // EventDetail = 'event-detail',
   CustomerService = 'customer-service',
   Faq = 'faq',
   BookmarkedFeed = 'bookmarked-feed',
@@ -43,6 +42,12 @@ export interface MenuProps {
 }
 export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
   const router = useRouter()
+  const handleLogout = () => {
+    logout().then(() => {
+      window.location.href = '/auth/login'
+    })
+  }
+
   const handleRedirect = (val: any) => {
     switch (val.key) {
       case MenuKey['PointDetails']:
@@ -73,7 +78,7 @@ export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
         router.push('/my-account/license')
         break
       case MenuKey['Signout']:
-        confirm('are you sure?')
+        handleLogout()
         break
 
       default:
