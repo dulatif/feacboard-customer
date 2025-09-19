@@ -8,8 +8,14 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import Image from 'next/image'
 import Link from 'next/link'
+import { login } from '@/shared/utils/auth'
 
 export const LoginView = () => {
+  const handleLogin = () => {
+    login('123123123').then(() => {
+      window.location.href = '/'
+    })
+  }
   return (
     <div className={styles['container']}>
       <div className={styles['banner']}>
@@ -58,6 +64,7 @@ export const LoginView = () => {
                 icon={<Image src={'/icons/sns/kakaotalk.svg'} width={24} height={24} alt="" />}
                 iconPosition="start"
                 className={`${styles['content__form__auth-button']} ${styles['--kakotalk']}`}
+                onClick={handleLogin}
               >
                 카카오톡으로 계속하기
               </BaseButton>
@@ -69,6 +76,7 @@ export const LoginView = () => {
                 icon={<Image src={'/icons/sns/facebook.svg'} width={24} height={24} alt="" />}
                 iconPosition="start"
                 className={`${styles['content__form__auth-button']} ${styles['--facebook']}`}
+                onClick={handleLogin}
               >
                 페이스북으로 계속하기
               </BaseButton>
@@ -80,6 +88,7 @@ export const LoginView = () => {
                 icon={<Image src={'/icons/sns/google.svg'} width={24} height={24} alt="" />}
                 iconPosition="start"
                 className={`${styles['content__form__auth-button']} ${styles['--google']}`}
+                onClick={handleLogin}
               >
                 구글로 계속하기
               </BaseButton>
@@ -91,6 +100,7 @@ export const LoginView = () => {
                 icon={<Image src={'/icons/sns/apple.svg'} width={24} height={24} alt="" />}
                 iconPosition="start"
                 className={`${styles['content__form__auth-button']} ${styles['--apple']}`}
+                onClick={handleLogin}
               >
                 Apple로 계속하기
               </BaseButton>
