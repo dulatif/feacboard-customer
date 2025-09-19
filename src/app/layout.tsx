@@ -45,7 +45,7 @@ export default function RootLayout({
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
   ]
-  const communityPaths = [`/community`, `/community/${id}`]
+  const communityPaths = [`/community`, `/community/posts/${id}`]
   const useNavbar = [
     `/`,
     `/shop`,
