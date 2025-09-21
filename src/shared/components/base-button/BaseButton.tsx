@@ -15,7 +15,7 @@ export interface BaseButtonProps
     | 'danger'
     | 'grey'
     | 'success'
-  shape?: 'default' | 'circle'
+  shape?: 'default' | 'circle' | 'square'
   size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   icon?: ReactNode
   iconPosition?: 'start' | 'end'

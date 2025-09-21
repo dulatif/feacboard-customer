@@ -210,6 +210,9 @@
     &.base-button--circle {
       width: 36px;
     }
+    &.base-button--square {
+      width: 36px;
+    }
   }
   &.base-button--md {
     padding: 10px 16px;
@@ -221,6 +224,9 @@
     &.base-button--circle {
       width: 40px;
     }
+    &.base-button--square {
+      width: 40px;
+    }
   }
   &.base-button--lg {
     padding: 10px 18px;
@@ -230,6 +236,9 @@
       line-height: 1.5rem; // 24px
     }
     &.base-button--circle {
+      width: 44px;
+    }
+    &.base-button--square {
       width: 44px;
     }
   }
@@ -244,6 +253,10 @@
       width: 48px;
       overflow: hidden;
     }
+    &.base-button--square {
+      width: 48px;
+      overflow: hidden;
+    }
   }
   &.base-button--2xl {
     padding: 16px 28px;
@@ -253,6 +266,9 @@
       line-height: 1.75rem; // 28px
     }
     &.base-button--circle {
+      width: 60px;
+    }
+    &.base-button--square {
       width: 60px;
     }
   }
