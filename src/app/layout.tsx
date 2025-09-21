@@ -1,5 +1,5 @@
 'use client'
-import { Urbanist, Aleo } from 'next/font/google'
+import { Urbanist, Aleo, Hammersmith_One } from 'next/font/google'
 import './globals.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -20,6 +20,12 @@ const urbanist = Urbanist({
 const aleo = Aleo({
   variable: '--font-aleo',
   subsets: ['latin'],
+})
+
+const hammersmith_one = Hammersmith_One({
+  variable: '--font-hammersmith_one',
+  subsets: ['latin'],
+  weight: '400',
 })
 
 export default function RootLayout({
@@ -78,7 +84,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${urbanist.variable} ${aleo.variable}`}>
+      <body className={`${urbanist.variable} ${aleo.variable} ${hammersmith_one.variable}`}>
         <TanstackProvider>
           <AntdRegistry>
             <ConfigProvider>

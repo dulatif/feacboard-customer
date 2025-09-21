@@ -18,7 +18,7 @@ export type FontSize =
   | 'tiny'
 
 export type FontWeight = 'regular' | 'medium' | 'semibold' | 'bold'
-export type Variant = 'aleo' | 'urbanist'
+export type Variant = 'aleo' | 'urbanist' | 'hammersmith_one'
 
 export interface BaseTypographyProps {
   children: React.ReactNode
