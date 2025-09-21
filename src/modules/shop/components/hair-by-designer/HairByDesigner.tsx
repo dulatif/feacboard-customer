@@ -33,11 +33,6 @@ const data: DesignerCardProps[] = [
         price: 43000,
         title: '헤어컷',
       },
-      {
-        image: '/dummy/service03.jpg',
-        price: 43000,
-        title: '헤어컷',
-      },
     ],
   },
   {
