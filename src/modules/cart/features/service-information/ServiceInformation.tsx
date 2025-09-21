@@ -16,7 +16,10 @@ import {
   CartServiceItemCardProps,
 } from '../../components/cart-service-item-card/CartServiceItemCard'
 
-export const ServiceInformation = () => {
+export interface ServiceInformationProps {
+  onNext: () => void
+}
+export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }) => {
   const data: CartServiceItemCardProps[] = [
     {
       image: '/dummy/service01.jpg',
@@ -142,7 +145,9 @@ export const ServiceInformation = () => {
                     21000 원
                   </BaseTypography>
                 </BaseFlex>
-                <BaseButton variant="fullwidth">계속 결제하기</BaseButton>
+                <BaseButton variant="fullwidth" onClick={onNext}>
+                  계속 결제하기
+                </BaseButton>
               </BaseFlex>
             </BaseFlex>
           </BaseBox>

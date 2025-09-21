@@ -14,8 +14,9 @@ import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 
 export interface ReservationInformationProps {
   onBack: () => void
+  onNext: () => void
 }
-export const ReservationInformation: React.FC<ReservationInformationProps> = ({ onBack }) => {
+export const ReservationInformation: React.FC<ReservationInformationProps> = ({ onBack, onNext }) => {
   return (
     <BaseContainer variant={1440}>
       <div className={styles['container']}>
@@ -85,7 +86,9 @@ export const ReservationInformation: React.FC<ReservationInformationProps> = ({ 
                     21000 원
                   </BaseTypography>
                 </BaseFlex>
-                <BaseButton variant="fullwidth">계속 결제하기</BaseButton>
+                <BaseButton variant="fullwidth" onClick={onNext}>
+                  계속 결제하기
+                </BaseButton>
               </BaseFlex>
             </BaseFlex>
           </BaseBox>
