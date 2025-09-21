@@ -1,0 +1,31 @@
+.shop__appointment-modal {
+  .ant-modal-content {
+    padding: 40px;
+    border-radius: 16px;
+    .ant-modal-close {
+      top: 40px;
+      right: 40px;
+    }
+    .shop__appointment-modal__time-card {
+      width: 117px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      border-radius: 8px;
+      &.--selected {
+        background: var(--color-primary-600) !important;
+        color: var(--color-white) !important;
+      }
+      &.--active {
+        cursor: pointer;
+        color: var(--color-primary-600);
+        background: var(--color-primary-50);
+        box-shadow: 0px 1px 2px 0px #1018280d;
+      }
+      &.--inactive {
+        border: 1px solid var(--color-neutral-200);
+        color: var(--color-neutral-300);
+      }
+    }
+  }
+}

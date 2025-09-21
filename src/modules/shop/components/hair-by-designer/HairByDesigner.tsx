@@ -16,6 +16,7 @@ const data: DesignerCardProps[] = [
         image: '/dummy/service01.jpg',
         price: 43000,
         title: '머리 색깔',
+        variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
       },
       {
         image: '/dummy/service02.jpg',
@@ -53,6 +54,7 @@ const data: DesignerCardProps[] = [
         image: '/dummy/service01.jpg',
         price: 43000,
         title: '머리 색깔',
+        variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
       },
       {
         image: '/dummy/service02.jpg',
@@ -80,6 +82,7 @@ const data: DesignerCardProps[] = [
         image: '/dummy/service01.jpg',
         price: 43000,
         title: '머리 색깔',
+        variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
       },
       {
         image: '/dummy/service02.jpg',

@@ -15,6 +15,7 @@ import { Makeup } from './components/makeup/Makeup'
 import { Nail } from './components/nail/Nail'
 import { Studio } from './components/studio/Studio'
 import { Suspense } from 'react'
+import { useApp } from '@/shared/providers/AppProvider'
 
 type Category = 'nail' | 'hair' | 'makeup' | 'studio'
 const categoryMap: Record<Category, string> = {
@@ -27,6 +28,7 @@ const categoryMap: Record<Category, string> = {
 const ShopViewContent = () => {
   const searchParams = useSearchParams()
   const category = searchParams.get('category') as unknown as Category
+  const { totalCart } = useApp()
   const [breadcrumbItems, setBreadcrumbItems] = useState<BaseBreadcrumbProps['items']>([
     {
       title: '홈',
@@ -38,10 +40,10 @@ const ShopViewContent = () => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
     }
-
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
   return (
     <div className={styles['shop-view']}>
       <div className={styles['shop-view__banner']}>
@@ -81,7 +83,14 @@ const ShopViewContent = () => {
           </BaseFlex>
         </BaseContainer>
       </div>
-      <BaseFloatButton href="/cart" icon={<CartIcon width={36} height={36} />} />
+      <BaseFloatButton
+        withBadge
+        badgeProps={{ count: totalCart }}
+        size="xl"
+        shape="square"
+        href="/cart"
+        icon={<CartIcon width={22} height={22} />}
+      />
     </div>
   )
 }

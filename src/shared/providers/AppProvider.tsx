@@ -4,10 +4,17 @@ import i18n from '../../i18n'
 import { I18nextProvider } from 'react-i18next'
 import { Spin } from 'antd'
 
-interface AppContextType {
+export interface AppContextType {
   language: string
   changeLanguage: (lang: string) => void
-  setLanguage: Dispatch<SetStateAction<string>>
+  setLanguage: Dispatch<SetStateAction<AppContextType['language']>>
+  totalCart: number
+  setTotalCart: Dispatch<SetStateAction<AppContextType['totalCart']>>
+  appointment: {
+    date: string
+    time: string
+  } | null
+  setAppointment: Dispatch<SetStateAction<AppContextType['appointment']>>
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -20,6 +27,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   const [language, setLanguage] = useState<string>('ko')
+  const [totalCart, setTotalCart] = useState(0)
+  const [appointment, setAppointment] = useState<AppContextType['appointment']>(null)
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang')
@@ -48,7 +57,17 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     )
   }
   return (
-    <AppContext.Provider value={{ language, changeLanguage, setLanguage }}>
+    <AppContext.Provider
+      value={{
+        language,
+        changeLanguage,
+        setLanguage,
+        totalCart,
+        setTotalCart,
+        appointment,
+        setAppointment,
+      }}
+    >
       <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
     </AppContext.Provider>
   )

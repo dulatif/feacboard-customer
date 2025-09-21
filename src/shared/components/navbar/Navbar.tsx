@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         <BaseFlex gap="spacing-20px" justify="space-between" align="center">
           <div>
             <Link href={'/'}>
-              <BaseTypography as="h1" variant="aleo" size="header5" weight="bold" color="neutral-700">
+              <BaseTypography as="h1" variant="hammersmith_one" size="header5" weight="regular" color="neutral-700">
                 Faceboard
               </BaseTypography>
             </Link>

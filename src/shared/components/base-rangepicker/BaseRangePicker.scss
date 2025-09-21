@@ -118,6 +118,13 @@
                         background: #f9fafb;
                       }
                     }
+                    &.ant-picker-cell-today {
+                      .ant-picker-cell-inner {
+                        &::before {
+                          border: 1px solid #49c3d0;
+                        }
+                      }
+                    }
                     .ant-picker-cell-inner {
                       height: 38px;
                       display: flex;
