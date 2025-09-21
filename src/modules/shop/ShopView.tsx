@@ -16,8 +16,8 @@ import { Nail } from './components/nail/Nail'
 import { Studio } from './components/studio/Studio'
 import { Suspense } from 'react'
 import { useApp } from '@/shared/providers/AppProvider'
+import { Category } from './ShopView.utils'
 
-type Category = 'nail' | 'hair' | 'makeup' | 'studio'
 const categoryMap: Record<Category, string> = {
   nail: '네일',
   hair: '머리카락',

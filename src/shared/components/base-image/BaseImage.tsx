@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'next/image'
 import React from 'react'
 import './BaseImage.scss'
 import { Radius } from '@/shared/types/radius'
+import { BaseTypography } from '../base-typography/BaseTypography'
 
 export interface BaseImageProps extends Omit<ImageProps, 'src'> {
   src: string | null
@@ -16,7 +17,12 @@ export const BaseImage: React.FC<BaseImageProps> = ({ src, width, height, radius
           <Image src={src} fill alt={alt ?? ''} {...props} />
         </div>
       ) : (
-        <div className={`base-image__empty ${radiusClass}`} style={{ height, width }}></div>
+        <div className={`base-image__empty ${radiusClass}`} style={{ height, width }}>
+          <Image src={'/icons/empty-image.svg'} width={20} height={20} alt="" />
+          <BaseTypography as="p" size="body1" color="neutral-700">
+            이미지 없음
+          </BaseTypography>
+        </div>
       )}
     </div>
   )

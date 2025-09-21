@@ -8,5 +8,10 @@
   }
   .base-image__empty {
     background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
   }
 }
