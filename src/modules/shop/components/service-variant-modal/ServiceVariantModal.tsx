@@ -7,20 +7,30 @@ import { Plus } from 'phosphor-react'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 
 export interface ServiceVariantModal extends ModalProps {
-  defaultSelectedVariant?: string
-  variants: string[]
+  defaultSelectedVariant?: string[]
+  variants: {
+    title: string
+    options: string[]
+  }[]
   onSubmit: () => void
 }
 export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
   onCancel,
   onSubmit,
   variants,
-  defaultSelectedVariant,
+  defaultSelectedVariant = [null, null],
   ...props
 }) => {
-  const [selectedVariant, setSelectedVariant] = useState(defaultSelectedVariant)
+  const [selectedVariant, setSelectedVariant] = useState<(string | null)[]>(defaultSelectedVariant)
   const handleCancel = () => {
     onCancel && onCancel(null as any)
+  }
+  const handleSelectVariant = (option: string, i: number) => {
+    setSelectedVariant((prev) => {
+      const newSelectedVariant = [...prev]
+      newSelectedVariant[i] = option
+      return newSelectedVariant
+    })
   }
   return (
     <Modal footer={null} className="shop__service-variant-modal" onCancel={handleCancel} centered {...props}>
@@ -29,24 +39,31 @@ export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
           <BaseTypography as="p" size="body1" weight="semibold">
             변형 선택
           </BaseTypography>
-          <Row gutter={[8, 8]}>
-            {variants.map((e, i) => (
-              <Col key={i} span={6}>
-                <div
-                  onClick={() => setSelectedVariant(e)}
-                  className={`shop__service-variant-modal__card ${selectedVariant === e && '--selected'}`}
-                >
-                  <BaseTypography as="p" size="body2" weight="semibold" color={'inherit'} lineClamp={1}>
-                    {e}
-                  </BaseTypography>
-                </div>
-              </Col>
-            ))}
-          </Row>
+          {variants.map((e, i) => (
+            <BaseFlex key={i} vertical gap="spacing-8px">
+              <BaseTypography as="p" size="body2" weight="regular" color="neutral-500">
+                {e.title}
+              </BaseTypography>
+              <Row gutter={[8, 8]}>
+                {e.options.map((option, optionIndex) => (
+                  <Col key={optionIndex} span={6}>
+                    <div
+                      onClick={() => handleSelectVariant(option, i)}
+                      className={`shop__service-variant-modal__card ${selectedVariant[i] === option && '--selected'}`}
+                    >
+                      <BaseTypography as="p" size="body2" weight="semibold" color={'inherit'} lineClamp={1}>
+                        {option}
+                      </BaseTypography>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </BaseFlex>
+          ))}
         </BaseFlex>
         <BaseButton
           icon={<Plus />}
-          disabled={!selectedVariant}
+          disabled={selectedVariant.some((e) => !e)}
           size="xl"
           iconPosition="start"
           style={{ width: 380 }}

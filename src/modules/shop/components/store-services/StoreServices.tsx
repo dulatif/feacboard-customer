@@ -12,54 +12,151 @@ export const StoreServices = () => {
       image: '/dummy/service01.jpg',
       price: 43000,
       title: '머리 색깔',
-      variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service02.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service03.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service03.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service01.jpg',
       price: 43000,
       title: '머리 색깔',
-      variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service02.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service03.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service03.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service01.jpg',
       price: 43000,
       title: '머리 색깔',
-      variants: ['변형 A', '변형 B', '변형 C', '변형 D'],
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
     {
       image: '/dummy/service02.jpg',
       price: 43000,
       title: '헤어컷',
+      variants: [
+        {
+          title: '변형 1',
+          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
+        },
+        {
+          title: '변형 2',
+          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
+        },
+      ],
     },
   ]
   return (

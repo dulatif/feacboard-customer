@@ -23,7 +23,10 @@ export interface ServiceCardProps {
   image: string
   title: string
   price: number
-  variants?: string[]
+  variants?: {
+    title: string
+    options: string[]
+  }[]
 }
 export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, variants }) => {
   const router = useRouter()
