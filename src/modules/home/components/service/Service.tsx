@@ -71,7 +71,7 @@ export const Service = () => {
     {
       icon: '/icons/community.svg',
       labelKey: 'home.service.community',
-      link: '/',
+      link: '/community',
     },
   ]
 
