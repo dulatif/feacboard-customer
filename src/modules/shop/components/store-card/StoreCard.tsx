@@ -12,6 +12,7 @@ import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
 import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
 import { Category } from '../../ShopView.utils'
+import { useRouter } from 'next/navigation'
 
 export interface StoreCardProps {
   images: string[]
@@ -45,10 +46,14 @@ export const StoreCard: React.FC<StoreCardProps> = ({
   },
   category,
 }) => {
+  const router = useRouter()
+  const handleRedirect = (id: string) => {
+    router.push(`/shop/${id}/details${category ? `?category=${category}` : ''}`)
+  }
   return (
     <BaseBox className={styles['store-card']} {...containerProps}>
       <BaseFlex vertical gap="spacing-24px">
-        <Link href={`/shop/123/details${category ? `?category=${category}` : ''}`}>
+        <div onClick={() => handleRedirect('123')} style={{ cursor: 'pointer' }}>
           <div className={styles['store-card__images']}>
             <div className={styles['store-card__images__primary']}>
               <BaseImage src={images[0]} height={427} alt="" />
@@ -59,14 +64,14 @@ export const StoreCard: React.FC<StoreCardProps> = ({
               ))}
             </div>
           </div>
-        </Link>
+        </div>
         <BaseFlex justify="space-between" gap="spacing-14px" align="center">
           <BaseFlex vertical gap="spacing-16px">
-            <Link href={'/shop/123/details'}>
+            <div onClick={() => handleRedirect('123')} style={{ cursor: 'pointer' }}>
               <BaseTypography as="h6" size="header6" weight="semibold">
                 {storeName}
               </BaseTypography>
-            </Link>
+            </div>
             <BaseFlex {...metaInformationProps}>
               <BaseFlex gap="spacing-8px" align="center">
                 <StarIcon width={20} height={20} color="#FFB43F" />
