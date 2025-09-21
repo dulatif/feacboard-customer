@@ -7,11 +7,18 @@ import { Plus } from 'phosphor-react'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 
 export interface ServiceVariantModal extends ModalProps {
+  defaultSelectedVariant?: string
   variants: string[]
   onSubmit: () => void
 }
-export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({ onCancel, onSubmit, variants, ...props }) => {
-  const [selectedVariant, setSelectedVariant] = useState('')
+export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
+  onCancel,
+  onSubmit,
+  variants,
+  defaultSelectedVariant,
+  ...props
+}) => {
+  const [selectedVariant, setSelectedVariant] = useState(defaultSelectedVariant)
   const handleCancel = () => {
     onCancel && onCancel(null as any)
   }

@@ -4,7 +4,7 @@ import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { AppContextType } from '@/shared/providers/AppProvider'
 import { Col, Modal, ModalProps, Row } from 'antd'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { CaretRight } from 'phosphor-react'
 import React, { useState } from 'react'
 import './AppointmentModal.scss'
@@ -65,18 +65,26 @@ arrivalTimeOptions.forEach((item) => {
 })
 
 export interface AppointmentModalProps extends ModalProps {
+  defaultSelectedDate?: string
+  defaultSelectedTime?: string
   onSubmit: (value: AppContextType['appointment']) => void
 }
-export const AppointmentModal: React.FC<AppointmentModalProps> = ({ onSubmit, onCancel, ...props }) => {
-  const [selectedDate, setSelectedDate] = useState<string>()
-  const [selectedTime, setSelectedTime] = useState<string>()
+export const AppointmentModal: React.FC<AppointmentModalProps> = ({
+  onSubmit,
+  onCancel,
+  defaultSelectedDate,
+  defaultSelectedTime,
+  ...props
+}) => {
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultSelectedDate)
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(defaultSelectedTime)
   const handleCancel = () => {
     setSelectedDate(undefined)
     setSelectedTime(undefined)
     onCancel && onCancel(null as any)
   }
   const onSelectDate = (date: Dayjs) => {
-    setSelectedDate(date.format('YYYY-mm-dd'))
+    setSelectedDate(date.format('YYYY-MM-DD'))
   }
   const onSelectTime = (value: string) => {
     setSelectedTime(value)
@@ -92,7 +100,11 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ onSubmit, on
               날짜 선택
             </BaseTypography>
             <BaseFlex vertical gap="spacing-24px">
-              <BaseCalendar fullscreen={false} onSelect={onSelectDate} />
+              <BaseCalendar
+                fullscreen={false}
+                value={selectedDate ? dayjs(selectedDate) : undefined}
+                onSelect={onSelectDate}
+              />
               <BaseFlex gap="spacing-16px" align="center">
                 <div style={{ width: 24, height: 24, background: '#49C3D0', borderRadius: '50%' }} />
                 <BaseTypography as="p" size="body1" weight="regular">
@@ -177,14 +189,14 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ onSubmit, on
           )}
         </BaseFlex>
         <BaseButton
-          icon={<CaretRight />}
+          icon={defaultSelectedDate && defaultSelectedTime ? undefined : <CaretRight />}
           disabled={!selectedDate || !selectedTime}
           size="xl"
           iconPosition="end"
           style={{ width: 380 }}
           onClick={() => onSubmit({ date: selectedDate as string, time: selectedTime as string })}
         >
-          다음
+          {defaultSelectedDate && defaultSelectedTime ? '구하다' : '다음'}
         </BaseButton>
       </BaseFlex>
     </Modal>
