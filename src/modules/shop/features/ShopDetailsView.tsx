@@ -44,7 +44,7 @@ export const ShopDetailsView = () => {
   const tabItems: BaseTabsProps['items'] = [
     {
       key: '1',
-      label: '디자이너',
+      label: ['nail', 'studio'].includes(category) ? '서비스' : '디자이너',
       children: ['nail', 'studio'].includes(category) ? <StoreServices /> : <StoreDesigners />,
     },
     {
