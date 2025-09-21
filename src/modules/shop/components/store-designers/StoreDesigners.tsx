@@ -1,9 +1,8 @@
-import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
-import React from 'react'
-import { DesignerCard, DesignerCardProps } from '../designer-card/DesignerCard'
-import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
-import SearchIcon from '@/shared/components/icons/SearchIcon'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseInput } from '@/shared/components/base-input/BaseInput'
+import { MagnifyingGlass } from 'phosphor-react'
+import { DesignerCard, DesignerCardProps } from '../designer-card/DesignerCard'
 
 export const StoreDesigners = () => {
   const data: DesignerCardProps[] = [
@@ -24,11 +23,6 @@ export const StoreDesigners = () => {
         },
         {
           image: '/dummy/service02.jpg',
-          price: 43000,
-          title: '헤어컷',
-        },
-        {
-          image: '/dummy/service03.jpg',
           price: 43000,
           title: '헤어컷',
         },
@@ -98,7 +92,7 @@ export const StoreDesigners = () => {
     <BaseFlex vertical gap="spacing-80px">
       <BaseFlex gap="spacing-16px">
         <BaseInput size="large" placeholder="무언가를 검색하다" />
-        <BaseButton icon={<SearchIcon />} size="xl">
+        <BaseButton icon={<MagnifyingGlass size={24} />} size="xl">
           찾다
         </BaseButton>
       </BaseFlex>

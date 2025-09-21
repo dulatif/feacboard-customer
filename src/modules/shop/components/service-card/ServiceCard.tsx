@@ -66,7 +66,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, v
         padding={{ x: 'spacing-0px', y: 'spacing-0px' }}
         className={styles['service-card']}
       >
-        <BaseImage src={image} height={274} width={270} radius="radius-8px" alt="" />
+        <BaseImage src={image} height={274} width={282} radius="radius-8px" alt="" />
         <BaseFlex
           vertical
           gap="spacing-16px"

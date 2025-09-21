@@ -11,6 +11,7 @@ import StarIcon from '@/shared/components/icons/StarIcon'
 import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
 import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
+import { Category } from '../../ShopView.utils'
 
 export interface StoreCardProps {
   images: string[]
@@ -23,6 +24,7 @@ export interface StoreCardProps {
   instagram?: string
   containerProps?: BaseBoxProps
   metaInformationProps?: Omit<BaseFlexProps, 'children'>
+  category?: Category
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
   availableDesigners,
@@ -41,18 +43,19 @@ export const StoreCard: React.FC<StoreCardProps> = ({
     vertical: false,
     gap: 'spacing-24px',
   },
+  category,
 }) => {
   return (
     <BaseBox className={styles['store-card']} {...containerProps}>
       <BaseFlex vertical gap="spacing-24px">
-        <Link href={'/shop/123/details'}>
+        <Link href={`/shop/123/details${category ? `?category=${category}` : ''}`}>
           <div className={styles['store-card__images']}>
             <div className={styles['store-card__images__primary']}>
               <BaseImage src={images[0]} height={427} alt="" />
             </div>
             <div className={styles['store-card__images__others']}>
-              {images.slice(1, 5).map((image, i) => (
-                <BaseImage key={i} src={image} height={204} alt="" />
+              {Array.from({ length: 4 }).map((e, i) => (
+                <BaseImage key={i} src={images[i + 1]} height={204} alt="" />
               ))}
             </div>
           </div>
