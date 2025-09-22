@@ -35,7 +35,6 @@ export const ReservationDetail = () => {
       title: '예약 상태',
     },
   ])
-  const type = 'designer'
   return (
     <div>
       <BaseFlex vertical gap="spacing-48px" padding={{ y: 'spacing-80px' }}>
@@ -47,7 +46,7 @@ export const ReservationDetail = () => {
                 프로필
               </BaseButton>
             </div>
-            {status === 'in-progress' || status === 'pending' ? (
+            {status === 'pending' ? (
               <div className={styles['pending']}>
                 <BaseFlex vertical gap="spacing-32px" padding={{ y: 'spacing-64px' }} align="center">
                   <BaseSpin spinerLoading />
@@ -94,7 +93,7 @@ export const ReservationDetail = () => {
                   </BaseFlex>
                 </BaseFlex>
               </div>
-            ) : status === 'completed' ? (
+            ) : status === 'in-progress' || status === 'completed' ? (
               <div className={styles['completed']}>
                 <BaseFlex vertical gap="spacing-24px" align="center">
                   <Image src="/icons/success-payment.svg" width={48} height={48} alt="" />
@@ -106,7 +105,7 @@ export const ReservationDetail = () => {
                   </BaseTypography>
                   <QRCode value="4021" size={196} />
                 </BaseFlex>
-                {type === 'designer' ? (
+                {status === 'in-progress' ? ( // IF DESIGNER, THIS IS ONLY DUMMY
                   <BaseFlex vertical gap="spacing-24px" align="center">
                     <BaseFlex gap="spacing-24px" justify="space-between" align="center" style={{ minWidth: 266 }}>
                       <BaseFlex vertical gap="spacing-8px">
