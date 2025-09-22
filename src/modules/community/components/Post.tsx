@@ -39,7 +39,7 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
     centerMode: true,
     infinite: true,
     centerPadding: '0px',
-    slidesToShow: post.images.length > 3 ? 3 : post.images.length,
+    slidesToShow: 1,
     speed: 500,
   }
 
