@@ -1,9 +1,9 @@
-import { Button, Modal } from 'antd'
-import React from 'react'
-import styles from '../CommunityView.module.scss'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { Modal } from 'antd'
 import { Trash } from 'phosphor-react'
+import React from 'react'
+import styles from '../CommunityView.module.scss'
 
 export interface ModalDeleteProps {
   isOpen: boolean

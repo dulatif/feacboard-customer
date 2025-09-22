@@ -7,6 +7,7 @@ import { Avatar, Button, Input, message, Modal, Space, Upload } from 'antd'
 import { XCircle } from 'phosphor-react'
 import React, { Ref, useRef, useState } from 'react'
 import styles from '../CommunityView.module.scss'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 
 const uploadProps: UploadProps = {
   name: 'file',
@@ -67,9 +68,7 @@ const CreatePost: React.FC = () => {
         onCancel={closeModal}
         footer={() => (
           <>
-            <Button variant="solid" style={{ backgroundColor: '#49C3D0', color: '#fff', width: '100%' }}>
-              게시물 만들기
-            </Button>
+            <BaseButton style={{ width: '100%' }}> 게시물 만들기</BaseButton>
           </>
         )}
       >
