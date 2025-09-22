@@ -100,7 +100,7 @@ const CommunityView = () => {
     <div className={styles['root']}>
       <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
         <div className={styles['community']}>
-          <div className={styles['community__side']}>
+          <div className={styles['community__side ']}>
             <BaseTypography as="p" size="caption">
               홈 / 커뮤니티
             </BaseTypography>
@@ -110,7 +110,7 @@ const CommunityView = () => {
               </Button>
             </Link>
           </div>
-          <div className={styles['community__content']}>
+          <div className={`${styles['community__content']} ${styles['community__posts']}`}>
             {postId ? (
               <Post
                 post={{
