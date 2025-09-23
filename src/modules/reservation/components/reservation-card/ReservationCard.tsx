@@ -80,7 +80,8 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
         className={styles['reservation-card']}
         padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
         radius="radius-16px"
-        shadow="md"
+        borderColor="neutral-300"
+        shadow="no-shadow"
       >
         <BaseFlex vertical gap="spacing-16px">
           {/* Header */}
