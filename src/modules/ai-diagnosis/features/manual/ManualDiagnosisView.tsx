@@ -7,7 +7,7 @@ import { Mask, OmegaSquare, Sun1 } from 'iconsax-reactjs'
 import Image from 'next/image'
 import { CaretLeft } from 'phosphor-react'
 import React from 'react'
-import styles from './AIManual.module.scss'
+import styles from './ManualDiagnosis.module.scss'
 import Link from 'next/link'
 
 interface DataItemProps {
@@ -37,7 +37,7 @@ const DataItem: React.FC<DataItemProps> = ({ icon, title, description }) => {
   )
 }
 
-const AIManualView = () => {
+const ManualDiagnosisView = () => {
   const dataItems: DataItemProps[] = [
     {
       icon: <OmegaSquare size={24} />,
@@ -60,7 +60,7 @@ const AIManualView = () => {
     <BaseContainer className={styles['ai_manual_onboarding']} variant={1440} padding={{ y: 'spacing-48px' }}>
       <Link href="/ai-diagnosis">
         <BaseButton color="secondary-neutral" icon={<CaretLeft weight="bold" size={20} />}>
-          뒤로가기
+          반품
         </BaseButton>
       </Link>
 
@@ -72,7 +72,7 @@ const AIManualView = () => {
           {dataItems.map((item) => (
             <DataItem key={item.title} {...item} />
           ))}
-          <Link href="/ai-diagnosis/manual/diagnosis">
+          <Link href="/ai-diagnosis/manual/analysis">
             <BaseButton size="2xl" style={{ width: '100%', marginTop: '48px' }}>
               촬영 시작
             </BaseButton>
@@ -91,4 +91,4 @@ const AIManualView = () => {
   )
 }
 
-export default AIManualView
+export default ManualDiagnosisView

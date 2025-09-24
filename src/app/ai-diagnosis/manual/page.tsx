@@ -1,8 +1,8 @@
 import React from 'react'
-import AIManualView from '@/modules/ai-diagnosis/AIManualView'
+import ManualDiagnosisView from '@/modules/ai-diagnosis/features/manual/ManualDiagnosisView'
 
-const AIManual = () => {
-  return <AIManualView />
+const ManualDiagnosis = () => {
+  return <ManualDiagnosisView />
 }
 
-export default AIManual
+export default ManualDiagnosis
