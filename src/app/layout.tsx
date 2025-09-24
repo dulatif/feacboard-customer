@@ -45,6 +45,7 @@ export default function RootLayout({
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
   ]
+  const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`]
   const communityPaths = [`/community`, `/community/posts/${id}`]
   const useNavbar = [
     `/`,
@@ -55,6 +56,7 @@ export default function RootLayout({
     `/community`,
     ...communityPaths,
     ...accountPaths,
+    ...aiPaths,
   ].includes(pathName)
   const useFooter = [
     `/`,
@@ -64,12 +66,19 @@ export default function RootLayout({
     `/cart`,
     ...communityPaths,
     ...accountPaths,
+    ...aiPaths,
   ].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
-  const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/cart`, ...communityPaths, ...accountPaths].includes(
-    pathName,
-  )
+  const useNoContainer = [
+    '/auth/login',
+    '/shop',
+    `/reservation`,
+    `/cart`,
+    ...communityPaths,
+    ...accountPaths,
+    ...aiPaths,
+  ].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']
