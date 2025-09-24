@@ -45,7 +45,7 @@ export default function RootLayout({
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
   ]
-  const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`]
+  const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
   const useNavbar = [
     `/`,
