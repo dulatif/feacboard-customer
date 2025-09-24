@@ -6,6 +6,7 @@ import React from 'react'
 import styles from '../AIOnboardingView.module.scss'
 import DiagnosisTypeBadge, { TDiagnosisType } from './DiagnosisTypeBadge'
 import { BaseRate } from '@/shared/components/base-rate/BaseRate'
+import Link from 'next/link'
 
 interface AIDIagnosisCardProps {
   imageUrl: string
@@ -15,7 +16,6 @@ interface AIDIagnosisCardProps {
   reviewCount: number
   originalPrice: string
   currentPriceText: string
-  onButtonClick: () => void
 }
 
 const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
@@ -26,7 +26,6 @@ const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
   reviewCount,
   originalPrice,
   currentPriceText,
-  onButtonClick,
 }) => {
   return (
     <div className={styles['ai_diagnosis_card']}>
@@ -76,7 +75,9 @@ const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
 
               {/* Button */}
               <div style={{ textAlign: 'right', marginTop: 10 }}>
-                <BaseButton onClick={onButtonClick}>지금 시도해보세요</BaseButton>
+                <Link href={`/ai-diagnosis/${type}`}>
+                  <BaseButton>지금 시도해보세요</BaseButton>
+                </Link>
               </div>
             </Row>
           </Flex>

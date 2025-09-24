@@ -67,7 +67,6 @@ const AIOnboardingView = () => {
             reviewCount={129}
             originalPrice="5000원"
             currentPriceText="무료!"
-            onButtonClick={() => {}}
           />
           <AIDIagnosisCard
             type="ai"
@@ -77,7 +76,6 @@ const AIOnboardingView = () => {
             reviewCount={129}
             originalPrice="11000원"
             currentPriceText="5500원"
-            onButtonClick={() => {}}
           />
         </div>
       </div>
