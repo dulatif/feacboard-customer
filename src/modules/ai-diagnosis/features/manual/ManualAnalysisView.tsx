@@ -27,7 +27,7 @@ export const listSteps = [
   },
 ]
 const ManualAnalysisView = () => {
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
   return (
     <BaseContainer
       variant="fullwidth"
