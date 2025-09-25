@@ -13,6 +13,8 @@ import StarIcon from '@/shared/components/icons/StarIcon'
 import { Avatar } from 'antd'
 import { ServiceCard, ServiceCardProps } from '../service-card/ServiceCard'
 import styles from './DesignerCard.module.scss'
+import { UserCircle } from 'phosphor-react'
+import { useRouter } from 'next/navigation'
 
 export interface DesignerCardProps {
   picture: string
@@ -36,6 +38,10 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
   services,
   specialties,
 }) => {
+  const router = useRouter()
+  const handleRedirectToDesignerProfile = (id: string) => {
+    router.push(`/designer/${id}`)
+  }
   return (
     <BaseBox padding={{ x: 'spacing-24px', y: 'spacing-24px' }} borderColor="neutral-300" radius="radius-16px">
       <BaseFlex vertical gap="spacing-32px">
@@ -85,7 +91,9 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
           </BaseFlex>
           <BaseFlex gap="spacing-24px" align="center">
             <BaseButton color="secondary" icon={<MessagesIcon width={20} height={20} />} />
-            <BaseButton icon={<ProfileCircleIcon width={20} height={20} />}>프로필 보기</BaseButton>
+            <BaseButton onClick={() => handleRedirectToDesignerProfile('123')} icon={<UserCircle size={20} />}>
+              프로필 보기
+            </BaseButton>
           </BaseFlex>
         </BaseFlex>
 
