@@ -1,0 +1,88 @@
+.base-image-preview {
+  width: fit-content;
+  .base-image-preview__children {
+    position: relative;
+    width: fit-content;
+    height: auto;
+    cursor: pointer;
+    .base-image-preview__count {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: #101828;
+      color: #ffffff;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: 0%;
+    }
+  }
+}
+.base-image-preview__current-image {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+}
+.base-image-preview__current-video {
+  position: relative;
+  width: 1008px;
+  height: 504px;
+  border-radius: 16px;
+  overflow: hidden;
+  .base-image-preview__current-video__play__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #00000066;
+    .base-image-preview__current-video__play-icon {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(73, 195, 208, 0.5);
+    }
+  }
+}
+.base-image-preview__item__wrapper {
+  width: calc(100vw - 120px);
+  overflow-x: scroll;
+  .base-image-preview__item {
+    border-radius: 16px;
+    cursor: pointer;
+    &--inactive {
+      opacity: 0.5;
+    }
+  }
+}
+.ant-image-preview-wrap {
+  background: #d2d2d280;
+  backdrop-filter: blur(12px) !important;
+  transition: 0.5s;
+}
+.ant-image-preview-switch-left,
+.ant-image-preview-switch-right {
+  background: #ffffff !important;
+  height: 48px !important;
+  width: 48px !important;
+  span {
+    color: #49c3d0;
+  }
+}
+.ant-image-preview-switch-left {
+  inset-inline-start: unset !important;
+  inset-inline-end: calc(50% + 504px + 48px) !important;
+}
+.ant-image-preview-switch-right {
+  inset-inline-end: unset !important;
+  inset-inline-start: calc(50% + 504px + 48px) !important;
+}
