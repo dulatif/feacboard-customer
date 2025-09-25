@@ -59,7 +59,7 @@ export default function RootLayout({
     `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
-    `/community`,
+    `/designer/${id}`,
     ...communityPaths,
     ...accountPaths,
   ].includes(pathName)
@@ -70,6 +70,7 @@ export default function RootLayout({
     `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
+    `/designer/${id}`,
     ...communityPaths,
     ...accountPaths,
   ].includes(pathName)

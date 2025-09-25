@@ -4,7 +4,7 @@ import React from 'react'
 import './BaseTabs.scss'
 
 export interface BaseTabsProps extends TabsProps {
-  gapContent?: '24px' | '80px'
+  gapContent?: '0px' | '24px' | '48px' | '80px'
   variant?: 'default' | 'filled'
 }
 export const BaseTabs: React.FC<BaseTabsProps> = ({
