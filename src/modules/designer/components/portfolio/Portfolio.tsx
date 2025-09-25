@@ -3,7 +3,13 @@ import { BaseImagesPreview } from '@/shared/components/base-images-preview/BaseI
 import { Col, Row } from 'antd'
 import styles from './Portfolio.module.scss'
 
-const fileList = ['/dummy/makeup02.jpg', '/dummy/makeup01.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg']
+const fileList = [
+  '/dummy/makeup02.jpg',
+  '/dummy/makeup01.jpg',
+  '/dummy/makeup03.jpg',
+  '/dummy/makeup04.jpg',
+  'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+]
 export const Portfolio = () => {
   return (
     <div className={styles['portfolio']}>
@@ -11,7 +17,7 @@ export const Portfolio = () => {
         {Array.from({ length: 9 }).map((e, i) => (
           <Col key={i} span={8}>
             <BaseImagesPreview fileList={fileList}>
-              <img src={fileList[0]} width={'100%'} height={395} alt="" className={styles['portfolio__item']} />
+              <BaseImage src={fileList[0]} height={395} alt="" className={styles['portfolio__item']} />
             </BaseImagesPreview>
           </Col>
         ))}
