@@ -22,8 +22,14 @@ export interface BaseImagesPreviewProps {
   children: ReactNode
   fileCount?: boolean
   fileList: string[]
+  start?: number
 }
-export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, fileCount = true, fileList }) => {
+export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({
+  children,
+  fileCount = true,
+  fileList,
+  start = 0,
+}) => {
   const [visible, setVisible] = useState(false)
   const [thumbnails, setThumbnails] = useState<Record<number, string>>({})
   useEffect(() => {
@@ -35,7 +41,10 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, 
       }
     })
   }, [])
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(start)
+  useEffect(() => {
+    setCurrent(start)
+  }, [start])
   const [playing, setPlaying] = useState(false)
   const { fileType, source } = useMemo(() => {
     const source = fileList[current]
@@ -70,15 +79,15 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, 
           },
           imageRender: () => {
             return fileType === 'image' ? (
-              <BaseImage src={source} width={1008} height={504} alt="" className="base-image-preview__current-image" />
+              <BaseImage src={source} alt="" objectFit="contain" className="base-image-preview__current-image" />
             ) : fileType === 'video' ? (
               <div className="base-image-preview__current-video">
                 <ReactPlayer
                   src={source}
                   playing={playing}
                   style={{
-                    width: 1008,
-                    height: 504,
+                    width: '100%',
+                    height: '100%',
                     objectFit: 'cover',
                   }}
                   onClick={() => setPlaying(false)}
@@ -117,8 +126,8 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, 
                     <BaseImage
                       key={i}
                       src={url}
-                      width={134}
-                      height={134}
+                      width={120}
+                      height={120}
                       alt=""
                       className={`base-image-preview__item ${current !== i && 'base-image-preview__item--inactive'}`}
                       onClick={() => handleMoveAsset(i)}
@@ -128,8 +137,8 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, 
                       <BaseImage
                         key={i}
                         src={thumbnails[i]}
-                        width={134}
-                        height={134}
+                        width={120}
+                        height={120}
                         alt=""
                         className={`base-image-preview__item ${current !== i && 'base-image-preview__item--inactive'}`}
                         onClick={() => handleMoveAsset(i)}
@@ -146,7 +155,7 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({ children, 
         }}
       >
         <div className="base-image-preview__children" onClick={() => setVisible(true)}>
-          {children}
+          <div>{children}</div>
           {fileCount && (
             <div className="base-image-preview__count">
               {current + 1}/{fileList.length}
