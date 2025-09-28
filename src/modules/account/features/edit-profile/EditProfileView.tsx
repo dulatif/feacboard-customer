@@ -6,6 +6,7 @@ import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { Avatar, Col, Flex, Row, Select, Space } from 'antd'
+import Link from 'next/link'
 import { CaretLeft, CaretRight, Trash } from 'phosphor-react'
 import React from 'react'
 const { Option } = Select
@@ -44,9 +45,11 @@ const EditProfileView = () => {
           <BaseTypography as="h6" size="subtitle1" weight="semibold" style={{ marginBottom: '24px' }}>
             프로필 편집
           </BaseTypography>
-          <BaseButton color="danger" size="xl" icon={<Trash size={24} weight="bold" />}>
-            계정 삭제
-          </BaseButton>
+          <Link href="/my-account/edit-profile/delete-account">
+            <BaseButton color="danger" size="xl" icon={<Trash size={24} weight="bold" />}>
+              계정 삭제
+            </BaseButton>
+          </Link>
         </Flex>
 
         <Space direction="vertical" align="center" style={{ width: '100%', margin: '48px auto' }}>
