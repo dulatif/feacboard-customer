@@ -50,6 +50,8 @@ export default function RootLayout({
     `/my-account/point-details`,
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
+    `/my-account/edit-profile`,
+    `/my-account/edit-profile/delete-account`,
   ]
   const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
