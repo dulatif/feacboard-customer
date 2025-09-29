@@ -6,6 +6,7 @@ export interface TranslationShape {
         my: string
         aiDiagnosis: string
         reservation: string
+        message: string
       }
       profile: {
         hello: string

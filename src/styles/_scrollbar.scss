@@ -1,0 +1,25 @@
+$scrollbar-width: 4px;
+$scrollbar-radius: 200px;
+$scrollbar-track-color: #fff;
+$scrollbar-thumb-color: #d0d5dd;
+$scrollbar-thumb-hover-color: #d0d5dd;
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+  }
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track-color;
+    border: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-color;
+    border-radius: $scrollbar-radius;
+    border: none;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $scrollbar-thumb-hover-color;
+  }
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+}
