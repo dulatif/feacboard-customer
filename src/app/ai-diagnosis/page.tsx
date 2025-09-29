@@ -1,7 +1,9 @@
+'use client'
 import React from 'react'
+import AIOnboardingView from '@/modules/ai-diagnosis/AIOnboardingView'
 
-const AiDiagnosis = () => {
-  return <div>Ai</div>
+const AIDiagnosis = () => {
+  return <AIOnboardingView />
 }
 
-export default AiDiagnosis
+export default AIDiagnosis

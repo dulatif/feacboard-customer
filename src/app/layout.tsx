@@ -50,35 +50,47 @@ export default function RootLayout({
     `/my-account/point-details`,
     `/my-account/terms-and-conditions`,
     `/my-account/license`,
+    `/my-account/edit-profile`,
+    `/my-account/edit-profile/delete-account`,
   ]
+  const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
+  const reservationPaths = [`/reservation`, `/reservation/${id}`]
   const useNavbar = [
     `/`,
     `/shop`,
-    `/reservation`,
-    `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
     `/designer/${id}`,
+    '/message',
+    ...reservationPaths,
     ...communityPaths,
     ...accountPaths,
+    ...aiPaths,
   ].includes(pathName)
   const useFooter = [
     `/`,
     `/shop`,
-    `/reservation`,
-    `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
     `/designer/${id}`,
+    '/message',
+    ...reservationPaths,
     ...communityPaths,
     ...accountPaths,
+    ...aiPaths,
   ].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
   const useHeroBgGradientGreen = [''].includes(pathName)
-  const useNoContainer = ['/auth/login', '/shop', `/reservation`, `/cart`, ...communityPaths, ...accountPaths].includes(
-    pathName,
-  )
+  const useNoContainer = [
+    '/auth/login',
+    '/shop',
+    `/reservation`,
+    `/cart`,
+    ...communityPaths,
+    ...accountPaths,
+    ...aiPaths,
+  ].includes(pathName)
 
   const getLayoutClassName = () => {
     const layoutClasses: string[] = ['layout-wrapper']
