@@ -55,6 +55,7 @@ export default function RootLayout({
   ]
   const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
+  const reviewPaths = ['/review', '/review/hair-makeup', '/review/color-personality', '/review/nail-studio']
   const useNavbar = [
     `/`,
     `/shop`,
@@ -65,6 +66,7 @@ export default function RootLayout({
     `/designer/${id}`,
     ...communityPaths,
     ...accountPaths,
+    ...reviewPaths,
     ...aiPaths,
   ].includes(pathName)
   const useFooter = [
@@ -77,6 +79,7 @@ export default function RootLayout({
     `/designer/${id}`,
     ...communityPaths,
     ...accountPaths,
+    ...reviewPaths,
     ...aiPaths,
   ].includes(pathName)
   const useHeroBgSolidGreen = [`/`].includes(pathName)
