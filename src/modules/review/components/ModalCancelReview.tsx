@@ -1,21 +1,21 @@
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { Modal } from 'antd'
-import { EmojiSad } from 'iconsax-reactjs'
+import { InfoCircle } from 'iconsax-reactjs'
 import React from 'react'
 import styles from './Modal.module.scss'
 
-export interface ModalCancelMembershipProps {
+export interface ModalCancelReviewProps {
   isOpen: boolean
-  onClose: () => void
+  onCancel: () => void
   onConfirm: () => void
 }
 
-const ModalCancelMembership: React.FC<ModalCancelMembershipProps> = ({ isOpen, onClose, onConfirm }) => {
+const ModalCancelReview: React.FC<ModalCancelReviewProps> = ({ isOpen, onCancel, onConfirm }) => {
   return (
     <Modal
       open={isOpen}
-      onCancel={onClose}
+      onCancel={onCancel}
       className={styles['modal__delete']}
       closable={false}
       footer={() => (
@@ -24,7 +24,7 @@ const ModalCancelMembership: React.FC<ModalCancelMembershipProps> = ({ isOpen, o
             variant="fullwidth"
             color="danger"
             className={styles['btn_cancel']}
-            onClick={onClose}
+            onClick={onCancel}
             style={{ backgroundColor: '#fff' }}
             size="lg"
           >
@@ -38,17 +38,17 @@ const ModalCancelMembership: React.FC<ModalCancelMembershipProps> = ({ isOpen, o
     >
       <div className={styles['modal__delete__content']}>
         <div className={styles['trash_icon']}>
-          <EmojiSad size={24} />
+          <InfoCircle size={24} />
         </div>
       </div>
       <BaseTypography as="p" size="header6" weight="bold" style={{ marginBottom: 8 }}>
-        회원 탈퇴
+        리뷰가 완료되지 않았습니다
       </BaseTypography>
       <BaseTypography as="p" size="body1" color="neutral-500">
-        회원 탈퇴 시, 30일간 동일 번호로 <br /> 회원 가입이 불가능합니다.
+        뒤로 클릭하면 사라지고 다시 0부터 채워야 합니다.
       </BaseTypography>
     </Modal>
   )
 }
 
-export default ModalCancelMembership
+export default ModalCancelReview

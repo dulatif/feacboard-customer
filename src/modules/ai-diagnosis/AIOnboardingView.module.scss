@@ -36,26 +36,26 @@
       }
     }
   }
+}
 
-  & .diagnosis_badge {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    width: fit-content;
-    padding: 8px;
-    border-radius: 8px;
+.diagnosis_badge {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 8px;
 
-    &.diagnosis_badge--manual {
-      background-color: var(--color-secondary-25);
-      p {
-        color: var(--color-secondary-600) !important;
-      }
+  &.diagnosis_badge--manual {
+    background-color: var(--color-secondary-25);
+    p {
+      color: var(--color-secondary-600) !important;
     }
-    &.diagnosis_badge--ai {
-      background-color: var(--color-primary-25);
-      p {
-        color: var(--color-primary-600) !important;
-      }
+  }
+  &.diagnosis_badge--ai {
+    background-color: var(--color-primary-25);
+    p {
+      color: var(--color-primary-600) !important;
     }
   }
 }
