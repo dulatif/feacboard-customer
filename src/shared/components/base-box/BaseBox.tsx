@@ -29,6 +29,7 @@ export interface BaseBoxProps {
   borderColor?: Color
   shadow?: Shadow
   className?: string
+  width?: number
 }
 
 export const BaseBox: React.FC<BaseBoxProps> = ({
@@ -40,6 +41,7 @@ export const BaseBox: React.FC<BaseBoxProps> = ({
   background = 'white',
   borderColor = 'neutral-25',
   shadow = 'no-shadow',
+  width = '100%',
   className,
 }) => {
   const paddingXClass = `px-${(padding.x ?? 'spacing-16px').replace('spacing-', '')}`
@@ -61,7 +63,7 @@ export const BaseBox: React.FC<BaseBoxProps> = ({
         shadow !== 'no-shadow' && `base-box--shadow-${shadow}`,
         className,
       )}
-      style={{ borderWidth }}
+      style={{ borderWidth, width }}
     >
       {children}
     </div>
