@@ -1,19 +1,21 @@
 'use client'
 import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
+import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcrumb'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
+import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
-import { Avatar, Space } from 'antd'
+import { Flex, Space } from 'antd'
 import Link from 'next/link'
 import { CaretLeft } from 'phosphor-react'
 import { useState } from 'react'
-import ReviewRatingRow from '../components/ReviewRatingRow'
 import UploadReviewPhotos from '../components/UploadReviewPhotos'
+import ReviewRatingRow from '../components/ReviewRatingRow'
 import ReviewTypeButton, { reviewTypes } from '../components/ReviewTypeButton'
 
-const ReviewHairMakeUpView = () => {
+const ReviewNailStuidioView = () => {
   const [reviewType, setReviewType] = useState('text')
   const breadcrumbs = [
     {
@@ -43,16 +45,6 @@ const ReviewHairMakeUpView = () => {
         <ReviewRatingRow label="1. 청결은 어떤가요?" />
         <ReviewRatingRow label="2. 환대는 어때요?" />
         <ReviewRatingRow label="3. 속도는 어때요?" />
-        <ReviewRatingRow
-          label={
-            <Space align="center" size={8}>
-              <Avatar src={'/dummy/face03.png'} alt="user avatar" size={40} />
-              <BaseTypography as="p" size="body1" variant="aleo" weight="semibold">
-                한별 팀장 (글래드 강남점)
-              </BaseTypography>
-            </Space>
-          }
-        />
       </Space>
 
       <Space direction="vertical" size={40} style={{ marginTop: '40px', width: '100%' }}>
@@ -89,4 +81,4 @@ const ReviewHairMakeUpView = () => {
   )
 }
 
-export default ReviewHairMakeUpView
+export default ReviewNailStuidioView

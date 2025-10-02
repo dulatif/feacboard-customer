@@ -90,6 +90,7 @@ export default function RootLayout({
     `/reservation`,
     `/cart`,
     ...communityPaths,
+    ...reviewPaths,
     ...accountPaths,
     ...aiPaths,
   ].includes(pathName)

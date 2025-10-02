@@ -1,7 +1,12 @@
+import ReviewNailStuidioView from '@/modules/review/features/ReviewNailStudioView'
 import React from 'react'
 
 const ReviewNailStudioPage = () => {
-  return <div>ReviewNailStudioPage</div>
+  return (
+    <>
+      <ReviewNailStuidioView />
+    </>
+  )
 }
 
 export default ReviewNailStudioPage
