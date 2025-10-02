@@ -7,10 +7,12 @@ import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { Flex, Space } from 'antd'
-import Link from 'next/link'
 import { CaretLeft } from 'phosphor-react'
+import { useState } from 'react'
+import ModalCancelReview from '../components/ModalCancelReview'
 
 const ReviewColorPersonalityView = () => {
+  const [showModalCancel, setShowModalCancel] = useState(false)
   const breadcrumbs = [
     {
       title: '홈',
@@ -22,35 +24,42 @@ const ReviewColorPersonalityView = () => {
       title: '리뷰 작성',
     },
   ]
+
   return (
-    <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
-      <BaseBreadcrumb items={breadcrumbs} style={{ marginBottom: '16px' }} />
-      <Link href="/">
+    <>
+      <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
+        <BaseBreadcrumb items={breadcrumbs} style={{ marginBottom: '16px' }} />
         <BaseButton
           color="secondary-neutral"
           icon={<CaretLeft weight="bold" size={20} />}
           style={{ marginBottom: '40px ' }}
+          onClick={() => setShowModalCancel(true)}
         >
           프로필
         </BaseButton>
-      </Link>
 
-      <Space direction="vertical" size={16} style={{ width: '100%' }}>
-        <BaseBox shadow="no-shadow" borderWidth={2} padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
-          <Flex justify="space-between" align="center">
-            <DiagnosisTypeBadge type="ai" />
-            <BaseRate defaultValue={0} />
-          </Flex>
-        </BaseBox>
-      </Space>
+        <Space direction="vertical" size={16} style={{ width: '100%' }}>
+          <BaseBox shadow="no-shadow" borderWidth={2} padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
+            <Flex justify="space-between" align="center">
+              <DiagnosisTypeBadge type="ai" />
+              <BaseRate defaultValue={0} />
+            </Flex>
+          </BaseBox>
+        </Space>
 
-      <Space direction="vertical" size={40} style={{ marginTop: '40px', width: '100%' }}>
-        <BaseTextarea placeholder="뭔가 신나는 걸 써봐" autoSize={{ minRows: 5, maxRows: 6 }} />
-        <BaseButton size="xl" variant="fullwidth">
-          작성 완료
-        </BaseButton>
-      </Space>
-    </BaseContainer>
+        <Space direction="vertical" size={40} style={{ marginTop: '40px', width: '100%' }}>
+          <BaseTextarea placeholder="뭔가 신나는 걸 써봐" autoSize={{ minRows: 5, maxRows: 6 }} />
+          <BaseButton size="xl" variant="fullwidth">
+            작성 완료
+          </BaseButton>
+        </Space>
+      </BaseContainer>
+      <ModalCancelReview
+        isOpen={showModalCancel}
+        onConfirm={() => setShowModalCancel(false)}
+        onCancel={() => setShowModalCancel(false)}
+      />
+    </>
   )
 }
 
