@@ -8,6 +8,7 @@ export const en: TranslationShape = {
         my: 'My Account',
         aiDiagnosis: 'AI Diagnosis',
         reservation: 'Reservation',
+        message: 'Messages',
       },
       profile: {
         hello: 'Hello!',

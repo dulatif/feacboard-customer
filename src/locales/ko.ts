@@ -8,6 +8,7 @@ export const ko: TranslationShape = {
         my: 'MY',
         aiDiagnosis: 'AI진단',
         reservation: '예약 내역',
+        message: '메시지',
       },
       profile: {
         hello: '안녕하세요!',

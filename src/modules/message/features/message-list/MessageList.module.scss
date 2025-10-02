@@ -1,0 +1,9 @@
+@use '@/styles/scrollbar' as *;
+.message-list {
+  .message-list__user-list {
+    height: 60vh;
+    overflow: scroll;
+    padding-right: 12px;
+    @extend .custom-scrollbar;
+  }
+}

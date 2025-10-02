@@ -56,14 +56,15 @@ export default function RootLayout({
   const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
   const reviewPaths = ['/review', '/review/hair-makeup', '/review/color-personality', '/review/nail-studio']
+  const reservationPaths = [`/reservation`, `/reservation/${id}`]
   const useNavbar = [
     `/`,
     `/shop`,
-    `/reservation`,
-    `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
     `/designer/${id}`,
+    '/message',
+    ...reservationPaths,
     ...communityPaths,
     ...accountPaths,
     ...reviewPaths,
@@ -72,11 +73,11 @@ export default function RootLayout({
   const useFooter = [
     `/`,
     `/shop`,
-    `/reservation`,
-    `/reservation/${id}`,
     `/shop/${id}/details`,
     `/cart`,
     `/designer/${id}`,
+    '/message',
+    ...reservationPaths,
     ...communityPaths,
     ...accountPaths,
     ...reviewPaths,

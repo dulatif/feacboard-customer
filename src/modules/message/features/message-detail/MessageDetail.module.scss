@@ -1,0 +1,12 @@
+@use '@/styles/scrollbar' as *;
+.message-detail__chat-history {
+  height: calc(60vh - 44px);
+  overflow: scroll;
+  padding-right: 12px;
+  @extend .custom-scrollbar;
+  .message-detail__date {
+    background-color: #eaecf0;
+    padding: 8px;
+    border-radius: 16px;
+  }
+}
