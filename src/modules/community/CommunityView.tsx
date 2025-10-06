@@ -1,15 +1,14 @@
 'use client'
-import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
-import { Button } from 'antd'
-import { CaretLeft } from 'phosphor-react'
-import styles from './CommunityView.module.scss'
-import Post, { IPost, PostProps } from './components/Post'
-import CreatePost from './components/CreatePost'
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
-import ModalPost from './components/ModalPost'
+import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { usePathname } from 'next/navigation'
+import { CaretLeft } from 'phosphor-react'
 import { useState } from 'react'
+import styles from './CommunityView.module.scss'
+import CreatePost from './components/CreatePost'
+import ModalPost from './components/ModalPost'
+import Post, { IPost, PostProps } from './components/Post'
 
 const dummyPhotos = [
   '/dummy/community-post.jpg',
@@ -104,11 +103,15 @@ const CommunityView = () => {
             <BaseTypography as="p" size="caption">
               홈 / 커뮤니티
             </BaseTypography>
-            <Link href="/community">
-              <Button style={{ marginTop: 24 }} icon={<CaretLeft weight="bold" />}>
-                뒤로가기
-              </Button>
-            </Link>
+            <BaseButton
+              color="secondary-neutral"
+              href="/community"
+              style={{ marginTop: 24 }}
+              size="xl"
+              icon={<CaretLeft weight="bold" />}
+            >
+              뒤로가기
+            </BaseButton>
           </div>
           <div className={`${styles['community__content']} ${styles['community__posts']}`}>
             {postId ? (
