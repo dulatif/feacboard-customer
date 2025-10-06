@@ -8,6 +8,7 @@ import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import { Avatar } from 'antd'
 import Image from 'next/image'
 import styles from './BannerProfile.module.scss'
+import Link from 'next/link'
 
 export interface BannerProfileProps {
   breadcrumbItems: BaseBreadcrumbProps['items']
@@ -25,9 +26,11 @@ export const BannerProfile: React.FC<BannerProfileProps> = ({ breadcrumbItems })
                 <BaseTypography as="h6" size="header6" weight="semibold" color="white">
                   텡쿠 후안샤
                 </BaseTypography>
-                <BaseButton variant="link" icon={<ChevronRightIcon width={16} height={16} />} iconPosition="end">
-                  계정 편집
-                </BaseButton>
+                <Link href="/my-account/edit-profile">
+                  <BaseButton variant="link" icon={<ChevronRightIcon width={16} height={16} />} iconPosition="end">
+                    계정 편집
+                  </BaseButton>
+                </Link>
               </BaseFlex>
             </BaseFlex>
             <BaseBadge

@@ -192,7 +192,9 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                 <BaseTypography as="p" size="body1" color="success-600">
                   + 100점
                 </BaseTypography>
-                <BaseButton icon={<Edit02Icon width={20} height={20} />}>리뷰를 쓰다</BaseButton>
+                <Link href={`/review/${category === 'nail' ? 'nail-studio' : 'hair-makeup'}`}>
+                  <BaseButton icon={<Edit02Icon width={20} height={20} />}>리뷰를 쓰다</BaseButton>
+                </Link>
               </BaseFlex>
             ) : status === 'in-progress' && reservationCode ? (
               <BaseTypography as="h6" size="header6" weight="bold" color="success-600">

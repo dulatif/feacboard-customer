@@ -10,8 +10,11 @@ import { Flex, Space } from 'antd'
 import { CaretLeft } from 'phosphor-react'
 import { useState } from 'react'
 import ModalCancelReview from '../components/ModalCancelReview'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const ReviewColorPersonalityView = () => {
+  const searchParams = useSearchParams()
+  const category = searchParams.get('category')
   const [showModalCancel, setShowModalCancel] = useState(false)
   const breadcrumbs = [
     {
@@ -41,7 +44,7 @@ const ReviewColorPersonalityView = () => {
         <Space direction="vertical" size={16} style={{ width: '100%' }}>
           <BaseBox shadow="no-shadow" borderWidth={2} padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
             <Flex justify="space-between" align="center">
-              <DiagnosisTypeBadge type="ai" />
+              <DiagnosisTypeBadge type={category?.includes('ai') ? 'ai' : 'manual'} />
               <BaseRate defaultValue={0} />
             </Flex>
           </BaseBox>
