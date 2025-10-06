@@ -111,6 +111,7 @@ export const ReservationList = () => {
         total: 3000,
       },
     },
+
     {
       category: 'hair',
       status: 'pending',
@@ -131,6 +132,36 @@ export const ReservationList = () => {
           price: 500,
         },
       ],
+    },
+    {
+      category: 'nail',
+      status: 'completed',
+      date: '2025-10-01',
+      reservedDate: '2025-10-05',
+      reservationCode: 'ABC123',
+      store: '강남 살롱',
+      items: [
+        {
+          title: '이발',
+          price: 500,
+        },
+        {
+          title: '머리를 감으세요',
+          price: 500,
+        },
+        {
+          title: '머리색',
+          price: 700,
+        },
+        {
+          title: '그레이',
+          price: 3000,
+        },
+      ],
+      addons: {
+        items: ['그레이'],
+        total: 3000,
+      },
     },
     {
       category: 'nail',

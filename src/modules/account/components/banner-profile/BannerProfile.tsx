@@ -25,7 +25,12 @@ export const BannerProfile: React.FC<BannerProfileProps> = ({ breadcrumbItems })
                 <BaseTypography as="h6" size="header6" weight="semibold" color="white">
                   텡쿠 후안샤
                 </BaseTypography>
-                <BaseButton variant="link" icon={<ChevronRightIcon width={16} height={16} />} iconPosition="end">
+                <BaseButton
+                  variant="link"
+                  href="/my-account/edit-profile"
+                  icon={<ChevronRightIcon width={16} height={16} />}
+                  iconPosition="end"
+                >
                   계정 편집
                 </BaseButton>
               </BaseFlex>

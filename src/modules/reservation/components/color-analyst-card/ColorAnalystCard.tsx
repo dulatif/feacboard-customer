@@ -12,6 +12,7 @@ import Edit02Icon from '@/shared/components/icons/Edit02Icon'
 import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import CheckCircleIcon from '@/shared/components/icons/CheckCircleIcon'
 import { BaseImage } from '@/shared/components/base-image/BaseImage'
+import Link from 'next/link'
 
 type Category = 'ai-diagnosis' | 'manual-diagnosis'
 type Status = 'in-progress' | 'completed' | 'failed'
@@ -163,7 +164,7 @@ export const ColorAnalystCard: React.FC<ColorAnalystCardProps> = ({ data }) => {
                   <BaseTypography as="p" size="body1" color="success-500">
                     + 100점
                   </BaseTypography>
-                  <BaseButton size="lg" icon={<Edit02Icon />}>
+                  <BaseButton size="lg" icon={<Edit02Icon />} href={`/review/color-personality?category=${category}`}>
                     리뷰를 쓰다
                   </BaseButton>
                 </BaseFlex>
