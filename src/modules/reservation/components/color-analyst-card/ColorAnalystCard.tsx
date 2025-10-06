@@ -164,11 +164,9 @@ export const ColorAnalystCard: React.FC<ColorAnalystCardProps> = ({ data }) => {
                   <BaseTypography as="p" size="body1" color="success-500">
                     + 100점
                   </BaseTypography>
-                  <Link href={`/review/color-personality?category=${category}`}>
-                    <BaseButton size="lg" icon={<Edit02Icon />}>
-                      리뷰를 쓰다
-                    </BaseButton>
-                  </Link>
+                  <BaseButton size="lg" icon={<Edit02Icon />} href={`/review/color-personality?category=${category}`}>
+                    리뷰를 쓰다
+                  </BaseButton>
                 </BaseFlex>
               )}
             </>

@@ -7,10 +7,10 @@ import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { Flex, Space } from 'antd'
+import { useSearchParams } from 'next/navigation'
 import { CaretLeft } from 'phosphor-react'
 import { useState } from 'react'
 import ModalCancelReview from '../components/ModalCancelReview'
-import { usePathname, useSearchParams } from 'next/navigation'
 
 const ReviewColorPersonalityView = () => {
   const searchParams = useSearchParams()
