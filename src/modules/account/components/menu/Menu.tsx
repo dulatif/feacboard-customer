@@ -1,28 +1,20 @@
 'use client'
-import { BaseMenu } from '@/shared/components/base-menu/BaseMenu'
-import React, { SetStateAction } from 'react'
-import { MenuItem } from '@/shared/components/base-menu/BaseMenu'
-import PointIcon from '@/shared/components/icons/PointIcon'
-import InformationIcon from '@/shared/components/icons/InformationIcon'
-import EventIcon from '@/shared/components/icons/EventIcon'
-import CustomerServiceIcon from '@/shared/components/icons/CustomerServiceIcon'
-import FaqIcon from '@/shared/components/icons/FaqIcon'
-import BookmarkIcon from '@/shared/components/icons/BookmarkIcon'
-import BellIcon from '@/shared/components/icons/BellIcon'
-import VerifiedIcon from '@/shared/components/icons/VerifiedIcon'
-import SettingIcon from '@/shared/components/icons/SettingIcon'
-import SignOutIcon from '@/shared/components/icons/SignOutIcon'
-import InformationFilledIcon from '@/shared/components/icons/InformationFilledIcon'
-import EventFilledIcon from '@/shared/components/icons/EventFilledIcon'
-import CustomerServiceFilledIcon from '@/shared/components/icons/CustomerServiceFilledIcon'
-import FaqFilledIcon from '@/shared/components/icons/FaqFilledIcon'
-import BookmarkFilledIcon from '@/shared/components/icons/BookmarkFilledIcon'
-import BellFilledIcon from '@/shared/components/icons/BellFilledIcon'
-import VerifiedFilledIcon from '@/shared/components/icons/VerifiedFilledIcon'
-import SettingFilledIcon from '@/shared/components/icons/SettingFilledIcon'
-import PointFilledIcon from '@/shared/components/icons/PointFilledIcon'
-import { useRouter } from 'next/navigation'
+import { BaseMenu, MenuItem } from '@/shared/components/base-menu/BaseMenu'
 import { logout } from '@/shared/utils/auth'
+import {
+  Bookmark,
+  Check,
+  Coin1,
+  InfoCircle,
+  LogoutCurve,
+  MessageSearch,
+  Notification,
+  ShieldTick,
+  Stickynote,
+  UserTag,
+} from 'iconsax-reactjs'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 
 export enum MenuKey {
   PointDetails = 'point-details',
@@ -92,52 +84,52 @@ export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {
   return [
     {
       key: MenuKey['PointDetails'],
-      icon: selectedMenu === MenuKey['PointDetails'] ? <PointFilledIcon /> : <PointIcon />,
+      icon: selectedMenu === MenuKey['PointDetails'] ? <Coin1 variant="Bulk" /> : <Coin1 />,
       label: '포인트 내역',
     },
     {
       key: MenuKey['Information'],
-      icon: selectedMenu === MenuKey['Information'] ? <InformationFilledIcon /> : <InformationIcon />,
+      icon: selectedMenu === MenuKey['Information'] ? <InfoCircle variant="Bulk" /> : <InfoCircle />,
       label: '발표',
     },
     {
       key: MenuKey['Event'],
-      icon: selectedMenu === MenuKey['Event'] ? <EventFilledIcon /> : <EventIcon />,
+      icon: selectedMenu === MenuKey['Event'] ? <Stickynote variant="Bulk" /> : <Stickynote />,
       label: '이벤트',
     },
     {
       key: MenuKey['CustomerService'],
-      icon: selectedMenu === MenuKey['CustomerService'] ? <CustomerServiceFilledIcon /> : <CustomerServiceIcon />,
+      icon: selectedMenu === MenuKey['CustomerService'] ? <UserTag variant="Bulk" /> : <UserTag />,
       label: '고객센터',
     },
     {
       key: MenuKey['Faq'],
-      icon: selectedMenu === MenuKey['Faq'] ? <FaqFilledIcon /> : <FaqIcon />,
+      icon: selectedMenu === MenuKey['Faq'] ? <MessageSearch variant="Bulk" /> : <MessageSearch />,
       label: '자주묻는질문',
     },
     {
       key: MenuKey['BookmarkedFeed'],
-      icon: selectedMenu === MenuKey['BookmarkedFeed'] ? <BookmarkFilledIcon /> : <BookmarkIcon />,
+      icon: selectedMenu === MenuKey['BookmarkedFeed'] ? <Bookmark variant="Bulk" /> : <Bookmark />,
       label: '북마크한 피드 조회',
     },
     {
       key: MenuKey['NotificationSettings'],
-      icon: selectedMenu === MenuKey['NotificationSettings'] ? <BellFilledIcon /> : <BellIcon />,
+      icon: selectedMenu === MenuKey['NotificationSettings'] ? <Notification variant="Bulk" /> : <Notification />,
       label: '알림 설정',
     },
     {
       key: MenuKey['Terms'],
-      icon: selectedMenu === MenuKey['Terms'] ? <VerifiedFilledIcon /> : <VerifiedIcon />,
+      icon: selectedMenu === MenuKey['Terms'] ? <ShieldTick variant="Bulk" /> : <ShieldTick />,
       label: '약관보기',
     },
     {
       key: MenuKey['License'],
-      icon: selectedMenu === MenuKey['License'] ? <SettingFilledIcon /> : <SettingIcon />,
+      icon: selectedMenu === MenuKey['License'] ? <Check variant="Bulk" /> : <Check />,
       label: '라이선스 정보',
     },
     {
       key: MenuKey['Signout'],
-      icon: <SignOutIcon />,
+      icon: <LogoutCurve />,
       label: '로그아웃',
     },
   ]
