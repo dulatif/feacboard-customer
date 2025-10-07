@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { UserCardProps } from '../../components/user-card/UserCard'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
@@ -65,8 +65,7 @@ export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId }) 
   ]
 
   const [messageText, setMessageText] = useState('')
-  const [messageHistory, setMessageHistory] = useState<Record<string, (typeof history)[number][]>>({})
-  useEffect(() => {
+  const messageHistory = useMemo(() => {
     const groupedByDate = history.reduce(
       (acc: Record<string, (typeof history)[number][]>, item) => {
         const dateKey = item.date.split(' ')[0] as string
@@ -78,7 +77,7 @@ export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId }) 
       },
       {} as Record<string, (typeof history)[number][]>,
     )
-    setMessageHistory(groupedByDate)
+    return groupedByDate
   }, [history])
 
   if (!selectedUserId) {
