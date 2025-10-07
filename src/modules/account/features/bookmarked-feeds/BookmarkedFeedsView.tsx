@@ -1,7 +1,13 @@
 'use client'
+import { dummyPosts } from '@/modules/community/CommunityView'
+import Post from '@/modules/community/components/Post'
+import { BaseBox } from '@/shared/components/base-box/BaseBox'
+import { BaseInput } from '@/shared/components/base-input/BaseInput'
+import { MagnifyingGlass } from 'phosphor-react'
 import { BannerProfile } from '../../components/banner-profile/BannerProfile'
 import { MenuKey } from '../../components/menu/Menu'
 import { withMenu } from '../../hoc/withMenu'
+import { Divider } from 'antd'
 
 export const BookmarkedFeedsView = () => {
   const breadcrumbItems = [
@@ -24,5 +30,23 @@ export const BookmarkedFeedsView = () => {
 }
 
 const Content = withMenu(() => {
-  return <div>BookMarkedFeedsView</div>
+  const bookmarkedPost = dummyPosts.filter((post) => !post.isMine)
+  return (
+    <div style={{ maxWidth: '768px' }}>
+      <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+        <BaseInput
+          placeholder="검색"
+          prefix={<MagnifyingGlass size={20} color="#667085" />}
+          style={{ marginBottom: '40px' }}
+        />
+        {bookmarkedPost.map((post, i) => (
+          <>
+            <Post key={post.post.id} bookmarked {...post} />
+
+            {i < bookmarkedPost.length - 1 && <Divider style={{ borderWidth: '2px', marginBottom: '44px' }} />}
+          </>
+        ))}
+      </BaseBox>
+    </div>
+  )
 }, MenuKey.BookmarkedFeed)
