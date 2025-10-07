@@ -40,6 +40,7 @@ export default function RootLayout({
     `/my-account`,
     `/my-account/bookmarked-feeds`,
     `/my-account/customer-service`,
+    `/my-account/customer-service/inquiry`,
     `/my-account/event`,
     `/my-account/event/${id}`,
     `/my-account/faq`,
