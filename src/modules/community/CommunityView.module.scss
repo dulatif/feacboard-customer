@@ -49,57 +49,6 @@
       font-size: 14px;
     }
 
-    .post {
-      margin-bottom: 16px;
-
-      // width: 100%;
-
-      .post__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 24px;
-
-        .user {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-
-          .avatar {
-            background-color: #f1f8fe;
-            color: #418575;
-          }
-        }
-
-        .post__action_btn {
-          border: none;
-          box-shadow: none;
-          padding: 0;
-        }
-      }
-      .post__footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding-bottom: 12px;
-
-        .button,
-        .button_like {
-          border: none;
-          box-shadow: none;
-          svg {
-            margin-top: 4px;
-          }
-        }
-        .button_like {
-          &:hover,
-          &.liked {
-            color: red;
-          }
-        }
-      }
-    }
-
     .slider-container {
       width: 100%;
 
@@ -218,6 +167,73 @@
     .btn_cancel {
       color: #ff5744 !important;
       border: 1px solid #ff5744 !important;
+    }
+  }
+}
+
+.post {
+  margin-bottom: 16px;
+
+  .post__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        background-color: #f1f8fe;
+        color: #418575;
+      }
+    }
+
+    .post__action_btn {
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+
+  .slider-container {
+    width: 100%;
+
+    .slider-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 8px 20px 8px;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+      }
+    }
+  }
+
+  .post__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 12px;
+
+    .button,
+    .button_like {
+      border: none;
+      box-shadow: none;
+      svg {
+        margin-top: 4px;
+      }
+    }
+    .button_like {
+      &:hover,
+      &.liked {
+        color: red;
+      }
     }
   }
 }

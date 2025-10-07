@@ -10,7 +10,7 @@ import CreatePost from './components/CreatePost'
 import ModalPost from './components/ModalPost'
 import Post, { IPost, PostProps } from './components/Post'
 
-const dummyPhotos = [
+export const dummyPhotos = [
   '/dummy/community-post.jpg',
   '/dummy/community-post.jpg',
   '/dummy/community-post.jpg',
@@ -21,7 +21,7 @@ const dummyPhotos = [
   '/dummy/community-post.jpg',
 ]
 
-const dummyPosts: PostProps[] = [
+export const dummyPosts: PostProps[] = [
   {
     post: {
       id: '1',

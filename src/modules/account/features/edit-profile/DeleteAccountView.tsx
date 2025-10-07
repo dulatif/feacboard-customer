@@ -73,7 +73,7 @@ const DeleteAccountView = () => {
             {showTextarea && <BaseTextarea defaultValue={'사유를 작성해주세요'} rows={5}></BaseTextarea>}
           </div>
 
-          <BaseTypography as="h6" size="subtitle1" variant="aleo">
+          <BaseTypography as="h6" size="subtitle1" variant="aleo" style={{ marginBottom: '40px' }}>
             <b>서비스 이용약관과, 개인정보 수집 동의</b> 약관에 따라, 회원을 탈퇴하여도 일부 데이터는 페이스보드 서버에
             저장될 수 있습니다.
           </BaseTypography>

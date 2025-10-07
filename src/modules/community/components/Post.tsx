@@ -3,13 +3,23 @@ import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { Avatar, Button, Dropdown, Input, Space } from 'antd'
 import Image from 'next/image'
-import { ChatCenteredText, DotsThreeVertical, Heart, NotePencil, PaperPlaneRight, Trash, User } from 'phosphor-react'
+import {
+  BookmarkSimple,
+  ChatCenteredText,
+  DotsThreeVertical,
+  Heart,
+  NotePencil,
+  PaperPlaneRight,
+  Trash,
+  User,
+} from 'phosphor-react'
 import React, { useState } from 'react'
 import Slider from 'react-slick'
 import styles from '../CommunityView.module.scss'
 import ModalDelete from './ModalDelete'
 import Link from 'next/link'
 import Comment from './Comment'
+import { Spacing } from '@/shared/types/spacing'
 
 export interface IPost {
   id?: string
@@ -27,13 +37,15 @@ export interface PostProps {
   post: IPost
   isMine?: boolean
   showComment?: boolean
+  bookmarked?: boolean
   onEdit?: (post: IPost) => void
 }
 
-const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, onEdit }) => {
+const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, bookmarked = false, onEdit }) => {
   const postId = '123'
   const [showModalDelete, setShowModalDelete] = useState(false)
   const [liked, setLiked] = useState(false)
+  const padding: Spacing = bookmarked ? 'spacing-0px' : 'spacing-16px'
   const settings = {
     className: 'center',
     centerMode: true,
@@ -49,7 +61,12 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
 
   return (
     <>
-      <BaseBox className={styles['post']}>
+      <BaseBox
+        className={`${styles['post']}`}
+        shadow={bookmarked ? 'no-shadow' : 'xs'}
+        bordered={!bookmarked}
+        padding={{ y: padding, x: padding }}
+      >
         <div className={styles['post__header']}>
           <div className={styles['user']}>
             <Avatar
@@ -66,6 +83,11 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
             <BaseTypography as="p" size="caption">
               {post.time}
             </BaseTypography>
+            {bookmarked && (
+              <Button className={styles['post__action_btn']} onClick={onLikeClick}>
+                <BookmarkSimple weight="fill" size={24} style={{ color: '#FC99A6' }} />
+              </Button>
+            )}
             {isMine && (
               <Dropdown
                 menu={{
