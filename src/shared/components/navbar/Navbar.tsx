@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 94) {
+      if (window.scrollY > 10) {
         setScrolled(true)
       } else {
         setScrolled(false)
