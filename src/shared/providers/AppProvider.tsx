@@ -1,8 +1,8 @@
 'use client'
-import { createContext, ReactNode, useContext, useEffect, useState, Dispatch, SetStateAction } from 'react'
-import i18n from '../../i18n'
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { Spin } from 'antd'
+import i18n from '../../i18n'
+import { BaseSpin } from '../components/base-spin/BaseSpin'
 
 export interface AppContextType {
   language: string
@@ -52,7 +52,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   if (!isLanguageReady) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Spin size="large" />
+        <BaseSpin size="large" />
       </div>
     )
   }
