@@ -9,20 +9,22 @@ export interface BaseSpinProps extends SpinProps {
   spinerLoadingColor?: string
 }
 export const BaseSpin: React.FC<BaseSpinProps> = ({
-  spinerLoading,
+  spinerLoading = true,
   spinerLoadingSize = 48,
   spinerLoadingColor = '#49C3D0',
   ...props
 }) => {
   return (
-    <Spin
-      {...props}
-      indicator={
-        spinerLoading ? (
-          <LoadingOutlined style={{ fontSize: spinerLoadingSize, color: spinerLoadingColor }} spin />
-        ) : undefined
-      }
-      className="base-spin"
-    />
+    <>
+      <Spin
+        {...props}
+        indicator={
+          spinerLoading ? (
+            <LoadingOutlined style={{ fontSize: spinerLoadingSize, color: spinerLoadingColor }} spin />
+          ) : undefined
+        }
+        className="base-spin"
+      />
+    </>
   )
 }
