@@ -46,7 +46,7 @@ export const StoreReview = () => {
         '벌써 2년째 이 샵에서만 파마를 하고 있어요. 처음 방문했을 때부터 지금까지 항상 만족스러운 결과를 얻고 있어서 다른 곳은 눈길도 안 가요. 디자이너분이 제 스타일과 얼굴형에 딱 맞는 디자인을 제안해주셔서 늘 로운 느낌으로 변신할 수 있고, 파마 유지력도 정말 훌륭해서 오랫동안 예쁜 스타일을 유지할 수 있어요',
       likes: 100000,
       category: 'before-after',
-      images: ['/dummy/review03.jpg', '/dummy/review04.jpg'],
+      images: ['/dummy/before01.png', '/dummy/after01.png'],
       videoThumbnails: [],
     },
     {
