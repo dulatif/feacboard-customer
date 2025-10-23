@@ -12,16 +12,16 @@ import styles from './BeforeAfter.module.scss'
 export const BeforeAfter = () => {
   const data = [
     {
-      before: ['/dummy/review03.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
-      after: ['/dummy/review04.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
+      before: ['/dummy/before01.png', '/dummy/before01.png'],
+      after: ['/dummy/after01.png', '/dummy/after01.png'],
     },
     {
-      before: ['/dummy/review03.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
-      after: ['/dummy/review04.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
+      before: ['/dummy/before01.png', '/dummy/before01.png'],
+      after: ['/dummy/after01.png', '/dummy/after01.png'],
     },
     {
-      before: ['/dummy/review03.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
-      after: ['/dummy/review04.jpg', '/dummy/makeup03.jpg', '/dummy/makeup04.jpg'],
+      before: ['/dummy/before01.png', '/dummy/before01.png'],
+      after: ['/dummy/after01.png', '/dummy/after01.png'],
     },
   ]
   const [beforePosition, setBeforePosition] = useState(0)

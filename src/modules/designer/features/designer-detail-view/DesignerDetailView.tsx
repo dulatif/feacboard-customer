@@ -87,19 +87,19 @@ export const DesignerDetailView = () => {
           <BaseFlex justify="space-between" padding={{ x: 'spacing-24px', y: 'spacing-24px' }} align="center">
             <BaseFlex gap="spacing-48px" align="center">
               <div>
-                <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={168} />
+                <Avatar src={'/dummy/designer01.jpg'} style={{ background: '#CFC3A7' }} size={168} />
               </div>
               <BaseFlex gap="spacing-16px" vertical>
                 <BaseFlex gap="spacing-16px" vertical>
                   <BaseTypography as="h1" size="subtitle1" weight="semibold" color="neutral-900">
-                    한별 팀장 (글래드 강남점)
+                    김선정원장
                   </BaseTypography>
                   <BaseFlex gap="spacing-8px">
                     <div>
                       <BuildingsIcon width={24} height={24} color="#344054" />
                     </div>
                     <BaseTypography as="p" size="body1" weight="regular" color="neutral-700">
-                      글래드 헤어 살롱 강남점
+                      낭만부티크
                     </BaseTypography>
                   </BaseFlex>
                 </BaseFlex>
