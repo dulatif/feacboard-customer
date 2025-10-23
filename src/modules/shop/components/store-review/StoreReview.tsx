@@ -39,8 +39,8 @@ export const StoreReview = () => {
       name: '검은고양이네로',
       picture: '/images/anonymous.svg',
       designer: {
-        name: '검은고양이네로',
-        picture: '/dummy/face03.png',
+        name: '김선정원장',
+        picture: '/dummy/designer01.jpg',
       },
       description:
         '벌써 2년째 이 샵에서만 파마를 하고 있어요. 처음 방문했을 때부터 지금까지 항상 만족스러운 결과를 얻고 있어서 다른 곳은 눈길도 안 가요. 디자이너분이 제 스타일과 얼굴형에 딱 맞는 디자인을 제안해주셔서 늘 로운 느낌으로 변신할 수 있고, 파마 유지력도 정말 훌륭해서 오랫동안 예쁜 스타일을 유지할 수 있어요',
@@ -55,8 +55,8 @@ export const StoreReview = () => {
       name: '검은고양이네로',
       picture: '/images/anonymous.svg',
       designer: {
-        name: '검은고양이네로',
-        picture: '/dummy/face03.png',
+        name: '김선정원장',
+        picture: '/dummy/designer01.jpg',
       },
       description:
         '벌써 2년째 이 샵에서만 파마를 하고 있어요. 처음 방문했을 때부터 지금까지 항상 만족스러운 결과를 얻고 있어서 다른 곳은 눈길도 안 가요. 디자이너분이 제 스타일과 얼굴형에 딱 맞는 디자인을 제안해주셔서 늘 로운 느낌으로 변신할 수 있고, 파마 유지력도 정말 훌륭해서 오랫동안 예쁜 스타일을 유지할 수 있어요',
@@ -204,10 +204,10 @@ export const StoreReview = () => {
               <BaseBox key={i} borderColor="neutral-300" radius="radius-8px">
                 <BaseFlex gap="spacing-16px" justify="space-between" align="center">
                   <BaseFlex gap="spacing-16px" align="center">
-                    <Avatar src={'/dummy/face03.png'} size={48} style={{ background: '#CFC3A7' }} />
+                    <Avatar src={'/dummy/designer01.jpg'} size={48} style={{ background: '#CFC3A7' }} />
                     <BaseFlex vertical gap="spacing-4px">
                       <BaseTypography as="p" size="body1" color="neutral-900" weight="semibold">
-                        텡쿠 후안샤
+                        김선정원장
                       </BaseTypography>
                       <BaseFlex gap="spacing-12px" align="center">
                         <BaseTypography as="p" size="tiny" color="neutral-500">
