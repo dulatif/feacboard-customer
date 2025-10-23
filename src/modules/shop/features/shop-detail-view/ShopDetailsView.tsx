@@ -37,7 +37,7 @@ export const ShopDetailsView = () => {
     images: ['/dummy/store01.jpg', '/dummy/store02.jpg', '/dummy/store03.jpg'],
     rating: 4.8,
     reviewersCount: 129,
-    storeName: '글래드 헤어 살롱 강남점',
+    storeName: '라리엔 가로수길',
     instagram: 'http://www.Instagram.com/glad_hair1',
   }
 
