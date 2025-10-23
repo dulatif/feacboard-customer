@@ -14,7 +14,7 @@ export const BasePagination: React.FC<BasePaginationProps> = ({ className, ...pr
       return (
         <a>
           <BaseButton color="secondary-neutral" icon={<ArrowLeftIcon width={20} height={20} />}>
-            이전에
+            이전
           </BaseButton>
         </a>
       )

@@ -11,7 +11,7 @@ export const StoreServices = () => {
     {
       image: '/dummy/service01.jpg',
       price: 43000,
-      title: '머리 색깔',
+      title: '염색',
       variants: [
         {
           title: '변형 1',
@@ -71,7 +71,7 @@ export const StoreServices = () => {
     {
       image: '/dummy/service01.jpg',
       price: 43000,
-      title: '머리 색깔',
+      title: '염색',
       variants: [
         {
           title: '변형 1',
@@ -131,7 +131,7 @@ export const StoreServices = () => {
     {
       image: '/dummy/service01.jpg',
       price: 43000,
-      title: '머리 색깔',
+      title: '염색',
       variants: [
         {
           title: '변형 1',
@@ -163,9 +163,9 @@ export const StoreServices = () => {
     <BaseFlex vertical gap="spacing-80px">
       <BaseFlex vertical gap="spacing-24px">
         <BaseFlex gap="spacing-16px">
-          <BaseInput size="large" placeholder="무언가를 검색하다" />
+          <BaseInput size="large" placeholder="디자이너 이름으로 검색" />
           <BaseButton icon={<MagnifyingGlass size={24} />} size="xl">
-            찾다
+            검색
           </BaseButton>
         </BaseFlex>
         <BaseFlex gap="spacing-16px">

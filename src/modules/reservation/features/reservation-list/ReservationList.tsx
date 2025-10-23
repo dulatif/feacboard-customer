@@ -191,7 +191,7 @@ export const ReservationList = () => {
       <BaseFlex vertical gap="spacing-48px" className={styles['reservation-list__wrapper']}>
         <BaseFlex vertical gap="spacing-24px">
           <div className={styles['reservation-list__filter']}>
-            <BaseInput placeholder="찾다 ..." prefix={<SearchIcon width={20} height={20} />} />
+            <BaseInput placeholder="검색 ..." prefix={<SearchIcon width={20} height={20} />} />
             <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
             <BaseRangePicker
               onChange={handleOnChaneDateRangePicker}

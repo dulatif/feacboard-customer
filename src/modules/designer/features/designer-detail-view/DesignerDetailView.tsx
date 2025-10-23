@@ -39,7 +39,7 @@ export const DesignerDetailView = () => {
   const tabItems: BaseTabsProps['items'] = [
     {
       key: '1',
-      label: '디자이너 서비스',
+      label: '시술 가능 상품',
       children: null,
     },
     {
@@ -127,14 +127,14 @@ export const DesignerDetailView = () => {
                 </BaseTypography>
               </BaseFlex>
               <BaseTypography as="p" size="body1" color="neutral-900" weight="regular">
-                40 명의 고객이 평가함
+                40개의 리뷰
               </BaseTypography>
             </BaseFlex>
           </BaseFlex>
         </BaseBox>
         <div className={styles['tab-navigation']}>
           <BaseTabs defaultActiveKey="1" onChange={(key) => setActiveTab(key)} gapContent="0px" items={tabItems} />
-          <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="뭔가를 찾아보다" size="large" />
+          <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="검색" size="large" />
         </div>
         {renderTabContent(activeTab)}
       </BaseFlex>

@@ -66,11 +66,11 @@ const ReviewNailStuidioView = () => {
           {reviewType === 'both' && (
             <>
               <Space direction="vertical" size={16}>
-                <BaseBadge variant="danger-100">~ 전에</BaseBadge>
+                <BaseBadge variant="danger-100">Before</BaseBadge>
                 <UploadReviewPhotos />
               </Space>
               <Space direction="vertical" size={16}>
-                <BaseBadge variant="success-100">~ 후에</BaseBadge>
+                <BaseBadge variant="success-100">After</BaseBadge>
                 <UploadReviewPhotos />
               </Space>
             </>

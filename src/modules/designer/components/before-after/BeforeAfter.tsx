@@ -39,7 +39,7 @@ export const BeforeAfter = () => {
             <BaseFlex gap="spacing-8px" align="center">
               <DocumentIcon color="#101828" />
               <BaseTypography as="p" size="body1" weight="regular" color="neutral-900">
-                서비스 유형 : 헤어 스무딩 {beforePosition}, {afterPosition}
+                시술 상품: 헤어 염색 {beforePosition}, {afterPosition}
               </BaseTypography>
             </BaseFlex>
             <Row gutter={[24, 24]}>
@@ -49,7 +49,7 @@ export const BeforeAfter = () => {
                     <BaseImageCarousel images={e.before} onChange={(current) => setBeforePosition(current)} />
                   </BaseImagesPreview>
                   <div className={styles['badge']}>
-                    <BaseBadge variant="danger-100">전에</BaseBadge>
+                    <BaseBadge variant="danger-100">Before</BaseBadge>
                   </div>
                 </div>
               </Col>
@@ -59,7 +59,7 @@ export const BeforeAfter = () => {
                     <BaseImageCarousel images={e.after} onChange={(current) => setAfterPosition(current)} />
                   </BaseImagesPreview>
                   <div className={styles['badge']}>
-                    <BaseBadge variant="success-100">후에</BaseBadge>
+                    <BaseBadge variant="success-100">After</BaseBadge>
                   </div>
                 </div>
               </Col>

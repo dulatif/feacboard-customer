@@ -37,25 +37,25 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
   const data: CartServiceItemCardProps[] = [
     {
       image: '/dummy/service01.jpg',
-      service: '헤어 스무딩',
+      service: '헤어 염색',
       addons: `샴푸 + 3,000원`,
       normalPrice: 10000,
       discountPrice: 8000,
     },
     {
       image: '/dummy/service01.jpg',
-      service: '헤어 스무딩',
+      service: '헤어 염색',
       normalPrice: 10000,
     },
     {
       image: '/dummy/service01.jpg',
-      service: '헤어 스무딩',
+      service: '헤어 염색',
       normalPrice: 10000,
       discountPrice: 8000,
     },
     {
       image: '/dummy/service01.jpg',
-      service: '헤어 스무딩',
+      service: '헤어 염색',
       normalPrice: 10000,
     },
   ]

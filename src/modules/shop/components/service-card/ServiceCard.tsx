@@ -106,7 +106,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, v
             >
               <BaseButton size="sm" color="secondary" icon={<CartIcon width={20} height={20} />} onClick={handleBuy} />
               <BaseButton size="sm" variant="fullwidth" onClick={handleBuy}>
-                구입하다
+                예약하기
               </BaseButton>
             </BaseFlex>
           </BaseFlex>

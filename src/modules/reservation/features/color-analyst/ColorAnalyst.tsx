@@ -74,7 +74,7 @@ export const ColorAnalyst = () => {
       <BaseFlex vertical gap="spacing-48px" className={styles['color-analyst__wrapper']}>
         <BaseFlex vertical gap="spacing-24px">
           <div className={styles['color-analyst__filter']}>
-            <BaseInput placeholder="찾다 ..." prefix={<SearchIcon width={20} height={20} />} />
+            <BaseInput placeholder="검색 ..." prefix={<SearchIcon width={20} height={20} />} />
             <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
             <BaseRangePicker
               onChange={handleOnChaneDateRangePicker}

@@ -48,7 +48,7 @@ export const StoreInformation = () => {
             </li>
             <li>
               <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                헤어 케어 프로그램
+                헤어 트리트먼트 프로그램
                 <br />
                 손상 모발 복구, 두피 케어 등 전문적인 관리 프로그램으로 머릿결과 두피 건강을 동시에 챙겨드립니다.
               </BaseTypography>

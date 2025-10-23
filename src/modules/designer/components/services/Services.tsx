@@ -10,7 +10,7 @@ export const Services = () => {
     {
       image: '/dummy/service01.jpg',
       price: 43000,
-      title: '머리 색깔',
+      title: '염색',
       variants: [
         {
           title: '변형 1',
@@ -70,7 +70,7 @@ export const Services = () => {
     {
       image: '/dummy/service01.jpg',
       price: 43000,
-      title: '머리 색깔',
+      title: '염색',
       variants: [
         {
           title: '변형 1',
@@ -132,9 +132,9 @@ export const Services = () => {
     <BaseFlex vertical gap="spacing-48px">
       <BaseFlex gap="spacing-16px">
         <BaseButton>헤어</BaseButton>
-        <BaseButton color="secondary-neutral">머리 자르기</BaseButton>
-        <BaseButton color="secondary-neutral">헤어 케어</BaseButton>
-        <BaseButton color="secondary-neutral">헤어 컬러링</BaseButton>
+        <BaseButton color="secondary-neutral">헤어 커트</BaseButton>
+        <BaseButton color="secondary-neutral">헤어 트리트먼트</BaseButton>
+        <BaseButton color="secondary-neutral">헤어 염색</BaseButton>
         <BaseButton color="secondary-neutral">헤어 펌</BaseButton>
       </BaseFlex>
       <BaseFlex vertical gap="spacing-24px">

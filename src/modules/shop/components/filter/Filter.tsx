@@ -20,9 +20,9 @@ export const Filter: React.FC<FilterProps> = ({ compact = false }) => {
         className={styles['filter__content']}
       >
         <BaseInput size="large" prefix={<MapMarkerIcon />} placeholder="강남" />
-        <BaseInput size="large" placeholder="무언가를 검색하다" />
+        <BaseInput size="large" placeholder="디자이너 이름으로 검색" />
         <BaseButton icon={<SearchIcon />} size="xl">
-          찾다
+          검색
         </BaseButton>
       </BaseBox>
     </div>

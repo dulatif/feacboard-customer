@@ -73,7 +73,7 @@ export const MessageList: React.FC<MessageListProps> = ({ selectedUserId, setSel
         <BaseTypography as="p" size="body1" weight="semibold" color="neutral-900">
           메시지
         </BaseTypography>
-        <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="뭔가를 찾아보다" size="large" />
+        <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="검색" size="large" />
         <div className={styles['message-list__user-list']}>
           <BaseFlex vertical gap="spacing-24px">
             {data.map((item, index) => (
