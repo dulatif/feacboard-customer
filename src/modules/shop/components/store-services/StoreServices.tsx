@@ -2,163 +2,14 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { MagnifyingGlass } from 'phosphor-react'
-import { ServiceCard } from '../service-card/ServiceCard'
+import { ServiceCard, ServiceCardProps } from '../service-card/ServiceCard'
 import styles from './StoreServices.module.scss'
 import { BasePagination } from '@/shared/components/base-pagination/BasePagination'
 
-export const StoreServices = () => {
-  const services = [
-    {
-      image: '/dummy/service01.jpg',
-      price: 43000,
-      title: '염색',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service02.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service03.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service03.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service01.jpg',
-      price: 43000,
-      title: '염색',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service02.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service03.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service03.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service01.jpg',
-      price: 43000,
-      title: '염색',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-    {
-      image: '/dummy/service02.jpg',
-      price: 43000,
-      title: '헤어컷',
-      variants: [
-        {
-          title: '변형 1',
-          options: ['변형 1', '변형 2', '변형 3', '변형 4'],
-        },
-        {
-          title: '변형 2',
-          options: ['변형 A', '변형 B', '변형 C', '변형 D'],
-        },
-      ],
-    },
-  ]
+export interface StoreServicesProps {
+  data: ServiceCardProps[]
+}
+export const StoreServices: React.FC<StoreServicesProps> = ({ data }) => {
   return (
     <BaseFlex vertical gap="spacing-80px">
       <BaseFlex vertical gap="spacing-24px">
@@ -176,7 +27,7 @@ export const StoreServices = () => {
       </BaseFlex>
       <BaseFlex vertical gap="spacing-40px">
         <div className={styles['service']}>
-          {services.map((service, i) => (
+          {data.map((service, i) => (
             <ServiceCard key={i} {...service} />
           ))}
         </div>

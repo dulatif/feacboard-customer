@@ -9,31 +9,39 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
 import StarIcon from '@/shared/components/icons/StarIcon'
 import { Avatar } from 'antd'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { CaretLeft, InstagramLogo, LinkSimpleHorizontal, MagnifyingGlass } from 'phosphor-react'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styles from './DesignerDetailView.module.scss'
 import { Services } from '../../components/services/Services'
 import { PersonalHistory } from '../../components/personal-history/PersonalHistory'
 import { Portfolio } from '../../components/portfolio/Portfolio'
 import { BeforeAfter } from '../../components/before-after/BeforeAfter'
+import { hair } from '@/shared/dummy/data'
 
 export const DesignerDetailView = () => {
   const router = useRouter()
-  const [breadcrumbItems, setBreadcrumbItems] = React.useState([
-    {
-      title: '홈',
-    },
-    {
-      title: '헤어',
-    },
-    {
-      title: '강남 살롱',
-    },
-    {
-      title: '디자이너 한별',
-    },
-  ])
+  const { id } = useParams()
+  const data = hair.designer.find((e) => e.id === id)
+  const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
+  useEffect(() => {
+    if (data) {
+      setBreadcrumbItems([
+        {
+          title: '홈',
+        },
+        {
+          title: hair.type,
+        },
+        {
+          title: data?.company,
+        },
+        {
+          title: data?.name,
+        },
+      ])
+    }
+  }, [id, data])
 
   const [activeTab, setActiveTab] = useState('1')
   const tabItems: BaseTabsProps['items'] = [
@@ -58,22 +66,8 @@ export const DesignerDetailView = () => {
       children: null,
     },
   ]
-  const renderTabContent = (activeTab: string) => {
-    if (activeTab === '1') {
-      return <Services />
-    }
-    if (activeTab === '2') {
-      return <Portfolio />
-    }
-    if (activeTab === '3') {
-      return <BeforeAfter />
-    }
-    if (activeTab === '4') {
-      return <PersonalHistory />
-    }
-    return null
-  }
 
+  if (!data) return null
   return (
     <BaseFlex vertical gap="spacing-24px" padding={{ y: 'spacing-24px' }}>
       <BaseBreadcrumb items={breadcrumbItems} />
@@ -87,19 +81,19 @@ export const DesignerDetailView = () => {
           <BaseFlex justify="space-between" padding={{ x: 'spacing-24px', y: 'spacing-24px' }} align="center">
             <BaseFlex gap="spacing-48px" align="center">
               <div>
-                <Avatar src={'/dummy/designer01.jpg'} style={{ background: '#CFC3A7' }} size={168} />
+                <Avatar src={data.picture} style={{ background: '#CFC3A7' }} size={168} />
               </div>
               <BaseFlex gap="spacing-16px" vertical>
                 <BaseFlex gap="spacing-16px" vertical>
                   <BaseTypography as="h1" size="subtitle1" weight="semibold" color="neutral-900">
-                    김선정원장
+                    {data.name}
                   </BaseTypography>
                   <BaseFlex gap="spacing-8px">
                     <div>
                       <BuildingsIcon width={24} height={24} color="#344054" />
                     </div>
                     <BaseTypography as="p" size="body1" weight="regular" color="neutral-700">
-                      낭만부티크
+                      {data.company}
                     </BaseTypography>
                   </BaseFlex>
                 </BaseFlex>
@@ -120,7 +114,7 @@ export const DesignerDetailView = () => {
               <BaseFlex align="center" gap="spacing-8px">
                 <StarIcon width={32} height={32} />
                 <BaseTypography as="h5" size="header5" weight="bold">
-                  4.8
+                  {data.rating}
                   <BaseTypography as="span" size="body1" color="neutral-500" weight="bold">
                     /5.0
                   </BaseTypography>
@@ -136,7 +130,15 @@ export const DesignerDetailView = () => {
           <BaseTabs defaultActiveKey="1" onChange={(key) => setActiveTab(key)} gapContent="0px" items={tabItems} />
           <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="검색" size="large" />
         </div>
-        {renderTabContent(activeTab)}
+        {activeTab === '1' ? (
+          <Services data={data.services || []} />
+        ) : activeTab === '2' ? (
+          <Portfolio data={data.portfolio || []} />
+        ) : activeTab === '3' ? (
+          <BeforeAfter data={data.beforeAfter || []} />
+        ) : activeTab === '4' ? (
+          <PersonalHistory />
+        ) : null}
       </BaseFlex>
     </BaseFlex>
   )

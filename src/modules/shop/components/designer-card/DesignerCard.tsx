@@ -17,6 +17,7 @@ import { UserCircle } from 'phosphor-react'
 import { useRouter } from 'next/navigation'
 
 export interface DesignerCardProps {
+  id: string
   picture: string
   name: string
   rating: number
@@ -28,6 +29,7 @@ export interface DesignerCardProps {
   services: ServiceCardProps[]
 }
 export const DesignerCard: React.FC<DesignerCardProps> = ({
+  id,
   availableHour,
   availableService,
   company,
@@ -91,7 +93,7 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
           </BaseFlex>
           <BaseFlex gap="spacing-24px" align="center">
             <BaseButton color="secondary" icon={<MessagesIcon width={20} height={20} />} />
-            <BaseButton onClick={() => handleRedirectToDesignerProfile('123')} icon={<UserCircle size={20} />}>
+            <BaseButton onClick={() => handleRedirectToDesignerProfile(id)} icon={<UserCircle size={20} />}>
               프로필 보기
             </BaseButton>
           </BaseFlex>
@@ -99,7 +101,7 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
 
         {/* Body */}
         <div className={styles['service']}>
-          {services.map((service, i) => (
+          {services.slice(0, 4).map((service, i) => (
             <ServiceCard key={i} {...service} />
           ))}
         </div>

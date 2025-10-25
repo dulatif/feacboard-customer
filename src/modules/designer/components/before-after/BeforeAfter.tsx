@@ -9,21 +9,13 @@ import { Col, Row } from 'antd'
 import { useState } from 'react'
 import styles from './BeforeAfter.module.scss'
 
-export const BeforeAfter = () => {
-  const data = [
-    {
-      before: ['/dummy/before01.png', '/dummy/before01.png'],
-      after: ['/dummy/after01.png', '/dummy/after01.png'],
-    },
-    {
-      before: ['/dummy/before01.png', '/dummy/before01.png'],
-      after: ['/dummy/after01.png', '/dummy/after01.png'],
-    },
-    {
-      before: ['/dummy/before01.png', '/dummy/before01.png'],
-      after: ['/dummy/after01.png', '/dummy/after01.png'],
-    },
-  ]
+export interface BeforeAfterProps {
+  data: {
+    before: string[]
+    after: string[]
+  }[]
+}
+export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
   const [beforePosition, setBeforePosition] = useState(0)
   const [afterPosition, setAfterPosition] = useState(0)
   return (

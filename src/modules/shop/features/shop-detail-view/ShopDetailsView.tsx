@@ -3,9 +3,9 @@ import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcru
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { CaretLeft } from 'phosphor-react'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StoreCard } from '../../components/store-card/StoreCard'
 import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 import { StoreInformation } from '../../components/store-information/StoreInformation'
@@ -13,56 +13,61 @@ import { StoreReview } from '../../components/store-review/StoreReview'
 import { StoreTidings } from '../../components/store-tidings/StoreTidings'
 import { Category } from '../../ShopView.utils'
 import { StoreServices } from '../../components/store-services/StoreServices'
+import { hair } from '@/shared/dummy/data'
 
 export const ShopDetailsView = () => {
   const router = useRouter()
+  const { id } = useParams()
   const searchParams = useSearchParams()
   const category = searchParams.get('category') as unknown as Category
-  const [breadcrumbItems, setBreadcrumbItems] = useState([
-    {
-      title: '홈',
-    },
-    {
-      title: '헤어',
-    },
-    {
-      title: '강남 살롱',
-    },
-  ])
+  const data = hair.shop.find((e) => e.id === id)
+  const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
+  useEffect(() => {
+    if (data) {
+      setBreadcrumbItems([
+        {
+          title: '홈',
+        },
+        {
+          title: hair.type,
+        },
+        {
+          title: data.storeName,
+        },
+      ])
+    }
+  }, [id, data])
 
-  const shopData = {
-    availableDesigners: 5,
-    close: '22:30',
-    open: '10:30',
-    images: ['/dummy/store01.jpg', '/dummy/store02.jpg', '/dummy/store03.jpg'],
-    rating: 4.8,
-    reviewersCount: 129,
-    storeName: '라리엔 가로수길',
-    instagram: 'http://www.Instagram.com/glad_hair1',
-  }
+  const tabItems: BaseTabsProps['items'] = useMemo(() => {
+    return [
+      {
+        key: '1',
+        label: ['nail', 'studio'].includes(category) ? '서비스' : '디자이너',
+        children: ['nail', 'studio'].includes(category) ? (
+          <StoreServices data={data?.services || []} />
+        ) : (
+          <StoreDesigners data={data?.designers || []} />
+        ),
+      },
+      {
+        key: '2',
+        label: '소식',
+        children: <StoreTidings data={data?.tidings || []} />,
+      },
+      {
+        key: '3',
+        label: '리뷰',
+        children: <StoreReview designers={data?.designers || []} reviews={(data?.reviews as any) || []} />,
+      },
+      {
+        key: '4',
+        label: '정보',
+        children: <StoreInformation data={{ storeName: data?.storeName || '' }} />,
+      },
+    ]
+  }, [data])
 
-  const tabItems: BaseTabsProps['items'] = [
-    {
-      key: '1',
-      label: ['nail', 'studio'].includes(category) ? '서비스' : '디자이너',
-      children: ['nail', 'studio'].includes(category) ? <StoreServices /> : <StoreDesigners />,
-    },
-    {
-      key: '2',
-      label: '소식',
-      children: <StoreTidings />,
-    },
-    {
-      key: '3',
-      label: '리뷰',
-      children: <StoreReview />,
-    },
-    {
-      key: '4',
-      label: '정보',
-      children: <StoreInformation />,
-    },
-  ]
+  if (!data) return null
   return (
     <BaseFlex vertical gap="spacing-32px" padding={{ y: 'spacing-24px' }}>
       <BaseBreadcrumb items={breadcrumbItems} />
@@ -83,7 +88,7 @@ export const ShopDetailsView = () => {
             vertical: true,
             gap: 'spacing-8px',
           }}
-          {...shopData}
+          {...data}
         />
 
         {/* Store Tabs */}

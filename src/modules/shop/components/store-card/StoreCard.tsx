@@ -15,6 +15,7 @@ import { Category } from '../../ShopView.utils'
 import { useRouter } from 'next/navigation'
 
 export interface StoreCardProps {
+  id: string
   images: string[]
   storeName: string
   rating: number
@@ -28,6 +29,7 @@ export interface StoreCardProps {
   category?: Category
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
+  id,
   availableDesigners,
   close,
   images,
@@ -53,7 +55,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
   return (
     <BaseBox className={styles['store-card']} {...containerProps}>
       <BaseFlex vertical gap="spacing-24px">
-        <div onClick={() => handleRedirect('123')} style={{ cursor: 'pointer' }}>
+        <div onClick={() => handleRedirect(id)} style={{ cursor: 'pointer' }}>
           <div className={styles['store-card__images']}>
             <div className={styles['store-card__images__primary']}>
               <BaseImage src={images[0]} height={427} alt="" />
@@ -67,7 +69,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
         </div>
         <BaseFlex justify="space-between" gap="spacing-14px" align="center">
           <BaseFlex vertical gap="spacing-16px">
-            <div onClick={() => handleRedirect('123')} style={{ cursor: 'pointer' }}>
+            <div onClick={() => handleRedirect(id)} style={{ cursor: 'pointer' }}>
               <BaseTypography as="h6" size="header6" weight="semibold">
                 {storeName}
               </BaseTypography>

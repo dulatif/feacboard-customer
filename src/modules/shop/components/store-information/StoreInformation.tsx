@@ -6,12 +6,17 @@ import React from 'react'
 import styles from './StoreInformation.module.scss'
 import OpenLinkIcon from '@/shared/components/icons/OpenLinkIcon'
 
-export const StoreInformation = () => {
+export interface StoreInformationProps {
+  data: {
+    storeName: string
+  }
+}
+export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
   return (
     <BaseFlex vertical gap="spacing-48px" className={styles['store-information']}>
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold">
-          글래드 헤어 살롱 강남점
+          {data.storeName}
         </BaseTypography>
         <BaseFlex vertical gap="spacing-8px">
           <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
