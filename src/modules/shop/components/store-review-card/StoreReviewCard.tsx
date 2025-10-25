@@ -98,7 +98,7 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
                 <BaseFlex gap="spacing-16px">
                   <div style={{ position: 'relative' }}>
                     <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
-                      <BaseBadge variant="danger-100">After</BaseBadge>
+                      <BaseBadge variant="danger-100">Before</BaseBadge>
                     </div>
                     <BaseImage src={images[0]} alt="" width={372} height={312} />
                   </div>
