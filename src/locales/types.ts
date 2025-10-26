@@ -27,6 +27,7 @@ export interface TranslationShape {
         colorTalk: string
         community: string
         ar: string
+        facialSkeleton: string
       }
     }
   }

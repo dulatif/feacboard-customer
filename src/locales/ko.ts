@@ -29,6 +29,7 @@ export const ko: TranslationShape = {
         colorTalk: '컬러톡',
         community: '커뮤니티',
         ar: 'AR',
+        facialSkeleton: '얼굴 골격',
       },
     },
   },
