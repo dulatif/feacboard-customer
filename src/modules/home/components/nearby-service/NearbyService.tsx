@@ -10,6 +10,8 @@ import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import StarIcon from '@/shared/components/icons/StarIcon'
+import { nail } from '@/shared/dummy/data'
+import Link from 'next/link'
 
 export const NearbyService = () => {
   return (
@@ -34,20 +36,22 @@ export const NearbyService = () => {
           <Row gutter={20}>
             {[1, 2, 3].map((e, i) => (
               <Col span={6} key={i}>
-                <BaseCard
-                  image="/dummy/store01.png"
-                  title={'영앤영헤어 강남점'}
-                  subtitle={
-                    <BaseBadge variant={'warning-25'} icon={<StarIcon width={20} height={20} />}>
-                      4.8 (129 리뷰)
-                    </BaseBadge>
-                  }
-                  footer={
-                    <BaseTypography as="p" color="neutral-500" size="body1">
-                      귀하의 위치에서 500m
-                    </BaseTypography>
-                  }
-                />
+                <Link href={`/shop/1/details`}>
+                  <BaseCard
+                    image={`/dummy/store0${i + 1}.jpg`}
+                    title={nail.shop[0].storeName}
+                    subtitle={
+                      <BaseBadge variant={'warning-25'} icon={<StarIcon width={20} height={20} />}>
+                        4.8 (129 리뷰)
+                      </BaseBadge>
+                    }
+                    footer={
+                      <BaseTypography as="p" color="neutral-500" size="body1">
+                        귀하의 위치에서 500m
+                      </BaseTypography>
+                    }
+                  />
+                </Link>
               </Col>
             ))}
             <Col span={6}>

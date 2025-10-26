@@ -1,6 +1,7 @@
 .container {
   .before,
   .after {
+    cursor: pointer;
     position: relative;
     .badge {
       position: absolute;

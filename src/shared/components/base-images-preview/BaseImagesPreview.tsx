@@ -1,9 +1,10 @@
 import { getFileTypeFromUrl, getVideoThumbnail } from '@/shared/utils/file'
 import { Flex, Image } from 'antd'
-import { ReactNode, useEffect, useMemo, useState } from 'react'
+import { ReactNode, SetStateAction, useEffect, useMemo, useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
 import { BaseImage } from '../base-image/BaseImage'
 import './BaseImagesPreview.scss'
+const { PreviewGroup } = Image
 
 const PlayIcon = () => {
   return (
@@ -23,37 +24,45 @@ export interface BaseImagesPreviewProps {
   fileCount?: boolean
   fileList: string[]
   start?: number
+  visible: boolean
+  setVisible: React.Dispatch<SetStateAction<boolean>>
 }
 export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({
   children,
   fileCount = true,
   fileList,
   start = 0,
+  visible,
+  setVisible,
 }) => {
-  const [visible, setVisible] = useState(false)
   const [thumbnails, setThumbnails] = useState<Record<number, string>>({})
   useEffect(() => {
-    fileList.forEach(async (url, idx) => {
-      if (getFileTypeFromUrl(url) === 'video') {
-        const thumb = await getVideoThumbnail(url)
-        const thumbUrl = typeof thumb === 'string' ? thumb : URL.createObjectURL(thumb)
-        setThumbnails((prev) => ({ ...prev, [idx]: thumbUrl }))
-      }
-    })
-  }, [])
+    if (fileList.length) {
+      fileList.forEach(async (url, idx) => {
+        if (getFileTypeFromUrl(url) === 'video') {
+          const thumb = await getVideoThumbnail(url)
+          const thumbUrl = typeof thumb === 'string' ? thumb : URL.createObjectURL(thumb)
+          setThumbnails((prev) => ({ ...prev, [idx]: thumbUrl }))
+        }
+      })
+    }
+  }, [fileList])
   const [current, setCurrent] = useState(start)
   useEffect(() => {
     setCurrent(start)
   }, [start])
   const [playing, setPlaying] = useState(false)
   const { fileType, source } = useMemo(() => {
+    if (!fileList?.length) {
+      return { source: undefined, fileType: undefined }
+    }
     const source = fileList[current]
     const fileType = getFileTypeFromUrl(source)
     return {
       source,
       fileType,
     }
-  }, [current, playing])
+  }, [current, playing, fileList])
 
   const handleMoveAsset = (index: number) => {
     setCurrent(index)
@@ -66,11 +75,15 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({
     setVisible(false)
   }
 
+  if (!fileList.length) {
+    return children
+  }
   return (
     <div className="base-image-preview">
-      <Image.PreviewGroup
+      <PreviewGroup
         items={fileList}
         preview={{
+          current,
           visible,
           onVisibleChange: (visible) => {
             if (!visible) {
@@ -149,12 +162,12 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({
               </Flex>
             </div>
           ),
-          onChange: (index) => {
+          onChange: (index, prevCurrent) => {
             handleMoveAsset(index)
           },
         }}
       >
-        <div className="base-image-preview__children" onClick={() => setVisible(true)}>
+        <div className="base-image-preview__children">
           <div>{children}</div>
           {fileCount && (
             <div className="base-image-preview__count">
@@ -162,7 +175,7 @@ export const BaseImagesPreview: React.FC<BaseImagesPreviewProps> = ({
             </div>
           )}
         </div>
-      </Image.PreviewGroup>
+      </PreviewGroup>
     </div>
   )
 }

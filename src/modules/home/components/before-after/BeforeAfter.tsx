@@ -55,7 +55,7 @@ export const BeforeAfter = () => {
                   </BaseFlex>
                 </Link>
                 <Row gutter={[24, 24]}>
-                  <Col key={i} span={12}>
+                  <Col key={`before-${i}`} span={12}>
                     <div className={styles['before']}>
                       <BaseImageCarousel
                         imageStyle={{ height: 270 }}
@@ -68,7 +68,7 @@ export const BeforeAfter = () => {
                       </div>
                     </div>
                   </Col>
-                  <Col key={i} span={12}>
+                  <Col key={`after-${i}`} span={12}>
                     <div className={styles['before']}>
                       <BaseImageCarousel
                         imageStyle={{ height: 270 }}

@@ -185,12 +185,12 @@ export const hair = {
       ],
       beforeAfter: [
         {
-          before: ['/dummy/before01.png', '/dummy/before01.png'],
-          after: ['/dummy/after01.png', '/dummy/after01.png'],
+          before: ['/dummy/before01.png'],
+          after: ['/dummy/after01.png'],
         },
         {
-          before: ['/dummy/before01.png', '/dummy/before01.png'],
-          after: ['/dummy/after01.png', '/dummy/after01.png'],
+          before: ['/dummy/before01.png'],
+          after: ['/dummy/after01.png'],
         },
       ],
     },
@@ -964,12 +964,12 @@ export const hair = {
           ],
           beforeAfter: [
             {
-              before: ['/dummy/before01.png', '/dummy/before01.png'],
-              after: ['/dummy/after01.png', '/dummy/after01.png'],
+              before: ['/dummy/before01.png'],
+              after: ['/dummy/after01.png'],
             },
             {
-              before: ['/dummy/before01.png', '/dummy/before01.png'],
-              after: ['/dummy/after01.png', '/dummy/after01.png'],
+              before: ['/dummy/before01.png'],
+              after: ['/dummy/after01.png'],
             },
           ],
         },

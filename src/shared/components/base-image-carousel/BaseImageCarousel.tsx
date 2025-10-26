@@ -10,6 +10,7 @@ export interface BaseImageCarouselProps {
   imageStyle?: React.CSSProperties
   btnOffset?: number
   onChange?: (currentSlide: number) => void
+  onImageClick?: (index: number) => void
 }
 export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({
   images,
@@ -19,6 +20,7 @@ export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({
     height: 490,
   },
   btnOffset = 40,
+  onImageClick,
 }) => {
   const onChange = (currentSlide: number) => {
     onChangeProps && onChangeProps(currentSlide)
@@ -35,37 +37,61 @@ export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({
   }
   return (
     <div className={'base-image-carousel'}>
-      <Carousel ref={carouselRef} afterChange={onChange}>
-        {images.map((e, i) => (
-          <div key={i} className={`base-image-carousel__item`}>
-            <div style={imageStyle}>
-              <Image src={e} fill alt="" objectFit="cover" />
-            </div>
-          </div>
-        ))}
-      </Carousel>
-      <BaseButton
-        onClick={prev}
-        color="secondary-neutral"
-        size="xl"
-        shape="circle"
-        icon={<CaretLeft color="#49C3D0" />}
-        className={`base-image-carousel__prev`}
-        style={{
-          left: btnOffset,
-        }}
-      />
-      <BaseButton
-        onClick={next}
-        color="secondary-neutral"
-        size="xl"
-        shape="circle"
-        icon={<CaretRight color="#49C3D0" />}
-        className={`base-image-carousel__next`}
-        style={{
-          right: btnOffset,
-        }}
-      />
+      {images.length > 1 ? (
+        <>
+          <Carousel ref={carouselRef} afterChange={onChange}>
+            {images.map((e, i) => (
+              <div key={i} className={`base-image-carousel__item`}>
+                <div style={imageStyle}>
+                  <Image
+                    src={e}
+                    fill
+                    alt=""
+                    objectFit="cover"
+                    onClick={
+                      onImageClick
+                        ? () => onImageClick(carouselRef.current.innerSlider.state.currentSlide || 0)
+                        : undefined
+                    }
+                  />
+                </div>
+              </div>
+            ))}
+          </Carousel>
+          <BaseButton
+            onClick={prev}
+            color="secondary-neutral"
+            size="xl"
+            shape="circle"
+            icon={<CaretLeft color="#49C3D0" />}
+            className={`base-image-carousel__prev`}
+            style={{
+              left: btnOffset,
+            }}
+          />
+          <BaseButton
+            onClick={next}
+            color="secondary-neutral"
+            size="xl"
+            shape="circle"
+            icon={<CaretRight color="#49C3D0" />}
+            className={`base-image-carousel__next`}
+            style={{
+              right: btnOffset,
+            }}
+          />
+        </>
+      ) : (
+        <div style={imageStyle}>
+          <Image
+            src={images[0]}
+            fill
+            alt=""
+            objectFit="cover"
+            onClick={onImageClick ? () => onImageClick(0) : undefined}
+          />
+        </div>
+      )}
     </div>
   )
 }
