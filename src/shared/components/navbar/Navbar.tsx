@@ -159,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                   shape="circle"
                   icon={
                     <Image
-                      src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
+                      src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/us.svg`}
                       width={24}
                       height={24}
                       alt="Stamp"

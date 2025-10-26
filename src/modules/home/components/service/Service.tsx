@@ -29,8 +29,8 @@ export const Service = () => {
       link: '/',
     },
     {
-      icon: '/icons/face-shape.svg',
-      labelKey: 'home.service.faceShape',
+      icon: '/icons/facial-skeleton.svg',
+      labelKey: 'home.service.facialSkeleton',
       link: '/',
     },
     {

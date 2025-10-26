@@ -29,6 +29,7 @@ export const en: TranslationShape = {
         colorTalk: 'Color Talk',
         community: 'Community',
         ar: 'AR',
+        facialSkeleton: 'Facial Skeleton',
       },
     },
   },
