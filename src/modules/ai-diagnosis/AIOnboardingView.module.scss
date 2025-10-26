@@ -1,4 +1,14 @@
+@use '@/styles/scrollbar' as *;
 .ai_onboarding {
+  .ai_onboarding__review {
+    overflow-x: scroll;
+    padding-bottom: 12px;
+    @extend .custom-scrollbar;
+    .ai_onboarding__review__item {
+      width: 384px;
+      flex: 0 0 auto;
+    }
+  }
   & .ai_onboarding__diagnosis_cards {
     display: flex;
     flex-direction: row;
@@ -20,7 +30,6 @@
   & .card-review {
     padding: 16px 35px;
     border-radius: 16px;
-    margin: 0 10px;
 
     .card-header {
       display: flex;

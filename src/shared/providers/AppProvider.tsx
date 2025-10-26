@@ -3,6 +3,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffe
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../../i18n'
 import { BaseSpin } from '../components/base-spin/BaseSpin'
+import { checkToken } from '../utils/auth'
 
 export interface AppContextType {
   language: string
@@ -15,6 +16,8 @@ export interface AppContextType {
     time: string
   } | null
   setAppointment: Dispatch<SetStateAction<AppContextType['appointment']>>
+  isAuthenticated: boolean
+  setIsAuthenticated: Dispatch<SetStateAction<AppContextType['isAuthenticated']>>
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -49,6 +52,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setLanguage(lang)
   }
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  useEffect(() => {
+    ;(async () => {
+      const res = await checkToken()
+      setIsAuthenticated(res.loggedIn)
+    })()
+  }, [])
+
   if (!isLanguageReady) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -66,6 +77,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setTotalCart,
         appointment,
         setAppointment,
+        isAuthenticated,
+        setIsAuthenticated,
       }}
     >
       <I18nextProvider i18n={i18n}>{children}</I18nextProvider>

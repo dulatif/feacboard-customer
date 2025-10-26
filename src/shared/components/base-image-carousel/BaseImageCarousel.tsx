@@ -7,9 +7,19 @@ import Image from 'next/image'
 
 export interface BaseImageCarouselProps {
   images: string[]
+  imageStyle?: React.CSSProperties
+  btnOffset?: number
   onChange?: (currentSlide: number) => void
 }
-export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({ images, onChange: onChangeProps }) => {
+export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({
+  images,
+  onChange: onChangeProps,
+  imageStyle = {
+    width: '100%',
+    height: 490,
+  },
+  btnOffset = 40,
+}) => {
   const onChange = (currentSlide: number) => {
     onChangeProps && onChangeProps(currentSlide)
   }
@@ -28,7 +38,9 @@ export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({ images, on
       <Carousel ref={carouselRef} afterChange={onChange}>
         {images.map((e, i) => (
           <div key={i} className={`base-image-carousel__item`}>
-            <Image src={e} fill alt="" objectFit="cover" />
+            <div style={imageStyle}>
+              <Image src={e} fill alt="" objectFit="cover" />
+            </div>
           </div>
         ))}
       </Carousel>
@@ -39,6 +51,9 @@ export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({ images, on
         shape="circle"
         icon={<CaretLeft color="#49C3D0" />}
         className={`base-image-carousel__prev`}
+        style={{
+          left: btnOffset,
+        }}
       />
       <BaseButton
         onClick={next}
@@ -47,6 +62,9 @@ export const BaseImageCarousel: React.FC<BaseImageCarouselProps> = ({ images, on
         shape="circle"
         icon={<CaretRight color="#49C3D0" />}
         className={`base-image-carousel__next`}
+        style={{
+          right: btnOffset,
+        }}
       />
     </div>
   )

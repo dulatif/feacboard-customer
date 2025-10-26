@@ -2,12 +2,11 @@ import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcru
 import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { Space } from 'antd'
-import React from 'react'
 import Image from 'next/image'
-import AIDIagnosisCard from './components/AIDiagnosisCard'
 import styles from './AIOnboardingView.module.scss'
+import AIDIagnosisCard from './components/AIDiagnosisCard'
 import CardReview from './components/CardReview'
-import Slider from 'react-slick'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 
 const AIOnboardingView = () => {
   const breadcrumbs = [
@@ -18,14 +17,6 @@ const AIOnboardingView = () => {
       title: 'AI진단',
     },
   ]
-  const settings = {
-    className: 'slider',
-    centerMode: true,
-    infinite: true,
-    centerPadding: '0px',
-    slidesToShow: 3,
-    speed: 500,
-  }
 
   return (
     <BaseContainer className={styles['ai_onboarding']} variant={1440} padding={{ y: 'spacing-40px' }}>
@@ -85,36 +76,21 @@ const AIOnboardingView = () => {
       <BaseTypography as="h6" size="subtitle1" weight="semibold" style={{ marginBottom: '24px' }}>
         개인 컬러 기능을 사용해 본 사람들의 말 😊
       </BaseTypography>
-      <Slider {...settings}>
-        <CardReview
-          avatarUrl="/dummy/face03.png"
-          userName="김지수"
-          rating={4}
-          type="manual"
-          reviewText="옷 색상과 액세서리 선택에 더 자신감이 생겼어요, 옷 색상과 액세서리 선택에 더 자신감이 생겼어요"
-        />
-        <CardReview
-          avatarUrl="/dummy/face03.png"
-          userName="김지수"
-          rating={5}
-          type="ai"
-          reviewText="옷 색상과 액세서리 선택에 더 자신감이 생겼어요, 옷 색상과 액세서리 선택에 더 자신감이 생겼어요"
-        />
-        <CardReview
-          avatarUrl="/dummy/face03.png"
-          userName="김지수"
-          rating={5}
-          type="ai"
-          reviewText="옷 색상과 액세서리 선택에 더 자신감이 생겼어요, 옷 색상과 액세서리 선택에 더 자신감이 생겼어요."
-        />
-        <CardReview
-          avatarUrl="/dummy/face03.png"
-          userName="김지수"
-          rating={4}
-          type="manual"
-          reviewText="옷 색상과 액세서리 선택에 더 자신감이 생겼어요, 옷 색상과 액세서리 선택에 더 자신감이 생겼어요"
-        />
-      </Slider>
+      <div className={styles['ai_onboarding__review']}>
+        <BaseFlex gap="spacing-24px">
+          {Array.from({ length: 6 }).map((e, i) => (
+            <div key={i} className={styles['ai_onboarding__review__item']}>
+              <CardReview
+                avatarUrl="/dummy/face03.png"
+                userName="김지수"
+                rating={4}
+                type="manual"
+                reviewText="옷 색상과 액세서리 선택에 더 자신감이 생겼어요, 옷 색상과 액세서리 선택에 더 자신감이 생겼어요"
+              />
+            </div>
+          ))}
+        </BaseFlex>
+      </div>
       {/* ===  */}
     </BaseContainer>
   )

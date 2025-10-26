@@ -2,21 +2,25 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
+  &:hover {
+    .base-image-carousel__prev,
+    .base-image-carousel__next {
+      opacity: 1;
+    }
+  }
   .base-image-carousel__prev {
+    opacity: 0;
     position: absolute;
     top: 50%;
-    left: 40px;
     transform: translateY(-50%);
   }
   .base-image-carousel__next {
+    opacity: 0;
     position: absolute;
     top: 50%;
-    right: 40px;
     transform: translateY(-50%);
   }
   .base-image-carousel__item {
-    width: 100%;
-    height: 490px;
     position: relative;
   }
 }

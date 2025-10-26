@@ -1,6 +1,5 @@
 'use client'
 import { useApp } from '@/shared/providers/AppProvider'
-import { checkToken } from '@/shared/utils/auth'
 import { Avatar, MenuProps } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,14 +20,7 @@ export interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const { t } = useTranslation()
   const pathName = usePathname()
-  const { language, setLanguage } = useApp()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  useEffect(() => {
-    ;(async () => {
-      const res = await checkToken()
-      setIsAuthenticated(res.loggedIn)
-    })()
-  }, [])
+  const { language, setLanguage, isAuthenticated } = useApp()
 
   // START HANDLE SCROLL
   const [scrolled, setScrolled] = useState(false)

@@ -28,6 +28,7 @@ export const en: TranslationShape = {
         beautyProcedure: 'Beauty / Treatment',
         colorTalk: 'Color Talk',
         community: 'Community',
+        ar: 'AR',
       },
     },
   },

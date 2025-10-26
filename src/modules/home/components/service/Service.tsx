@@ -24,8 +24,8 @@ export const Service = () => {
       link: '/',
     },
     {
-      icon: '/icons/color-playground.svg',
-      labelKey: 'home.service.colorPlayground',
+      icon: '/icons/ar.svg',
+      labelKey: 'home.service.ar',
       link: '/',
     },
     {

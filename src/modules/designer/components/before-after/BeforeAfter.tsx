@@ -31,7 +31,7 @@ export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
             <BaseFlex gap="spacing-8px" align="center">
               <DocumentIcon color="#101828" />
               <BaseTypography as="p" size="body1" weight="regular" color="neutral-900">
-                시술 상품: 헤어 염색 {beforePosition}, {afterPosition}
+                시술 상품: 헤어 염색
               </BaseTypography>
             </BaseFlex>
             <Row gutter={[24, 24]}>
@@ -46,7 +46,7 @@ export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
                 </div>
               </Col>
               <Col key={i} span={12}>
-                <div className={styles['before']}>
+                <div className={styles['after']}>
                   <BaseImagesPreview fileList={e.after} start={afterPosition} fileCount={false}>
                     <BaseImageCarousel images={e.after} onChange={(current) => setAfterPosition(current)} />
                   </BaseImagesPreview>

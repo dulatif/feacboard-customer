@@ -26,6 +26,7 @@ export interface TranslationShape {
         beautyProcedure: string
         colorTalk: string
         community: string
+        ar: string
       }
     }
   }

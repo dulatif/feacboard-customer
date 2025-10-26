@@ -21,7 +21,7 @@ export interface StoreReviewCardProps {
   }
   description: string
   likes: number
-  category?: 'before-after' | 'default'
+  category?: 'before-after' | 'default' | any
   images?: string[]
   videoThumbnails?: string[]
 }
