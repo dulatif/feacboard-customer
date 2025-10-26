@@ -193,6 +193,43 @@ export const hair = {
           after: ['/dummy/after01.png'],
         },
       ],
+      career: [
+        {
+          title: '국제퍼스널컬러협회 부회장',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: '서울대 ksmp master class 수료',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'ISO 국제표준대회 심사위원',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: ' 한국문화예술 표창 수상 등',
+          in: '',
+          out: '',
+          description: '',
+        },
+      ],
+      bio: `
+        헤어&메이크업 21년 경력으로 고객의 고유의 무드를 감각적으로 해석하여 디자인하여 수많은 아티스트들이 인정하는 김선정 원장입니다 
+10여년간 낭만부티크를 운영해오며 자체 디자이너들을 교육 양성, 기존에 없었던 마이크로 히피펌,허쉬붙임머리 등 다양한 디자인을 만들어낸 창시자입니다.
+디자인컷, 탈색, 복구염색,붙임머리,촬영헤어스타일링,메이크업 등을 전문으로 하며 퍼스널컬러 기반으로 고객의 두상과 얼굴형 체형에 가장 어울리는 무드를 완성합니다.
+그동안 함께해오는 셀럽 하하,립제이,모니카,스윙스,김경욱,퀸와사비,카모,쏠,엄지윤,소마,베이빌론,히밥,미소,마독스,노창,율음,저드,라드뮤지엄,지석진 등 
+대한민국의 트렌드를 선도하는 수많은 셀럽의 스타일을 책임져 온 경험으로, 평범한 일상에서도 무대 위처럼 빛나는 스타일을 제안해드립니다. 
+
+헤어는 단순한 기술이 아니라 당신만의 이미지를 완성하는 퍼스널 디자인 작업이라고 생각합니다 제가 해드리는 스타일은 고객님의 추구하는 분위기와 에너지를 드러내는것이라고 믿어요. 지금까지 다져온 탄탄한 경험을 당신의 일상에 자연스럽게 녹여드립니다. 당신의 일상도 충분히 특별해 질수 있어요! 믿고 찾아주신 마음에 보답하며 늘 초심으로 겸손하게 최선을 다해 작업해드릴게요!
+      `,
+      awards: ['인증살롱', '퍼스널컬러기술강사', '퍼스널컬러컨설턴트 1급,2급'],
+      certificates: ['최고의 디자이너', '최고의 디자이너'],
     },
     {
       id: '2',
@@ -283,6 +320,96 @@ export const hair = {
           after: ['/dummy/after03.jpg', '/dummy/after04.jpg'],
         },
       ],
+      career: [
+        {
+          title: '매직&레이어드펌&컬러 전문',
+          in: '',
+          out: '',
+          description:
+            '고객님의 고민을 귀기울이고 디테일한 카운셀링으로 단점을 장점으로 승화시키는 디자이너입니다. 디자이너의 진정성을 갖고 믿음과 신뢰 관계를 쌓는 디자이너로 다가서겠습니다.',
+        },
+        {
+          title: '라리엔 아카데미 교육강사',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'KPCA 국제퍼스널컬러협회 전문가 자격 취득',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA Color Launching show',
+          in: '2024',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA 신세계 강남 Beauty class',
+          in: '2024',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'RARIEN 트리플점프상 수상 ',
+          in: '2024',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'RARIEN 하이퍼포머상 수상',
+          in: '2024',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'RARIEN 더블점프상 수상 ',
+          in: '2023',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA S/S Trend Stylist',
+          in: '2022',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'RARIEN 점프상 수상',
+          in: '2022',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA Colorlist Diploma',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA Specialist Diploma',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'AVEDA Scalp Expert Diploma',
+          in: '',
+          out: '',
+          description: '',
+        },
+        {
+          title: 'SALON Creative Cut Diploma',
+          in: '',
+          out: '',
+          description: '',
+        },
+      ],
+      bio: '',
+      awards: ['퍼스널컬러컨설턴트 2급 자격증', '인증살롱', '전 직원 퍼스널컬러컨설턴트 전문가 자격 취득'],
+      certificates: ['최고의 디자이너', '최고의 디자이너'],
     },
   ],
   shop: [

@@ -78,8 +78,13 @@ export const DesignerDetailView = () => {
       </div>
       <BaseFlex vertical gap="spacing-48px">
         <BaseBox borderColor="neutral-300" radius="radius-16px">
-          <BaseFlex justify="space-between" padding={{ x: 'spacing-24px', y: 'spacing-24px' }} align="center">
-            <BaseFlex gap="spacing-48px" align="center">
+          <BaseFlex
+            justify="space-between"
+            gap="spacing-24px"
+            padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
+            align="center"
+          >
+            <BaseFlex gap="spacing-48px" align="flex-start">
               <div>
                 <Avatar src={data.picture} style={{ background: '#CFC3A7' }} size={168} />
               </div>
@@ -97,8 +102,8 @@ export const DesignerDetailView = () => {
                     </BaseTypography>
                   </BaseFlex>
                 </BaseFlex>
-                <BaseTypography as="p" size="body1" weight="regular" color="neutral-500" lineClamp={2}>
-                  안녕하세요J 글래드 헤어 강남점에서 근무하고 있는 한별 팀장 이라고 합니다!
+                <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
+                  {data.bio || '-'}
                 </BaseTypography>
                 <BaseFlex gap="spacing-8px">
                   <BaseButton href="#" target="_blank" icon={<LinkSimpleHorizontal size={20} />} color="secondary">
@@ -137,7 +142,13 @@ export const DesignerDetailView = () => {
         ) : activeTab === '3' ? (
           <BeforeAfter data={data.beforeAfter || []} />
         ) : activeTab === '4' ? (
-          <PersonalHistory />
+          <PersonalHistory
+            data={{
+              career: data.career || [],
+              awards: data.awards || [],
+              certificates: data.certificates || [],
+            }}
+          />
         ) : null}
       </BaseFlex>
     </BaseFlex>

@@ -1,6 +1,7 @@
-import React, { JSX } from 'react'
+import React, { JSX, useEffect, useRef, useState } from 'react'
 import './BaseTypography.scss'
 import { Color } from '@/shared/types/color'
+import { Tooltip } from 'antd'
 
 export type FontSize =
   | 'header1'
@@ -43,11 +44,21 @@ export const BaseTypography: React.FC<BaseTypographyProps> = ({
   lineClamp,
   className,
   style,
-  as: ElementType,
+  as,
   textTransform = 'none',
   textAlign = 'left',
   ...props
 }) => {
+  const ref = useRef<HTMLElement>(null)
+  const [isTruncated, setIsTruncated] = useState(false)
+
+  useEffect(() => {
+    if (ref.current && lineClamp) {
+      const el = ref.current
+      setIsTruncated(el.scrollHeight > el.clientHeight + 1)
+    }
+  }, [children, lineClamp])
+
   const fontFamilyClass = `base-typography__${variant}`
   const sizeClass = `base-typography__${size}`
   const weightClass = `base-typography__${weight}`
@@ -63,19 +74,21 @@ export const BaseTypography: React.FC<BaseTypographyProps> = ({
       }
     : {}
 
-  return (
-    <ElementType
-      className={['base-typography', fontFamilyClass, sizeClass, weightClass, colorClass, textTransformClass, className]
+  const typographyElement = React.createElement(
+    as,
+    {
+      ref,
+      className: ['base-typography', fontFamilyClass, sizeClass, weightClass, colorClass, textTransformClass, className]
         .filter(Boolean)
-        .join(' ')}
-      style={{
+        .join(' '),
+      style: {
         ...lineClampStyle,
         ...style,
         textAlign,
-      }}
-      {...props}
-    >
-      {children}
-    </ElementType>
+      },
+      ...props,
+    },
+    children,
   )
+  return lineClamp && isTruncated ? <Tooltip title={children}>{typographyElement}</Tooltip> : typographyElement
 }
