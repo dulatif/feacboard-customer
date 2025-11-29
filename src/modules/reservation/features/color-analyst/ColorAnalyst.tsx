@@ -9,8 +9,10 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import SearchIcon from '@/shared/components/icons/SearchIcon'
 import { ColorAnalystCard, ColorAnalystCardProps } from '../../components/color-analyst-card/ColorAnalystCard'
 import { Dayjs } from 'dayjs'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const ColorAnalyst = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const data: ColorAnalystCardProps['data'][] = [
     {
       isMainPersonalColor: true,
@@ -71,30 +73,45 @@ export const ColorAnalyst = () => {
   }
   return (
     <div className={styles['color-analyst']}>
-      <BaseFlex vertical gap="spacing-48px" className={styles['color-analyst__wrapper']}>
-        <BaseFlex vertical gap="spacing-24px">
+      <BaseFlex
+        vertical
+        gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}
+        className={styles['color-analyst__wrapper']}
+      >
+        <BaseFlex vertical gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}>
           <div className={styles['color-analyst__filter']}>
             <BaseInput placeholder="검색 ..." prefix={<SearchIcon width={20} height={20} />} />
-            <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
-            <BaseRangePicker
-              onChange={handleOnChaneDateRangePicker}
-              value={selectedDate}
-              {...(selectedDate
-                ? {
-                    title: `
-                  ${selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
-                  ${selectedDate?.to ? ` - ${selectedDate.to.format('MMM DD, YYYY')}` : ''}
-                `,
-                  }
-                : {})}
-            />
+            <div className={styles['color-analyst__filter__right']}>
+              <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
+              <BaseRangePicker
+                onChange={handleOnChaneDateRangePicker}
+                value={selectedDate}
+                {...(selectedDate
+                  ? {
+                      title: `
+                    ${selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
+                    ${selectedDate?.to ? ` - ${selectedDate.to.format('MMM DD, YYYY')}` : ''}
+                  `,
+                    }
+                  : {})}
+              />
+            </div>
           </div>
-          <BaseFlex gap="spacing-24px" align="center" justify="space-between">
-            <BaseFlex gap="spacing-24px" align="center">
+          <BaseFlex
+            vertical={isMobile}
+            gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}
+            align={isMobile ? 'flex-start' : 'center'}
+            justify="space-between"
+          >
+            <BaseFlex
+              vertical={isTablet || isMobile}
+              gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}
+              align={largeScreen ? 'center' : 'flex-start'}
+            >
               <BaseTypography as="p" size="body1" weight="semibold">
                 상태
               </BaseTypography>
-              <BaseFlex gap="spacing-16px">
+              <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap" align="flex-start">
                 <BaseButton>모두</BaseButton>
                 <BaseButton color="secondary-neutral">진행 중</BaseButton>
                 <BaseButton color="secondary-neutral">결제 대기 중</BaseButton>
@@ -102,7 +119,7 @@ export const ColorAnalyst = () => {
                 <BaseButton color="secondary-neutral">실패한</BaseButton>
               </BaseFlex>
             </BaseFlex>
-            <BaseButton color="tertiary">필터 재설정</BaseButton>
+            <BaseButton color="secondary">필터 재설정</BaseButton>
           </BaseFlex>
         </BaseFlex>
         <BaseFlex vertical gap="spacing-24px">

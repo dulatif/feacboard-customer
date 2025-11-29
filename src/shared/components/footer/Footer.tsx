@@ -8,16 +8,18 @@ import { menuItems } from '../navbar/Navbar.utils'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const Footer = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const { t } = useTranslation()
   return (
     <div className="base-footer">
       <BaseContainer variant={1440}>
-        <BaseFlex vertical gap="spacing-40px">
-          <BaseFlex gap="spacing-40px" justify="space-between">
+        <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-12px'}>
+          <BaseFlex gap="spacing-40px" vertical={!largeScreen} justify="space-between">
             <div>
-              <BaseFlex vertical gap="spacing-60px">
+              <BaseFlex vertical gap={largeScreen ? 'spacing-52px' : 'spacing-32px'}>
                 <div>
                   <BaseTypography
                     as="h1"
@@ -31,7 +33,7 @@ export const Footer = () => {
                   </BaseTypography>
                 </div>
                 <div>
-                  <BaseFlex gap="spacing-52px">
+                  <BaseFlex gap={largeScreen ? 'spacing-52px' : 'spacing-32px'}>
                     {menuItems.map((item, i) => (
                       <Link href={item.path} key={i}>
                         <BaseTypography as="p" size="subtitle1" textTransform="uppercase" color={'white'}>
@@ -72,7 +74,7 @@ export const Footer = () => {
             </div>
           </BaseFlex>
           <Divider className="base-footer__divider" />
-          <BaseFlex gap="spacing-40px" justify="space-between">
+          <BaseFlex gap="spacing-40px" vertical={!largeScreen} justify="space-between">
             <div>
               <BaseTypography as="p" size="body1" color="inherit" textTransform="uppercase">
                 Faceboard, 2025 All Rights reserved.

@@ -13,6 +13,7 @@ import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import CheckCircleIcon from '@/shared/components/icons/CheckCircleIcon'
 import { BaseImage } from '@/shared/components/base-image/BaseImage'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 type Category = 'ai-diagnosis' | 'manual-diagnosis'
 type Status = 'in-progress' | 'completed' | 'failed'
@@ -70,6 +71,7 @@ export interface ColorAnalystCardProps {
   }
 }
 export const ColorAnalystCard: React.FC<ColorAnalystCardProps> = ({ data }) => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const { isMainPersonalColor, picture, category, date, status, totalPrice, result, isPaid, rate } = data
   return (
     <BaseBox
@@ -104,8 +106,13 @@ export const ColorAnalystCard: React.FC<ColorAnalystCardProps> = ({ data }) => {
           ) : null}
 
           {/* Body */}
-          <BaseFlex gap="spacing-24px" justify="space-between" align="flex-end">
-            <BaseFlex gap="spacing-24px" align="center">
+          <BaseFlex
+            vertical={isMobile}
+            gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+            justify="space-between"
+            align={isMobile ? 'flex-start' : 'flex-end'}
+          >
+            <BaseFlex gap={isMobile ? 'spacing-12px' : 'spacing-24px'} align={'center'}>
               <BaseImage src={picture} alt="" width={120} height={120} />
               <BaseFlex vertical gap="spacing-16px">
                 {result ? (
@@ -128,31 +135,39 @@ export const ColorAnalystCard: React.FC<ColorAnalystCardProps> = ({ data }) => {
                 )}
               </BaseFlex>
             </BaseFlex>
-            <BaseTypography as="h6" size="header6" weight="bold" color="neutral-900">
+            <BaseTypography as="h6" size={isMobile ? 'body1' : 'header6'} weight="bold" color="neutral-900">
               {totalPrice === 'free' ? '무료' : '총 가격 : ' + totalPrice + '원'}
             </BaseTypography>
           </BaseFlex>
         </BaseFlex>
 
         {/* Footer */}
-        <BaseFlex align="flex-end" vertical gap="spacing-24px">
+        <BaseFlex align={isMobile ? 'center' : 'flex-end'} vertical gap={isMobile ? 'spacing-12px' : 'spacing-24px'}>
           {status === 'completed' ? (
             <>
               {isMainPersonalColor ? (
-                <BaseFlex gap="spacing-24px">
-                  <BaseButton size="2xl" color="tertiary">
+                <BaseFlex
+                  vertical={isMobile}
+                  gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+                  align={isMobile ? 'center' : 'flex-end'}
+                >
+                  <BaseButton size={isMobile ? 'md' : '2xl'} color="tertiary">
                     결과 세부 정보 보기
                   </BaseButton>
-                  <BaseButton size="2xl" color="success" icon={<CheckCircleIcon />}>
+                  <BaseButton size={isMobile ? 'md' : '2xl'} color="success" icon={<CheckCircleIcon />}>
                     내 퍼스널 컬러로 설정하기
                   </BaseButton>
                 </BaseFlex>
               ) : (
-                <BaseFlex gap="spacing-24px">
-                  <BaseButton size="2xl" color="tertiary">
+                <BaseFlex
+                  vertical={isMobile}
+                  gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+                  align={isMobile ? 'center' : 'flex-end'}
+                >
+                  <BaseButton size={isMobile ? 'md' : '2xl'} color="tertiary">
                     결과 세부 정보 보기
                   </BaseButton>
-                  <BaseButton size="2xl" icon={<SaveIcon />}>
+                  <BaseButton size={isMobile ? 'md' : '2xl'} icon={<SaveIcon />}>
                     내 주요 색상 개인으로 설정
                   </BaseButton>
                 </BaseFlex>

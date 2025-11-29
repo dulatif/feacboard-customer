@@ -9,8 +9,10 @@ import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import Image from 'next/image'
 import Link from 'next/link'
 import { APP_URL, AUTH_URL } from '@/shared/utils/url'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const LoginView = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const handleLogin = (type: 'google' | 'kakao' | 'apple' | 'facebook') => {
     if (type === 'google') {
       window.location.href = `${AUTH_URL}/google-oauth?redirectUrl=${APP_URL}/auth/callback`
@@ -18,27 +20,28 @@ export const LoginView = () => {
   }
   return (
     <div className={styles['container']}>
-      <div className={styles['banner']}>
-        <BaseFlex vertical gap="spacing-20px" justify="space-between" className={styles['banner__content']}>
-          <div>
-            <Link href={'/'}>
-              <BaseTypography as="h1" variant="aleo" size="header4" weight="bold" color="white">
-                Faceboard
-              </BaseTypography>
-            </Link>
-          </div>
-          <div>
-            <BaseFlex vertical gap="spacing-16px">
-              <BaseTypography as="p" variant="aleo" size="header5" weight="medium" color="white">
-                정확한 색상 개인화를 통해 메이크업 선택 시 혼란스럽지 않습니다.
-              </BaseTypography>
-              <BaseTypography as="p" variant="urbanist" size="body1" weight="semibold" color="white">
-                켈리 윌리엄스
-              </BaseTypography>
-            </BaseFlex>
-          </div>
-        </BaseFlex>
-      </div>
+      <Link href={'/'} className={styles['logo']}>
+        <BaseTypography as="h1" variant="aleo" size="header4" weight="bold" color="white">
+          Faceboard
+        </BaseTypography>
+      </Link>
+      {(largeScreen || isTablet) && (
+        <div className={styles['banner']}>
+          <BaseFlex vertical gap="spacing-20px" justify="space-between" className={styles['banner__content']}>
+            <div></div>
+            <div>
+              <BaseFlex vertical gap="spacing-16px">
+                <BaseTypography as="p" variant="aleo" size="header5" weight="medium" color="white">
+                  정확한 색상 개인화를 통해 메이크업 선택 시 혼란스럽지 않습니다.
+                </BaseTypography>
+                <BaseTypography as="p" variant="urbanist" size="body1" weight="semibold" color="white">
+                  켈리 윌리엄스
+                </BaseTypography>
+              </BaseFlex>
+            </div>
+          </BaseFlex>
+        </div>
+      )}
       <div className={styles['content']}>
         <BaseFlex
           vertical

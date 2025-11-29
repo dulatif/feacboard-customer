@@ -12,8 +12,11 @@ import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import StarIcon from '@/shared/components/icons/StarIcon'
 import { nail } from '@/shared/dummy/data'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const NearbyService = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
   return (
     <div className={styles['nearby-service']}>
       <BaseSection
@@ -29,13 +32,13 @@ export const NearbyService = () => {
           </BaseFlex>
         }
         className={styles['nearby-service__wrapper']}
-        padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
+        padding={{ x: boxPadding, y: boxPadding }}
         radius="radius-8px"
       >
         <div>
-          <Row gutter={20}>
-            {[1, 2, 3].map((e, i) => (
-              <Col span={6} key={i}>
+          <Row gutter={largeScreen ? 20 : 12}>
+            {Array.from({ length: largeScreen ? 3 : isTablet ? 2 : 1 }).map((e, i) => (
+              <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <Link href={`/shop/1/details`}>
                   <BaseCard
                     image={`/dummy/store0${i + 1}.jpg`}
@@ -54,7 +57,7 @@ export const NearbyService = () => {
                 </Link>
               </Col>
             ))}
-            <Col span={6}>
+            <Col span={largeScreen ? 6 : isTablet ? 8 : 12}>
               <div className={styles['nearby-service__card__other']}>
                 <BaseTypography as="p" color="white" size="subtitle1" weight="semibold">
                   당신을 위해 더 많은 것을 발견하세요

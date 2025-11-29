@@ -6,12 +6,14 @@ import React from 'react'
 import Image from 'next/image'
 import styles from './Community.module.scss'
 import { BaseCardPost } from '@/shared/components/base-card-post/BaseCardPost'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const Community = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   return (
     <div>
-      <Row gutter={20}>
-        <Col span={6}>
+      <Row gutter={largeScreen ? 20 : 12}>
+        <Col span={largeScreen ? 6 : isTablet ? 8 : 12}>
           <BaseFlex vertical justify="center" gap="spacing-48px" style={{ height: '100%' }}>
             <div>
               <Image src={`/icons/community.svg`} width={40} height={40} alt="Community" />
@@ -26,8 +28,8 @@ export const Community = () => {
             </div>
           </BaseFlex>
         </Col>
-        {[1, 2, 3].map((e, i) => (
-          <Col span={6} key={i}>
+        {Array.from({ length: largeScreen ? 3 : isTablet ? 2 : 1 }).map((e, i) => (
+          <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
             <BaseCardPost
               header={{
                 avatar: '/dummy/face01.png',

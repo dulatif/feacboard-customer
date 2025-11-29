@@ -7,8 +7,10 @@ import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import styles from './DiagnosticHistory.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const DiagnosticHistory = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['diagnostic-history']}>
       <BaseSection
@@ -28,9 +30,9 @@ export const DiagnosticHistory = () => {
         }}
       >
         <div>
-          <Row gutter={20}>
-            {[1, 2, 3, 4].map((e, i) => (
-              <Col span={6} key={i}>
+          <Row gutter={largeScreen ? 20 : 12}>
+            {Array.from({ length: largeScreen ? 4 : isTablet ? 3 : 2 }).map((e, i) => (
+              <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <BaseCard
                   image="/dummy/face01.png"
                   title={'4계절 컬러 + 톤'}

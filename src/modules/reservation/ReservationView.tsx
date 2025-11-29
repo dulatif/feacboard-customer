@@ -9,6 +9,7 @@ import React from 'react'
 import { ReservationList } from './features/reservation-list/ReservationList'
 import './ReservationView.scss'
 import { ColorAnalyst } from './features/color-analyst/ColorAnalyst'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const ReservationView = () => {
   const [breadcrumbItems, setBreadcrumbItems] = React.useState([
@@ -22,6 +23,7 @@ export const ReservationView = () => {
       title: '예약',
     },
   ])
+  const { largeScreen, isTablet, isMobile } = useResponsive()
 
   const tabItems: BaseTabsProps['items'] = [
     {
@@ -41,12 +43,14 @@ export const ReservationView = () => {
       setBreadcrumbItems((prev) => [...prev.slice(0, 2), { title: activeTab.label as string }])
     }
   }
+
+  const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-20px'
   return (
     <div>
       <BaseContainer variant={1440}>
-        <BaseFlex vertical gap="spacing-48px">
+        <BaseFlex vertical gap={boxPadding}>
           <BaseBreadcrumb items={breadcrumbItems} />
-          <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" borderColor="neutral-300">
+          <BaseBox padding={{ x: boxPadding, y: boxPadding }} radius="radius-16px" borderColor="neutral-300">
             <BaseFlex vertical gap="spacing-32px">
               <BaseTypography as="h6" weight="semibold" size="header6">
                 예약 세부 정보

@@ -13,10 +13,13 @@ import { BaseImageCarousel } from '@/shared/components/base-image-carousel/BaseI
 import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const BeforeAfter = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const [beforePosition, setBeforePosition] = useState(0)
   const [afterPosition, setAfterPosition] = useState(0)
+  const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
   return (
     <div className={styles['container']}>
       <BaseSection
@@ -36,13 +39,8 @@ export const BeforeAfter = () => {
         }}
       >
         <BaseFlex gap="spacing-20px" flex={1} className={styles['content']}>
-          {[nail.designer[0], nail.designer[1]].map((e, i) => (
-            <BaseBox
-              key={i}
-              borderColor="neutral-300"
-              radius="radius-16px"
-              padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
-            >
+          {(largeScreen ? [nail.designer[0], nail.designer[1]] : [nail.designer[0]]).map((e, i) => (
+            <BaseBox key={i} borderColor="neutral-300" radius="radius-16px" padding={{ x: boxPadding, y: boxPadding }}>
               <BaseFlex vertical gap="spacing-24px">
                 <Link href={`/designer/${e.id}`}>
                   <BaseFlex gap="spacing-16px" align="center">
@@ -54,7 +52,7 @@ export const BeforeAfter = () => {
                     </BaseTypography>
                   </BaseFlex>
                 </Link>
-                <Row gutter={[24, 24]}>
+                <Row gutter={largeScreen ? 24 : 12}>
                   <Col key={`before-${i}`} span={12}>
                     <div className={styles['before']}>
                       <BaseImageCarousel

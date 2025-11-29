@@ -1,3 +1,4 @@
+@use '@/styles/variables' as *;
 .nearby-service {
   .nearby-service__wrapper {
     background: linear-gradient(79.64deg, #fdefef 0%, #fdf5f3 100%) !important;
@@ -9,11 +10,18 @@
       align-items: center;
       position: relative;
       padding: 21px;
+      @media screen and (max-width: $mobileScreen) {
+        padding: 12px;
+      }
       .nearby-service__card__other__action {
         position: absolute;
         bottom: 42px;
         left: 52px;
         right: 52px;
+        @media screen and (max-width: $mobileScreen) {
+          left: 12px;
+          right: 12px;
+        }
       }
     }
   }

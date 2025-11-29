@@ -1,10 +1,26 @@
+@use '@/styles/variables' as *;
 .color-analyst {
   .color-analyst__wrapper {
     .color-analyst__filter {
       display: grid;
-      grid-template-columns: 1fr 320px auto;
+      grid-template-columns: 1fr 1fr;
       gap: 24px;
       align-items: center;
+      @media screen and (max-width: $tabletScreen) {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+      }
+      .color-analyst__filter__right {
+        display: grid;
+        grid-template-columns: 320px auto;
+        gap: 24px;
+        align-items: center;
+        @media screen and (max-width: $mobileScreen) {
+          grid-template-columns: 1fr auto !important;
+          gap: 12px;
+          justify-content: space-between;
+        }
+      }
     }
   }
 }

@@ -21,10 +21,11 @@ export const useResponsive = () => {
     return null
   }, [screens])
 
-  const isMobile = useMemo(() => !!screens.xs && !screens.sm, [screens])
-  const isTablet = useMemo(() => !!screens.sm && !screens.md, [screens])
-  const isLaptop = useMemo(() => !!screens.md && !screens.lg, [screens])
-  const isDesktop = useMemo(() => !!screens.lg, [screens])
+  const isMobile = useMemo(() => (!!screens.sm || !!screens.xs) && !screens.md, [screens])
+  const isTablet = useMemo(() => !!screens.md && !screens.lg, [screens])
+  const isLaptop = useMemo(() => !!screens.lg && !screens.xl, [screens])
+  const isDesktop = useMemo(() => !!screens.xl, [screens])
+  const largeScreen = isDesktop || isLaptop
 
   return {
     screens,
@@ -33,5 +34,6 @@ export const useResponsive = () => {
     isTablet,
     isLaptop,
     isDesktop,
+    largeScreen,
   }
 }

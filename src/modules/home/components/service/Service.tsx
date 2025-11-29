@@ -8,10 +8,13 @@ import Image from 'next/image'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const Service = () => {
   const { t } = useTranslation()
   const router = useRouter()
+  const { largeScreen, isTablet, isMobile } = useResponsive()
+  const containerPadding = largeScreen ? 'spacing-64px' : isTablet ? 'spacing-48px' : 'spacing-24px'
   const services = [
     {
       icon: '/icons/shop.svg',
@@ -79,8 +82,8 @@ export const Service = () => {
     router.push(link)
   }
   return (
-    <BaseBox radius="radius-24px" padding={{ x: 'spacing-64px', y: 'spacing-64px' }} shadow="lg">
-      <Row gutter={[120, 56]} className={styles['home__service']}>
+    <BaseBox radius="radius-24px" padding={{ x: containerPadding, y: containerPadding }} shadow="lg">
+      <Row gutter={[largeScreen ? 120 : 0, 56]} className={styles['home__service']}>
         {services.map((e, i) => (
           <Col
             key={i}

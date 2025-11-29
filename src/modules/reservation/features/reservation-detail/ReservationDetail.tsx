@@ -16,8 +16,10 @@ import { BaseAlert } from '@/shared/components/base-alert/BaseAlert'
 import { Avatar, QRCode } from 'antd'
 import NavigationIcon from '@/shared/components/icons/NavigationIcon'
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const ReservationDetail = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const router = useRouter()
   const searchParams = useSearchParams()
   const status = searchParams.get('status') as unknown as Status
@@ -35,11 +37,13 @@ export const ReservationDetail = () => {
       title: '예약 상태',
     },
   ])
+
+  const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-20px'
   return (
     <div>
-      <BaseFlex vertical gap="spacing-48px" padding={{ y: 'spacing-80px' }}>
+      <BaseFlex vertical gap={boxPadding} padding={{ y: 'spacing-80px' }}>
         <BaseBreadcrumb items={breadcrumbItems} />
-        <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} borderColor="neutral-300">
+        <BaseBox padding={{ x: boxPadding, y: boxPadding }} borderColor="neutral-300">
           <BaseFlex vertical gap="spacing-48px">
             <div>
               <BaseButton onClick={() => router.back()} color="secondary-neutral" icon={<CaretLeft size={20} />}>
@@ -144,7 +148,7 @@ export const ReservationDetail = () => {
                     </BaseButton>
                   </BaseFlex>
                 ) : (
-                  <BaseFlex gap="spacing-40px" align="center">
+                  <BaseFlex vertical={isMobile} gap="spacing-40px" align="center">
                     <BaseFlex vertical gap="spacing-8px" align="flex-end">
                       <BaseFlex gap="spacing-8px" align="center">
                         <div>
@@ -169,7 +173,7 @@ export const ReservationDetail = () => {
                     </BaseButton>
                   </BaseFlex>
                 )}
-                <BaseButton size="lg" style={{ width: 380 }}>
+                <BaseButton size="lg" style={{ width: isMobile ? '100%' : 380 }}>
                   체크인했습니다
                 </BaseButton>
               </div>

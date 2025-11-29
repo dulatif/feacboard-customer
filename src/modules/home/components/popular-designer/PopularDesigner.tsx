@@ -7,8 +7,11 @@ import { Col, Row } from 'antd'
 import Image from 'next/image'
 import styles from './PopularDesigner.module.scss'
 import StarIcon from '@/shared/components/icons/StarIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const PopularDesigner = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
   return (
     <div className={styles['popular-designer']}>
       <BaseSection
@@ -24,13 +27,13 @@ export const PopularDesigner = () => {
           </BaseFlex>
         }
         className={styles['popular-designer__wrapper']}
-        padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
+        padding={{ x: boxPadding, y: boxPadding }}
         radius="radius-8px"
       >
         <div>
-          <Row gutter={20}>
-            {[1, 2, 3, 4].map((e, i) => (
-              <Col span={6} key={i}>
+          <Row gutter={largeScreen ? 20 : 12}>
+            {Array.from({ length: largeScreen ? 4 : isTablet ? 3 : 2 }).map((e, i) => (
+              <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <BaseCard
                   image="/dummy/face02.png"
                   title={'한별 팀장'}

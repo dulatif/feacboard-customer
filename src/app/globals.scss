@@ -1,5 +1,6 @@
 @use '@/styles/color' as *;
 @use '@/styles/scrollbar' as *;
+@use '@/styles/variables' as *;
 
 html,
 body {
@@ -39,9 +40,15 @@ body {
       overflow-x: hidden;
       &--with-navbar {
         padding-top: 96px;
+        @media screen and (max-width: $mobileScreen) {
+          padding-top: 64px;
+        }
       }
       .content__footer {
         margin-top: 120px;
+        @media screen and (max-width: $mobileScreen) {
+          margin-top: 44px;
+        }
       }
     }
   }

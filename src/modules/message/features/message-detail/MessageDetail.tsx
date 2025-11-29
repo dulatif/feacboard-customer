@@ -5,17 +5,21 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import Image from 'next/image'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
-import { PaperPlaneRight, Storefront, UserCircle } from 'phosphor-react'
+import { ArrowLeft, PaperPlaneRight, Storefront, UserCircle } from 'phosphor-react'
 import { Avatar } from 'antd'
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import styles from './MessageDetail.module.scss'
 import { ChatBubble } from '../../components/chat-bubble/ChatBubble'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface MessageDetailProps {
   selectedUserId: string | number | null
+  onBack: () => void
 }
-export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId }) => {
+export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId, onBack }) => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
+
   const name = '강남 살롱'
   const avatar = '/dummy/face03.png'
   const variant: UserCardProps['variant'] = 'designer'
@@ -94,13 +98,16 @@ export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId }) 
     <BaseFlex vertical gap="spacing-24px">
       {/* Header */}
       <BaseBox borderColor="neutral-300" padding={{ x: 'spacing-8px', y: 'spacing-8px' }}>
-        <BaseFlex justify="space-between" gap="spacing-16px" align="center">
-          <BaseFlex gap="spacing-16px">
+        <BaseFlex justify="space-between" gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} align="center">
+          <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} align="center">
+            {!largeScreen && (
+              <BaseButton size="md" color="tertiary-neutral" onClick={onBack} icon={<ArrowLeft size={20} />} />
+            )}
             <div>
               <Avatar src={avatar} style={{ background: '#CFC3A7' }} size={48} />
             </div>
             <BaseFlex vertical gap="spacing-4px" justify="center">
-              <BaseTypography as="p" size="body2" weight="medium" color="neutral-800">
+              <BaseTypography as="p" size="body2" weight="medium" color="neutral-800" lineClamp={1}>
                 {name}
               </BaseTypography>
               {variant === 'designer' && company && (
@@ -108,17 +115,17 @@ export const MessageDetail: React.FC<MessageDetailProps> = ({ selectedUserId }) 
                   <div>
                     <BuildingsIcon width={15} height={16} color="#667085" />
                   </div>
-                  <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
+                  <BaseTypography as="p" size="caption" weight="regular" color="neutral-500" lineClamp={1}>
                     {company}
                   </BaseTypography>
                 </BaseFlex>
               )}
             </BaseFlex>
           </BaseFlex>
-          <BaseFlex gap="spacing-16px">
+          <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'}>
             <BaseButton size="md" color="secondary" icon={<Storefront size={20} />} />
             <BaseButton size="md" icon={<UserCircle size={20} />}>
-              프로필 보기
+              {largeScreen ? '프로필 보기' : null}
             </BaseButton>
           </BaseFlex>
         </BaseFlex>

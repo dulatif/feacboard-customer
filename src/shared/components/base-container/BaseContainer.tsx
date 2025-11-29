@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import './BaseContainer.scss'
 import { Spacing } from '@/shared/types/spacing'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export type BaseContainerVariant = 576 | 768 | 992 | 1200 | 1440 | 'fullwidth'
 
@@ -21,6 +22,7 @@ export const BaseContainer: React.FC<BaseContainerProps> = ({
   padding,
   className,
 }) => {
+  const { isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const defaultPaddingX: Record<BaseContainerVariant, Spacing> = {
     576: 'spacing-16px',
     768: 'spacing-24px',
@@ -30,7 +32,15 @@ export const BaseContainer: React.FC<BaseContainerProps> = ({
     fullwidth: 'spacing-120px',
   }
 
-  const paddingX = padding?.x ?? defaultPaddingX[variant]
+  const paddingX =
+    padding?.x ??
+    (isDesktop
+      ? defaultPaddingX[variant]
+      : isLaptop
+        ? defaultPaddingX['1200']
+        : isTablet
+          ? defaultPaddingX['768']
+          : defaultPaddingX['576'])
   const paddingY = padding?.y ?? '0px'
 
   const containerClass = classNames(

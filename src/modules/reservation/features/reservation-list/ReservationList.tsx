@@ -9,8 +9,10 @@ import styles from './ReservationList.module.scss'
 import { ReservationCard, ReservationCardProps } from '../../components/reservation-card/ReservationCard'
 import { useState } from 'react'
 import { Dayjs } from 'dayjs'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const ReservationList = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const data: ReservationCardProps['data'][] = [
     {
       category: 'nail',
@@ -188,30 +190,45 @@ export const ReservationList = () => {
   }
   return (
     <div className={styles['reservation-list']}>
-      <BaseFlex vertical gap="spacing-48px" className={styles['reservation-list__wrapper']}>
-        <BaseFlex vertical gap="spacing-24px">
+      <BaseFlex
+        vertical
+        gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}
+        className={styles['reservation-list__wrapper']}
+      >
+        <BaseFlex vertical gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}>
           <div className={styles['reservation-list__filter']}>
             <BaseInput placeholder="검색 ..." prefix={<SearchIcon width={20} height={20} />} />
-            <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
-            <BaseRangePicker
-              onChange={handleOnChaneDateRangePicker}
-              value={selectedDate}
-              {...(selectedDate
-                ? {
-                    title: `
-                  ${selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
-                  ${selectedDate?.to ? ` - ${selectedDate.to.format('MMM DD, YYYY')}` : ''}
-                `,
-                  }
-                : {})}
-            />
+            <div className={styles['reservation-list__filter__right']}>
+              <BaseSelect defaultValue="모든 제품" options={[{ value: '모든 제품', label: '모든 제품' }]} />
+              <BaseRangePicker
+                onChange={handleOnChaneDateRangePicker}
+                value={selectedDate}
+                {...(selectedDate
+                  ? {
+                      title: `
+                    ${selectedDate?.from ? selectedDate.from.format('MMM DD, YYYY') : ''}
+                    ${selectedDate?.to ? ` - ${selectedDate.to.format('MMM DD, YYYY')}` : ''}
+                  `,
+                    }
+                  : {})}
+              />
+            </div>
           </div>
-          <BaseFlex gap="spacing-24px" align="center" justify="space-between">
-            <BaseFlex gap="spacing-24px" align="center">
+          <BaseFlex
+            vertical={isMobile}
+            gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}
+            align={isMobile ? 'flex-start' : 'center'}
+            justify="space-between"
+          >
+            <BaseFlex
+              vertical={isTablet || isMobile}
+              gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}
+              align={largeScreen ? 'center' : 'flex-start'}
+            >
               <BaseTypography as="p" size="body1" weight="semibold">
                 상태
               </BaseTypography>
-              <BaseFlex gap="spacing-16px">
+              <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap" align="flex-start">
                 <BaseButton>모두</BaseButton>
                 <BaseButton color="secondary-neutral">진행 중</BaseButton>
                 <BaseButton color="secondary-neutral">결제 대기 중</BaseButton>
@@ -219,7 +236,7 @@ export const ReservationList = () => {
                 <BaseButton color="secondary-neutral">실패한</BaseButton>
               </BaseFlex>
             </BaseFlex>
-            <BaseButton color="tertiary">필터 재설정</BaseButton>
+            <BaseButton color="secondary">필터 재설정</BaseButton>
           </BaseFlex>
         </BaseFlex>
         <BaseFlex vertical gap="spacing-24px">

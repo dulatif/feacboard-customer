@@ -1,5 +1,7 @@
 'use client'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseMenu, MenuItem } from '@/shared/components/base-menu/BaseMenu'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { logout } from '@/shared/utils/auth'
 import {
   Bookmark,
@@ -15,6 +17,7 @@ import {
 } from 'iconsax-reactjs'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import styles from './Menu.module.scss'
 
 export enum MenuKey {
   PointDetails = 'point-details',
@@ -34,6 +37,7 @@ export interface MenuProps {
 }
 export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
   const router = useRouter()
+  const { isDesktop, isTablet, isMobile } = useResponsive()
   const handleLogout = () => {
     logout().then(() => {
       window.location.href = '/auth/login'
@@ -77,7 +81,19 @@ export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
         break
     }
   }
-  return <BaseMenu selectedKeys={[selectedMenu]} items={menuItems(selectedMenu)} onSelect={handleRedirect} />
+  return isDesktop ? (
+    <BaseMenu selectedKeys={[selectedMenu]} items={menuItems(selectedMenu)} onSelect={handleRedirect} />
+  ) : (
+    <div className={styles['menu-wrapper']}>
+      <BaseFlex gap="spacing-24px">
+        {(menuItems(selectedMenu) as any[]).map((item, i) => (
+          <div key={i} style={{ width: 200 }}>
+            {item?.label}
+          </div>
+        ))}
+      </BaseFlex>
+    </div>
+  )
 }
 
 export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {

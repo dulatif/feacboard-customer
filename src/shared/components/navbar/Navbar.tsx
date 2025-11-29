@@ -14,6 +14,7 @@ import { BaseTypography } from '../base-typography/BaseTypography'
 import BellIcon from '../icons/BellIcon'
 import './Navbar.scss'
 import { menuItems } from './Navbar.utils'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface NavbarProps {}
 
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const { t } = useTranslation()
   const pathName = usePathname()
   const { language, setLanguage, isAuthenticated } = useApp()
+  const { largeScreen, isDesktop, isTablet, isMobile } = useResponsive()
 
   // START HANDLE SCROLL
   const [scrolled, setScrolled] = useState(false)
@@ -69,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <div className={`base-navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <BaseContainer variant={1440}>
-        <BaseFlex gap="spacing-20px" justify="space-between" align="center">
+        <BaseFlex gap={largeScreen ? 'spacing-20px' : 'spacing-12px'} justify="space-between" align="center">
           <div>
             <Link href={'/'}>
               <BaseTypography as="h1" variant="hammersmith_one" size="header5" weight="regular" color="neutral-700">
@@ -77,38 +79,40 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               </BaseTypography>
             </Link>
           </div>
-          <div>
-            <BaseFlex gap="spacing-40px" className="base-navbar__menu">
-              {menuItems.map((item, i) => {
-                const isActive =
-                  pathName === item.path ||
-                  (item.path === '/' && pathName === '/shop') ||
-                  (item.path === '/reservation' && pathName.includes('/reservation')) ||
-                  (item.path === '/my-account' && pathName.includes('/my-account'))
-                return (
-                  <div
-                    key={i}
-                    className={`base-navbar__menu__item ${isActive ? 'base-navbar__menu__item--active' : ''}`}
-                  >
-                    <Link href={item.path}>
-                      <BaseTypography
-                        as="p"
-                        size="body1"
-                        weight={isActive ? 'semibold' : 'regular'}
-                        color={isActive ? 'neutral-900' : undefined}
-                      >
-                        {t(item.labelKey)}
-                      </BaseTypography>
-                    </Link>
-                  </div>
-                )
-              })}
-            </BaseFlex>
-          </div>
+          {largeScreen && (
+            <div>
+              <BaseFlex gap={isDesktop ? 'spacing-40px' : 'spacing-20px'} className="base-navbar__menu">
+                {menuItems.map((item, i) => {
+                  const isActive =
+                    pathName === item.path ||
+                    (item.path === '/' && pathName === '/shop') ||
+                    (item.path === '/reservation' && pathName.includes('/reservation')) ||
+                    (item.path === '/my-account' && pathName.includes('/my-account'))
+                  return (
+                    <div
+                      key={i}
+                      className={`base-navbar__menu__item ${isActive ? 'base-navbar__menu__item--active' : ''}`}
+                    >
+                      <Link href={item.path}>
+                        <BaseTypography
+                          as="p"
+                          size="body1"
+                          weight={isActive ? 'semibold' : 'regular'}
+                          color={isActive ? 'neutral-900' : undefined}
+                        >
+                          {t(item.labelKey)}
+                        </BaseTypography>
+                      </Link>
+                    </div>
+                  )
+                })}
+              </BaseFlex>
+            </div>
+          )}
           {isAuthenticated ? (
             <div>
-              <BaseFlex gap="spacing-24px" align="center">
-                <BaseFlex gap="spacing-16px" align="center">
+              <BaseFlex gap={isDesktop ? 'spacing-24px' : 'spacing-8px'} align="center">
+                <BaseFlex gap={isDesktop ? 'spacing-16px' : 'spacing-8px'} align="center">
                   <Avatar size={48} src={`/dummy/navbar-profile.png`} shape="circle" />
                   <div className={`base-navbar__profile-info`}>
                     <BaseFlex vertical gap="spacing-0px">
@@ -121,30 +125,32 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                     </BaseFlex>
                   </div>
                 </BaseFlex>
-                <BaseFlex gap="spacing-20px" align="center">
-                  <BaseButton size="xl" color="tertiary-neutral" shape="circle" icon={<BellIcon />} />
-                  <BaseButton
-                    size="xl"
-                    color="tertiary-neutral"
-                    shape="circle"
-                    icon={<Image src={`/icons/stamp.svg`} width={24} height={24} alt="Stamp" />}
-                  />
-                  <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+                {(largeScreen || isTablet) && (
+                  <BaseFlex gap={isDesktop ? 'spacing-20px' : 'spacing-8px'} align="center">
+                    <BaseButton size="xl" color="tertiary-neutral" shape="circle" icon={<BellIcon />} />
                     <BaseButton
                       size="xl"
                       color="tertiary-neutral"
                       shape="circle"
-                      icon={
-                        <Image
-                          src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
-                          width={24}
-                          height={24}
-                          alt="Stamp"
-                        />
-                      }
+                      icon={<Image src={`/icons/stamp.svg`} width={24} height={24} alt="Stamp" />}
                     />
-                  </BaseDropdown>
-                </BaseFlex>
+                    <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+                      <BaseButton
+                        size="xl"
+                        color="tertiary-neutral"
+                        shape="circle"
+                        icon={
+                          <Image
+                            src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
+                            width={24}
+                            height={24}
+                            alt="Stamp"
+                          />
+                        }
+                      />
+                    </BaseDropdown>
+                  </BaseFlex>
+                )}
               </BaseFlex>
             </div>
           ) : (

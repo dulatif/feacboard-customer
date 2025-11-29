@@ -11,12 +11,18 @@ import { ProductsSold } from './components/products-sold/ProductsSold'
 import styles from './Home.module.scss'
 import { BeforeAfter } from './components/before-after/BeforeAfter'
 import { useApp } from '@/shared/providers/AppProvider'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const Home = () => {
   const { isAuthenticated } = useApp()
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   return (
     <div>
-      <BaseFlex vertical gap="spacing-80px" className={styles['container']}>
+      <BaseFlex
+        vertical
+        gap={largeScreen ? 'spacing-80px' : isTablet ? 'spacing-64px' : 'spacing-24px'}
+        className={styles['container']}
+      >
         <Service />
         <Banner />
         {isAuthenticated && <DiagnosticHistory />}

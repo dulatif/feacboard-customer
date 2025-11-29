@@ -11,6 +11,7 @@ import { Navbar } from '@/shared/components/navbar/Navbar'
 import { Footer } from '@/shared/components/footer/Footer'
 import { ConfigProvider } from 'antd'
 import { AppProvider } from '@/shared/providers/AppProvider'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const urbanist = Urbanist({
   variable: '--font-urbainst',
@@ -34,6 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const pathName = usePathname()
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const { id } = useParams()
 
   const accountPaths = [
@@ -115,7 +117,7 @@ export default function RootLayout({
                   <div className={`content-wrapper ${useNavbar ? 'content-wrapper--with-navbar' : ''}`}>
                     {useNavbar && <Navbar />}
                     {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
-                    {useFooter && (
+                    {useFooter && (largeScreen || isTablet) && (
                       <div className="content__footer">
                         <Footer />
                       </div>

@@ -3,4 +3,10 @@
   display: grid;
   grid-template-columns: 420px 1fr;
   gap: 24px;
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 300px 1fr !important;
+  }
+  @media screen and (max-width: 992px) {
+    grid-template-columns: 1fr !important;
+  }
 }

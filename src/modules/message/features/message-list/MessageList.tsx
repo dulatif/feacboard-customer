@@ -5,12 +5,14 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { MagnifyingGlass } from 'phosphor-react'
 import { UserCard, UserCardProps } from '../../components/user-card/UserCard'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface MessageListProps {
   selectedUserId: string | number | null
-  setSelectedUserId: (id: string | number) => void
+  onSelectUser: (id: string | number) => void
 }
-export const MessageList: React.FC<MessageListProps> = ({ selectedUserId, setSelectedUserId }) => {
+export const MessageList: React.FC<MessageListProps> = ({ selectedUserId, onSelectUser }) => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   const data: UserCardProps[] = [
     {
       id: 1,
@@ -79,7 +81,7 @@ export const MessageList: React.FC<MessageListProps> = ({ selectedUserId, setSel
             {data.map((item, index) => (
               <UserCard
                 key={index}
-                onClick={(id) => setSelectedUserId(id)}
+                onClick={(id) => onSelectUser(id)}
                 {...item}
                 isActive={item.id === selectedUserId}
               />

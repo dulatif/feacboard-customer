@@ -2,11 +2,11 @@ import { Color } from '@/shared/types/color'
 import { Radius } from '@/shared/types/radius'
 import { Spacing } from '@/shared/types/spacing'
 import classNames from 'classnames'
+import { Info } from 'phosphor-react'
 import React from 'react'
-import './BaseAlert.scss'
-import InfoIcon from '../icons/InfoIcon'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { BaseTypography, BaseTypographyProps } from '../base-typography/BaseTypography'
+import './BaseAlert.scss'
 
 export interface BaseAlertProps {
   message: string
@@ -23,7 +23,7 @@ export const BaseAlert: React.FC<BaseAlertProps> = ({
   padding,
   background = 'neutral-100',
   radius = 'radius-8px',
-  icon = <InfoIcon width={20} height={20} />,
+  icon = <Info size={20} />,
   iconPosition = 'start',
   typographyProps = {
     as: 'p',

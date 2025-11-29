@@ -1,6 +1,10 @@
+@use '@/styles/variables' as *;
 .chat-bubble {
   padding: 10px 14px;
   width: 360px;
+  @media screen and (max-width: $mobileScreen) {
+    width: 100%;
+  }
 }
 .chat-bubble--primary {
   background-color: #49c3d0;

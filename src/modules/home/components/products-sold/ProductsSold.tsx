@@ -5,11 +5,13 @@ import { BaseSection } from '@/shared/components/base-section/BaseSection'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import StarIcon from '@/shared/components/icons/StarIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import React from 'react'
 
 export const ProductsSold = () => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   return (
     <div>
       <BaseSection
@@ -29,9 +31,9 @@ export const ProductsSold = () => {
         }}
       >
         <div>
-          <Row gutter={20}>
-            {[1, 2, 3, 4].map((e, i) => (
-              <Col span={6} key={i}>
+          <Row gutter={largeScreen ? 20 : 12}>
+            {Array.from({ length: largeScreen ? 4 : isTablet ? 3 : 2 }).map((e, i) => (
+              <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <BaseCard
                   image="/dummy/product01.png"
                   title={'플럼 세럼'}

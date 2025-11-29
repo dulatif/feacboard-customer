@@ -1,9 +1,14 @@
+@use '@/styles/variables' as *;
 .base-footer {
   background: #201f23;
   color: var(--color-white);
   padding-top: 72px;
   padding-bottom: 72px;
   height: auto;
+  @media screen and (max-width: $mobileScreen) {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
   .base-footer__divider {
     background: var(--color-white);
   }
