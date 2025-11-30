@@ -13,6 +13,7 @@ import { MenuKey } from '../../components/menu/Menu'
 import styles from './InformationDetailView.module.scss'
 import { BannerProfile } from '../../components/banner-profile/BannerProfile'
 import { withMenu } from '../../hoc/withMenu'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface InformationDetailViewProps {}
 export const InformationDetailView: React.FC<InformationDetailViewProps> = ({}) => {
@@ -63,9 +64,11 @@ const Content = withMenu(() => {
       date: '2024-11-15',
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
     <BaseBox
-      padding={{ x: 'spacing-48px', y: 'spacing-48px' }}
+      padding={{ x: boxPadding, y: boxPadding }}
       radius="radius-16px"
       shadow="lg"
       className={styles['information-detail']}

@@ -18,6 +18,7 @@ import {
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import styles from './Menu.module.scss'
+import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 
 export enum MenuKey {
   PointDetails = 'point-details',
@@ -83,7 +84,16 @@ export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
   }
   return largeScreen ? (
     <BaseMenu selectedKeys={[selectedMenu]} items={menuItems(selectedMenu)} onSelect={handleRedirect} />
-  ) : null
+  ) : (
+    <div className={styles['menu-wrapper']}>
+      <BaseMenu
+        mode="horizontal"
+        selectedKeys={[selectedMenu]}
+        items={menuItems(selectedMenu)}
+        onSelect={handleRedirect}
+      />
+    </div>
+  )
 }
 
 export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {

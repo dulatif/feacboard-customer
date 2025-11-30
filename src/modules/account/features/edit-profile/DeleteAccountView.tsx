@@ -10,6 +10,7 @@ import { CaretLeft } from 'phosphor-react'
 import { useState } from 'react'
 import ModalCancelMembership from './ModalCancelMembership'
 import ModalCanceled from './ModalCanceled'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const ReasonItem = ({ label, onChange }: { label: string; onChange: (e: CheckboxChangeEvent) => void }) => (
   <div>
@@ -42,6 +43,8 @@ const DeleteAccountView = () => {
       title: '계정 삭제',
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
 
   return (
     <>
@@ -55,7 +58,7 @@ const DeleteAccountView = () => {
           반품
         </BaseButton>
 
-        <BaseBox shadow="lg" padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+        <BaseBox shadow="lg" padding={{ x: boxPadding, y: boxPadding }}>
           <BaseTypography as="h6" size="subtitle1" variant="aleo" weight="semibold" style={{ marginBottom: '8px' }}>
             정건우님, 정말 탈퇴 하시겠어요?
           </BaseTypography>
@@ -63,7 +66,7 @@ const DeleteAccountView = () => {
             더 나은 앱을 만들기위해, 탈퇴 사유를 선택해주세요J
           </BaseTypography>
 
-          <Space direction="vertical" size={48} style={{ width: '100%', marginBottom: '24px' }}>
+          <Space direction="vertical" size={largeScreen ? 48 : 24} style={{ width: '100%', marginBottom: '24px' }}>
             <ReasonItem label="1. 진단 결과가 부정확한 것 같아요." onChange={(e) => console.log(e)} />
             <ReasonItem label="2. 앱 사용이 너무 불편해요." onChange={(e) => console.log(e)} />
             <ReasonItem label="3. 필요한 정보가 많이 없어요." onChange={(e) => console.log(e)} />

@@ -5,6 +5,7 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { Avatar, Col, Flex, Row, Select, Space } from 'antd'
 import Link from 'next/link'
 import { CaretLeft, CaretRight, Trash } from 'phosphor-react'
@@ -29,6 +30,8 @@ const EditProfileView = () => {
       title: '계정 편집',
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
     <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
       <BaseBreadcrumb items={breadcrumbs} style={{ marginBottom: '48px' }} />
@@ -40,7 +43,7 @@ const EditProfileView = () => {
         반품
       </BaseButton>
 
-      <BaseBox shadow="lg" padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+      <BaseBox shadow="lg" padding={{ x: boxPadding, y: boxPadding }}>
         <Flex justify="space-between">
           <BaseTypography as="h6" size="subtitle1" weight="semibold" style={{ marginBottom: '24px' }}>
             프로필 편집
@@ -55,7 +58,7 @@ const EditProfileView = () => {
         <Space direction="vertical" align="center" style={{ width: '100%', margin: '48px auto' }}>
           <Avatar src="/dummy/face03.png" size={128} style={{ marginBottom: '40px' }} />
 
-          <Flex align="baseline" gap={8}>
+          <Flex align="baseline" vertical={isMobile} gap={8}>
             <BaseTypography as="p" size="body2" weight="semibold" style={{ marginBottom: '24px' }}>
               당신의 색깔 성격 :
             </BaseTypography>
@@ -71,7 +74,7 @@ const EditProfileView = () => {
         </Space>
 
         <Row gutter={48} style={{ marginBottom: '48px' }}>
-          <Col span={8}>
+          <Col span={largeScreen ? 8 : 24}>
             <Space size={24} direction="vertical" style={{ width: '100%' }}>
               <div>
                 <Label>이름/닉네임</Label>
@@ -101,7 +104,7 @@ const EditProfileView = () => {
               </div>
             </Space>
           </Col>
-          <Col span={16}>
+          <Col span={largeScreen ? 16 : 24}>
             <div style={{ width: '50%' }}>
               <Label>지역</Label>
               <BaseInput value={'서울시 강남구'} />

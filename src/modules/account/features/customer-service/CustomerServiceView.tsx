@@ -9,6 +9,7 @@ import { BaseCircleWave } from '@/shared/components/base-circle-wave/BaseCircleW
 import { Activity, ArrowRight2, DeviceMessage, DocumentForward, MessageQuestion } from 'iconsax-reactjs'
 import { CaretRight, Smiley } from 'phosphor-react'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const CustomerServiceView = () => {
   const breadcrumbItems = [
@@ -31,8 +32,10 @@ export const CustomerServiceView = () => {
 }
 
 const Content = withMenu(() => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
-    <BaseBox borderWidth={0} shadow="lg" padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+    <BaseBox borderWidth={0} shadow="lg" padding={{ x: boxPadding, y: boxPadding }}>
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold">
           고객센터
@@ -42,7 +45,7 @@ const Content = withMenu(() => {
             <BaseTypography as="h6" size="subtitle1" weight="semibold">
               페이스보드 고객센터입니다. 무엇을 도와드릴까요?
             </BaseTypography>
-            <BaseFlex vertical gap="spacing-48px">
+            <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
               <Link href={'/my-account/customer-service/inquiry'}>
                 <BaseBox
                   padding={{ x: 'spacing-20px', y: 'spacing-20px' }}
@@ -128,7 +131,7 @@ const Content = withMenu(() => {
             <BaseTypography as="h6" size="subtitle1" weight="semibold">
               고객센터 안내사항
             </BaseTypography>
-            <BaseFlex vertical gap="spacing-48px">
+            <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
               <Link href={'/my-account/faq'}>
                 <BaseBox
                   padding={{ x: 'spacing-20px', y: 'spacing-20px' }}

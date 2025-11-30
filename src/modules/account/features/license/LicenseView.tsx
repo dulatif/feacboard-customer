@@ -5,6 +5,7 @@ import { withMenu } from '../../hoc/withMenu'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import React from 'react'
 
 export const LicenseView = () => {
@@ -50,8 +51,10 @@ B. 귀하는 과실을 포함하되 이에 국한되지 않는 어떠한 상황�
 `
 
 const Content = withMenu(() => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
-    <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" shadow="lg">
+    <BaseBox padding={{ x: boxPadding, y: boxPadding }} radius="radius-16px" shadow="lg">
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
           라이선스 정보

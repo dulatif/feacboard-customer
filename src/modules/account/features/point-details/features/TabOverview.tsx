@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { BaseAlert } from '@/shared/components/base-alert/BaseAlert'
 import CardReview from './CardReview'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 interface StampItemProps {
   src: string
@@ -48,14 +49,17 @@ const stampsData: StampItemProps[] = [
   },
 ]
 
-const StampItem: React.FC<StampItemProps> = ({ src, alt, label }) => (
-  <Space align="center" direction="vertical">
-    <Image src={src} alt={alt} width={56} height={56} />
-    <BaseTypography as="p" size="overline" variant="aleo">
-      {label}
-    </BaseTypography>
-  </Space>
-)
+const StampItem: React.FC<StampItemProps> = ({ src, alt, label }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  return (
+    <Space align="center" direction="vertical">
+      <Image src={src} alt={alt} width={largeScreen ? 56 : 32} height={largeScreen ? 56 : 32} />
+      <BaseTypography as="p" size="overline" variant="aleo">
+        {label}
+      </BaseTypography>
+    </Space>
+  )
+}
 
 const TabOverview = () => {
   return (

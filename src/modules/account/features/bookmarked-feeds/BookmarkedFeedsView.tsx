@@ -33,7 +33,7 @@ export const BookmarkedFeedsView = () => {
 const Content = withMenu(() => {
   const bookmarkedPost = dummyPosts.filter((post) => !post.isMine)
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
-  const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-24px'
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
     <div>
       <BaseBox padding={{ x: boxPadding, y: boxPadding }}>

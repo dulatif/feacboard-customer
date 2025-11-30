@@ -12,6 +12,7 @@ import { BaseCircleWave } from '@/shared/components/base-circle-wave/BaseCircleW
 import SmsIcon from '@/shared/components/icons/SmsIcon'
 import DocumentNormalIcon from '@/shared/components/icons/DocumentNormalIcon'
 import CommandIcon from '@/shared/components/icons/CommandIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const NotificationSettingsView = () => {
   const breadcrumbItems = [
@@ -34,13 +35,15 @@ export const NotificationSettingsView = () => {
 }
 
 const Content = withMenu(() => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
-    <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" shadow="lg">
+    <BaseBox padding={{ x: boxPadding, y: boxPadding }} radius="radius-16px" shadow="lg">
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
           알림 설정
         </BaseTypography>
-        <BaseFlex vertical gap="spacing-48px">
+        <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
           <BaseFlex vertical gap="spacing-20px">
             <BaseFlex justify="space-between" align="center" gap="spacing-20px">
               <BaseTypography as="p" size="subtitle1" weight="regular" color="neutral-700">

@@ -9,19 +9,12 @@ export const withMenu = <P extends object>(WrappedComponent: React.ComponentType
     const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
     return (
       <BaseContainer variant={1440} className={styles['with-menu-container']}>
-        {largeScreen && (
-          <div className={styles['with-menu-container__menu-wrapper']}>
-            <BaseBox
-              padding={{ x: 'spacing-16px', y: 'spacing-24px' }}
-              radius="radius-16px"
-              borderWidth={0}
-              shadow="lg"
-            >
-              <Menu selectedMenu={selectedMenu} />
-            </BaseBox>
-          </div>
-        )}
-        <div>
+        <div className={styles['with-menu-container__menu-wrapper']}>
+          <BaseBox padding={{ x: 'spacing-16px', y: 'spacing-24px' }} radius="radius-16px" borderWidth={0} shadow="lg">
+            <Menu selectedMenu={selectedMenu} />
+          </BaseBox>
+        </div>
+        <div style={{ maxWidth: '100%', overflow: 'hidden' }}>
           <WrappedComponent {...props} />
         </div>
       </BaseContainer>

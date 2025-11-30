@@ -9,6 +9,7 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { CaretLeft } from 'phosphor-react'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const CustomerServiceInquiryView = () => {
   const breadcrumbItems = [
@@ -31,8 +32,10 @@ export const CustomerServiceInquiryView = () => {
 }
 
 const Content = withMenu(() => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
-    <BaseBox borderWidth={0} shadow="lg" padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+    <BaseBox borderWidth={0} shadow="lg" padding={{ x: boxPadding, y: boxPadding }}>
       <BaseFlex vertical gap="spacing-24px">
         <div>
           <BaseButton href="/my-account/customer-service" color="secondary-neutral" icon={<CaretLeft />}>

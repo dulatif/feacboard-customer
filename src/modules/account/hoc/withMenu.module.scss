@@ -18,5 +18,9 @@
     position: sticky;
     bottom: 50px;
     height: fit-content;
+    @media screen and (max-width: $tabletScreen) {
+      position: relative;
+      width: 100%;
+    }
   }
 }

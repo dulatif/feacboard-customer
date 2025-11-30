@@ -7,6 +7,7 @@ import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { CurrentEvents } from './components/current-events/CurrentEvents'
 import { EndedEvents } from './components/ended-events/EndedEvents'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const EventView = () => {
   const breadcrumbItems = [
@@ -41,8 +42,10 @@ const Content = withMenu(() => {
       children: <EndedEvents />,
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (
-    <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }} radius="radius-16px" shadow="lg">
+    <BaseBox padding={{ x: boxPadding, y: boxPadding }} radius="radius-16px" shadow="lg">
       <BaseFlex vertical gap="spacing-24px">
         <BaseTabs defaultActiveKey="1" items={tabItems} />
       </BaseFlex>
