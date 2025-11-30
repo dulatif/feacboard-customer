@@ -8,6 +8,7 @@ import DocumentIcon from '@/shared/components/icons/DocumentIcon'
 import { Col, Row } from 'antd'
 import { useState } from 'react'
 import styles from './BeforeAfter.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface BeforeAfterProps {
   data: {
@@ -16,6 +17,7 @@ export interface BeforeAfterProps {
   }[]
 }
 export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const [selectedFileList, setSelectedFileList] = useState<BaseImagesPreviewProps['fileList']>([])
   const [defaultSelectedPreviewThumbnail, setDefaultSelectedPreviewThumbnail] = useState(0)
   const [previewThumbnails, setPreviewThumbnails] = useState(false)
@@ -48,8 +50,8 @@ export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
                   시술 상품: 헤어 염색
                 </BaseTypography>
               </BaseFlex>
-              <Row gutter={[24, 24]}>
-                <Col key={`before-${i}`} span={12}>
+              <Row gutter={largeScreen ? [24, 24] : isTablet ? [12, 12] : [8, 8]}>
+                <Col key={`before-${i}`} span={isMobile ? 24 : 12}>
                   <div className={styles['before']}>
                     <BaseImageCarousel
                       images={e.before}
@@ -60,7 +62,7 @@ export const BeforeAfter: React.FC<BeforeAfterProps> = ({ data }) => {
                     </div>
                   </div>
                 </Col>
-                <Col key={`after-${i}`} span={12}>
+                <Col key={`after-${i}`} span={isMobile ? 24 : 12}>
                   <div className={styles['after']}>
                     <BaseImageCarousel
                       images={e.after}

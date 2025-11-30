@@ -2,6 +2,7 @@ import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseImage } from '@/shared/components/base-image/BaseImage'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { NotePencil, Trash } from 'phosphor-react'
 import React from 'react'
 
@@ -23,13 +24,14 @@ export const CartServiceItemCard: React.FC<CartServiceItemCardProps> = ({
   const handleRemoveItem = () => {
     confirm('are you sure?')
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <>
       <BaseFlex justify="space-between" gap="spacing-16px">
         <BaseFlex gap="spacing-16px">
           <BaseImage src={image} alt="" width={72} height={72} radius="radius-8px" />
           <BaseFlex vertical gap="spacing-8px">
-            <BaseFlex gap="spacing-8px">
+            <BaseFlex vertical={isMobile} gap="spacing-8px">
               <BaseTypography as="p" size="body1" weight="medium">
                 {service}
               </BaseTypography>

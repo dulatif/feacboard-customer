@@ -11,6 +11,7 @@ import { ReservationInformation } from './features/reservation-information/Reser
 import { Summary } from './features/summary/Summary'
 import { BaseSteps, BaseStepsProps } from '@/shared/components/base-steps/BaseSteps'
 import { useState } from 'react'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const CartView = () => {
   const router = useRouter()
@@ -47,6 +48,7 @@ export const CartView = () => {
       status: activeStep === 3 ? 'process' : undefined,
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['cart']}>
       <div className={styles['cart__header']}>

@@ -10,6 +10,7 @@ import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
 import { AppContextType, useApp } from '@/shared/providers/AppProvider'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const AppointmentModal = dynamic(
   () => import('../appointment-modal/AppointmentModal').then((mod) => mod.AppointmentModal),
@@ -61,6 +62,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, v
     setIsVariantModalOpen(false)
     router.push('/cart')
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   return (
     <>
@@ -69,11 +71,17 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, v
         padding={{ x: 'spacing-0px', y: 'spacing-0px' }}
         className={styles['service-card']}
       >
-        <BaseImage src={image} height={274} width={282} radius="radius-8px" alt="" />
+        <BaseImage
+          src={image}
+          height={isMobile ? 200 : 274}
+          width={282}
+          radius={largeScreen ? 'radius-8px' : 'radius-0px'}
+          alt=""
+        />
         <BaseFlex
           vertical
           gap="spacing-16px"
-          padding={{ x: 'spacing-16px', y: 'spacing-16px' }}
+          padding={{ x: isMobile ? 'spacing-12px' : 'spacing-16px', y: isMobile ? 'spacing-12px' : 'spacing-16px' }}
           justify="space-between"
           className={styles['service-card__content']}
         >
@@ -90,7 +98,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ image, price, title, v
             </div>
           </div>
           <BaseFlex vertical gap="spacing-8px">
-            <BaseFlex justify="end" align="center" gap="spacing-8px">
+            <BaseFlex vertical={isMobile} justify="end" align={isMobile ? 'flex-start' : 'center'} gap="spacing-8px">
               <BaseTypography as="h1" size="body2" weight="medium" color="danger-500">
                 {price} 원
               </BaseTypography>

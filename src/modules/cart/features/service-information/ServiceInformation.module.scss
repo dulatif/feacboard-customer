@@ -1,7 +1,12 @@
+@use '@/styles/variables' as *;
 .container {
   display: grid;
   grid-template-columns: 1fr 378px;
   gap: 24px;
+  @media screen and (max-width: $laptopScreen) {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
   .items {
   }
   .summary {

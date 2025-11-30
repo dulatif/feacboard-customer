@@ -20,6 +20,7 @@ import ModalDelete from './ModalDelete'
 import Link from 'next/link'
 import Comment from './Comment'
 import { Spacing } from '@/shared/types/spacing'
+import './Post.scss'
 
 export interface IPost {
   id?: string
@@ -133,19 +134,11 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
             {post.content}
           </BaseTypography>
           {!!post.images && post.images.length > 0 && (
-            <div className={styles['slider-container']}>
+            <div className={'community__post-slider'}>
               <Slider {...settings}>
-                {post.images.map((image, index) => (
-                  <div key={index} className={styles['slider-item']}>
-                    <Image
-                      src={image}
-                      alt=""
-                      width={320}
-                      height={400}
-                      style={{
-                        objectFit: 'cover',
-                      }}
-                    />
+                {post.images.map((image, i) => (
+                  <div key={i} className={'community__post-slider__item'}>
+                    <Image src={image} fill alt="" />
                   </div>
                 ))}
               </Slider>

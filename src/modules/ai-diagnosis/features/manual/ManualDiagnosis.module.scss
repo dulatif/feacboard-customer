@@ -1,5 +1,6 @@
 @use '@/styles/variables' as *;
 .ai_manual_onboarding {
+  margin-top: 48px;
   .data_item {
     display: flex;
     gap: 24px;
@@ -137,8 +138,7 @@
 
   .banner_promo {
     background: linear-gradient(79.64deg, #b54d6e 0%, #d86f87 100%);
-    padding: 58px 53px;
-    margin-top: 40px;
+    margin: 40px 0px;
     border-radius: 16px;
     overflow: hidden;
     p {
@@ -163,8 +163,7 @@
 
     .banner_promo_price {
       background-color: var(--color-danger-500);
-      position: absolute;
-      padding: 12px 24px;
+      padding: 8px;
       border-radius: 8px;
     }
 

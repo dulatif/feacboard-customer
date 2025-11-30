@@ -1,5 +1,14 @@
+@use '@/styles/variables' as *;
 .service {
   display: grid;
   gap: 24px;
   grid-template-columns: repeat(4, 1fr);
+  @media screen and (max-width: $tabletScreen) {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+  @media screen and (max-width: $mobileScreen) {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
 }

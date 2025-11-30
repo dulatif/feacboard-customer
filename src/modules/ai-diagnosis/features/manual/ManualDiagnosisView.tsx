@@ -9,6 +9,8 @@ import { CaretLeft } from 'phosphor-react'
 import React from 'react'
 import styles from './ManualDiagnosis.module.scss'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 
 interface DataItemProps {
   icon: React.ReactNode
@@ -38,6 +40,7 @@ const DataItem: React.FC<DataItemProps> = ({ icon, title, description }) => {
 }
 
 const ManualDiagnosisView = () => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const dataItems: DataItemProps[] = [
     {
       icon: <OmegaSquare size={24} />,
@@ -57,37 +60,50 @@ const ManualDiagnosisView = () => {
   ]
 
   return (
-    <BaseContainer className={styles['ai_manual_onboarding']} variant={1440} padding={{ y: 'spacing-48px' }}>
+    <div className={styles['ai_manual_onboarding']}>
       <Link href="/ai-diagnosis">
         <BaseButton color="secondary-neutral" icon={<CaretLeft weight="bold" size={20} />}>
           반품
         </BaseButton>
       </Link>
 
-      <Row style={{ marginTop: 87 }} gutter={48}>
-        <Col span={12}>
-          <BaseTypography as="p" size="header5" variant="aleo" weight="medium" style={{ marginBottom: '48px' }}>
+      <Row style={{ marginTop: largeScreen ? 87 : 48 }} gutter={48} justify={'center'}>
+        <Col span={largeScreen ? 10 : isTablet ? 18 : 24}>
+          <BaseTypography
+            as="p"
+            size={largeScreen ? 'header5' : 'header6'}
+            variant="aleo"
+            weight="medium"
+            style={{ marginBottom: '48px' }}
+          >
             촬영 가이드에 맞추어 진행하지 않는 경우, 진단 결과가 부정확할 수 있습니다.
           </BaseTypography>
           {dataItems.map((item) => (
             <DataItem key={item.title} {...item} />
           ))}
           <Link href="/ai-diagnosis/manual/analysis">
-            <BaseButton size="2xl" style={{ width: '100%', marginTop: '48px' }}>
+            <BaseButton size={largeScreen ? '2xl' : 'xl'} style={{ width: '100%', marginTop: largeScreen ? 48 : 0 }}>
               촬영 시작
             </BaseButton>
           </Link>
         </Col>
-        <Col span={12}>
-          <Image
-            src={'/images/ai/ai-manual-onboarding-grid-images.png'}
-            alt="촬영 가이드 이미지"
-            width={576}
-            height={496}
-          />
-        </Col>
+        {!isMobile && (
+          <Col span={largeScreen ? 14 : isTablet ? 18 : 24}>
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '622 / 523',
+                overflow: 'hidden',
+                borderRadius: 12,
+              }}
+            >
+              <Image src={'/images/ai/ai-manual-onboarding-grid-images.png'} alt="촬영 가이드 이미지" fill />
+            </div>
+          </Col>
+        )}
       </Row>
-    </BaseContainer>
+    </div>
   )
 }
 

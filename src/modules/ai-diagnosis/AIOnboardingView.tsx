@@ -7,8 +7,10 @@ import styles from './AIOnboardingView.module.scss'
 import AIDIagnosisCard from './components/AIDiagnosisCard'
 import CardReview from './components/CardReview'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const AIOnboardingView = () => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const breadcrumbs = [
     {
       title: '홈',
@@ -24,11 +26,22 @@ const AIOnboardingView = () => {
 
       {/* --- */}
       <div style={{ marginBottom: '48px' }}>
-        <Space size={20}>
-          <Image src="/dummy/ai-onboarding-thumb-1.jpg" alt="AI Onboarding" width={387} height={210} />
-          <Image src="/dummy/ai-onboarding-thumb-2.jpg" alt="AI Onboarding" width={387} height={210} />
-          <Image src="/dummy/ai-onboarding-thumb-3.jpg" alt="AI Onboarding" width={387} height={210} />
-        </Space>
+        <BaseFlex gap="spacing-20px">
+          {Array.from({ length: largeScreen ? 3 : isTablet ? 2 : 1 }).map((_, index) => (
+            <div
+              key={index}
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                overflow: 'hidden',
+                borderRadius: 12,
+              }}
+            >
+              <Image key={index} src={`/dummy/ai-onboarding-thumb-${index + 1}.jpg`} alt="AI Onboarding" fill />
+            </div>
+          ))}
+        </BaseFlex>
       </div>
       {/* ==== */}
 
@@ -50,24 +63,18 @@ const AIOnboardingView = () => {
           지금 시도해보세요!
         </BaseTypography>
         <div className={styles['ai_onboarding__diagnosis_cards']}>
-          <AIDIagnosisCard
-            type="manual"
-            imageUrl="/dummy/ai-onboarding-preview-1.jpg" // Menggunakan path relatif Next.js Public
-            title="무료로 퍼스널 컬러를 진단 받아보세요"
-            rating={4.5}
-            reviewCount={129}
-            originalPrice="5000원"
-            currentPriceText="무료!"
-          />
-          <AIDIagnosisCard
-            type="ai"
-            imageUrl="/dummy/ai-onboarding-preview-2.jpg" // Menggunakan path relatif Next.js Public
-            title="AI 가 정확한 퍼스널 컬러를 진단해드려요J"
-            rating={4.5}
-            reviewCount={129}
-            originalPrice="11000원"
-            currentPriceText="5500원"
-          />
+          {Array.from({ length: isMobile ? 1 : 2 }).map((_, index) => (
+            <AIDIagnosisCard
+              key={index}
+              type="manual"
+              imageUrl={`/dummy/ai-onboarding-preview-${index + 1}.jpg`}
+              title="무료로 퍼스널 컬러를 진단 받아보세요"
+              rating={4.5}
+              reviewCount={129}
+              originalPrice="5000원"
+              currentPriceText="무료!"
+            />
+          ))}
         </div>
       </div>
       {/* ===  */}

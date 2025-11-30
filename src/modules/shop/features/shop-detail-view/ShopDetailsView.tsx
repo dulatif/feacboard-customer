@@ -14,6 +14,7 @@ import { StoreTidings } from '../../components/store-tidings/StoreTidings'
 import { Category } from '../../ShopView.utils'
 import { StoreServices } from '../../components/store-services/StoreServices'
 import { hair } from '@/shared/dummy/data'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const ShopDetailsView = () => {
   const router = useRouter()
@@ -37,6 +38,7 @@ export const ShopDetailsView = () => {
       ])
     }
   }, [id, data])
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   const tabItems: BaseTabsProps['items'] = useMemo(() => {
     return [
@@ -76,7 +78,7 @@ export const ShopDetailsView = () => {
           뒤로가기
         </BaseButton>
       </div>
-      <BaseFlex vertical gap="spacing-80px">
+      <BaseFlex vertical gap={largeScreen ? 'spacing-80px' : 'spacing-20px'}>
         {/* Store Information */}
         <StoreCard
           containerProps={{
@@ -92,7 +94,7 @@ export const ShopDetailsView = () => {
         />
 
         {/* Store Tabs */}
-        <BaseTabs defaultActiveKey="1" variant="filled" gapContent="80px" items={tabItems} />
+        <BaseTabs defaultActiveKey="1" variant="filled" gapContent={largeScreen ? '80px' : '24px'} items={tabItems} />
       </BaseFlex>
     </BaseFlex>
   )

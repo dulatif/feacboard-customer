@@ -11,6 +11,7 @@ import { withMenu } from '../../hoc/withMenu'
 import TabOverview from './features/TabOverview'
 import TabUsage from './features/TabUsage'
 import styles from './PointDetails.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const PointDetailsView = () => {
   const breadcrumbItems = [
@@ -45,9 +46,11 @@ const Content = withMenu(() => {
       children: <TabUsage />,
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-24px'
   return (
     <>
-      <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+      <BaseBox padding={{ x: boxPadding, y: boxPadding }}>
         <Row style={{ marginBottom: '48px' }}>
           <Col span={12} className={styles['col']} style={{ borderRight: '2px solid #F2F4F7' }}>
             <Row align={'middle'}>

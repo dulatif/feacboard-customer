@@ -6,6 +6,7 @@ import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import HeartOutlinedIcon02Icon from '@/shared/components/icons/HeartOutlinedIcon02Icon'
 import StarIcon from '@/shared/components/icons/StarIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { formatNumber } from '@/shared/utils/number'
 import { Avatar } from 'antd'
 import React from 'react'
@@ -37,6 +38,7 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
   videoThumbnails,
   picture,
 }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseBox
       padding={{ x: 'spacing-16px', y: 'spacing-16px' }}
@@ -88,14 +90,14 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
         {/* Files */}
         {category === 'default'
           ? images && (
-              <BaseFlex gap="spacing-16px">
+              <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
                 <BaseImage src={images[0]} alt="" width={372} height={312} />
                 <BaseImage src={images[1]} alt="" width={372} height={312} />
               </BaseFlex>
             )
           : category === 'before-after'
             ? images && (
-                <BaseFlex gap="spacing-16px">
+                <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
                   <div style={{ position: 'relative' }}>
                     <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
                       <BaseBadge variant="danger-100">Before</BaseBadge>

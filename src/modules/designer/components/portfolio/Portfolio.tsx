@@ -3,6 +3,7 @@ import { BaseImagesPreview, BaseImagesPreviewProps } from '@/shared/components/b
 import { Col, Row } from 'antd'
 import styles from './Portfolio.module.scss'
 import { useState } from 'react'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface PortfolioProps {
   data: string[][]
@@ -16,6 +17,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ data }) => {
     setSelectedFileList(fileList)
     setDefaultSelectedPreviewThumbnail(imageIndex)
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['portfolio']}>
       <BaseImagesPreview
@@ -27,11 +29,11 @@ export const Portfolio: React.FC<PortfolioProps> = ({ data }) => {
       >
         <Row gutter={[8, 8]}>
           {data.map((e, i) => (
-            <Col key={i} span={8}>
+            <Col key={i} span={largeScreen ? 8 : 12}>
               <div className={styles['portfolio__item__container']}>
                 <BaseImage
                   src={e[i]}
-                  height={395}
+                  height={isMobile ? 240 : 395}
                   alt=""
                   className={styles['portfolio__item']}
                   onClick={() => handlePreviewThumbnail(i, e)}

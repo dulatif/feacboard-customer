@@ -1,8 +1,15 @@
+@use '@/styles/variables' as *;
 .store-review {
   display: grid;
   grid-template-columns: 384px 1fr;
   gap: 24px;
   width: 100%;
+  @media screen and (max-width: $laptopScreen) {
+    grid-template-columns: 320px 1fr;
+  }
+  @media screen and (max-width: $tabletScreen) {
+    grid-template-columns: 1fr !important;
+  }
   .store-review__right {
     overflow: hidden;
   }

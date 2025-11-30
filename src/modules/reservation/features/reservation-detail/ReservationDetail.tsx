@@ -41,7 +41,7 @@ export const ReservationDetail = () => {
   const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-20px'
   return (
     <div>
-      <BaseFlex vertical gap={boxPadding} padding={{ y: 'spacing-80px' }}>
+      <BaseFlex vertical gap={boxPadding} padding={{ y: largeScreen ? 'spacing-80px' : 'spacing-40px' }}>
         <BaseBreadcrumb items={breadcrumbItems} />
         <BaseBox padding={{ x: boxPadding, y: boxPadding }} borderColor="neutral-300">
           <BaseFlex vertical gap="spacing-48px">

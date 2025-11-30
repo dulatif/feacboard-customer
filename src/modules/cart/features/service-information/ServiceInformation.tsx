@@ -18,6 +18,7 @@ import styles from './ServiceInformation.module.scss'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { AppContextType, useApp } from '@/shared/providers/AppProvider'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const AppointmentModal = dynamic(
   () => import('@/modules/shop/components/appointment-modal/AppointmentModal').then((mod) => mod.AppointmentModal),
@@ -60,6 +61,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
     },
   ]
 
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <>
       <BaseContainer variant={1440}>
@@ -68,7 +70,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
           <div className={styles['items']}>
             <BaseBox padding={{ x: 'spacing-24px', y: 'spacing-24px' }}>
               <BaseFlex vertical gap="spacing-32px">
-                <BaseFlex justify="space-between" align="center">
+                <BaseFlex gap="spacing-20px" justify="space-between" align="center">
                   <BaseFlex vertical gap="spacing-8px">
                     <BaseTypography as="p" size="caption" weight="regular">
                       예약 시간

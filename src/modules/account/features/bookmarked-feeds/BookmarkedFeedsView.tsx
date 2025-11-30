@@ -8,6 +8,7 @@ import { BannerProfile } from '../../components/banner-profile/BannerProfile'
 import { MenuKey } from '../../components/menu/Menu'
 import { withMenu } from '../../hoc/withMenu'
 import { Divider } from 'antd'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const BookmarkedFeedsView = () => {
   const breadcrumbItems = [
@@ -31,9 +32,11 @@ export const BookmarkedFeedsView = () => {
 
 const Content = withMenu(() => {
   const bookmarkedPost = dummyPosts.filter((post) => !post.isMine)
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-24px'
   return (
-    <div style={{ maxWidth: '768px' }}>
-      <BaseBox padding={{ x: 'spacing-48px', y: 'spacing-48px' }}>
+    <div>
+      <BaseBox padding={{ x: boxPadding, y: boxPadding }}>
         <BaseInput
           placeholder="검색"
           prefix={<MagnifyingGlass size={20} color="#667085" />}

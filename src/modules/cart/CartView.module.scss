@@ -1,3 +1,4 @@
+@use '@/styles/variables' as *;
 .cart {
   background-color: var(--color-neutral-50);
   .cart__header {
@@ -13,5 +14,8 @@
   .cart__body {
     padding: 60px 0px;
     margin-bottom: -120px;
+    @media screen and (max-width: $laptopScreen) {
+      padding: 30px 0px 120px 0px;
+    }
   }
 }

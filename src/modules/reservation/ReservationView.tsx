@@ -48,7 +48,7 @@ export const ReservationView = () => {
   return (
     <div>
       <BaseContainer variant={1440}>
-        <BaseFlex vertical gap={boxPadding}>
+        <BaseFlex vertical gap={boxPadding} padding={{ y: largeScreen ? 'spacing-80px' : 'spacing-40px' }}>
           <BaseBreadcrumb items={breadcrumbItems} />
           <BaseBox padding={{ x: boxPadding, y: boxPadding }} radius="radius-16px" borderColor="neutral-300">
             <BaseFlex vertical gap="spacing-32px">

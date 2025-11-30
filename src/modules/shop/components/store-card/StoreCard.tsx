@@ -13,6 +13,7 @@ import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
 import { Category } from '../../ShopView.utils'
 import { useRouter } from 'next/navigation'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface StoreCardProps {
   id: string
@@ -52,6 +53,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
   const handleRedirect = (id: string) => {
     router.push(`/shop/${id}/details${category ? `?category=${category}` : ''}`)
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseBox className={styles['store-card']} {...containerProps}>
       <BaseFlex vertical gap="spacing-24px">
@@ -61,13 +63,18 @@ export const StoreCard: React.FC<StoreCardProps> = ({
               <BaseImage src={images[0]} height={427} alt="" />
             </div>
             <div className={styles['store-card__images__others']}>
-              {Array.from({ length: 4 }).map((e, i) => (
+              {Array.from({ length: isMobile ? 2 : 4 }).map((e, i) => (
                 <BaseImage key={i} src={images[i + 1]} height={204} alt="" />
               ))}
             </div>
           </div>
         </div>
-        <BaseFlex justify="space-between" gap="spacing-14px" align="center">
+        <BaseFlex
+          vertical={isMobile}
+          justify="space-between"
+          gap="spacing-14px"
+          align={isMobile ? 'flex-start' : 'center'}
+        >
           <BaseFlex vertical gap="spacing-16px">
             <div onClick={() => handleRedirect(id)} style={{ cursor: 'pointer' }}>
               <BaseTypography as="h6" size="header6" weight="semibold">
@@ -103,7 +110,13 @@ export const StoreCard: React.FC<StoreCardProps> = ({
               )}
             </BaseFlex>
           </BaseFlex>
-          <BaseButton outlined size="xl" color="tertiary" icon={<NavigationIcon />} iconPosition="end">
+          <BaseButton
+            outlined
+            size={isMobile ? 'md' : 'xl'}
+            color="tertiary"
+            icon={<NavigationIcon />}
+            iconPosition="end"
+          >
             역삼역 3번 출구에서 도보 300m 입니다.
           </BaseButton>
         </BaseFlex>

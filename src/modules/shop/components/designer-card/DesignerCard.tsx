@@ -15,6 +15,7 @@ import { ServiceCard, ServiceCardProps } from '../service-card/ServiceCard'
 import styles from './DesignerCard.module.scss'
 import { UserCircle } from 'phosphor-react'
 import { useRouter } from 'next/navigation'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface DesignerCardProps {
   id: string
@@ -44,14 +45,21 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
   const handleRedirectToDesignerProfile = (id: string) => {
     router.push(`/designer/${id}`)
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
   return (
-    <BaseBox padding={{ x: 'spacing-24px', y: 'spacing-24px' }} borderColor="neutral-300" radius="radius-16px">
+    <BaseBox padding={{ x: boxPadding, y: boxPadding }} borderColor="neutral-300" radius="radius-16px">
       <BaseFlex vertical gap="spacing-32px">
         {/* Header  */}
-        <BaseFlex gap="spacing-8px" align="center" justify="space-between">
-          <BaseFlex gap="spacing-16px" align="center">
+        <BaseFlex
+          vertical={!largeScreen}
+          gap={!largeScreen ? 'spacing-16px' : 'spacing-8px'}
+          align={isTablet ? 'start' : 'center'}
+          justify="space-between"
+        >
+          <BaseFlex vertical={isMobile} gap="spacing-16px" align="center">
             <Avatar src={picture} size={64} style={{ background: '#CFC3A7' }} />
-            <BaseFlex vertical gap="spacing-12px">
+            <BaseFlex vertical gap="spacing-12px" align={isMobile ? 'center' : undefined}>
               <BaseFlex gap="spacing-16px">
                 <BaseTypography as="h1" size="body1" weight="semibold">
                   {name}
@@ -63,7 +71,11 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
                   </BaseTypography>
                 </BaseFlex>
               </BaseFlex>
-              <BaseFlex gap="spacing-24px">
+              <BaseFlex
+                wrap={'wrap'}
+                justify={isMobile ? 'center' : undefined}
+                gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+              >
                 <BaseFlex gap="spacing-8px" align="center">
                   <BuildingsIcon width={16} height={16} color="#667085" />
                   <BaseTypography as="span" size="caption" color="neutral-500">
@@ -91,7 +103,11 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
               </BaseFlex>
             </BaseFlex>
           </BaseFlex>
-          <BaseFlex gap="spacing-24px" align="center">
+          <BaseFlex
+            justify={isMobile ? 'center' : undefined}
+            gap={largeScreen ? 'spacing-24px' : 'spacing-16px'}
+            align="center"
+          >
             <BaseButton color="secondary" icon={<MessagesIcon width={20} height={20} />} />
             <BaseButton onClick={() => handleRedirectToDesignerProfile(id)} icon={<UserCircle size={20} />}>
               프로필 보기
@@ -107,11 +123,15 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
         </div>
 
         {/* Footer */}
-        <BaseFlex gap="spacing-24px" align="center">
+        <BaseFlex
+          gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+          align={isMobile ? 'flex-start' : 'center'}
+          vertical={isMobile}
+        >
           <BaseTypography as="p" size="body2" color="neutral-500">
             디자이너 전문 분야 :
           </BaseTypography>
-          <BaseFlex gap="spacing-8px" align="center">
+          <BaseFlex gap="spacing-8px" align="center" wrap="wrap">
             {specialties.map((speciality, i) => (
               <BaseBadge key={i} variant="neutral-100" padding={{ x: 'spacing-14px', y: 'spacing-8px' }}>
                 {speciality}

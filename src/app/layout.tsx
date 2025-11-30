@@ -12,6 +12,7 @@ import { Footer } from '@/shared/components/footer/Footer'
 import { ConfigProvider } from 'antd'
 import { AppProvider } from '@/shared/providers/AppProvider'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { BaseBottomMenu } from '@/shared/components/base-bottom-menu/BaseBottomMenu'
 
 const urbanist = Urbanist({
   variable: '--font-urbainst',
@@ -117,10 +118,8 @@ export default function RootLayout({
                   <div className={`content-wrapper ${useNavbar ? 'content-wrapper--with-navbar' : ''}`}>
                     {useNavbar && <Navbar />}
                     {useNoContainer ? children : <BaseContainer variant={1440}>{children}</BaseContainer>}
-                    {useFooter && (largeScreen || isTablet) && (
-                      <div className="content__footer">
-                        <Footer />
-                      </div>
+                    {useFooter && (
+                      <div className="content__footer">{largeScreen ? <Footer /> : <BaseBottomMenu />}</div>
                     )}
                   </div>
                 </div>

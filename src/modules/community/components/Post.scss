@@ -1,0 +1,19 @@
+.community__post-slider {
+  .slick-list {
+    margin: 0 -8px;
+    .slick-track {
+      .slick-slide {
+        padding: 0 8px;
+        .community__post-slider__item {
+          height: 400px;
+          position: relative;
+          border-radius: 8px;
+          overflow: hidden;
+          img {
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}

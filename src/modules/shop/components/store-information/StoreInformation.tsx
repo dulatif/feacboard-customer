@@ -5,6 +5,7 @@ import Image from 'next/image'
 import React from 'react'
 import styles from './StoreInformation.module.scss'
 import OpenLinkIcon from '@/shared/components/icons/OpenLinkIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface StoreInformationProps {
   data: {
@@ -12,8 +13,9 @@ export interface StoreInformationProps {
   }
 }
 export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
-    <BaseFlex vertical gap="spacing-48px" className={styles['store-information']}>
+    <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-32px'} className={styles['store-information']}>
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold">
           {data.storeName}
@@ -70,28 +72,37 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
       </BaseFlex>
       <BaseDivider />
 
-      <BaseFlex gap="spacing-120px" align="center" justify="center">
+      <BaseFlex
+        gap={largeScreen ? 'spacing-120px' : isTablet ? 'spacing-40px' : 'spacing-32px'}
+        align="center"
+        justify="center"
+      >
         <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/booked.svg`} width={56} height={56} alt="" />
-          <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
+          <Image src={`/images/store/booked.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
+          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
             예약
           </BaseTypography>
         </BaseFlex>
         <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/wifi.svg`} width={56} height={56} alt="" />
-          <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
+          <Image src={`/images/store/wifi.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
+          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
             와이파이
           </BaseTypography>
         </BaseFlex>
         <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/bff.svg`} width={56} height={56} alt="" />
-          <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
+          <Image src={`/images/store/bff.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
+          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
             단체 예약
           </BaseTypography>
         </BaseFlex>
         <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/parking.svg`} width={56} height={56} alt="" />
-          <BaseTypography as="h6" size="header6" weight="semibold" color="neutral-700">
+          <Image
+            src={`/images/store/parking.svg`}
+            width={largeScreen ? 56 : 36}
+            height={largeScreen ? 56 : 36}
+            alt=""
+          />
+          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
             주차가능
           </BaseTypography>
         </BaseFlex>
@@ -105,6 +116,7 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
         <BaseFlex vertical gap="spacing-40px">
           <BaseFlex gap="spacing-24px">
             <BaseFlex
+              vertical={isMobile}
               gap="spacing-24px"
               padding={{ y: 'spacing-20px' }}
               justify="center"
@@ -112,12 +124,23 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
               flex={1}
               className={styles['store-information__achievement__item']}
             >
-              <Image src={`/images/store/trophy.svg`} width={74} height={74} alt="" />
-              <BaseTypography as="h4" size="header4" weight="bold" color="white">
+              <Image
+                src={`/images/store/trophy.svg`}
+                width={largeScreen ? 74 : 52}
+                height={largeScreen ? 74 : 52}
+                alt=""
+              />
+              <BaseTypography
+                as="h4"
+                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                weight="bold"
+                color="white"
+              >
                 최고의 디자이너
               </BaseTypography>
             </BaseFlex>
             <BaseFlex
+              vertical={isMobile}
               gap="spacing-24px"
               padding={{ y: 'spacing-20px' }}
               justify="center"
@@ -125,14 +148,25 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
               flex={1}
               className={styles['store-information__achievement__item']}
             >
-              <Image src={`/images/store/trophy.svg`} width={74} height={74} alt="" />
-              <BaseTypography as="h4" size="header4" weight="bold" color="white">
+              <Image
+                src={`/images/store/trophy.svg`}
+                width={largeScreen ? 74 : 52}
+                height={largeScreen ? 74 : 52}
+                alt=""
+              />
+              <BaseTypography
+                as="h4"
+                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                weight="bold"
+                color="white"
+              >
                 최고의 디자이너
               </BaseTypography>
             </BaseFlex>
           </BaseFlex>
           <BaseFlex gap="spacing-24px">
             <BaseFlex
+              vertical={isMobile}
               gap="spacing-24px"
               padding={{ y: 'spacing-20px' }}
               justify="center"
@@ -140,12 +174,23 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
               flex={1}
               className={styles['store-information__achievement__item']}
             >
-              <Image src={`/images/store/trophy.svg`} width={74} height={74} alt="" />
-              <BaseTypography as="h4" size="header4" weight="bold" color="white">
+              <Image
+                src={`/images/store/trophy.svg`}
+                width={largeScreen ? 74 : 52}
+                height={largeScreen ? 74 : 52}
+                alt=""
+              />
+              <BaseTypography
+                as="h4"
+                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                weight="bold"
+                color="white"
+              >
                 최고의 디자이너
               </BaseTypography>
             </BaseFlex>
             <BaseFlex
+              vertical={isMobile}
               gap="spacing-24px"
               padding={{ y: 'spacing-20px' }}
               justify="center"
@@ -153,8 +198,18 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
               flex={1}
               className={styles['store-information__achievement__item']}
             >
-              <Image src={`/images/store/trophy.svg`} width={74} height={74} alt="" />
-              <BaseTypography as="h4" size="header4" weight="bold" color="white">
+              <Image
+                src={`/images/store/trophy.svg`}
+                width={largeScreen ? 74 : 52}
+                height={largeScreen ? 74 : 52}
+                alt=""
+              />
+              <BaseTypography
+                as="h4"
+                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                weight="bold"
+                color="white"
+              >
                 최고의 디자이너
               </BaseTypography>
             </BaseFlex>
@@ -165,7 +220,7 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
 
       <BaseFlex vertical gap="spacing-24px" className={styles['store-information__social-media']}>
         <BaseFlex vertical gap="spacing-24px">
-          <BaseFlex gap="spacing-24px">
+          <BaseFlex vertical={isMobile} gap="spacing-24px">
             <BaseFlex
               flex={1}
               padding={{ y: 'spacing-20px', x: 'spacing-40px' }}
@@ -200,7 +255,7 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
         </BaseFlex>
 
         <BaseFlex vertical gap="spacing-24px">
-          <BaseFlex gap="spacing-24px">
+          <BaseFlex vertical={isMobile} gap="spacing-24px">
             <BaseFlex
               flex={1}
               padding={{ y: 'spacing-20px', x: 'spacing-40px' }}

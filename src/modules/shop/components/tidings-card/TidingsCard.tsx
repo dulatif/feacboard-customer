@@ -3,6 +3,7 @@ import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseImages } from '@/shared/components/base-images/BaseImages'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import MessagesIcon from '@/shared/components/icons/MessagesIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import React from 'react'
 
 export interface TidingsCardProps {
@@ -13,9 +14,10 @@ export interface TidingsCardProps {
   description: string
 }
 export const TidingsCard: React.FC<TidingsCardProps> = ({ date, description, subtitle, title, images }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseFlex vertical gap="spacing-24px">
-      <BaseFlex gap="spacing-8px" justify="space-between">
+      <BaseFlex vertical={isMobile} gap="spacing-8px" justify="space-between">
         <BaseFlex vertical gap="spacing-8px">
           <BaseTypography as="h6" size="header6" weight="semibold">
             {title}
@@ -24,9 +26,16 @@ export const TidingsCard: React.FC<TidingsCardProps> = ({ date, description, sub
             {date}
           </BaseTypography>
         </BaseFlex>
-        <BaseButton size="xl" color="tertiary" outlined icon={<MessagesIcon width={20} height={20} />}>
-          채팅 문의 남기기
-        </BaseButton>
+        <div>
+          <BaseButton
+            size={isMobile ? 'md' : 'xl'}
+            color="tertiary"
+            outlined
+            icon={<MessagesIcon width={20} height={20} />}
+          >
+            채팅 문의 남기기
+          </BaseButton>
+        </div>
       </BaseFlex>
       {images && <BaseImages images={images} />}
       <BaseFlex vertical gap="spacing-4px">

@@ -10,6 +10,7 @@ import styles from './ManualDiagnosis.module.scss'
 import AnalysisStep2 from './AnalysisStep2'
 import AnalysisStep3 from './AnalysisStep3'
 import AnalysisStep4 from './AnalysisStep4'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const listSteps = [
   { title: '촬영 가이드 라인에 얼굴을 맞추고', description: '촬영 버튼을 클릭해주세요' },
@@ -28,6 +29,7 @@ export const listSteps = [
 ]
 const ManualAnalysisView = () => {
   const [step, setStep] = useState(1)
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseContainer
       variant="fullwidth"
@@ -51,7 +53,7 @@ const ManualAnalysisView = () => {
           {step === 3 && <AnalysisStep3 />}
           {step === 4 && <AnalysisStep4 />}
           <BaseButton
-            size="2xl"
+            size={largeScreen ? '2xl' : 'xl'}
             style={{ width: '100%', marginTop: '40px' }}
             onClick={() =>
               step === 4 ? (window.location.href = '/ai-diagnosis/manual/analysis-result') : setStep(step + 1)

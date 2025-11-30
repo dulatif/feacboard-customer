@@ -15,6 +15,8 @@ import Link from 'next/link'
 import { CaretLeft, CaretRight, Star } from 'phosphor-react'
 import { listSteps } from './ManualAnalysisView'
 import styles from './ManualDiagnosis.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 
 interface ServiceItemProps {
   icon: string
@@ -58,14 +60,15 @@ interface SectionHeaderProps {
 }
 
 const SectionHeader = ({ leftText, rightText, icon, textColor = 'neutral-900' }: SectionHeaderProps) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <Flex justify="space-between" align="center" style={{ marginBottom: '24px' }}>
-      <BaseTypography as="p" size="subtitle1" weight="semibold" color={textColor as Color}>
+      <BaseTypography as="p" size={isMobile ? 'body1' : 'subtitle1'} weight="semibold" color={textColor as Color}>
         {leftText}
       </BaseTypography>
-      <Space align="center" size={16}>
-        <Image src={icon} alt={`${rightText} icon`} width={40} height={40} />
-        <BaseTypography as="p" size="subtitle1" weight="semibold" color={textColor as Color}>
+      <Space align="center" size={isMobile ? 8 : 16}>
+        <Image src={icon} alt={`${rightText} icon`} width={isMobile ? 32 : 40} height={isMobile ? 32 : 40} />
+        <BaseTypography as="p" size={isMobile ? 'body1' : 'subtitle1'} weight="semibold" color={textColor as Color}>
           {rightText}
         </BaseTypography>
         <CaretRight weight="bold" size={20} color={textColor === 'white' ? '#fff' : '#101828'} />
@@ -112,6 +115,7 @@ const ManualAnalysisResult = () => {
       title: '결과 색상 분석',
     },
   ]
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseContainer className={styles['analysis_result']} variant={1440} padding={{ y: 'spacing-40px' }}>
       <BaseBreadcrumb items={breadcrumbs} style={{ marginBottom: '48px' }} />
@@ -127,7 +131,7 @@ const ManualAnalysisResult = () => {
 
       <BaseSteps progressDot current={4} items={listSteps} style={{ marginBottom: '40px' }} />
       <Row gutter={48} style={{ marginBottom: '40px' }}>
-        <Col span={12}>
+        <Col span={isMobile ? 24 : 12}>
           <Image
             src={'/dummy/manual-analysis-result-1.jpg'}
             alt="촬영 가이드 라인"
@@ -137,7 +141,7 @@ const ManualAnalysisResult = () => {
             style={{ width: '100%', height: '100%', marginBottom: 24 }}
           />
         </Col>
-        <Col span={12}>
+        <Col span={isMobile ? 24 : 12}>
           <div className={`${styles['card_color_item']} shadow-lg`} style={{ backgroundColor: '#E82825' }}>
             <Image src="/dummy/face-manual-analysis.png" alt="face manual analysis" width={312} height={412} />
             <BaseTypography
@@ -170,38 +174,48 @@ const ManualAnalysisResult = () => {
 
       <Flex
         justify="space-between"
-        align="center"
+        align={largeScreen ? 'center' : 'flex-start'}
+        vertical={isTablet || isMobile}
         className={styles['banner_promo']}
         gap={32}
-        style={{ marginBottom: '40px' }}
+        style={{ padding: isMobile ? 20 : 48 }}
       >
-        <div className={styles['banner_promo_icon']}>
-          <DiscountShape size={24} />
-        </div>
-        <BaseTypography as="p" variant="aleo" size="header6" weight="medium" color="white" style={{ flex: 1 }}>
-          AI 가 정확한 퍼스널 컬러를 진단해드려요J
-        </BaseTypography>
-        <div style={{ width: '200px', transform: 'translateY(-20px)' }}>
-          <div>
-            <BaseTypography as="p" size="caption" variant="aleo">
-              시작 가격
-            </BaseTypography>
-            <BaseTypography as="p" size="subtitle1" variant="aleo" weight="semibold">
-              11000원
-            </BaseTypography>
+        <BaseFlex gap={isMobile ? 'spacing-12px' : 'spacing-32px'} align={isMobile ? 'flex-start' : 'center'}>
+          <div className={styles['banner_promo_icon']}>
+            <DiscountShape size={24} />
           </div>
-          <div className={styles['banner_promo_price']}>
-            <BaseTypography as="p" size="caption" variant="aleo">
-              지금은 오직
-            </BaseTypography>
-            <BaseTypography as="p" size="header5" variant="aleo" weight="semibold">
-              5500원
-            </BaseTypography>
+          <BaseTypography as="p" variant="aleo" size="header6" weight="medium" color="white" style={{ flex: 1 }}>
+            AI 가 정확한 퍼스널 컬러를 진단해드려요J
+          </BaseTypography>
+        </BaseFlex>
+        <BaseFlex
+          vertical={isMobile}
+          gap={isMobile ? 'spacing-0px' : 'spacing-32px'}
+          align={isMobile ? 'flex-start' : 'center'}
+          style={{ paddingTop: isMobile || isTablet ? 20 : 0 }}
+        >
+          <div style={{ width: '200px', transform: 'translateY(-20px)' }}>
+            <div>
+              <BaseTypography as="p" size="caption" variant="aleo">
+                시작 가격
+              </BaseTypography>
+              <BaseTypography as="p" size="subtitle1" variant="aleo" weight="semibold">
+                11000원
+              </BaseTypography>
+            </div>
+            <div className={styles['banner_promo_price']}>
+              <BaseTypography as="p" size="caption" variant="aleo">
+                지금은 오직
+              </BaseTypography>
+              <BaseTypography as="p" size="header5" variant="aleo" weight="semibold">
+                5500원
+              </BaseTypography>
+            </div>
           </div>
-        </div>
-        <BaseButton iconPosition="end" icon={<CaretRight weight="bold" size={20} />}>
-          지금 시도해보세요!
-        </BaseButton>
+          <BaseButton size="xl" iconPosition="end" icon={<CaretRight weight="bold" size={20} />}>
+            지금 시도해보세요!
+          </BaseButton>
+        </BaseFlex>
       </Flex>
 
       <div style={{ marginBottom: '40px' }}>
@@ -223,7 +237,7 @@ const ManualAnalysisResult = () => {
         <BaseTypography as="p" size="subtitle1" weight="semibold" style={{ marginBottom: '24px' }}>
           여름 - 비비드 메이크업 팁
         </BaseTypography>
-        <Flex gap={56}>
+        <Flex gap={56} justify={isMobile ? 'space-evenly' : undefined}>
           {serviceItemsData.map((item, index) => (
             <ServiceItem {...item} key={index} />
           ))}
@@ -238,15 +252,19 @@ const ManualAnalysisResult = () => {
           textColor="#fff"
         />
         <Flex gap={24}>
-          {Array.from({ length: 3 }, (_, index) => (
+          {Array.from({ length: largeScreen ? 3 : 2 }, (_, index) => (
             <BaseBox shadow="md" className={styles['card-shade']} key={index}>
-              <Image
-                src="/dummy/lips-shade.jpg"
-                alt="lips shade"
-                width={200}
-                height={200}
-                style={{ marginBottom: '16px' }}
-              />
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '10 / 10',
+                  overflow: 'hidden',
+                  borderRadius: 12,
+                }}
+              >
+                <Image src="/dummy/lips-shade.jpg" alt="lips shade" fill style={{ marginBottom: '16px' }} />
+              </div>
               <BaseTypography as="p" size="subtitle2" variant="aleo" weight="medium" style={{ marginBottom: 8 }}>
                 영앤영헤어강남점
               </BaseTypography>

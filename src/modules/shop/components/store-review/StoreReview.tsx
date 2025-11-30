@@ -15,12 +15,14 @@ import { BaseProgress } from '@/shared/components/base-progress/BaseProgress'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { Avatar } from 'antd'
 import { DesignerCardProps } from '../designer-card/DesignerCard'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface StoreReviewProps {
   designers: DesignerCardProps[]
   reviews: StoreReviewCardProps[]
 }
 export const StoreReview: React.FC<StoreReviewProps> = ({ designers, reviews }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['store-review']}>
       <div className={styles['store-review__left']}>
@@ -73,7 +75,7 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ designers, reviews }) 
           </BaseFlex>
 
           {/* Points */}
-          <BaseFlex gap="spacing-0px" justify="space-between">
+          <BaseFlex gap="spacing-0px" justify="space-evenly">
             <BaseFlex vertical gap="spacing-8px" align="center">
               <div
                 style={{
@@ -171,7 +173,7 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ designers, reviews }) 
                         <BaseTypography as="p" size="tiny" color="neutral-500">
                           디자이너 전문 분야 :
                         </BaseTypography>
-                        <BaseFlex gap="spacing-4px">
+                        <BaseFlex gap="spacing-4px" wrap={'wrap'}>
                           {designers[0].specialties.map((e, i) => (
                             <BaseBadge key={i} variant="neutral-100">
                               <BaseTypography as="p" size="tiny" color="neutral-500" weight="semibold">
@@ -193,7 +195,7 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ designers, reviews }) 
         </BaseFlex>
       </div>
       <div className={styles['store-review__right']}>
-        <BaseFlex vertical gap="spacing-40px">
+        <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-24px'}>
           <StoreReels
             thumbnails={[
               '/dummy/reel01.jpg',
@@ -205,7 +207,7 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ designers, reviews }) 
               '/dummy/reel04.jpg',
             ]}
           />
-          <BaseFlex gap="spacing-16px">
+          <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap">
             <BaseButton>헤어</BaseButton>
             <BaseButton color="secondary-neutral">사진/영상 리뷰만</BaseButton>
             <BaseButton color="secondary-neutral">비포&애프터 리뷰만</BaseButton>

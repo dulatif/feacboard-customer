@@ -8,19 +8,26 @@ import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import { Avatar } from 'antd'
 import Image from 'next/image'
 import styles from './BannerProfile.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface BannerProfileProps {
   breadcrumbItems: BaseBreadcrumbProps['items']
 }
 export const BannerProfile: React.FC<BannerProfileProps> = ({ breadcrumbItems }) => {
+  const { largeScreen, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['banner-profile']}>
       <BaseContainer variant={1440}>
         <BaseFlex vertical gap="spacing-32px">
           <BaseBreadcrumb items={breadcrumbItems} color="white" />
-          <BaseFlex gap="spacing-32px" justify="space-between" align="center">
-            <BaseFlex gap="spacing-32px" align="center">
-              <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={120} />
+          <BaseFlex
+            vertical={isMobile}
+            gap={largeScreen ? 'spacing-32px' : 'spacing-16px'}
+            justify="space-between"
+            align={isMobile ? 'flex-start' : 'center'}
+          >
+            <BaseFlex gap={largeScreen ? 'spacing-32px' : 'spacing-16px'} align="center">
+              <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={isMobile ? 96 : 120} />
               <BaseFlex gap="spacing-8px" vertical>
                 <BaseTypography as="h6" size="header6" weight="semibold" color="white">
                   텡쿠 후안샤

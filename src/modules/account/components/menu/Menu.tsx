@@ -37,7 +37,7 @@ export interface MenuProps {
 }
 export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
   const router = useRouter()
-  const { isDesktop, isTablet, isMobile } = useResponsive()
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const handleLogout = () => {
     logout().then(() => {
       window.location.href = '/auth/login'
@@ -81,19 +81,9 @@ export const Menu: React.FC<MenuProps> = ({ selectedMenu }) => {
         break
     }
   }
-  return isDesktop ? (
+  return largeScreen ? (
     <BaseMenu selectedKeys={[selectedMenu]} items={menuItems(selectedMenu)} onSelect={handleRedirect} />
-  ) : (
-    <div className={styles['menu-wrapper']}>
-      <BaseFlex gap="spacing-24px">
-        {(menuItems(selectedMenu) as any[]).map((item, i) => (
-          <div key={i} style={{ width: 200 }}>
-            {item?.label}
-          </div>
-        ))}
-      </BaseFlex>
-    </div>
-  )
+  ) : null
 }
 
 export const menuItems = (selectedMenu: MenuKey): MenuItem[] => {

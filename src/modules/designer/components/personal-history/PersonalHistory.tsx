@@ -7,6 +7,7 @@ import { Col, Row } from 'antd'
 import React, { useMemo } from 'react'
 import Image from 'next/image'
 import styles from './PersonalHistory.module.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface PersonalHistoryProps {
   data: {
@@ -21,6 +22,7 @@ export interface PersonalHistoryProps {
   }
 }
 export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const tabItems: BaseTabsProps['items'] = useMemo(() => {
     return [
       {
@@ -31,9 +33,20 @@ export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data }) => {
             {data.certificates.map((e, i) => (
               <Col key={i} span={12}>
                 <div className={styles['certification-card']}>
-                  <BaseFlex gap="spacing-24px" align="center">
-                    <Image src="/dummy/certification.png" width={85} height={74} alt="" />
-                    <BaseTypography as="p" size="header4" weight="bold" color="white" lineClamp={1}>
+                  <BaseFlex vertical={isMobile} gap={isMobile ? 'spacing-12px' : 'spacing-24px'} align="center">
+                    <Image
+                      src="/dummy/certification.png"
+                      width={isMobile ? 70 : 100}
+                      height={isMobile ? 49 : 74}
+                      alt=""
+                    />
+                    <BaseTypography
+                      as="p"
+                      size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                      weight="bold"
+                      color="white"
+                      lineClamp={1}
+                    >
                       {e}
                     </BaseTypography>
                   </BaseFlex>
@@ -51,9 +64,15 @@ export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data }) => {
             {data.awards.map((e, i) => (
               <Col key={i} span={12}>
                 <div className={styles['award-card']}>
-                  <BaseFlex gap="spacing-24px" align="center">
-                    <Image src="/dummy/award.png" width={85} height={74} alt="" />
-                    <BaseTypography as="p" size="header4" weight="bold" color="white" lineClamp={1}>
+                  <BaseFlex vertical={isMobile} gap={isMobile ? 'spacing-12px' : 'spacing-24px'} align="center">
+                    <Image src="/dummy/award.png" width={isMobile ? 70 : 100} height={isMobile ? 49 : 74} alt="" />
+                    <BaseTypography
+                      as="p"
+                      size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                      weight="bold"
+                      color="white"
+                      lineClamp={1}
+                    >
                       {e}
                     </BaseTypography>
                   </BaseFlex>
@@ -64,15 +83,15 @@ export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data }) => {
         ),
       },
     ]
-  }, [data.certificates, data.awards])
+  }, [data.certificates, data.awards, isMobile])
   return (
-    <BaseFlex vertical gap="spacing-48px">
+    <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
       {/* Content Top */}
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="subtitle1" weight="semibold">
           경력 및 수상
         </BaseTypography>
-        <BaseFlex vertical gap="spacing-40px">
+        <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-20px'}>
           {data.career.map((e, i) => (
             <BaseFlex key={i} vertical gap="spacing-16px">
               <BaseFlex gap="spacing-16px" align="center">

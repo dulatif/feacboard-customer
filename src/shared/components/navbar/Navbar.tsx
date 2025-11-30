@@ -74,7 +74,13 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         <BaseFlex gap={largeScreen ? 'spacing-20px' : 'spacing-12px'} justify="space-between" align="center">
           <div>
             <Link href={'/'}>
-              <BaseTypography as="h1" variant="hammersmith_one" size="header5" weight="regular" color="neutral-700">
+              <BaseTypography
+                as="h1"
+                variant="hammersmith_one"
+                size={largeScreen ? 'header5' : 'header6'}
+                weight="regular"
+                color="neutral-700"
+              >
                 Faceboard
               </BaseTypography>
             </Link>
@@ -113,44 +119,56 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             <div>
               <BaseFlex gap={isDesktop ? 'spacing-24px' : 'spacing-8px'} align="center">
                 <BaseFlex gap={isDesktop ? 'spacing-16px' : 'spacing-8px'} align="center">
-                  <Avatar size={48} src={`/dummy/navbar-profile.png`} shape="circle" />
-                  <div className={`base-navbar__profile-info`}>
-                    <BaseFlex vertical gap="spacing-0px">
-                      <BaseTypography as="span" size="caption" color="neutral-500">
-                        {t(`navbar.profile.hello`)}
-                      </BaseTypography>
-                      <BaseTypography as="span" size="body1" weight="semibold">
-                        텡쿠 후안샤 👋🏻
-                      </BaseTypography>
-                    </BaseFlex>
-                  </div>
+                  <Avatar size={largeScreen ? 48 : 36} src={`/dummy/navbar-profile.png`} shape="circle" />
+                  {largeScreen && (
+                    <div className={`base-navbar__profile-info`}>
+                      <BaseFlex vertical gap="spacing-0px">
+                        <BaseTypography as="span" size="caption" color="neutral-500">
+                          {t(`navbar.profile.hello`)}
+                        </BaseTypography>
+                        <BaseTypography as="span" size="body1" weight="semibold">
+                          텡쿠 후안샤 👋🏻
+                        </BaseTypography>
+                      </BaseFlex>
+                    </div>
+                  )}
                 </BaseFlex>
-                {(largeScreen || isTablet) && (
-                  <BaseFlex gap={isDesktop ? 'spacing-20px' : 'spacing-8px'} align="center">
-                    <BaseButton size="xl" color="tertiary-neutral" shape="circle" icon={<BellIcon />} />
-                    <BaseButton
-                      size="xl"
-                      color="tertiary-neutral"
-                      shape="circle"
-                      icon={<Image src={`/icons/stamp.svg`} width={24} height={24} alt="Stamp" />}
-                    />
-                    <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
-                      <BaseButton
-                        size="xl"
-                        color="tertiary-neutral"
-                        shape="circle"
-                        icon={
-                          <Image
-                            src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
-                            width={24}
-                            height={24}
-                            alt="Stamp"
-                          />
-                        }
+                <BaseFlex gap={isDesktop ? 'spacing-20px' : 'spacing-8px'} align="center">
+                  <BaseButton
+                    size={largeScreen ? 'lg' : 'sm'}
+                    color="secondary-neutral"
+                    shape="circle"
+                    icon={<BellIcon width={largeScreen ? 24 : 12} height={largeScreen ? 24 : 12} />}
+                  />
+                  <BaseButton
+                    size={largeScreen ? 'lg' : 'sm'}
+                    color="secondary-neutral"
+                    shape="circle"
+                    icon={
+                      <Image
+                        src={`/icons/stamp.svg`}
+                        width={largeScreen ? 24 : 12}
+                        height={largeScreen ? 24 : 12}
+                        alt="Stamp"
                       />
-                    </BaseDropdown>
-                  </BaseFlex>
-                )}
+                    }
+                  />
+                  <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+                    <BaseButton
+                      size={largeScreen ? 'lg' : 'sm'}
+                      color="secondary-neutral"
+                      shape="circle"
+                      icon={
+                        <Image
+                          src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
+                          width={largeScreen ? 24 : 12}
+                          height={largeScreen ? 24 : 12}
+                          alt="Stamp"
+                        />
+                      }
+                    />
+                  </BaseDropdown>
+                </BaseFlex>
               </BaseFlex>
             </div>
           ) : (

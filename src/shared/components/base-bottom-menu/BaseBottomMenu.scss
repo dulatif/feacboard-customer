@@ -1,0 +1,22 @@
+.base-bottom-menu {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  .base-navbar__menu__item {
+    &.base-navbar__menu__item--active {
+      svg {
+        path {
+          stroke: #49c3d0 !important;
+          fill: #49c3d0 !important;
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { Plus } from 'phosphor-react'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface ServiceVariantModal extends ModalProps {
   defaultSelectedVariant?: string[]
@@ -32,10 +33,11 @@ export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
       return newSelectedVariant
     })
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <Modal footer={null} className="shop__service-variant-modal" onCancel={handleCancel} centered {...props}>
       <BaseFlex vertical gap="spacing-48px" align="center">
-        <BaseFlex vertical gap="spacing-16px">
+        <BaseFlex vertical gap="spacing-16px" style={{ width: '100%' }}>
           <BaseTypography as="p" size="body1" weight="semibold">
             변형 선택
           </BaseTypography>
@@ -46,7 +48,7 @@ export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
               </BaseTypography>
               <Row gutter={[8, 8]}>
                 {e.options.map((option, optionIndex) => (
-                  <Col key={optionIndex} span={6}>
+                  <Col key={optionIndex} span={isMobile ? 8 : 6}>
                     <div
                       onClick={() => handleSelectVariant(option, i)}
                       className={`shop__service-variant-modal__card ${selectedVariant[i] === option && '--selected'}`}
@@ -66,7 +68,8 @@ export const ServiceVariantModal: React.FC<ServiceVariantModal> = ({
           disabled={selectedVariant.some((e) => !e)}
           size="xl"
           iconPosition="start"
-          style={{ width: 380 }}
+          style={{ width: largeScreen ? 380 : undefined }}
+          variant={largeScreen ? undefined : 'fullwidth'}
           onClick={() => onSubmit()}
         >
           장바구니에 담기

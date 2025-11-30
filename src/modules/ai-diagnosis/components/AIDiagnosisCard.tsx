@@ -7,6 +7,8 @@ import styles from '../AIOnboardingView.module.scss'
 import DiagnosisTypeBadge, { TDiagnosisType } from './DiagnosisTypeBadge'
 import { BaseRate } from '@/shared/components/base-rate/BaseRate'
 import Link from 'next/link'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 
 interface AIDIagnosisCardProps {
   imageUrl: string
@@ -27,18 +29,24 @@ const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
   originalPrice,
   currentPriceText,
 }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['ai_diagnosis_card']}>
-      <Row gutter={20} align="top">
+      <Row gutter={largeScreen ? 20 : 12} align="top">
         {/* Left Column: Image */}
-        <Col span={10}>
+        <Col span={largeScreen ? 10 : 8}>
           <Image src={imageUrl} alt="Personal Color Model" width={251} height={251} className={styles['image']} />
         </Col>
 
         {/* Right Column: Content */}
-        <Col span={14}>
-          <Flex vertical justify="space-between" style={{ minHeight: '240px' }}>
-            <Space direction="vertical" size={20}>
+        <Col span={largeScreen ? 14 : 16}>
+          <BaseFlex
+            gap={largeScreen ? 'spacing-0px' : 'spacing-20px'}
+            vertical
+            justify="space-between"
+            style={{ minHeight: largeScreen ? 240 : 'auto' }}
+          >
+            <BaseFlex vertical gap={largeScreen ? 'spacing-20px' : 'spacing-12px'}>
               {/* Title/Header */}
               <DiagnosisTypeBadge type={type} />
 
@@ -54,11 +62,10 @@ const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
                   ({reviewCount} 리뷰)
                 </BaseTypography>
               </Space>
-            </Space>
+            </BaseFlex>
 
-            <Row align={'bottom'} justify={'space-between'}>
-              {/* Price */}
-              <div style={{ margin: '10px 0' }}>
+            <BaseFlex justify="space-between" align="center">
+              <div>
                 <BaseTypography
                   as="p"
                   size="subtitle1"
@@ -72,15 +79,9 @@ const AIDIagnosisCard: React.FC<AIDIagnosisCardProps> = ({
                   {currentPriceText}
                 </BaseTypography>
               </div>
-
-              {/* Button */}
-              <div style={{ textAlign: 'right', marginTop: 10 }}>
-                <Link href={`/ai-diagnosis/${type}`}>
-                  <BaseButton>지금 시도해보세요</BaseButton>
-                </Link>
-              </div>
-            </Row>
-          </Flex>
+              <BaseButton href={`/ai-diagnosis/${type}`}>지금 시도해보세요</BaseButton>
+            </BaseFlex>
+          </BaseFlex>
         </Col>
       </Row>
     </div>

@@ -8,6 +8,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { CaretRight } from 'phosphor-react'
 import React, { useState } from 'react'
 import './AppointmentModal.scss'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const arrivalTimeOptions = [
   { time: '09:30', available: true },
@@ -89,11 +90,12 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   const onSelectTime = (value: string) => {
     setSelectedTime(value)
   }
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   return (
     <Modal footer={null} className="shop__appointment-modal" onCancel={handleCancel} centered {...props}>
       <BaseFlex vertical gap="spacing-48px" align="center">
-        <BaseFlex gap="spacing-48px">
+        <BaseFlex vertical={isMobile} gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
           {/* Date */}
           <BaseFlex vertical gap="spacing-16px" style={{ width: 328 }}>
             <BaseTypography as="p" size="body1" weight="semibold">
@@ -116,7 +118,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
           {/* Time */}
           {selectedDate && (
-            <BaseFlex vertical gap="spacing-16px" style={{ width: 367 }}>
+            <BaseFlex vertical gap="spacing-16px" style={{ width: largeScreen ? 367 : isTablet ? 280 : '100%' }}>
               <BaseTypography as="p" size="body1" weight="semibold">
                 도착 시간을 선택하세요
               </BaseTypography>
@@ -128,7 +130,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     </BaseTypography>
                     <Row gutter={[8, 8]}>
                       {grouped.morning.map((e, i) => (
-                        <Col key={i} span={8}>
+                        <Col key={i} span={largeScreen || isMobile ? 8 : 12}>
                           <div
                             onClick={() => (e.available ? onSelectTime(e.time) : null)}
                             className={`shop__appointment-modal__time-card ${e.available ? '--active' : '--inactive'} ${selectedTime === e.time && '--selected'}`}
@@ -149,7 +151,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     </BaseTypography>
                     <Row gutter={[8, 8]}>
                       {grouped.afternoon.map((e, i) => (
-                        <Col key={i} span={8}>
+                        <Col key={i} span={largeScreen || isMobile ? 8 : 12}>
                           <div
                             onClick={() => (e.available ? onSelectTime(e.time) : null)}
                             className={`shop__appointment-modal__time-card ${e.available ? '--active' : '--inactive'} ${selectedTime === e.time && '--selected'}`}
@@ -170,7 +172,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     </BaseTypography>
                     <Row gutter={[8, 8]}>
                       {grouped.evening.map((e, i) => (
-                        <Col key={i} span={8}>
+                        <Col key={i} span={largeScreen || isMobile ? 8 : 12}>
                           <div
                             onClick={() => (e.available ? onSelectTime(e.time) : null)}
                             className={`shop__appointment-modal__time-card ${e.available ? '--active' : '--inactive'} ${selectedTime === e.time && '--selected'}`}
@@ -193,7 +195,8 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           disabled={!selectedDate || !selectedTime}
           size="xl"
           iconPosition="end"
-          style={{ width: 380 }}
+          style={{ width: largeScreen ? 380 : undefined }}
+          variant={largeScreen ? undefined : 'fullwidth'}
           onClick={() => onSubmit({ date: selectedDate as string, time: selectedTime as string })}
         >
           {defaultSelectedDate && defaultSelectedTime ? '구하다' : '다음'}

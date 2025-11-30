@@ -9,6 +9,7 @@ import styles from './CommunityView.module.scss'
 import CreatePost from './components/CreatePost'
 import ModalPost from './components/ModalPost'
 import Post, { IPost, PostProps } from './components/Post'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const dummyPhotos = [
   '/dummy/community-post.jpg',
@@ -94,10 +95,11 @@ const CommunityView = () => {
       comments: 32,
     },
   })
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   return (
     <div className={styles['root']}>
-      <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
+      <BaseContainer variant={1440} padding={{ y: largeScreen ? 'spacing-40px' : 'spacing-0px' }}>
         <div className={styles['community']}>
           <div className={styles['community__side ']}>
             <BaseTypography as="p" size="caption">
@@ -139,7 +141,6 @@ const CommunityView = () => {
               </>
             )}
           </div>
-          <div className={styles['community__side']}></div>
         </div>
       </BaseContainer>
 

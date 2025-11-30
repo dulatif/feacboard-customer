@@ -3,14 +3,16 @@ import styles from './StoreReels.module.scss'
 import { BaseImage } from '@/shared/components/base-image/BaseImage'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import PlayCircleIcon from '@/shared/components/icons/PlayCircleIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface StoreReelsProps {
   thumbnails: string[]
 }
 export const StoreReels: React.FC<StoreReelsProps> = ({ thumbnails }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['store-reels']}>
-      <BaseFlex gap="spacing-24px">
+      <BaseFlex gap={largeScreen ? 'spacing-24px' : 'spacing-12px'}>
         {thumbnails.map((e, i) => (
           <div key={i} className={styles['store-reels__item']}>
             <div className={styles['store-reels__item__play']}>

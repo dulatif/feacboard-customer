@@ -11,12 +11,14 @@ import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import UserIcon from '@/shared/components/icons/UserIcon'
 import PhoneIcon from '@/shared/components/icons/PhoneIcon'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export interface ReservationInformationProps {
   onBack: () => void
   onNext: () => void
 }
 export const ReservationInformation: React.FC<ReservationInformationProps> = ({ onBack, onNext }) => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <BaseContainer variant={1440}>
       <div className={styles['container']}>

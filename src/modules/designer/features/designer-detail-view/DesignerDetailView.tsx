@@ -18,8 +18,10 @@ import { PersonalHistory } from '../../components/personal-history/PersonalHisto
 import { Portfolio } from '../../components/portfolio/Portfolio'
 import { BeforeAfter } from '../../components/before-after/BeforeAfter'
 import { hair } from '@/shared/dummy/data'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const DesignerDetailView = () => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const router = useRouter()
   const { id } = useParams()
   const data = hair.designer.find((e) => e.id === id)
@@ -76,17 +78,25 @@ export const DesignerDetailView = () => {
           뒤로가기
         </BaseButton>
       </div>
-      <BaseFlex vertical gap="spacing-48px">
+      <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
         <BaseBox borderColor="neutral-300" radius="radius-16px">
           <BaseFlex
             justify="space-between"
             gap="spacing-24px"
-            padding={{ x: 'spacing-24px', y: 'spacing-24px' }}
+            vertical={isMobile}
+            padding={{
+              x: largeScreen ? 'spacing-24px' : 'spacing-12px',
+              y: largeScreen ? 'spacing-24px' : 'spacing-12px',
+            }}
             align="center"
           >
-            <BaseFlex gap="spacing-48px" align="flex-start">
+            <BaseFlex
+              vertical={isMobile}
+              gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}
+              align={isMobile ? 'center' : 'flex-start'}
+            >
               <div>
-                <Avatar src={data.picture} style={{ background: '#CFC3A7' }} size={168} />
+                <Avatar src={data.picture} style={{ background: '#CFC3A7' }} size={largeScreen ? 168 : 120} />
               </div>
               <BaseFlex gap="spacing-16px" vertical>
                 <BaseFlex gap="spacing-16px" vertical>
