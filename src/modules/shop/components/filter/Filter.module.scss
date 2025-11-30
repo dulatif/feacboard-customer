@@ -3,5 +3,9 @@
     display: grid;
     grid-template-columns: 320px 1fr 102px;
     gap: 16px;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
   }
 }

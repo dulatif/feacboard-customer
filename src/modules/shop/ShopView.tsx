@@ -17,6 +17,7 @@ import { Studio } from './components/studio/Studio'
 import { Suspense } from 'react'
 import { useApp } from '@/shared/providers/AppProvider'
 import { Category } from './ShopView.utils'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 const categoryMap: Record<Category, string> = {
   nail: '네일',
@@ -43,6 +44,7 @@ const ShopViewContent = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   return (
     <div className={styles['shop-view']}>
@@ -61,7 +63,7 @@ const ShopViewContent = () => {
         </div>
       </div>
       <div className={styles['shop-view__content']}>
-        {scrollY > 260 && (
+        {!isMobile && scrollY > 260 && (
           <div className={styles['shop-view__content__filter']}>
             <BaseContainer variant={1440}>
               <Filter compact />
@@ -69,7 +71,7 @@ const ShopViewContent = () => {
           </div>
         )}
         <BaseContainer variant={1440}>
-          <BaseFlex vertical gap="spacing-80px">
+          <BaseFlex vertical gap={isMobile ? 'spacing-40px' : 'spacing-80px'}>
             <Banner />
             {category === 'hair' ? (
               <Hair />
