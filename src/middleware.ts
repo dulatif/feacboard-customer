@@ -6,8 +6,6 @@ const authRoutes = ['/auth/login']
 const publicRoutes = ['/shop']
 
 export function middleware(req: NextRequest) {
-  return NextResponse.next()
-
   const { pathname } = req.nextUrl
 
   const isAuthRoutes = authRoutes.some((path) => pathname.startsWith(path))
