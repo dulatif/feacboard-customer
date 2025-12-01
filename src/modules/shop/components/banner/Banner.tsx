@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Banner.scss'
 import Image from 'next/image'
 import Slider, { Settings } from 'react-slick'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 
 export const Banner = () => {
+  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const slidesToShow = isMobile || isTablet ? 1 : 3
+  const slidesToScroll = isMobile || isTablet ? 1 : 3
+
   const settings: Settings = {
     dots: true,
     infinite: true,
     speed: 500,
     arrows: false,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow,
+    slidesToScroll,
   }
+
   const sliderItems = [
     {
       image: '/dummy/banner01.png',
@@ -50,6 +56,7 @@ export const Banner = () => {
       image: '/dummy/banner03.png',
     },
   ]
+
   return (
     <div className="shop-banner">
       <Slider {...settings}>

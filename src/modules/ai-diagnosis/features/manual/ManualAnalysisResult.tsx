@@ -8,7 +8,7 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import SaveIcon from '@/shared/components/icons/SaveIcon'
 import ShareIcon from '@/shared/components/icons/ShareIcon'
 import { Color } from '@/shared/types/color'
-import { Col, Flex, Row, Space } from 'antd'
+import { Col, Flex, Grid, Row, Space } from 'antd'
 import { DiscountShape } from 'iconsax-reactjs'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -87,7 +87,18 @@ interface ShopCardProps {
 const ShopCard = ({ imageSrc, shopName, review, rating = 5 }: ShopCardProps) => {
   return (
     <BaseBox shadow="md" className={styles['card-shade']}>
-      <Image src={imageSrc} alt={shopName} width={200} height={200} style={{ marginBottom: '16px' }} />
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '1 / 1',
+          overflow: 'hidden',
+          borderRadius: 12,
+          marginBottom: '16px',
+        }}
+      >
+        <Image src={imageSrc} alt={shopName} fill style={{ objectFit: 'cover' }} />
+      </div>
       <BaseTypography as="p" size="subtitle2" variant="aleo" weight="medium" style={{ marginBottom: 8 }}>
         {shopName}
       </BaseTypography>
@@ -309,32 +320,36 @@ const ManualAnalysisResult = () => {
             icon="/icons/hair.svg"
             textColor="white"
           />
-          <Flex gap={24} wrap="wrap">
+          <Row gutter={[24, 24]}>
             {Array.from({ length: 4 }, (_, index) => (
-              <ShopCard
-                key={index}
-                imageSrc={`/dummy/shop-${index + 1}.jpg`}
-                shopName="영앤영헤어강남점"
-                rating={4.8}
-                review={129}
-              />
+              <Col span={6} xs={24} sm={12} md={6} key={index}>
+                <ShopCard
+                  key={index}
+                  imageSrc={`/dummy/store0${index + 1}.jpg`}
+                  shopName="영앤영헤어강남점"
+                  rating={4.8}
+                  review={129}
+                />
+              </Col>
             ))}
-          </Flex>
+          </Row>
         </BaseContainer>
       </div>
       <div style={{ padding: '40px 0px' }}>
         <SectionHeader leftText="디자이너별  추천" rightText="예약하러 가기" icon="/icons/hair.svg" />
-        <Flex gap={24} wrap="wrap">
+        <Row gutter={[24, 24]}>
           {Array.from({ length: 4 }, (_, index) => (
-            <ShopCard
-              key={index}
-              imageSrc={`/dummy/designer-${index + 1}.jpg`}
-              shopName="영앤영헤어강남점"
-              rating={4.8}
-              review={129}
-            />
+            <Col span={6} xs={24} sm={12} md={6} key={index}>
+              <ShopCard
+                key={index}
+                imageSrc={`/dummy/designer0${index + 1}.jpg`}
+                shopName="영앤영헤어강남점"
+                rating={4.8}
+                review={129}
+              />
+            </Col>
           ))}
-        </Flex>
+        </Row>
       </div>
       <div
         style={{
@@ -356,17 +371,19 @@ const ManualAnalysisResult = () => {
               icon="/icons/nail.svg"
               textColor="white"
             />
-            <Flex gap={24} wrap="wrap">
+            <Row gutter={[24, 24]}>
               {Array.from({ length: 4 }, (_, index) => (
-                <ShopCard
-                  key={index}
-                  imageSrc={`/dummy/shop-${index + 1}.jpg`}
-                  shopName="영앤영헤어강남점"
-                  rating={4.8}
-                  review={129}
-                />
+                <Col span={6} xs={24} sm={12} md={6} key={index}>
+                  <ShopCard
+                    key={index}
+                    imageSrc={`/dummy/store0${index + 1}.jpg`}
+                    shopName="영앤영헤어강남점"
+                    rating={4.8}
+                    review={129}
+                  />
+                </Col>
               ))}
-            </Flex>
+            </Row>
           </BaseContainer>
         </div>
       </div>
