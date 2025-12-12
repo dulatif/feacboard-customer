@@ -23,23 +23,16 @@ instances.interceptors.request.use(
 
 instances.interceptors.response.use(
   (res) => {
-    return res.data.data
+    return res.data
   },
   async (err) => {
-    if (err.response && err.response.status === 401) {
-      await deleteToken()
-      window.location.href = '/'
-    }
-
-    if (err.response?.data?.message_code === 404) {
-      window.location.href = '/page-not-found'
-    }
-
     return Promise.reject(err.response.data)
   },
 )
 
 export default instances
-function deleteToken() {
-  throw new Error('Function not implemented.')
+
+export interface ApiResponseError {
+  message: string
+  statusCode: number
 }

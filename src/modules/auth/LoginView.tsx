@@ -1,25 +1,60 @@
 'use client'
-import React from 'react'
-import styles from './LoginView.module.scss'
-import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
-import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
-import { Divider } from 'antd'
+import { ApiResponseError } from '@/api'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
+import { useLoginGoogle } from '@/shared/hooks/useAuthMutation'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { APP_URL, AUTH_URL, DEV_APP_URL } from '@/shared/utils/url'
+import { Divider, notification } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
-import { APP_URL, AUTH_URL } from '@/shared/utils/url'
-import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useMemo, useRef } from 'react'
+import styles from './LoginView.module.scss'
 
 export const LoginView = () => {
-  const { largeScreen, isTablet, isMobile } = useResponsive()
+  const params = useSearchParams()
+  const { largeScreen, isTablet } = useResponsive()
+  const callbackUrl = new URLSearchParams()
+  const hasMutatedRef = useRef(false)
+  const callbackAppUrl = useMemo(() => {
+    const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    return (isLocalhost ? DEV_APP_URL : APP_URL) + '/auth/google'
+  }, [])
+  callbackUrl.set('redirect', callbackAppUrl)
+
+  const googleRedirectUrl = `${AUTH_URL}/google/redirect?${callbackUrl.toString()}`
+
   const handleLogin = (type: 'google' | 'kakao' | 'apple' | 'facebook') => {
     if (type === 'google') {
-      window.location.href = `${AUTH_URL}/google-oauth?redirectUrl=${APP_URL}/auth/callback`
+      // window.location.href = `${AUTH_URL}/google-oauth?redirectUrl=${APP_URL}/auth/callback`
+      window.location.href = googleRedirectUrl
     }
   }
+
+  const [notificationApi, contextHolder] = notification.useNotification()
+  const loginGoogleMutation = useLoginGoogle()
+  useEffect(() => {
+    if (!!params.get('code') && !hasMutatedRef.current) {
+      hasMutatedRef.current = true
+      const callbackURLParams = `${callbackUrl.toString()}&${params.toString()}`
+      loginGoogleMutation.mutate(callbackURLParams, {
+        onError: (err: unknown) => {
+          const error = err as ApiResponseError
+          notificationApi.error({
+            placement: 'topRight',
+            message: error.message || '',
+          })
+        },
+      })
+    }
+  }, [params, hasMutatedRef])
+
   return (
     <div className={styles['container']}>
+      {contextHolder}
       <Link href={'/'} className={styles['logo']}>
         <BaseTypography as="h1" variant="aleo" size="header4" weight="bold" color="white">
           Faceboard
