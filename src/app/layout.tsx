@@ -91,6 +91,7 @@ export default function RootLayout({
   const useHeroBgGradientGreen = [''].includes(pathName)
   const useNoContainer = [
     '/auth/login',
+    '/auth/google',
     '/shop',
     `/reservation`,
     `/cart`,
