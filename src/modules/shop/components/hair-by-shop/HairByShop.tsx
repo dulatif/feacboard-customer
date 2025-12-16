@@ -3,14 +3,16 @@ import Render from '@/shared/components/base-render/Render'
 import { useShopQuery } from '@/shared/hooks/shop/useShopQuery'
 import { Empty, Spin } from 'antd'
 import { StoreCard } from '../store-card/StoreCard'
+import { useFilterStore } from '@/shared/hooks/state/useFilter'
 
 export const HairByShop = () => {
-  const { data, isPending } = useShopQuery({ params: { category_id: '1', with: 'designers.services' } })
+  const { location, name } = useFilterStore()
+  const { data, isPending } = useShopQuery({ params: { category_id: '1', with: 'designers.services', name: name } })
 
   return (
     <>
       <Spin tip="Loading..." size="large" spinning={isPending}>
-        <Render in={data?.length === 0}>
+        <Render in={data?.length === 0 || !data}>
           <Empty />
         </Render>
         <Render in={!!data && data.length > 0}>

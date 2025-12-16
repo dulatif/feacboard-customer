@@ -21,7 +21,8 @@ export const ShopDetailsView = () => {
   const { id } = useParams()
   const searchParams = useSearchParams()
   const category = searchParams.get('category') as unknown as Category
-  const data = hair.shop.find((e) => e.id === id)
+  // TODO: update the dummy id after api ready
+  const data = hair.shop.find((e) => e.id === '1')
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
   useEffect(() => {
     if (data) {

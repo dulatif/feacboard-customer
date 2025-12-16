@@ -3,7 +3,7 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import MapMarkerIcon from '@/shared/components/icons/MapMarkerIcon'
 import SearchIcon from '@/shared/components/icons/SearchIcon'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Filter.module.scss'
 import { useFilterStore } from '@/shared/hooks/state/useFilter'
 
@@ -14,6 +14,10 @@ export const Filter: React.FC<FilterProps> = ({ compact = false }) => {
   const [locationValue, setLocationValue] = useState('')
   const [nameValue, setNameValue] = useState('')
   const { setLocation, setName } = useFilterStore()
+
+  useEffect(() => {
+    if (nameValue === '') setName('')
+  }, [nameValue])
 
   const onSubmit = () => {
     setLocation(locationValue)
@@ -41,6 +45,9 @@ export const Filter: React.FC<FilterProps> = ({ compact = false }) => {
           placeholder="디자이너 이름으로 검색"
           value={nameValue}
           onChange={(e) => setNameValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') onSubmit()
+          }}
         />
         <BaseButton icon={<SearchIcon />} size="xl" onClick={onSubmit}>
           검색
