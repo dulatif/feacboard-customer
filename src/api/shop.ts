@@ -13,10 +13,6 @@ export interface GetShopCategoryResponse {
   deletedAt: string | null
 }
 
-export const getShopCategory = async () => {
-  return (await api.get('/v1/category-shop')) as GetShopCategoryResponse[]
-}
-
 export interface GetShopResponse {
   id: string
   userId: string

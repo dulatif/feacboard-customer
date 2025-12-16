@@ -4,10 +4,15 @@ import { useShopQuery } from '@/shared/hooks/shop/useShopQuery'
 import { Empty, Spin } from 'antd'
 import { StoreCard } from '../store-card/StoreCard'
 import { useFilterStore } from '@/shared/hooks/state/useFilter'
+import { useSearchParams } from 'next/navigation'
 
 export const HairByShop = () => {
+  const searchParams = useSearchParams()
+  const categoryId = searchParams.get('category_id')
   const { location, name } = useFilterStore()
-  const { data, isPending } = useShopQuery({ params: { category_id: '1', with: 'designers.services', name: name } })
+  const { data, isPending } = useShopQuery({
+    params: { category_id: categoryId as string, with: 'designers.services', name: name, location: location },
+  })
 
   return (
     <>

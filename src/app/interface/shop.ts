@@ -15,6 +15,7 @@ export interface Shop {
 
 export interface GetAllShopQueryParams {
   name?: string
+  location?: string
   category_id?: number | string
   with?: 'designers.services'
 }

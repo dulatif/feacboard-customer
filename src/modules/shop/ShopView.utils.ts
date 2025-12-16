@@ -1,1 +1,1 @@
-export type Category = 'nail' | 'hair' | 'makeup' | 'studio'
+export type TCategoryLabel = 'nail' | 'hair' | 'makeup' | 'studio'

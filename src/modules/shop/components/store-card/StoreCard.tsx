@@ -11,7 +11,7 @@ import StarIcon from '@/shared/components/icons/StarIcon'
 import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
 import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
-import { Category } from '../../ShopView.utils'
+import { TCategoryLabel } from '../../ShopView.utils'
 import { useRouter } from 'next/navigation'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { hair } from '@/shared/dummy/data'
@@ -29,7 +29,7 @@ export interface StoreCardProps {
   instagram?: string
   containerProps?: BaseBoxProps
   metaInformationProps?: Omit<BaseFlexProps, 'children'>
-  category?: Category
+  category?: TCategoryLabel
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
   id,
