@@ -1,3 +1,4 @@
+import { GetAllShopQueryParams, Shop } from '@/app/interface/shop'
 import api from './index'
 
 export interface GetShopCategoryResponse {
@@ -59,6 +60,7 @@ export interface ShopLocation {
   deletedAt: any
 }
 
-export const getShop = async (params: string) => {
-  return (await api.get(`/v1/shop/${params}`)) as GetShopResponse[]
+export const getShop = async (params: GetAllShopQueryParams) => {
+  const queryParams = new URLSearchParams(params as string).toString()
+  return (await api.get(`/shop?${queryParams}`)) as Shop[]
 }

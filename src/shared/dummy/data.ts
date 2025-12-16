@@ -417,7 +417,13 @@ export const hair = {
       availableDesigners: 5,
       close: '22:30',
       open: '10:30',
-      images: ['/dummy/store01.jpg', '/dummy/store02.jpg', '/dummy/store03.jpg', '/dummy/store04.jpg'],
+      images: [
+        '/dummy/store01.jpg',
+        '/dummy/store02.jpg',
+        '/dummy/store03.jpg',
+        '/dummy/store04.jpg',
+        '/dummy/store05.jpg',
+      ],
       rating: 4.9,
       reviewersCount: 129,
       storeName: '라리엔 가로수길',
@@ -738,7 +744,7 @@ export const hair = {
         },
       ],
     },
-    {
+    /* {
       id: '2',
       availableDesigners: 5,
       close: '22:30',
@@ -1172,7 +1178,7 @@ export const hair = {
           videoThumbnails: [],
         },
       ],
-    },
+    }, */
   ],
 }
 

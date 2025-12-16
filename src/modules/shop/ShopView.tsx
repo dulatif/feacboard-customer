@@ -44,7 +44,7 @@ const ShopViewContent = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const { isMobile } = useResponsive()
 
   return (
     <div className={styles['shop-view']}>
