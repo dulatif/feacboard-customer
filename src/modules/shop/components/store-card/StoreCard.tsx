@@ -11,9 +11,10 @@ import StarIcon from '@/shared/components/icons/StarIcon'
 import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
 import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
-import { Category } from '../../ShopView.utils'
+import { TCategoryLabel } from '../../ShopView.utils'
 import { useRouter } from 'next/navigation'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { hair } from '@/shared/dummy/data'
 
 export interface StoreCardProps {
   id: string
@@ -24,21 +25,23 @@ export interface StoreCardProps {
   open: string
   close: string
   availableDesigners: number
+  location?: string
   instagram?: string
   containerProps?: BaseBoxProps
   metaInformationProps?: Omit<BaseFlexProps, 'children'>
-  category?: Category
+  category?: TCategoryLabel
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
   id,
   availableDesigners,
-  close,
-  images,
-  open,
-  rating,
-  reviewersCount,
+  open = hair.shop[0].open,
+  close = hair.shop[0].close,
+  images = hair.shop[0].images,
+  rating = hair.shop[0].rating,
+  reviewersCount = hair.shop[0].reviewersCount,
   storeName,
   instagram,
+  location = '역삼역 3번 출구에서 도보 300m 입니다.',
   containerProps = {
     borderColor: 'neutral-300',
     padding: { x: 'spacing-24px', y: 'spacing-24px' },
@@ -117,7 +120,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
             icon={<NavigationIcon />}
             iconPosition="end"
           >
-            역삼역 3번 출구에서 도보 300m 입니다.
+            {location}
           </BaseButton>
         </BaseFlex>
       </BaseFlex>

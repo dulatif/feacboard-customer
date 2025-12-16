@@ -9,11 +9,14 @@ import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useShopCategoryQuery } from '@/shared/hooks/shop/useShopQuery'
+import Render from '@/shared/components/base-render/Render'
 
 export const Service = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const { largeScreen, isTablet, isMobile } = useResponsive()
+  const { data: categories } = useShopCategoryQuery()
+  const { largeScreen, isTablet } = useResponsive()
   const containerPadding = largeScreen ? 'spacing-64px' : isTablet ? 'spacing-48px' : 'spacing-24px'
   const services = [
     {
@@ -84,24 +87,30 @@ export const Service = () => {
   return (
     <BaseBox radius="radius-24px" padding={{ x: containerPadding, y: containerPadding }} shadow="lg">
       <Row gutter={[largeScreen ? 120 : 0, 56]} className={styles['home__service']}>
-        {services.map((e, i) => (
-          <Col
-            key={i}
-            xs={8}
-            sm={8}
-            lg={6}
-            xl={4}
-            className={styles['service__item']}
-            onClick={() => handleRedirect(e.link)}
-          >
-            <BaseFlex vertical gap="spacing-12px" justify="center" align="center" style={{ cursor: 'pointer' }}>
-              <Image src={e.icon} width={40} height={40} alt={e.labelKey} />
-              <BaseTypography as="p" size="body1" textAlign="center">
-                {t(e.labelKey)}
-              </BaseTypography>
-            </BaseFlex>
-          </Col>
-        ))}
+        {categories?.map(
+          (category, i) =>
+            !!category.icon && (
+              <Col
+                key={i}
+                xs={8}
+                sm={8}
+                lg={6}
+                xl={4}
+                className={styles['service__item']}
+                onClick={() =>
+                  handleRedirect('/shop?category=' + category.name.en.toLowerCase() + '&category_id=' + category.id)
+                }
+              >
+                <BaseFlex vertical gap="spacing-12px" justify="center" align="center" style={{ cursor: 'pointer' }}>
+                  <Image src={category.icon} width={40} height={40} alt={category.name.ko} />
+                  <BaseTypography as="p" size="body1" textAlign="center">
+                    {/* TODO: implement i18n */}
+                    {t(category.name.ko)}
+                  </BaseTypography>
+                </BaseFlex>
+              </Col>
+            ),
+        )}
       </Row>
     </BaseBox>
   )

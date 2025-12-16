@@ -108,6 +108,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>Faceboard</title>
+      </head>
       <body className={`${urbanist.variable} ${aleo.variable} ${hammersmith_one.variable}`}>
         <TanstackProvider>
           <AntdRegistry>

@@ -11,7 +11,7 @@ import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 import { StoreInformation } from '../../components/store-information/StoreInformation'
 import { StoreReview } from '../../components/store-review/StoreReview'
 import { StoreTidings } from '../../components/store-tidings/StoreTidings'
-import { Category } from '../../ShopView.utils'
+import { TCategoryLabel } from '../../ShopView.utils'
 import { StoreServices } from '../../components/store-services/StoreServices'
 import { hair } from '@/shared/dummy/data'
 import { useResponsive } from '@/shared/hooks/useResponsive'
@@ -20,8 +20,9 @@ export const ShopDetailsView = () => {
   const router = useRouter()
   const { id } = useParams()
   const searchParams = useSearchParams()
-  const category = searchParams.get('category') as unknown as Category
-  const data = hair.shop.find((e) => e.id === id)
+  const category = searchParams.get('category') as unknown as TCategoryLabel
+  // TODO: update the dummy id after api ready
+  const data = hair.shop.find((e) => e.id === '1')
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
   useEffect(() => {
     if (data) {

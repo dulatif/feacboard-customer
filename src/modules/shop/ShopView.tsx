@@ -16,10 +16,10 @@ import { Nail } from './components/nail/Nail'
 import { Studio } from './components/studio/Studio'
 import { Suspense } from 'react'
 import { useApp } from '@/shared/providers/AppProvider'
-import { Category } from './ShopView.utils'
+import { TCategoryLabel } from './ShopView.utils'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 
-const categoryMap: Record<Category, string> = {
+const categoryMap: Record<TCategoryLabel, string> = {
   nail: '네일',
   hair: '머리카락',
   makeup: '메이크업',
@@ -28,7 +28,7 @@ const categoryMap: Record<Category, string> = {
 
 const ShopViewContent = () => {
   const searchParams = useSearchParams()
-  const category = searchParams.get('category') as unknown as Category
+  const category = searchParams.get('category') as unknown as TCategoryLabel
   const { totalCart } = useApp()
   const [breadcrumbItems, setBreadcrumbItems] = useState<BaseBreadcrumbProps['items']>([
     {
@@ -44,7 +44,7 @@ const ShopViewContent = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const { isMobile } = useResponsive()
 
   return (
     <div className={styles['shop-view']}>
@@ -73,13 +73,13 @@ const ShopViewContent = () => {
         <BaseContainer variant={1440}>
           <BaseFlex vertical gap={isMobile ? 'spacing-40px' : 'spacing-80px'}>
             <Banner />
-            {category === 'hair' ? (
+            {/^hair$/i.test(category) ? (
               <Hair />
-            ) : category === 'makeup' ? (
+            ) : /^makeup$/i.test(category) ? (
               <Makeup />
-            ) : category === 'nail' ? (
+            ) : /^nail$/i.test(category) ? (
               <Nail />
-            ) : category === 'studio' ? (
+            ) : /^studio$/i.test(category) ? (
               <Studio />
             ) : null}
           </BaseFlex>

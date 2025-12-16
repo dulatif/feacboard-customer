@@ -1,3 +1,5 @@
+import { GetAllShopQueryParams, Shop } from '@/app/interface/shop'
+import { cleanObj } from '@/shared/utils/params'
 import api from './index'
 
 export interface GetShopCategoryResponse {
@@ -9,10 +11,6 @@ export interface GetShopCategoryResponse {
   createdAt: string
   updatedAt: string
   deletedAt: string | null
-}
-
-export const getShopCategory = async () => {
-  return (await api.get('/v1/category-shop')) as GetShopCategoryResponse[]
 }
 
 export interface GetShopResponse {
@@ -59,6 +57,8 @@ export interface ShopLocation {
   deletedAt: any
 }
 
-export const getShop = async (params: string) => {
-  return (await api.get(`/v1/shop/${params}`)) as GetShopResponse[]
+export const getShop = async (params: GetAllShopQueryParams) => {
+  const queryParams = new URLSearchParams(cleanObj(params) as Record<string, string>).toString()
+
+  return (await api.get(`/shop?${queryParams}`)) as Shop[]
 }
