@@ -26,6 +26,7 @@ export const HairByShop = () => {
               // @ts-expect-error: TODO: finish the attribute -> images , rating, reviewersCount, open & close,
               <StoreCard
                 key={i}
+                category="hair"
                 id={item.id as unknown as string}
                 storeName={item.name}
                 location={item.address}
