@@ -3,7 +3,7 @@ import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcru
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CaretLeft } from 'phosphor-react'
 import { useEffect, useMemo, useState } from 'react'
 import { StoreCard } from '../../components/store-card/StoreCard'
@@ -15,12 +15,20 @@ import { TCategoryLabel } from '../../ShopView.utils'
 import { StoreServices } from '../../components/store-services/StoreServices'
 import { hair } from '@/shared/dummy/data'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useShopDetailQuery } from '@/shared/hooks/shop/useShopQuery'
+import { Spin } from 'antd'
+import { ID } from '@/app/interface/general'
 
 export const ShopDetailsView = () => {
   const router = useRouter()
   const { id } = useParams()
+  const { data: shop, isLoading } = useShopDetailQuery({
+    enabled: true,
+    params: { id: id as string | ID, with: ['openHours'] },
+  })
   const searchParams = useSearchParams()
   const category = searchParams.get('category') as unknown as TCategoryLabel
+
   // TODO: update the dummy id after api ready
   const data = hair.shop.find((e) => e.id === '1')
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
@@ -70,6 +78,7 @@ export const ShopDetailsView = () => {
     ]
   }, [data])
 
+  if (isLoading) return <Spin />
   if (!data) return null
   return (
     <BaseFlex vertical gap="spacing-32px" padding={{ y: 'spacing-24px' }}>
@@ -82,6 +91,7 @@ export const ShopDetailsView = () => {
       <BaseFlex vertical gap={largeScreen ? 'spacing-80px' : 'spacing-20px'}>
         {/* Store Information */}
         <StoreCard
+          {...data}
           containerProps={{
             borderWidth: 0,
             padding: { x: 'spacing-0px', y: 'spacing-0px' },
@@ -91,7 +101,9 @@ export const ShopDetailsView = () => {
             vertical: true,
             gap: 'spacing-8px',
           }}
-          {...data}
+          storeName={shop?.name || ''}
+          location={shop?.address || ''}
+          // availableDesigners={shop?.designers.length || 0}
         />
 
         {/* Store Tabs */}

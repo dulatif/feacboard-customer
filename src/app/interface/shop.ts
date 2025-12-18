@@ -20,3 +20,9 @@ export interface GetAllShopQueryParams {
   with?: 'designers.services'
 }
 export interface GetAllShopMutationParams extends MutationParams<Shop[], GetAllShopQueryParams> {}
+
+type TWith = 'openHours'
+export interface GetDetailShopQueryParams {
+  id: ID | string
+  with?: TWith[]
+}
