@@ -1,4 +1,3 @@
-import { isValidJwt } from '@/shared/utils/auth'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -20,7 +19,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  if (!token || !isValidJwt(token)) {
+  if (!token) {
     const loginUrl = new URL('/auth/login', req.url)
     return NextResponse.redirect(loginUrl)
   }
