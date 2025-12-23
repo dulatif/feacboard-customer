@@ -51,7 +51,7 @@ export function checkToken(): Promise<{ loggedIn: boolean; token?: string }> {
     }
 
     const token = localStorage.getItem(TOKEN_KEY)
-    if (token && isValidJwt(token)) {
+    if (token) {
       resolve({ loggedIn: true, token })
     } else {
       resolve({ loggedIn: false })

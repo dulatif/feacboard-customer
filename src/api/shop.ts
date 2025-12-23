@@ -2,65 +2,70 @@ import { GetAllShopQueryParams, GetDetailShopQueryParams, Shop } from '@/app/int
 import { cleanObj } from '@/shared/utils/params'
 import api from './index'
 
-export interface GetShopCategoryResponse {
-  id: number
-  title: string
-  titleInEnglish: string
-  slug: string
-  icon?: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: string | null
-}
-
-export interface GetShopResponse {
-  id: string
-  userId: string
-  categoryId: number
-  name: string
-  slug: string
-  telp: string
-  instagram: string
-  email: string
-  phone: string
-  profilePicture: string
-  status: string
-  approvedAt: string
-  restaurantCertificateUrl: string
-  restaurantCertificateName: string
-  registrationStatus: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: any
-  category: Category
-  ShopLocation: ShopLocation[]
-}
-
-export interface Category {
-  id: number
-  title: string
-  titleInEnglish: string
-  slug: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: any
-}
-
-export interface ShopLocation {
-  id: number
-  shopId: string
-  address: string
-  latitude: string
-  longitude: string
-  createdAt: string
-  updatedAt: string
-  deletedAt: any
-}
-
 export const getShop = async (params: GetAllShopQueryParams) => {
   const queryParams = new URLSearchParams(cleanObj(params) as Record<string, string>).toString()
 
-  return (await api.get(`/shop?${queryParams}`)) as Shop[]
+  // return (await api.get(`/shop?${queryParams}`)) as Shop[]
+  // return (await api.get(`/shop?with[]=designers.services`)) as Shop[]
+  return (await api.get(`/shop?category_id=3&with[]=designers`)) as Shop[]
+}
+
+export interface GetShopDetailsResponse {
+  id: number
+  name: string
+  status: 'registering' | 'registered' | 'inactive'
+  phone: string
+  person_in_charge: string
+  address: string
+  address_lat: string
+  address_long: string
+  services: Service[]
+  rating: number
+  review_count: number
+  open_hour_today: string
+  designers: any[]
+}
+export interface Service {
+  id: number
+  name: string
+  price: string
+  images: any[]
+  variants: any[]
+}
+export interface GetShopDetailsParams {
+  shopId: number
+  with: 'services' | 'designers'
+}
+export const getShopDetails = async ({ shopId, with: withParam }: GetShopDetailsParams) => {
+  return (await api.get(`/shop/${shopId}?with[]=designers`)) as GetShopDetailsResponse
+}
+
+export type GetShopCalendarHourResponse = Record<string, Record<string, boolean>>
+export const getShopCalendarHour = async ({ shopId }: { shopId: number }) => {
+  return (await api.get(`/shop/${shopId}/openHours`)) as GetShopCalendarHourResponse
+}
+export interface GetShopServicesResponse {
+  data: {
+    id: number
+    name: string
+    price: string
+    images: {
+      'image-1': string
+      'image-2': string
+      'image-3': string
+      'image-4': string
+      'image-5': string
+    }
+  }[]
+  meta: {
+    current_page: number
+    per_page: number
+    total: number
+    last_page: number
+  }
+}
+export const getShopServices = async ({ shopId }: { shopId: number }) => {
+  return (await api.get(`/shop/${shopId}/services`)) as GetShopServicesResponse
 }
 
 export const getDetailShop = async (params?: GetDetailShopQueryParams) => {

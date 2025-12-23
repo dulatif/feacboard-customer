@@ -31,6 +31,7 @@ export const HairByShop = () => {
                 storeName={item.name}
                 location={item.address}
                 availableDesigners={item.designers.length}
+                images={[]}
               />
             ))}
           </BaseFlex>

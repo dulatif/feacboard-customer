@@ -12,6 +12,7 @@ import UserIcon from '@/shared/components/icons/UserIcon'
 import PhoneIcon from '@/shared/components/icons/PhoneIcon'
 import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useApp } from '@/shared/providers/AppProvider'
 
 export interface ReservationInformationProps {
   onBack: () => void
@@ -19,6 +20,7 @@ export interface ReservationInformationProps {
 }
 export const ReservationInformation: React.FC<ReservationInformationProps> = ({ onBack, onNext }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const { appointment } = useApp()
   return (
     <BaseContainer variant={1440}>
       <div className={styles['container']}>

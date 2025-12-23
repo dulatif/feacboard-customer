@@ -155,6 +155,22 @@
     }
   }
 
+  &--text-danger {
+    border: none;
+    color: var(--color-danger-600);
+    [stroke] {
+      stroke: var(--color-danger-600);
+    }
+
+    &:hover {
+      color: var(--color-danger-700);
+    }
+
+    &.base-button--disabled {
+      color: var(--color-danger-200);
+    }
+  }
+
   &--grey {
     border: none;
     background: var(--color-neutral-200);

@@ -8,42 +8,16 @@ import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
 import ChevronLeftIcon from '@/shared/components/icons/ChevronLeftIcon'
 import PhoneIcon from '@/shared/components/icons/PhoneIcon'
 import UserIcon from '@/shared/components/icons/UserIcon'
+import { useApp } from '@/shared/providers/AppProvider'
 import { Avatar } from 'antd'
-import {
-  CartServiceItemCard,
-  CartServiceItemCardProps,
-} from '../../components/cart-service-item-card/CartServiceItemCard'
+import { CartServiceItemCard } from '../../components/cart-service-item-card/CartServiceItemCard'
 import styles from './Summary.module.scss'
 
 export interface SummaryProps {
   onBack: () => void
 }
 export const Summary: React.FC<SummaryProps> = ({ onBack }) => {
-  const data: CartServiceItemCardProps[] = [
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      addons: `샴푸 + 3,000원`,
-      normalPrice: 10000,
-      discountPrice: 8000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-      discountPrice: 8000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-    },
-  ]
+  const { appointment } = useApp()
   return (
     <BaseContainer variant={1440}>
       <div className={styles['container']}>
@@ -96,11 +70,22 @@ export const Summary: React.FC<SummaryProps> = ({ onBack }) => {
                   </BaseFlex>
                 </BaseFlex>
               </BaseFlex>
-              <BaseFlex vertical gap="spacing-16px">
-                {data.map((e, i) => (
-                  <CartServiceItemCard key={i} {...e} />
-                ))}
-              </BaseFlex>
+
+              {appointment?.data && (
+                <BaseFlex vertical gap="spacing-16px">
+                  {appointment?.data.items.map((e, i) => (
+                    <CartServiceItemCard
+                      key={i}
+                      id={e.id}
+                      image={e.service.image}
+                      normalPrice={Number(e.service.price)}
+                      service={e.service.name}
+                      addons=""
+                      discountPrice={0}
+                    />
+                  ))}
+                </BaseFlex>
+              )}
 
               <BaseFlex vertical gap="spacing-24px">
                 <BaseTypography as="p" size="body1" weight="semibold">

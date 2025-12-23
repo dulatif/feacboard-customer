@@ -13,6 +13,7 @@ export interface BaseButtonProps
     | 'tertiary'
     | 'tertiary-neutral'
     | 'danger'
+    | 'text-danger'
     | 'grey'
     | 'success'
   shape?: 'default' | 'circle' | 'square'

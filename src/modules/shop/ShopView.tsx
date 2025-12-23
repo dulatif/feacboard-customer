@@ -18,6 +18,7 @@ import { Suspense } from 'react'
 import { useApp } from '@/shared/providers/AppProvider'
 import { TCategoryLabel } from './ShopView.utils'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import Link from 'next/link'
 
 const categoryMap: Record<TCategoryLabel, string> = {
   nail: '네일',
@@ -85,14 +86,15 @@ const ShopViewContent = () => {
           </BaseFlex>
         </BaseContainer>
       </div>
-      <BaseFloatButton
-        withBadge
-        badgeProps={{ count: totalCart }}
-        size="xl"
-        shape="square"
-        href="/cart"
-        icon={<CartIcon width={22} height={22} />}
-      />
+      <Link href={'/cart'}>
+        <BaseFloatButton
+          withBadge
+          badgeProps={{ count: totalCart }}
+          size="xl"
+          shape="square"
+          icon={<CartIcon width={22} height={22} />}
+        />
+      </Link>
     </div>
   )
 }
