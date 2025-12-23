@@ -30,37 +30,10 @@ export interface ServiceInformationProps {
 }
 export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }) => {
   const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false)
-  const { setAppointment, appointment } = useApp()
+  const { appointment } = useApp()
   const handleSubmitAppointment = (value: AppContextType['appointment']) => {
-    setAppointment(value)
     setIsAppointmentModalOpen(false)
   }
-  const data: CartServiceItemCardProps[] = [
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      addons: `샴푸 + 3,000원`,
-      normalPrice: 10000,
-      discountPrice: 8000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-      discountPrice: 8000,
-    },
-    {
-      image: '/dummy/service01.jpg',
-      service: '헤어 염색',
-      normalPrice: 10000,
-    },
-  ]
-
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <>
@@ -114,11 +87,21 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                     </BaseFlex>
                   </BaseFlex>
                 </BaseFlex>
-                <BaseFlex vertical gap="spacing-16px">
-                  {data.map((e, i) => (
-                    <CartServiceItemCard key={i} {...e} />
-                  ))}
-                </BaseFlex>
+                {appointment?.data && (
+                  <BaseFlex vertical gap="spacing-16px">
+                    {appointment?.data.items.map((e, i) => (
+                      <CartServiceItemCard
+                        key={i}
+                        id={e.id}
+                        image={e.service.image}
+                        normalPrice={Number(e.service.price)}
+                        service={e.service.name}
+                        addons=""
+                        discountPrice={0}
+                      />
+                    ))}
+                  </BaseFlex>
+                )}
               </BaseFlex>
             </BaseBox>
           </div>
@@ -174,14 +157,14 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
           </div>
         </div>
       </BaseContainer>
-      <AppointmentModal
+      {/* <AppointmentModal
         width={880}
         open={isAppointmentModalOpen}
         onCancel={() => setIsAppointmentModalOpen(false)}
         onSubmit={handleSubmitAppointment}
         defaultSelectedDate={appointment?.date}
         defaultSelectedTime={appointment?.time}
-      />
+      /> */}
     </>
   )
 }

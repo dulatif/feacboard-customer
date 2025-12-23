@@ -146,7 +146,7 @@ export const DesignerDetailView = () => {
           <BaseInput prefix={<MagnifyingGlass width={20} height={20} />} placeholder="검색" size="large" />
         </div>
         {activeTab === '1' ? (
-          <Services data={data.services || []} />
+          <Services data={[]} />
         ) : activeTab === '2' ? (
           <Portfolio data={data.portfolio || []} />
         ) : activeTab === '3' ? (

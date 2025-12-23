@@ -1,20 +1,18 @@
-import React from 'react'
-import styles from './StoreCard.module.scss'
 import { BaseBox, BaseBoxProps } from '@/shared/components/base-box/BaseBox'
+import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex, BaseFlexProps } from '@/shared/components/base-flex/BaseFlex'
 import { BaseImage } from '@/shared/components/base-image/BaseImage'
-import { BaseButton } from '@/shared/components/base-button/BaseButton'
-import NavigationIcon from '@/shared/components/icons/NavigationIcon'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ClockIcon from '@/shared/components/icons/ClockIcon'
-import StarIcon from '@/shared/components/icons/StarIcon'
-import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
-import Link from 'next/link'
 import InstagramIcon from '@/shared/components/icons/InstagramIcon'
-import { TCategoryLabel } from '../../ShopView.utils'
-import { useRouter } from 'next/navigation'
+import NavigationIcon from '@/shared/components/icons/NavigationIcon'
+import ProfileCircleIcon from '@/shared/components/icons/ProfileCircleIcon'
+import StarIcon from '@/shared/components/icons/StarIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-import { hair } from '@/shared/dummy/data'
+import { useRouter } from 'next/navigation'
+import React from 'react'
+import { TCategoryLabel } from '../../ShopView.utils'
+import styles from './StoreCard.module.scss'
 
 export interface StoreCardProps {
   id: string
@@ -22,8 +20,7 @@ export interface StoreCardProps {
   storeName: string
   rating: number
   reviewersCount: number
-  open: string
-  close: string
+  open_and_close: string
   availableDesigners: number
   location?: string
   instagram?: string
@@ -34,14 +31,13 @@ export interface StoreCardProps {
 export const StoreCard: React.FC<StoreCardProps> = ({
   id,
   availableDesigners,
-  open = hair.shop[0].open,
-  close = hair.shop[0].close,
-  images = hair.shop[0].images,
-  rating = hair.shop[0].rating,
-  reviewersCount = hair.shop[0].reviewersCount,
+  open_and_close,
+  images,
+  rating,
+  reviewersCount,
   storeName,
   instagram,
-  location = '역삼역 3번 출구에서 도보 300m 입니다.',
+  location,
   containerProps = {
     borderColor: 'neutral-300',
     padding: { x: 'spacing-24px', y: 'spacing-24px' },
@@ -94,7 +90,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({
               <BaseFlex gap="spacing-8px" align="center">
                 <ClockIcon width={16} height={16} color="#667085" />
                 <BaseTypography as="span" size="caption" color="neutral-500">
-                  {open} - {close}
+                  {open_and_close}
                 </BaseTypography>
               </BaseFlex>
               <BaseFlex gap="spacing-8px" align="center">

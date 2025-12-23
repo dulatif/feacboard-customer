@@ -10,3 +10,10 @@ export function formatNumber(value: number): string {
   // Kalau hasilnya bulat, jangan kasih .0
   return scaled % 1 === 0 ? `${scaled}${unit}` : `${scaled.toFixed(1)}${unit}`
 }
+
+export function formatNumberCurrency(value: number, locale: string = 'id-ID'): string {
+  return new Intl.NumberFormat(locale, {
+    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(value)
+}
