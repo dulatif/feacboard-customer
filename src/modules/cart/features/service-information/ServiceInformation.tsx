@@ -17,9 +17,11 @@ import {
 import styles from './ServiceInformation.module.scss'
 import dynamic from 'next/dynamic'
 import { useMemo, useState } from 'react'
-import { AppContextType, useApp } from '@/shared/providers/AppProvider'
+import { useApp } from '@/shared/providers/AppProvider'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { formatNumberCurrency } from '@/shared/utils/number'
+import { GetShopCalendarHourResponse } from '@/api/shop'
+import { useUpdateCartMutation } from '@/shared/hooks/cart/useCartMutation'
 
 const AppointmentModal = dynamic(
   () => import('@/modules/shop/components/appointment-modal/AppointmentModal').then((mod) => mod.AppointmentModal),
@@ -28,12 +30,27 @@ const AppointmentModal = dynamic(
 
 export interface ServiceInformationProps {
   onNext: () => void
+  calendarHour: GetShopCalendarHourResponse
 }
-export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }) => {
+export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext, calendarHour }) => {
   const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false)
   const { appointment } = useApp()
-  const handleSubmitAppointment = (value: AppContextType['appointment']) => {
-    setIsAppointmentModalOpen(false)
+  const { mutate: updateCartMutate, isPending: isUpdateCartPending } = useUpdateCartMutation()
+
+  const handleSubmitAppointment = ({ date, time }: { date: string; time: string }) => {
+    updateCartMutate(
+      {
+        date,
+        time,
+      },
+      {
+        onSuccess: () => {
+          setIsAppointmentModalOpen(false)
+        },
+        onError: () => {},
+        onSettled: () => {},
+      },
+    )
   }
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
@@ -42,6 +59,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
       return total + Number(item.service.price)
     }, 0)
   }, [appointment?.data?.items])
+
   return (
     <>
       <BaseContainer variant={1440}>
@@ -162,7 +180,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                       {formatNumberCurrency(Number(total))} 원
                     </BaseTypography>
                   </BaseFlex>
-                  <BaseButton variant="fullwidth" onClick={onNext}>
+                  <BaseButton variant="fullwidth" onClick={onNext} loading={isUpdateCartPending}>
                     계속 결제하기
                   </BaseButton>
                 </BaseFlex>
@@ -171,14 +189,15 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
           </div>
         </div>
       </BaseContainer>
-      {/* <AppointmentModal
+      <AppointmentModal
         width={880}
         open={isAppointmentModalOpen}
         onCancel={() => setIsAppointmentModalOpen(false)}
         onSubmit={handleSubmitAppointment}
-        defaultSelectedDate={appointment?.date}
-        defaultSelectedTime={appointment?.time}
-      /> */}
+        defaultSelectedDate={appointment?.data?.date}
+        defaultSelectedTime={appointment?.data?.start_at}
+        calendarHour={calendarHour}
+      />
     </>
   )
 }

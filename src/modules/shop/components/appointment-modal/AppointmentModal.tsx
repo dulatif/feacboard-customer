@@ -18,6 +18,7 @@ const getPeriod = (time: string): TimePeriod => {
   return 'evening'
 }
 
+const formatTime = (time: string) => (time.length === 8 ? time.slice(0, -3) : time)
 export interface AppointmentModalProps extends ModalProps {
   defaultSelectedDate?: string
   defaultSelectedTime?: string
@@ -35,7 +36,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   ...props
 }) => {
   const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultSelectedDate)
-  const [selectedTime, setSelectedTime] = useState<string | undefined>(defaultSelectedTime)
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(formatTime(defaultSelectedTime as string))
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   const hasAvailableHour = (date: string) => {
