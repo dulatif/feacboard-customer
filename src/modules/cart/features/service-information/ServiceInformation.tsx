@@ -16,9 +16,10 @@ import {
 } from '../../components/cart-service-item-card/CartServiceItemCard'
 import styles from './ServiceInformation.module.scss'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { AppContextType, useApp } from '@/shared/providers/AppProvider'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { formatNumberCurrency } from '@/shared/utils/number'
 
 const AppointmentModal = dynamic(
   () => import('@/modules/shop/components/appointment-modal/AppointmentModal').then((mod) => mod.AppointmentModal),
@@ -35,6 +36,12 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
     setIsAppointmentModalOpen(false)
   }
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+
+  const total = useMemo(() => {
+    return appointment?.data?.items.reduce((total, item) => {
+      return total + Number(item.service.price)
+    }, 0)
+  }, [appointment?.data?.items])
   return (
     <>
       <BaseContainer variant={1440}>
@@ -49,7 +56,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                       예약 시간
                     </BaseTypography>
                     <BaseTypography as="p" size="subtitle2" weight="medium">
-                      2025년 5월 25일 목요일 오후 3시 25분
+                      {appointment?.data?.date || ''} {appointment?.data?.start_at || ''}
                     </BaseTypography>
                   </BaseFlex>
                   <BaseButton icon={<Calendar />} onClick={() => setIsAppointmentModalOpen(true)}>
@@ -61,28 +68,32 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                     제품 서비스 정보
                   </BaseTypography>
                   <BaseFlex gap="spacing-24px" justify="space-between" align="center">
-                    <BaseFlex vertical gap="spacing-8px">
-                      <BaseTypography as="p" size="caption" color="neutral-500">
-                        디자이너
-                      </BaseTypography>
-                      <BaseFlex gap="spacing-8px" align="center">
-                        <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={40} />
-                        <BaseTypography as="p" size="body1" weight="medium">
-                          강남 살롱
+                    {appointment?.data?.provider_type === 'designer' ? (
+                      <BaseFlex vertical gap="spacing-8px">
+                        <BaseTypography as="p" size="caption" color="neutral-500">
+                          디자이너
                         </BaseTypography>
+                        <BaseFlex gap="spacing-8px" align="center">
+                          <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={40} />
+                          <BaseTypography as="p" size="body1" weight="medium">
+                            강남 살롱
+                          </BaseTypography>
+                        </BaseFlex>
                       </BaseFlex>
-                    </BaseFlex>
+                    ) : (
+                      <div />
+                    )}
                     <BaseFlex vertical gap="spacing-8px" align="flex-end">
                       <BaseFlex gap="spacing-8px" align="center">
                         <div>
                           <BuildingsIcon width={20} height={20} color="#292D32" />
                         </div>
                         <BaseTypography as="p" size="body1" weight="medium">
-                          강남 살롱
+                          {appointment?.data?.provider.name || ''}
                         </BaseTypography>
                       </BaseFlex>
                       <BaseTypography as="p" size="caption" color="neutral-500">
-                        서울 강남로 46
+                        {appointment?.data?.provider.address || ''}
                       </BaseTypography>
                     </BaseFlex>
                   </BaseFlex>
@@ -98,6 +109,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                         service={e.service.name}
                         addons=""
                         discountPrice={0}
+                        deletable
                       />
                     ))}
                   </BaseFlex>
@@ -117,35 +129,37 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext }
                   <BaseFlex vertical gap="spacing-8px">
                     <BaseFlex vertical gap="spacing-6px" justify="flex-end">
                       <BaseTypography as="p" size="body2" weight="medium">
-                        포인트 잔액 : 5,000 P
+                        포인트 잔액 : 0 P
                       </BaseTypography>
                       <BaseFlex gap="spacing-8px">
-                        <BaseInput value={3000} prefix={<PointIcon width={20} height={20} color="#667085" />} />
+                        <BaseInput prefix={<PointIcon width={20} height={20} color="#667085" />} />
                         <BaseButton size="lg">입력</BaseButton>
                       </BaseFlex>
                     </BaseFlex>
                     <Checkbox>포인트 전액 사용</Checkbox>
                   </BaseFlex>
-                  {[
-                    { title: '소계', total: 24000 },
-                    { title: '동전 적용', total: -3000 },
-                  ].map((e, i) => (
-                    <BaseFlex key={i} justify="space-between" gap="spacing-24px">
-                      <BaseTypography as="p" size="body1" weight="semibold" color="neutral-500">
-                        {e.title}
-                      </BaseTypography>
-                      <BaseTypography as="p" size="body1" weight="semibold" color="neutral-500">
-                        {e.total} 원
-                      </BaseTypography>
-                    </BaseFlex>
-                  ))}
+                  {appointment?.data?.items
+                    .map((e) => ({
+                      title: e.service.name,
+                      total: e.service.price,
+                    }))
+                    .map((e, i) => (
+                      <BaseFlex key={i} justify="space-between" gap="spacing-24px">
+                        <BaseTypography as="p" size="body1" weight="semibold" color="neutral-500">
+                          {e.title}
+                        </BaseTypography>
+                        <BaseTypography as="p" size="body1" weight="semibold" color="neutral-500">
+                          {formatNumberCurrency(Number(e.total))} 원
+                        </BaseTypography>
+                      </BaseFlex>
+                    ))}
                   <BaseDivider />
                   <BaseFlex justify="space-between" gap="spacing-24px">
                     <BaseTypography as="p" size="body1" weight="semibold">
                       총
                     </BaseTypography>
                     <BaseTypography as="p" size="body1" weight="semibold">
-                      21000 원
+                      {formatNumberCurrency(Number(total))} 원
                     </BaseTypography>
                   </BaseFlex>
                   <BaseButton variant="fullwidth" onClick={onNext}>

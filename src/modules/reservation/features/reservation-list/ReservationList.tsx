@@ -10,179 +10,16 @@ import { ReservationCard, ReservationCardProps } from '../../components/reservat
 import { useState } from 'react'
 import { Dayjs } from 'dayjs'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { GetOrderResponse } from '@/api/order'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
+import { Empty } from 'antd'
 
-export const ReservationList = () => {
+export interface ReservationListProps {
+  data: GetOrderResponse['data']
+  loading: boolean
+}
+export const ReservationList = ({ data, loading }: ReservationListProps) => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
-  const data: ReservationCardProps['data'][] = [
-    {
-      category: 'nail',
-      status: 'in-progress',
-      date: '2025-10-01',
-      reservedDate: '2025-10-05',
-      reservationCode: 'ABC123',
-      store: '강남 살롱',
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-        {
-          title: '머리색',
-          price: 700,
-        },
-        {
-          title: '그레이',
-          price: 3000,
-        },
-      ],
-      addons: {
-        items: ['그레이'],
-        total: 3000,
-      },
-    },
-    {
-      category: 'hair',
-      status: 'completed',
-      date: '2025-09-15',
-      reservedDate: '2025-09-20',
-      reservationCode: 'XYZ789',
-      store: '강남 살롱',
-      designer: {
-        name: '강남 살롱',
-        picture: '/dummy/face01.png',
-      },
-      rate: 4.5,
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-        {
-          title: '머리색',
-          price: 700,
-        },
-        {
-          title: '그레이',
-          price: 3000,
-        },
-      ],
-      addons: {
-        items: ['그레이'],
-        total: 3000,
-      },
-    },
-    {
-      category: 'makeup',
-      status: 'completed',
-      date: '2025-09-15',
-      reservedDate: '2025-09-20',
-      reservationCode: 'XYZ789',
-      store: '강남 살롱',
-      designer: {
-        name: '강남 살롱',
-        picture: '/dummy/face01.png',
-      },
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-        {
-          title: '머리색',
-          price: 700,
-        },
-        {
-          title: '그레이',
-          price: 3000,
-        },
-      ],
-      addons: {
-        items: ['그레이'],
-        total: 3000,
-      },
-    },
-
-    {
-      category: 'hair',
-      status: 'pending',
-      date: '2025-08-10',
-      reservedDate: '2025-08-15',
-      store: '강남 살롱',
-      designer: {
-        name: '강남 살롱',
-        picture: '/dummy/face01.png',
-      },
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-      ],
-    },
-    {
-      category: 'nail',
-      status: 'completed',
-      date: '2025-10-01',
-      reservedDate: '2025-10-05',
-      reservationCode: 'ABC123',
-      store: '강남 살롱',
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-        {
-          title: '머리색',
-          price: 700,
-        },
-        {
-          title: '그레이',
-          price: 3000,
-        },
-      ],
-      addons: {
-        items: ['그레이'],
-        total: 3000,
-      },
-    },
-    {
-      category: 'nail',
-      status: 'failed',
-      date: '2025-08-10',
-      reservedDate: '2025-08-15',
-      store: '강남 살롱',
-      items: [
-        {
-          title: '이발',
-          price: 500,
-        },
-        {
-          title: '머리를 감으세요',
-          price: 500,
-        },
-      ],
-    },
-  ]
 
   const [selectedDate, setSelectedDate] = useState<{ from: Dayjs | null; to: Dayjs | null } | undefined>()
   const handleOnChaneDateRangePicker: BaseRangePickerProps['onChange'] = (value) => {
@@ -239,11 +76,17 @@ export const ReservationList = () => {
             <BaseButton color="secondary">필터 재설정</BaseButton>
           </BaseFlex>
         </BaseFlex>
-        <BaseFlex vertical gap="spacing-24px">
-          {data.map((e, i) => (
-            <ReservationCard key={i} data={e} />
-          ))}
-        </BaseFlex>
+        <BaseSpin spinning={loading}>
+          {!data || !data.length ? (
+            <Empty />
+          ) : (
+            <BaseFlex vertical gap="spacing-24px">
+              {data.map((e, i) => (
+                <ReservationCard key={i} data={e} />
+              ))}
+            </BaseFlex>
+          )}
+        </BaseSpin>
       </BaseFlex>
     </div>
   )

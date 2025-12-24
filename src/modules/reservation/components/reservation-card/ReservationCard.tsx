@@ -9,29 +9,17 @@ import Edit02Icon from '@/shared/components/icons/Edit02Icon'
 import ReceiptIcon from '@/shared/components/icons/ReceiptIcon'
 import { Avatar } from 'antd'
 import Image from 'next/image'
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './ReservationCard.module.scss'
 import { BaseAlert } from '@/shared/components/base-alert/BaseAlert'
 import Link from 'next/link'
 import { Status } from '../../ReservationView.utils'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { BaseDivider } from '@/shared/components/base-divider/BaseDivider'
+import { GetOrderResponse } from '@/api/order'
+import { formatNumberCurrency } from '@/shared/utils/number'
 
 type Category = 'nail' | 'hair' | 'makeup'
-const categoryMap: Record<Category, { label: string; icon: string }> = {
-  nail: {
-    label: '네일',
-    icon: '/icons/nail.svg',
-  },
-  hair: {
-    label: '머리카락',
-    icon: '/icons/hair.svg',
-  },
-  makeup: {
-    label: '메이크업',
-    icon: '/icons/makeup.svg',
-  },
-}
 const statusMap: Record<Status, { label: string; color: BaseBadgeProps['variant'] }> = {
   'in-progress': {
     label: '진행 중',
@@ -55,28 +43,17 @@ interface Item {
   price: number
 }
 export interface ReservationCardProps {
-  data: {
-    category: Category
-    status: Status
-    date: string
-    reservedDate: string
-    reservationCode?: string
-    rate?: number
-    store: string
-    designer?: {
-      picture: string
-      name: string
-    }
-    items: Item[]
-    addons?: {
-      items: string[]
-      total: number
-    }
-  }
+  data: GetOrderResponse['data'][0]
 }
 export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
-  const { category, status, date, reservedDate, reservationCode, rate, store, designer, items, addons } = data
+
+  const total = useMemo(() => {
+    return data.items.reduce((total, item) => {
+      return total + Number(item.service_price)
+    }, 0)
+  }, [data?.items])
+
   return (
     <BaseBox
       className={styles['reservation-card']}
@@ -86,7 +63,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
       shadow="no-shadow"
     >
       <BaseFlex vertical gap="spacing-16px">
-        <Link href={`/reservation/123?status=${status}`}>
+        <Link href={`/reservation/${data.id}`}>
           <BaseFlex vertical gap="spacing-16px">
             {/* Header */}
             <BaseFlex
@@ -97,23 +74,23 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
             >
               <BaseFlex gap="spacing-24px" align="center">
                 <BaseFlex gap="spacing-8px" align="center">
-                  <Image src={categoryMap[category].icon} width={24} height={24} alt={category} />
+                  <Image src={data.shop_category_icon_url} width={24} height={24} alt={data.shop_category_icon_url} />
                   <BaseTypography as="p" size="body2">
-                    {categoryMap[category].label}
+                    {data.shop_category}
                   </BaseTypography>
                 </BaseFlex>
                 <BaseTypography as="p" size="body2">
-                  {date}
+                  {data.date}
                 </BaseTypography>
               </BaseFlex>
-              <BaseBadge variant={statusMap[status].color}>
-                {statusMap[status].label}
-                {status === 'pending' && '4:59:12'}
+              <BaseBadge variant={statusMap[data.status].color}>
+                {statusMap[data.status].label}
+                {data.status === 'pending' && data.start_at}
               </BaseBadge>
             </BaseFlex>
 
             {/* Alert */}
-            {status === 'failed' && (
+            {data.status === 'failed' && (
               <BaseAlert message="결제가 거부되었습니다. 다시 시도하거나 다른 결제 방법을 시도해 보세요." />
             )}
 
@@ -125,10 +102,10 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                     가게
                   </BaseTypography>
                   <BaseTypography as="p" size="body1" color="neutral-900">
-                    {store}
+                    {data.shop_name}
                   </BaseTypography>
                 </BaseFlex>
-                {designer && (
+                {/* {designer && (
                   <BaseFlex vertical gap="spacing-8px">
                     <BaseTypography as="span" size="caption" color="neutral-500">
                       디자이너
@@ -140,7 +117,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                       </BaseTypography>
                     </BaseFlex>
                   </BaseFlex>
-                )}
+                )} */}
               </BaseFlex>
               <BaseFlex vertical gap="spacing-8px">
                 {!isMobile && (
@@ -149,8 +126,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                   </BaseTypography>
                 )}
                 <BaseButton color="grey" icon={<CalendarSuccessIcon width={20} height={20} />}>
-                  {/* {reservedDate} */}
-                  2024년 12월 1일 , 오후 11:00
+                  {data.date} {data.start_at}
                 </BaseButton>
               </BaseFlex>
             </BaseFlex>
@@ -171,17 +147,17 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                     </BaseTypography>
                   </BaseFlex>
                   <BaseFlex vertical gap="spacing-8px">
-                    {items.map((item, i) => (
+                    {data.items.map((item, i) => (
                       <div key={i} className={styles['reservation-card__items__item']}>
                         <BaseTypography as="p" size="body1" color="neutral-900">
-                          {item.title}
+                          {item.service_name}
                         </BaseTypography>
                         <BaseTypography as="p" size="body1" color="neutral-900">
-                          {item.price}원
+                          {formatNumberCurrency(Number(item.service_price))}원
                         </BaseTypography>
                       </div>
                     ))}
-                    {addons && (
+                    {/* {addons && (
                       <div className={styles['reservation-card__items__item']}>
                         <BaseTypography as="p" size="caption" color="neutral-500">
                           추가 : {addons.items.join(', ')} (+{addons.total}원)
@@ -190,12 +166,12 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                           전체 추가 비용 포함
                         </BaseTypography>
                       </div>
-                    )}
+                    )} */}
                   </BaseFlex>
                 </BaseFlex>
               </div>
               <BaseTypography as="h6" size="header6" weight="bold" color="neutral-900">
-                총액 : 17000원
+                총액 : {formatNumberCurrency(Number(total))}원
               </BaseTypography>
             </BaseFlex>
           </BaseFlex>
@@ -203,23 +179,23 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
 
         {/* Footer */}
         <BaseFlex justify="flex-end">
-          {status === 'completed' && rate ? (
-            <BaseRate value={rate} disabled />
-          ) : status === 'completed' ? (
+          {data.status === 'completed' && data.rate ? (
+            <BaseRate value={data.rate} disabled />
+          ) : data.status === 'completed' ? (
             <BaseFlex gap="spacing-8px" align="center">
               <BaseTypography as="p" size="body1" color="success-600">
                 + 100점
               </BaseTypography>
               <BaseButton
                 icon={<Edit02Icon width={20} height={20} />}
-                href={`/review/${category === 'nail' ? 'nail-studio' : 'hair-makeup'}`}
+                href={`/review/${data.shop_category === 'Nail' ? 'nail-studio' : 'hair-makeup'}`}
               >
                 리뷰를 쓰다
               </BaseButton>
             </BaseFlex>
-          ) : status === 'in-progress' && reservationCode ? (
+          ) : data.status === 'in-progress' ? (
             <BaseTypography as="h6" size="header6" weight="bold" color="success-600">
-              예약 코드: {reservationCode}
+              예약 코드: {'-'}
             </BaseTypography>
           ) : null}
         </BaseFlex>
