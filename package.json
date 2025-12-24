@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "format": "prettier --write \"**/*.{js,ts,tsx,json,md,css,scss}\"",
-    "preinstall": "node preinstall.js"
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,md,css,scss}\""
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.2",
