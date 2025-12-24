@@ -16,6 +16,7 @@ export interface CartServiceItemCardProps {
   addons?: string
   normalPrice: number
   discountPrice?: number
+  deletable?: boolean
 }
 export const CartServiceItemCard: React.FC<CartServiceItemCardProps> = ({
   id,
@@ -24,6 +25,7 @@ export const CartServiceItemCard: React.FC<CartServiceItemCardProps> = ({
   normalPrice,
   service,
   discountPrice,
+  deletable = false,
 }) => {
   const handleEditItem = () => {}
 
@@ -81,15 +83,17 @@ export const CartServiceItemCard: React.FC<CartServiceItemCardProps> = ({
                 </BaseTypography>
               </BaseFlex>
             )}
-            <BaseButton
-              size="sm"
-              color="text-danger"
-              icon={<Trash size={16} color="#FF5744" />}
-              onClick={() => handleRemoveItem()}
-              loading={isDeleteServiceFromCartPending}
-            >
-              삭제
-            </BaseButton>
+            {deletable && (
+              <BaseButton
+                size="sm"
+                color="text-danger"
+                icon={<Trash size={16} color="#FF5744" />}
+                onClick={() => handleRemoveItem()}
+                loading={isDeleteServiceFromCartPending}
+              >
+                삭제
+              </BaseButton>
+            )}
           </BaseFlex>
         </BaseFlex>
       </BaseFlex>

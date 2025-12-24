@@ -10,12 +10,30 @@ import { ServiceInformation } from './features/service-information/ServiceInform
 import { ReservationInformation } from './features/reservation-information/ReservationInformation'
 import { Summary } from './features/summary/Summary'
 import { BaseSteps, BaseStepsProps } from '@/shared/components/base-steps/BaseSteps'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useApp } from '@/shared/providers/AppProvider'
+import { useGetShopCalendarHourQuery } from '@/shared/hooks/shop/useShopQuery'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 
 export const CartView = () => {
   const router = useRouter()
   const [activeStep, setActiveStep] = useState(1)
+  const { appointment } = useApp()
+
+  const shopId = appointment?.data?.shop_id || 1
+  const { data: shopCalendarHourData, isLoading: isShopCalendarHourLoading } = useGetShopCalendarHourQuery({
+    shopId: shopId,
+  })
+
+  const isFinalStepDisabled = useMemo(() => {
+    if (appointment?.data) {
+      const { name, phone } = appointment.data
+      return !name || !phone
+    }
+    return true
+  }, [appointment?.data])
+
   const stepsItems: BaseStepsProps['items'] = [
     {
       title: (
@@ -44,8 +62,9 @@ export const CartView = () => {
         </BaseTypography>
       ),
       description: '모든 것이 정확한가요?',
-      onClick: () => setActiveStep(3),
+      onClick: () => (!isFinalStepDisabled ? setActiveStep(3) : null),
       status: activeStep === 3 ? 'process' : undefined,
+      disabled: isFinalStepDisabled,
     },
   ]
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -74,7 +93,11 @@ export const CartView = () => {
         ) : activeStep === 3 ? (
           <Summary onBack={() => setActiveStep(2)} />
         ) : (
-          <ServiceInformation onNext={() => setActiveStep(2)} />
+          <BaseSpin spinning={isShopCalendarHourLoading}>
+            {shopCalendarHourData ? (
+              <ServiceInformation onNext={() => setActiveStep(2)} calendarHour={shopCalendarHourData} />
+            ) : null}
+          </BaseSpin>
         )}
       </div>
     </div>

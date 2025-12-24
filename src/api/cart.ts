@@ -58,3 +58,17 @@ export const getCart = async () => {
 export const deleteServiceFromCart = async ({ cartId }: { cartId: number }) => {
   return await api.delete(`/cart/remove/${cartId}`)
 }
+
+export interface UpdateCartBody {
+  date?: string
+  time?: string
+  name?: string
+  phone?: string
+  notes?: string
+}
+export const updateCart = async (body: UpdateCartBody) => {
+  return await api.put(`/cart/update`, {
+    ...body,
+    address: 'testing',
+  })
+}
