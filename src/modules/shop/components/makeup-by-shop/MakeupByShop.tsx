@@ -11,7 +11,7 @@ export const MakeupByShop = () => {
   const categoryId = searchParams.get('category_id')
   const { location, name } = useFilterStore()
   const { data, isPending } = useShopQuery({
-    params: { category_id: categoryId as string, with: 'designers.services', name: name, location: location },
+    params: { category_id: categoryId as string, with: ['designers.services'], name: name, location: location },
   })
 
   return (

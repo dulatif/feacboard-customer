@@ -1,6 +1,6 @@
 import { getShopCategory } from '@/api/category'
 import { getDetailShop, getShop } from '@/api/shop'
-import { GetAllShopQueryParams, GetDetailShopQueryParams } from '@/app/interface/shop'
+import { GetAllShopQueryParams, GetDetailShopQueryParams } from '@/shared/interface/shop'
 import { useQuery } from '@tanstack/react-query'
 
 export const useShopCategoryQuery = () => {

@@ -17,7 +17,7 @@ import { hair } from '@/shared/dummy/data'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useShopDetailQuery } from '@/shared/hooks/shop/useShopQuery'
 import { Spin } from 'antd'
-import { ID } from '@/app/interface/general'
+import { ID } from '@/shared/interface/general'
 
 export const ShopDetailsView = () => {
   const router = useRouter()

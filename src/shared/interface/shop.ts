@@ -17,7 +17,7 @@ export interface GetAllShopQueryParams {
   name?: string
   location?: string
   category_id?: number | string
-  with?: 'designers.services'
+  with?: 'designers.services'[]
 }
 export interface GetAllShopMutationParams extends MutationParams<Shop[], GetAllShopQueryParams> {}
 
