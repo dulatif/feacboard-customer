@@ -80,7 +80,7 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} />,
+        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} shopId={shopId} />,
       },
     ]
   }, [shopDetailsData, shopServicesData, isShopServicesLoading, isShopCalendarHourLoading])

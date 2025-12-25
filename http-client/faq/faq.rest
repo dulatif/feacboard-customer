@@ -1,0 +1,51 @@
+@host = https://faceboard.emfahmika.my.id
+@localhost = http://localhost:8000
+@apiVersion = v1
+@token = 19|d31kYngoYTpzn6KUNo5Tscudav6CPJRIZnZlSwKr62ec07ab
+@localtoken = 3|gjGPFgXnq9On6qyxrZWwL84I37QOvyMaRw7Q3i389fc822c1
+@faq_id = 1
+
+# ==========================================================
+# FAQ ENDPOINTS (ADMIN & PUBLIC)
+# ==========================================================
+
+### Admin/Public: Read All FAQs (Index)
+# Params
+# sort_by: created_at, question
+# sort_order: asc, desc
+# search: question, answer
+GET {{localhost}}/{{apiVersion}}/faq
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+### Admin: Create New FAQ (Store)
+POST {{localhost}}/{{apiVersion}}/faq
+Authorization: Bearer {{localtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "question": "How do I update my profile?",
+    "answer": "Go to settings and click on the profile edit button."
+}
+
+### Admin/Public: Show Specific FAQ (Show)
+GET {{localhost}}/{{apiVersion}}/faq/{{faq_id}}
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+### Admin: Update FAQ (Update)
+PUT {{localhost}}/{{apiVersion}}/faq/{{faq_id}}
+Authorization: Bearer {{localtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "question": "How do I update my profile? (Updated)",
+    "answer": "Go to the profile tab in your account settings."
+}
+
+### Admin: Delete FAQ (Destroy)
+DELETE {{localhost}}/{{apiVersion}}/faq/{{faq_id}}
+Authorization: Bearer {{localtoken}}
+Accept: application/json

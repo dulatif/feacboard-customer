@@ -1,0 +1,94 @@
+@host = https://faceboard.emfahmika.my.id
+@localhost = http://localhost:8000
+@apiVersion = v1
+@token = 19|d31kYngoYTpzn6KUNo5Tscudav6CPJRIZnZlSwKr62ec07ab
+@localtoken = 3|gjGPFgXnq9On6qyxrZWwL84I37QOvyMaRw7Q3i389fc822c1
+@localeventtoken = 3|gjGPFgXnq9On6qyxrZWwL84I37QOvyMaRw7Q3i389fc822c1
+@event_id = 1
+@thumbnail_id = 
+@shop_id = 2
+
+# ==========================================================
+# ADMIN ENDPOINTS
+# ==========================================================
+
+### Admin: Read All Events
+# Params
+# sort_by: title, publish_date, created_at
+# sort_order: asc, desc
+GET {{localhost}}/{{apiVersion}}/event?type=event
+Authorization: Bearer {{localeventtoken}}
+Accept: application/json
+
+### Admin: Read All Shop Events
+# Params
+# sort_by: title, publish_date, created_at
+# sort_order: asc, desc
+GET {{localhost}}/{{apiVersion}}/event/{{shop_id}}/shop
+Authorization: Bearer {{localeventtoken}}
+Accept: application/json
+
+### Admin: Upload Event Thumbnail
+POST {{localhost}}/{{apiVersion}}/event/thumbnail
+Authorization: Bearer {{localeventtoken}}
+Content-Type: multipart/form-data
+Accept: application/json
+
+form-data:
+{
+    "thumbnail": (binary)
+}
+
+### Admin: Create New Event
+# Body:
+# type: event \ web-info
+POST {{localhost}}/{{apiVersion}}/event
+Authorization: Bearer {{localeventtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "New Year Event",
+    "type": "event",
+    "content": "Event Description",
+    "publish_date": "2025-12-25",
+    "thumbnail_id": "Zpd8bbCo6tYSTs9AdrgS"
+}
+### Admin: Create New Shop Event
+# Body:
+# type: event \ web-info
+POST {{localhost}}/{{apiVersion}}/event/{{shop_id}}/shop
+Authorization: Bearer {{localeventtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "New Year Sales",
+    "type": "event",
+    "content": "Nwe Year Sales description only for our shop",
+    "publish_date": "2025-12-30",
+    "thumbnails_id": ["kCYcH1IhKPXGtNFmuMLn", "yMZX199Io6vE0OwGoWDX"]
+}
+
+### Admin: Find Event by ID
+GET {{localhost}}/{{apiVersion}}/event/{{event_id}}
+Authorization: Bearer {{localeventtoken}}
+Accept: application/json
+
+### Admin: Update Event
+PUT {{localhost}}/{{apiVersion}}/event/{{event_id}}
+Authorization: Bearer {{localeventtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Event Title Update",
+    "type": "event",
+    "content": "Event Description Updated",
+    "publish_date": "2025-12-28"
+}
+
+### Admin: Delete Event
+DELETE {{localhost}}/{{apiVersion}}/event/{{event_id}}
+Authorization: Bearer {{localeventtoken}}
+Accept: application/json

@@ -1,0 +1,10 @@
+@host = https://faceboard.emfahmika.my.id
+@apiVersion = v1
+@admin_token = 2|72CeumK8nDPkYVGac9fZX7hPaKdC4JiQL0RT6tkYaeca0391
+
+### Get All Application
+
+GET {{host}}/{{apiVersion}}/employment/application HTTP/1.1
+Accept: application/json
+Authorization: Bearer {{admin_token}}
+
