@@ -36,7 +36,9 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   ...props
 }) => {
   const [selectedDate, setSelectedDate] = useState<string | undefined>(defaultSelectedDate)
-  const [selectedTime, setSelectedTime] = useState<string | undefined>(formatTime(defaultSelectedTime as string))
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(
+    defaultSelectedTime ? formatTime(defaultSelectedTime as string) : undefined,
+  )
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
 
   const hasAvailableHour = (date: string) => {

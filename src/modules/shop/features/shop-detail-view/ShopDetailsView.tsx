@@ -118,7 +118,7 @@ export const ShopDetailsView = () => {
               reviewersCount={shopDetailsData?.review_count || 0}
               category={category}
               images={[]}
-              availableDesigners={shopDetailsData?.designers.length || 0}
+              availableDesigners={shopDetailsData?.designers?.length || 0}
             />
           </BaseSpin>
 

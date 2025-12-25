@@ -9,7 +9,13 @@ export const useShopCategoryQuery = () => {
   return useQuery({ queryKey, queryFn })
 }
 
-export const useShopQuery = ({ enabled = true, params }: { params: GetAllShopQueryParams; enabled?: boolean }) => {
+export const useGetAllShopQuery = ({
+  enabled = true,
+  params,
+}: {
+  params: GetAllShopQueryParams
+  enabled?: boolean
+}) => {
   const queryKey = ['get-shop', params]
   const queryFn = async () => await getShop(params)
   return useQuery({ queryKey, queryFn, enabled })
