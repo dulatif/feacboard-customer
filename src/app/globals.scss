@@ -182,3 +182,57 @@ $radius-properties: (
 .rounded-none {
   border-radius: 0px !important;
 }
+
+.rich-text-content blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: 'Hoefler Text', 'Georgia', serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+}
+
+.rich-text-content {
+  margin-top: 16px;
+  white-space: normal !important;
+}
+
+.rich-text-content h1,
+.rich-text-content h2,
+.rich-text-content h3,
+.rich-text-content h4,
+.rich-text-content h5,
+.rich-text-content h6 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.rich-text-content ul,
+.rich-text-content ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.rich-text-content p {
+  margin-bottom: 8px;
+}
+
+.rich-text-content code {
+  background-color: #feefea;
+  color: #d86f87;
+  font-size: 14px;
+  padding: 0px 6px;
+  border-radius: 4px;
+  margin: 0px 4px;
+  display: inline-block;
+}
+
+.summary-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

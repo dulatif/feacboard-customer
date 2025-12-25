@@ -63,7 +63,7 @@ export const ShopDetailsView = () => {
       {
         key: '2',
         label: '소식',
-        children: <StoreTidings data={data?.tidings || []} />,
+        children: <StoreTidings shopId={Number(id)} />,
       },
       {
         key: '3',
