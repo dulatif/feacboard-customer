@@ -4,20 +4,17 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '../../i18n'
 import { BaseSpin } from '../components/base-spin/BaseSpin'
 import { checkToken } from '../utils/auth'
+import { GetCartResponse } from '@/api/cart'
+import { useGetCartQuery } from '../hooks/cart/useCartQuery'
 
 export interface AppContextType {
   language: string
   changeLanguage: (lang: string) => void
   setLanguage: Dispatch<SetStateAction<AppContextType['language']>>
   totalCart: number
-  setTotalCart: Dispatch<SetStateAction<AppContextType['totalCart']>>
-  appointment: {
-    date: string
-    time: string
-  } | null
-  setAppointment: Dispatch<SetStateAction<AppContextType['appointment']>>
   isAuthenticated: boolean
   setIsAuthenticated: Dispatch<SetStateAction<AppContextType['isAuthenticated']>>
+  appointment?: GetCartResponse
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -30,8 +27,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   const [language, setLanguage] = useState<string>('ko')
-  const [totalCart, setTotalCart] = useState(0)
-  const [appointment, setAppointment] = useState<AppContextType['appointment']>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const { data: getCartData, isLoading: isGetCartLoading } = useGetCartQuery({ enabled: isAuthenticated })
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang')
@@ -52,7 +50,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setLanguage(lang)
   }
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   useEffect(() => {
     ;(async () => {
       const res = await checkToken()
@@ -60,7 +57,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     })()
   }, [])
 
-  if (!isLanguageReady) {
+  if (!isLanguageReady || isGetCartLoading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <BaseSpin size="large" />
@@ -73,10 +70,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         language,
         changeLanguage,
         setLanguage,
-        totalCart,
-        setTotalCart,
-        appointment,
-        setAppointment,
+        totalCart: getCartData?.data?.items.length || 0,
+        appointment: getCartData,
         isAuthenticated,
         setIsAuthenticated,
       }}

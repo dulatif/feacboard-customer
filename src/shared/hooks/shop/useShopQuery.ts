@@ -1,6 +1,6 @@
 import { getShopCategory } from '@/api/category'
-import { getDetailShop, getShop } from '@/api/shop'
-import { GetAllShopQueryParams, GetDetailShopQueryParams } from '@/shared/interface/shop'
+import { getShop, getShopCalendarHour, getShopDetails, GetShopDetailsParams, getShopServices } from '@/api/shop'
+import { GetAllShopQueryParams } from '@/shared/interface/shop'
 import { useQuery } from '@tanstack/react-query'
 
 export const useShopCategoryQuery = () => {
@@ -15,14 +15,20 @@ export const useShopQuery = ({ enabled = true, params }: { params: GetAllShopQue
   return useQuery({ queryKey, queryFn, enabled })
 }
 
-export const useShopDetailQuery = ({
-  enabled = true,
-  params,
-}: {
-  enabled?: boolean
-  params?: GetDetailShopQueryParams
-}) => {
+export const useGetShopDetailsQuery = (params: GetShopDetailsParams) => {
   const queryKey = ['get-shop-detail', params]
-  const queryFn = async () => await getDetailShop(params)
-  return useQuery({ queryKey, queryFn, enabled })
+  const queryFn = async () => await getShopDetails(params)
+  return useQuery({ queryKey, queryFn })
+}
+
+export const useGetShopServicesQuery = ({ shopId }: { shopId: number }) => {
+  const queryKey = ['get-shop-detail-services', shopId]
+  const queryFn = async () => await getShopServices({ shopId })
+  return useQuery({ queryKey, queryFn })
+}
+
+export const useGetShopCalendarHourQuery = ({ shopId }: { shopId: number }) => {
+  const queryKey = ['get-shop-detail-calendar', shopId]
+  const queryFn = async () => await getShopCalendarHour({ shopId })
+  return useQuery({ queryKey, queryFn })
 }
