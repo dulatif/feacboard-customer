@@ -1,14 +1,6 @@
-import { GetAllShopQueryParams, GetDetailShopQueryParams, Shop } from '@/app/interface/shop'
+import { GetAllShopQueryParams, GetDetailShopQueryParams, Shop } from '@/shared/interface/shop'
 import { cleanObj } from '@/shared/utils/params'
 import api from './index'
-
-export const getShop = async (params: GetAllShopQueryParams) => {
-  const queryParams = new URLSearchParams(cleanObj(params) as Record<string, string>).toString()
-
-  // return (await api.get(`/shop?${queryParams}`)) as Shop[]
-  // return (await api.get(`/shop?with[]=designers.services`)) as Shop[]
-  return (await api.get(`/shop?category_id=3&with[]=designers`)) as Shop[]
-}
 
 export interface GetShopDetailsResponse {
   id: number
@@ -40,6 +32,13 @@ export const getShopDetails = async ({ shopId, with: withParam }: GetShopDetails
   return (await api.get(`/shop/${shopId}?with[]=designers`)) as GetShopDetailsResponse
 }
 
+export const getShop = async (params: GetAllShopQueryParams) => {
+  const queryParams = new URLSearchParams(cleanObj(params) as Record<string, string>).toString()
+
+  // return (await api.get(`/shop?category_id=${params.category_id}${queryParams}`)) as Shop[]
+  return (await api.get(`/shop?category_id=${params.category_id}&with[]=designers`)) as Shop[]
+}
+
 export type GetShopCalendarHourResponse = Record<string, Record<string, boolean>>
 export const getShopCalendarHour = async ({ shopId }: { shopId: number }) => {
   return (await api.get(`/shop/${shopId}/openHours`)) as GetShopCalendarHourResponse
@@ -64,6 +63,7 @@ export interface GetShopServicesResponse {
     last_page: number
   }
 }
+
 export const getShopServices = async ({ shopId }: { shopId: number }) => {
   return (await api.get(`/shop/${shopId}/services`)) as GetShopServicesResponse
 }

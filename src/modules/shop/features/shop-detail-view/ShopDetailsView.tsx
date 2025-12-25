@@ -1,26 +1,23 @@
 'use client'
+import { GetShopDetailsParams } from '@/api/shop'
 import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcrumb'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { CaretLeft } from 'phosphor-react'
-import { useEffect, useMemo, useState } from 'react'
-import { StoreCard } from '../../components/store-card/StoreCard'
-import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
-import { StoreInformation } from '../../components/store-information/StoreInformation'
-import { StoreReview } from '../../components/store-review/StoreReview'
-import { StoreTidings } from '../../components/store-tidings/StoreTidings'
-import { TCategoryLabel } from '../../ShopView.utils'
-import { StoreServices } from '../../components/store-services/StoreServices'
-import { useResponsive } from '@/shared/hooks/useResponsive'
 import {
   useGetShopCalendarHourQuery,
   useGetShopDetailsQuery,
   useGetShopServicesQuery,
 } from '@/shared/hooks/shop/useShopQuery'
-import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
-import { GetShopDetailsParams } from '@/api/shop'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { CaretLeft } from 'phosphor-react'
+import { useEffect, useMemo, useState } from 'react'
+import { StoreCard } from '../../components/store-card/StoreCard'
+import { StoreServices } from '../../components/store-services/StoreServices'
+import { TCategoryLabel } from '../../ShopView.utils'
+import { StoreInformation } from '../../components/store-information/StoreInformation'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -83,7 +80,7 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        // children: <StoreInformation data={{ storeName: data?.storeName || '' }} />,
+        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} shopId={shopId} />,
       },
     ]
   }, [shopDetailsData, shopServicesData, isShopServicesLoading, isShopCalendarHourLoading])

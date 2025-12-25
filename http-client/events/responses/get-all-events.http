@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Sun, 21 Dec 2025 05:35:31 GMT
+Content-Type: application/json
+Vary: Origin
+
+[
+  {
+    "id": 2,
+    "title": "Web Information Title",
+    "publish_date": "2025-12-25",
+    "type": "web-info",
+    "content": "Web Information Description",
+    "thumbnail": "http:\/\/localhost:8000\/storage\/event_thumbnails\/G6VQbdsJKnHoZDOLxrIsM4puyExGVjKdsisx36wV.png",
+    "created_at": "2025-12-21T05:35:26.000000Z",
+    "updated_at": "2025-12-21T05:35:26.000000Z"
+  },
+  {
+    "id": 1,
+    "title": "Event Title",
+    "publish_date": "2025-12-25",
+    "type": "event",
+    "content": "Event Description",
+    "thumbnail": "http:\/\/localhost:8000\/storage\/event_thumbnails\/nCMDJ1BvT0RmLlImq4mSmgH6ND36YNrHboZSCL1K.png",
+    "created_at": "2025-12-21T05:34:34.000000Z",
+    "updated_at": "2025-12-21T05:34:34.000000Z"
+  }
+]

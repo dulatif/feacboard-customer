@@ -1,0 +1,41 @@
+HTTP/1.1 200 OK
+Date: Tue, 16 Dec 2025 13:34:03 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Cache-Control: no-cache, private
+Vary: Origin
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "name": {
+      "en": "Hair",
+      "ko": "\ud5e4\uc5b4"
+    },
+    "localized_name": "Hair",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/bD4x8tQrqfpTGl8t0CUF9X8Wkj4so3ksb7hkakwA.svg",
+    "needs_designer": true
+  },
+  {
+    "id": 2,
+    "name": {
+      "en": "Makeup",
+      "ko": "\uba54\uc774\ud06c\uc5c5"
+    },
+    "localized_name": "Makeup",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/wvIUiZ9XB5FWwVPvZoZJLPoRpTsM0vXVNNfPwO8N.svg",
+    "needs_designer": true
+  },
+  {
+    "id": 5,
+    "name": {
+      "en": "Facial skeleton",
+      "ko": "\uc5bc\uad74 \uace8\uaca9"
+    },
+    "localized_name": "Facial skeleton",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/CQsg0ZVxflyHFoaqGjcmGVZuNzSqMo1wSUXQdTXj.svg",
+    "needs_designer": true
+  }
+]

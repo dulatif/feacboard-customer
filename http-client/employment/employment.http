@@ -1,0 +1,29 @@
+HTTP/1.1 200 OK
+Date: Tue, 16 Dec 2025 12:27:36 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Vary: Authorization,Origin
+Cache-Control: no-cache, private
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "status": "rejected",
+    "type": "application",
+    "reason": "Git gud"
+  },
+  {
+    "id": 2,
+    "status": "pending",
+    "type": "application",
+    "reason": "Let me in"
+  },
+  {
+    "id": 3,
+    "status": "accepted",
+    "type": "application",
+    "reason": "Good candidate"
+  }
+]

@@ -1,4 +1,4 @@
-import { Category } from '@/app/interface/category'
+import { Category } from '@/shared/interface/category'
 import api from './index'
 
 export const getShopCategory = async () => {

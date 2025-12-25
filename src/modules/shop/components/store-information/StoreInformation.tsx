@@ -6,14 +6,18 @@ import React from 'react'
 import styles from './StoreInformation.module.scss'
 import OpenLinkIcon from '@/shared/components/icons/OpenLinkIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useShopFacilitiesQuery } from '@/shared/hooks/facility/useFacilityQuery'
+import { Spin } from 'antd'
 
 export interface StoreInformationProps {
   data: {
     storeName: string
   }
+  shopId: number
 }
-export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
+export const StoreInformation: React.FC<StoreInformationProps> = ({ data, shopId }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const { data: facilities, isLoading: isFacilitiesLoading } = useShopFacilitiesQuery({ shopId })
   return (
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-32px'} className={styles['store-information']}>
       <BaseFlex vertical gap="spacing-24px">
@@ -76,36 +80,29 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data }) => {
         gap={largeScreen ? 'spacing-120px' : isTablet ? 'spacing-40px' : 'spacing-32px'}
         align="center"
         justify="center"
+        wrap
       >
-        <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/booked.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
-          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
-            예약
+        {isFacilitiesLoading ? (
+          <Spin />
+        ) : facilities && facilities.length > 0 ? (
+          facilities.map((facility) => (
+            <BaseFlex key={facility.id} vertical gap="spacing-8px" align="center">
+              <Image
+                src={facility.icon}
+                width={largeScreen ? 56 : 36}
+                height={largeScreen ? 56 : 36}
+                alt={facility.localized_name}
+              />
+              <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
+                {facility.localized_name}
+              </BaseTypography>
+            </BaseFlex>
+          ))
+        ) : (
+          <BaseTypography as="p" size="body1" color="neutral-500">
+            편의시설 정보가 없습니다.
           </BaseTypography>
-        </BaseFlex>
-        <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/wifi.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
-          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
-            와이파이
-          </BaseTypography>
-        </BaseFlex>
-        <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image src={`/images/store/bff.svg`} width={largeScreen ? 56 : 36} height={largeScreen ? 56 : 36} alt="" />
-          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
-            단체 예약
-          </BaseTypography>
-        </BaseFlex>
-        <BaseFlex vertical gap="spacing-8px" align="center">
-          <Image
-            src={`/images/store/parking.svg`}
-            width={largeScreen ? 56 : 36}
-            height={largeScreen ? 56 : 36}
-            alt=""
-          />
-          <BaseTypography as="h6" size={largeScreen ? 'header6' : 'body1'} weight="semibold" color="neutral-700">
-            주차가능
-          </BaseTypography>
-        </BaseFlex>
+        )}
       </BaseFlex>
       <BaseDivider />
 
