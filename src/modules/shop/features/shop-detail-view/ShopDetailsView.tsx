@@ -17,6 +17,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { StoreCard } from '../../components/store-card/StoreCard'
 import { StoreServices } from '../../components/store-services/StoreServices'
 import { TCategoryLabel } from '../../ShopView.utils'
+import { StoreInformation } from '../../components/store-information/StoreInformation'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -79,7 +80,7 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        // children: <StoreInformation data={{ storeName: data?.storeName || '' }} />,
+        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} />,
       },
     ]
   }, [shopDetailsData, shopServicesData, isShopServicesLoading, isShopCalendarHourLoading])
