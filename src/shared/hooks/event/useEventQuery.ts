@@ -1,9 +1,16 @@
 import { getEventById, getEventList, getShopEventList } from '@/api/event'
+import { GetAllEventsParams } from '@/shared/interface/event'
 import { useQuery } from '@tanstack/react-query'
 
-export const useEventListQuery = ({ enabled = true }: { enabled?: boolean } = {}) => {
-  const queryKey = ['get-event-list']
-  const queryFn = async () => await getEventList()
+export const useEventListQuery = ({
+  enabled = true,
+  params,
+}: {
+  enabled?: boolean
+  params?: GetAllEventsParams
+} = {}) => {
+  const queryKey = ['get-event-list', params]
+  const queryFn = async () => await getEventList(params)
   return useQuery({ queryKey, queryFn, enabled })
 }
 

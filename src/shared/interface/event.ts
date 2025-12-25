@@ -4,6 +4,11 @@ export enum EventType {
   WEBINFO = 'web-info',
 }
 
+export enum EventStatus {
+  CURRENT = 'current',
+  ENDED = 'ended',
+}
+
 // # entity interfaces
 export interface Event {
   id: number
@@ -15,4 +20,12 @@ export interface Event {
   thumbnails: string[]
   created_at: string
   updated_at: string
+}
+
+// # params
+export interface GetAllEventsParams {
+  type: EventType
+  status?: EventStatus
+  sort_by?: 'title' | 'publish_date' | 'created_at'
+  sort_order?: 'asc' | 'desc'
 }
