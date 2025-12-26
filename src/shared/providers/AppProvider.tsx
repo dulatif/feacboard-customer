@@ -4,7 +4,7 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '../../i18n'
 import { BaseSpin } from '../components/base-spin/BaseSpin'
 import { checkToken } from '../utils/auth'
-import { GetCartResponse } from '@/app/interface/cart'
+import { GetCartResponse } from '@/shared/interface/cart'
 import { useGetCartQuery } from '../hooks/cart/useCartQuery'
 
 export interface AppContextType {

@@ -18,7 +18,7 @@ import {
   useGetShopCalendarHourQuery,
 } from '@/shared/hooks/shop/useShopQuery'
 import { ServiceCard, ServiceCardProps } from '../service-card/ServiceCard'
-import { ID } from '@/app/interface/general'
+import { ID } from '@/shared/interface/general'
 import dynamic from 'next/dynamic'
 import { MagnifyingGlass } from 'phosphor-react'
 import { useState, useEffect, useMemo } from 'react'

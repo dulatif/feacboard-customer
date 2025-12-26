@@ -15,7 +15,7 @@ import { ServiceCardProps } from '../service-card/ServiceCard'
 import { getServiceImage } from '../store-services/StoreServices'
 import { useAddToCart } from '@/shared/hooks/cart/useAddToCart'
 import { useGetShopServicesQuery, useGetShopCalendarHourQuery } from '@/shared/hooks/shop/useShopQuery'
-import { ID } from '@/app/interface/general'
+import { ID } from '@/shared/interface/general'
 import dynamic from 'next/dynamic'
 
 const AppointmentModal = dynamic(

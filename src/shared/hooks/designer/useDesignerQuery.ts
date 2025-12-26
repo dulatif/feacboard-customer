@@ -9,8 +9,8 @@ import {
   GetAllDesignerQueryParams,
   GetDetailDesignerQueryParams,
   GetDesignerServicesQueryParams,
-} from '@/app/interface/designers'
-import { ID } from '@/app/interface/general'
+} from '@/shared/interface/designers'
+import { ID } from '@/shared/interface/general'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetAllDesignerQuery = ({

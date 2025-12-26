@@ -4,7 +4,7 @@ import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { DesignerCard, DesignerCardProps } from '../designer-card/DesignerCard'
 import { useGetAllDesignerQuery } from '@/shared/hooks/designer/useDesignerQuery'
-import { Designer, DesignerService } from '@/app/interface/designers'
+import { Designer, DesignerService } from '@/shared/interface/designers'
 import { ServiceCardProps } from '../service-card/ServiceCard'
 
 const mapDesignerToCardProps = (designer: Designer): DesignerCardProps => {

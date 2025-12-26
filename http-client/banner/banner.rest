@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:8000/v1
+@token = 9|oi3YGWtbz6RkPjvDG3984DN7qLRP5PbmyoQP7L78164eef25
+@banner_id = 1
+
+### Get Active Banners (Public)
+GET {{baseUrl}}/banner/active
+Content-Type: application/json
+Accept: application/json
+
+# Response file : ./responses/get-all-banners.http

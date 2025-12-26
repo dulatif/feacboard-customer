@@ -7,8 +7,8 @@ import {
   GetDesignerServicesQueryParams,
   GetDesignerServicesResponse,
   DesignerServiceCategory,
-} from '@/app/interface/designers'
-import { ID } from '@/app/interface/general'
+} from '@/shared/interface/designers'
+import { ID } from '@/shared/interface/general'
 import { cleanObj } from '@/shared/utils/params'
 import api from './index'
 

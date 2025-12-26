@@ -1,5 +1,5 @@
 import { deleteServiceFromCart, storeServiceToCart, updateCart } from '@/api/cart'
-import { StoreServiceToCartBody, UpdateCartBody } from '@/app/interface/cart'
+import { StoreServiceToCartBody, UpdateCartBody } from '@/shared/interface/cart'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useStoreServiceToCartMutation = () => {

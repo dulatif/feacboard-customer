@@ -1,0 +1,135 @@
+HTTP/1.1 200 OK
+Date: Tue, 16 Dec 2025 13:33:06 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Cache-Control: no-cache, private
+Vary: Origin
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "name": {
+      "en": "Hair",
+      "ko": "\ud5e4\uc5b4"
+    },
+    "localized_name": "Hair",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/bD4x8tQrqfpTGl8t0CUF9X8Wkj4so3ksb7hkakwA.svg",
+    "needs_designer": true
+  },
+  {
+    "id": 2,
+    "name": {
+      "en": "Makeup",
+      "ko": "\uba54\uc774\ud06c\uc5c5"
+    },
+    "localized_name": "Makeup",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/wvIUiZ9XB5FWwVPvZoZJLPoRpTsM0vXVNNfPwO8N.svg",
+    "needs_designer": true
+  },
+  {
+    "id": 3,
+    "name": {
+      "en": "Nail",
+      "ko": "\ub124\uc77c"
+    },
+    "localized_name": "Nail",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/EHlciWLrLeUQPOxaqKPCJbx4NunNBfoRRbwifrmT.svg",
+    "needs_designer": false
+  },
+  {
+    "id": 4,
+    "name": {
+      "en": "Beauty\/Care",
+      "ko": "\ubbf8\uc6a9\/\uc2dc\uc220"
+    },
+    "localized_name": "Beauty\/Care",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/Y36AMudFywDoml6brUKQUTTk4RilegSQNQL8ARKQ.svg",
+    "needs_designer": false
+  },
+  {
+    "id": 5,
+    "name": {
+      "en": "Facial skeleton",
+      "ko": "\uc5bc\uad74 \uace8\uaca9"
+    },
+    "localized_name": "Facial skeleton",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/CQsg0ZVxflyHFoaqGjcmGVZuNzSqMo1wSUXQdTXj.svg",
+    "needs_designer": true
+  },
+  {
+    "id": 6,
+    "name": {
+      "en": "Percal Shop",
+      "ko": "\ud37c\uceec\uc0f5"
+    },
+    "localized_name": "Percal Shop",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/oRvpOApGZoBASN4qWlEuPG3zA4CHMBbXfEhTjUom.svg",
+    "needs_designer": false
+  },
+  {
+    "id": 7,
+    "name": {
+      "en": "Studio",
+      "ko": "\uc2a4\ud29c\ub514\uc624"
+    },
+    "localized_name": "Studio",
+    "icon": "https:\/\/faceboard-laravel.s3.ap-southeast-2.amazonaws.com\/shop_category_icon\/mXHzg6ZAG3H5Y8Mm4onrA5GsEKJgvVIKJJAiQdRZ.svg",
+    "needs_designer": false
+  },
+  {
+    "id": 8,
+    "name": {
+      "en": "annalise.jenkins"
+    },
+    "localized_name": "annalise.jenkins",
+    "icon": null,
+    "needs_designer": false
+  },
+  {
+    "id": 9,
+    "name": {
+      "en": "ayana.satterfield"
+    },
+    "localized_name": "ayana.satterfield",
+    "icon": null,
+    "needs_designer": false
+  },
+  {
+    "id": 10,
+    "name": {
+      "en": "johnson.koelpin"
+    },
+    "localized_name": "johnson.koelpin",
+    "icon": null,
+    "needs_designer": false
+  },
+  {
+    "id": 11,
+    "name": {
+      "en": "smitham.larue"
+    },
+    "localized_name": "smitham.larue",
+    "icon": null,
+    "needs_designer": false
+  },
+  {
+    "id": 12,
+    "name": {
+      "en": "leuschke.ophelia"
+    },
+    "localized_name": "leuschke.ophelia",
+    "icon": null,
+    "needs_designer": false
+  },
+  {
+    "id": 13,
+    "name": {
+      "en": "lbogan"
+    },
+    "localized_name": "lbogan",
+    "icon": null,
+    "needs_designer": false
+  }
+]

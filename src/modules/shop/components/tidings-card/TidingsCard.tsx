@@ -1,10 +1,12 @@
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
-import { BaseImages } from '@/shared/components/base-images/BaseImages'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import MessagesIcon from '@/shared/components/icons/MessagesIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import React from 'react'
+import DOMPurify from 'dompurify'
+import { Carousel } from 'antd'
+import Image from 'next/image'
 
 export interface TidingsCardProps {
   title: string
@@ -13,8 +15,13 @@ export interface TidingsCardProps {
   subtitle: string
   description: string
 }
+
 export const TidingsCard: React.FC<TidingsCardProps> = ({ date, description, subtitle, title, images }) => {
-  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+  const { isMobile } = useResponsive()
+
+  // Sanitize HTML content
+  const sanitizedDescription = DOMPurify.sanitize(description)
+
   return (
     <BaseFlex vertical gap="spacing-24px">
       <BaseFlex vertical={isMobile} gap="spacing-8px" justify="space-between">
@@ -37,19 +44,36 @@ export const TidingsCard: React.FC<TidingsCardProps> = ({ date, description, sub
           </BaseButton>
         </div>
       </BaseFlex>
-      {images && <BaseImages images={images} />}
+
+      {images && images.length > 0 && (
+        <div style={{ width: '100%', overflow: 'hidden', borderRadius: '8px' }}>
+          <Carousel draggable autoplay>
+            {images.map((image, index) => (
+              <div key={index}>
+                <div style={{ position: 'relative', width: '100%', height: '500px', overflow: 'hidden' }}>
+                  <Image
+                    src={image}
+                    alt={`${title} - ${index + 1}`}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="100vw"
+                  />
+                </div>
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
       <BaseFlex vertical gap="spacing-4px">
         <BaseTypography as="p" size="body1" color="neutral-500">
           {subtitle}
         </BaseTypography>
-        <BaseTypography
-          as="p"
-          size="body1"
-          color="neutral-500"
+        <div
           style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
-        >
-          {description}
-        </BaseTypography>
+          className="rich-text-content"
+          dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+        />
       </BaseFlex>
     </BaseFlex>
   )

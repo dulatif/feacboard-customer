@@ -1,4 +1,4 @@
-import { User } from '@/app/interface/user'
+import { User } from '@/shared/interface/user'
 import api from './index'
 
 export interface LoginGoogleResponse {

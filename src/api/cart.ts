@@ -1,5 +1,10 @@
 import api from './index'
-import { StoreServiceToCartBody, GetCartResponse, UpdateCartBody, CheckCartStatusResponse } from '@/app/interface/cart'
+import {
+  StoreServiceToCartBody,
+  GetCartResponse,
+  UpdateCartBody,
+  CheckCartStatusResponse,
+} from '@/shared/interface/cart'
 
 export const storeServiceToCart = async ({ body, serviceId }: { serviceId: number; body: StoreServiceToCartBody }) => {
   return await api.post(`/cart/add/${serviceId}`, body)

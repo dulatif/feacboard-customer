@@ -1,5 +1,5 @@
 import api from './index'
-import { GetOrderResponse, Order } from '@/app/interface/order'
+import { GetOrderResponse, Order } from '@/shared/interface/order'
 
 export const createOrder = async () => {
   return await api.post(`/order/checkout`)

@@ -11,8 +11,8 @@ import {
   useGetDesignerServicesQuery,
   useGetDesignerServiceCategoriesQuery,
 } from '@/shared/hooks/designer/useDesignerQuery'
-import { DesignerServiceDetail } from '@/app/interface/designers'
-import { ID } from '@/app/interface/general'
+import { DesignerServiceDetail } from '@/shared/interface/designers'
+import { ID } from '@/shared/interface/general'
 import { useAddToCart } from '@/shared/hooks/cart/useAddToCart'
 import { GetShopCalendarHourResponse } from '@/api/shop'
 import { MagnifyingGlass } from 'phosphor-react'

@@ -1,0 +1,93 @@
+@host = https://faceboard.emfahmika.my.id
+@localhost = http://localhost:8000
+@apiVersion = v1
+@token = 19|d31kYngoYTpzn6KUNo5Tscudav6CPJRIZnZlSwKr62ec07ab
+@localtoken = 3|gjGPFgXnq9On6qyxrZWwL84I37QOvyMaRw7Q3i389fc822c1
+@shop_id = 2
+@facility_id = 2
+
+# ==========================================================
+# ADMIN ENDPOINTS
+# ==========================================================
+
+### Admin: Read All Facility
+GET {{localhost}}/{{apiVersion}}/facility
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+### Admin: Create New Facility
+POST {{localhost}}/{{apiVersion}}/facility
+Authorization: Bearer {{localtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": {
+        "en": "Test",
+        "ko": "청결한 방"
+    },
+    "icon_id": "SjyLQD2knbnaCrlsUWgh"
+}
+
+
+### Admin: Update Facility
+PUT {{localhost}}/{{apiVersion}}/facility/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": {
+        "en": "Premium Wi-Fi",
+        "ko": "프리미엄 와이파이"
+    }
+}
+
+### Admin: Delete Facility
+DELETE {{localhost}}/{{apiVersion}}/facility/6
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+
+# ==========================================================
+# SHOP ENDPOINTS
+# ==========================================================
+
+### Shop: Read All Available Facilities
+GET {{localhost}}/{{apiVersion}}/facility
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+### Shop: Read My Shop Facilities
+GET {{localhost}}/{{apiVersion}}/facility/{{shop_id}}/shop
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+### Shop: Choose Shop Facility (Pivot Create)
+# sync the facilities id. detaches any not in the array, attaches new ones.
+POST {{localhost}}/{{apiVersion}}/facility/{{shop_id}}/shop
+Authorization: Bearer {{localtoken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "facilities": [4,5]
+}
+
+### Shop: Remove Shop Facility (Pivot Delete)
+DELETE {{localhost}}/{{apiVersion}}/facility/{{shop_id}}/shop/4
+Authorization: Bearer {{localtoken}}
+Accept: application/json
+
+
+
+### Shop: 
+
+# ==========================================================
+# CUSTOMER ENDPOINTS
+# ==========================================================
+
+### Customer: Read Shop Facility
+# (Publicly view facilities of a specific shop)
+GET {{localhost}}/{{apiVersion}}/facility/{{shop_id}}/shop
+Authorization: Bearer {{token}}
+Accept: application/json

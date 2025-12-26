@@ -5,7 +5,7 @@ import {
   Shop,
   ShopCategory,
   ShopOpenHour,
-} from '@/app/interface/shop'
+} from '@/shared/interface/shop'
 import { cleanObj } from '@/shared/utils/params'
 import api from './index'
 

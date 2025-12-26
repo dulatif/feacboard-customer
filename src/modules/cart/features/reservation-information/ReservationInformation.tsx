@@ -14,7 +14,7 @@ import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useApp } from '@/shared/providers/AppProvider'
 import { formatNumberCurrency } from '@/shared/utils/number'
-import { UpdateCartBody } from '@/app/interface/cart'
+import { UpdateCartBody } from '@/shared/interface/cart'
 import { useUpdateCartMutation } from '@/shared/hooks/cart/useCartMutation'
 
 export interface ReservationInformationProps {

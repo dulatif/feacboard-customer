@@ -1,0 +1,13 @@
+@host = https://faceboard.emfahmika.my.id
+@apiVersion = v1
+@shopId = 2
+@categoryId = 1
+
+
+### Get All Shop
+GET {{host}}/{{apiVersion}}/shop?category_id={{categoryId}}&with=designers HTTP/1.1
+Accept: application/json
+
+### Find Shop
+GET {{host}}/{{apiVersion}}/shop/{{shopId}}?with[]=openHours HTTP/1.1
+Accept: application/json

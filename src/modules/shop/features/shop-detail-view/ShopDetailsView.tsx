@@ -1,19 +1,20 @@
 'use client'
+import { getDetailShop } from '@/api/shop'
 import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcrumb'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { GetDetailShopQueryParams } from '@/shared/interface/shop'
+import { useQuery } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import { CaretLeft } from 'phosphor-react'
 import { useEffect, useMemo, useState } from 'react'
 import { StoreCard } from '../../components/store-card/StoreCard'
-import { StoreServices } from '../../components/store-services/StoreServices'
-import { useResponsive } from '@/shared/hooks/useResponsive'
-import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
-import { getDetailShop } from '@/api/shop'
-import { GetDetailShopQueryParams } from '@/app/interface/shop'
-import { useQuery } from '@tanstack/react-query'
 import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
+import { StoreInformation } from '../../components/store-information/StoreInformation'
+import { StoreServices } from '../../components/store-services/StoreServices'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -75,7 +76,7 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        // children: <StoreInformation data={{ storeName: data?.storeName || '' }} />,
+        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} shopId={shopId} />,
       },
     ]
   }, [isDesignerServiceCategory])

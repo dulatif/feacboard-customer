@@ -6,7 +6,7 @@ import { useFilterStore } from '@/shared/hooks/state/useFilter'
 import { Empty, Spin } from 'antd'
 import { StoreCard } from '../store-card/StoreCard'
 import { BasePagination } from '@/shared/components/base-pagination/BasePagination'
-import { GetAllShopResponse } from '@/app/interface/shop'
+import { GetAllShopResponse } from '@/shared/interface/shop'
 
 export interface ShopListProps {
   categoryId?: string

@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { Status } from '../../ReservationView.utils'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { BaseDivider } from '@/shared/components/base-divider/BaseDivider'
-import { GetOrderResponse } from '@/app/interface/order'
+import { GetOrderResponse } from '@/shared/interface/order'
 import { formatNumberCurrency } from '@/shared/utils/number'
 
 type Category = 'nail' | 'hair' | 'makeup'
