@@ -1,0 +1,46 @@
+.modal__diff-provider {
+  .ant-modal-content {
+    border-radius: 16px;
+    padding: 32px 24px 24px;
+    text-align: center;
+  }
+
+  .ant-modal-body {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+.modal__diff-provider__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.warning_icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fef3e2;
+  border-radius: 50%;
+  margin-bottom: 24px;
+}
+
+.modal__diff-provider__footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  text-align: center;
+  justify-content: center;
+
+  .btn_cancel {
+    flex: 1;
+  }
+
+  button {
+    flex: 1;
+  }
+}

@@ -121,7 +121,7 @@ export const ServiceInformation: React.FC<ServiceInformationProps> = ({ onNext, 
                     {appointment?.data.items.map((e, i) => (
                       <CartServiceItemCard
                         key={i}
-                        id={e.id}
+                        id={Number(e.id)}
                         image={e.service.image}
                         normalPrice={Number(e.service.price)}
                         service={e.service.name}

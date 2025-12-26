@@ -10,7 +10,7 @@ import { ReservationCard, ReservationCardProps } from '../../components/reservat
 import { useState } from 'react'
 import { Dayjs } from 'dayjs'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-import { GetOrderResponse } from '@/api/order'
+import { GetOrderResponse } from '@/shared/interface/order'
 import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import { Empty } from 'antd'
 

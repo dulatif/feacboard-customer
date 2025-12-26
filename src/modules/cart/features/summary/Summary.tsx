@@ -100,7 +100,7 @@ export const Summary: React.FC<SummaryProps> = ({ onBack }) => {
                   {appointment?.data.items.map((e, i) => (
                     <CartServiceItemCard
                       key={i}
-                      id={e.id}
+                      id={Number(e.id)}
                       image={e.service.image}
                       normalPrice={Number(e.service.price)}
                       service={e.service.name}
@@ -146,7 +146,7 @@ export const Summary: React.FC<SummaryProps> = ({ onBack }) => {
                   </BaseTypography>
                   <BaseFlex gap="spacing-8px" align="center" padding={{ x: 'spacing-16px', y: 'spacing-12px' }}>
                     <BaseTypography as="label" size="body2" weight="medium" color="neutral-700">
-                      -
+                      {appointment?.data?.note || '-'}
                     </BaseTypography>
                   </BaseFlex>
                 </BaseFlex>

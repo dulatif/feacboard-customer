@@ -21,12 +21,11 @@ export interface StoreCardProps {
   rating: number
   reviewersCount: number
   open_and_close: string
-  availableDesigners: number
+  availableDesigners?: number
   location?: string
   instagram?: string
   containerProps?: BaseBoxProps
   metaInformationProps?: Omit<BaseFlexProps, 'children'>
-  category?: TCategoryLabel
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
   id,
@@ -46,11 +45,10 @@ export const StoreCard: React.FC<StoreCardProps> = ({
     vertical: false,
     gap: 'spacing-24px',
   },
-  category,
 }) => {
   const router = useRouter()
   const handleRedirect = (id: string) => {
-    router.push(`/shop/${id}/details${category ? `?category=${category}` : ''}`)
+    router.push(`/shop/${id}/details`)
   }
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
@@ -93,12 +91,14 @@ export const StoreCard: React.FC<StoreCardProps> = ({
                   {open_and_close}
                 </BaseTypography>
               </BaseFlex>
-              <BaseFlex gap="spacing-8px" align="center">
-                <ProfileCircleIcon width={16} height={16} color="#667085" />
-                <BaseTypography as="span" size="caption" color="neutral-500">
-                  {availableDesigners} 명의 디자이너가 이용 가능합니다
-                </BaseTypography>
-              </BaseFlex>
+              {availableDesigners ? (
+                <BaseFlex gap="spacing-8px" align="center">
+                  <ProfileCircleIcon width={16} height={16} color="#667085" />
+                  <BaseTypography as="span" size="caption" color="neutral-500">
+                    {availableDesigners ? `${availableDesigners} 명의 디자이너가 이용 가능합니다` : ''}
+                  </BaseTypography>
+                </BaseFlex>
+              ) : null}
               {instagram && (
                 <BaseFlex gap="spacing-8px" align="center">
                   <InstagramIcon width={16} height={16} color="#667085" />

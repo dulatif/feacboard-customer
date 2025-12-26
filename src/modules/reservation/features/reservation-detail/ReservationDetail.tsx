@@ -18,6 +18,7 @@ import NavigationIcon from '@/shared/components/icons/NavigationIcon'
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useGetDetailOrderQuery } from '@/shared/hooks/order/useOrderQuery'
+import { usePayOrderMutation } from '@/shared/hooks/order/useOrderMutation'
 
 export const ReservationDetail = () => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
@@ -40,6 +41,22 @@ export const ReservationDetail = () => {
   const { data: getDetailOrderData, isLoading: isGetDetailOrderLoading } = useGetDetailOrderQuery({
     orderId: Number(id),
   })
+
+  const { mutate: payOrderMutate, isPending: isPayingOrder } = usePayOrderMutation()
+
+  const handlePayOrder = () => {
+    if (getDetailOrderData?.id) {
+      payOrderMutate(getDetailOrderData.id, {
+        onSuccess: () => {
+          // Optionally show success message or redirect
+        },
+        onError: (error) => {
+          // Optionally show error message
+          console.error('Error paying order:', error)
+        },
+      })
+    }
+  }
 
   const boxPadding = largeScreen ? 'spacing-48px' : 'spacing-20px'
   return (
@@ -66,7 +83,13 @@ export const ReservationDetail = () => {
                         결제 대기 중 {getDetailOrderData.start_at}
                       </BaseBadge>
                     </BaseFlex>
-                    <BaseButton size="lg" style={{ width: 380 }}>
+                    <BaseButton
+                      size="lg"
+                      style={{ width: 380 }}
+                      onClick={handlePayOrder}
+                      loading={isPayingOrder}
+                      disabled={isPayingOrder}
+                    >
                       지금 결제하세요
                     </BaseButton>
                   </div>
@@ -102,85 +125,135 @@ export const ReservationDetail = () => {
                       </BaseFlex>
                     </BaseFlex>
                   </div>
-                ) : getDetailOrderData?.status === 'in-progress' || getDetailOrderData?.status === 'completed' ? (
+                ) : getDetailOrderData?.status === 'in-progress' ||
+                  getDetailOrderData?.status === 'paid' ||
+                  getDetailOrderData?.status === 'completed' ? (
                   <div className={styles['completed']}>
                     <BaseFlex vertical gap="spacing-24px" align="center">
                       <Image src="/icons/success-payment.svg" width={48} height={48} alt="" />
                       <BaseTypography as="p" size="body1" weight="semibold" color="success-600">
                         결제가 성공적으로 완료되었습니다!
                       </BaseTypography>
-                      <BaseTypography as="p" size="subtitle2" weight="semibold" color="success-600">
-                        예약 코드는 다음과 같습니다 : 4021
-                      </BaseTypography>
-                      <QRCode value="4021" size={196} />
+                      {getDetailOrderData?.checkin_code ? (
+                        <>
+                          <BaseTypography as="p" size="subtitle2" weight="semibold" color="success-600">
+                            예약 코드는 다음과 같습니다 : {getDetailOrderData.checkin_code}
+                          </BaseTypography>
+                          <QRCode
+                            value={getDetailOrderData?.checkin_qr_string || getDetailOrderData.checkin_code}
+                            size={196}
+                          />
+                        </>
+                      ) : (
+                        <BaseFlex vertical gap="spacing-16px" align="center">
+                          <BaseAlert
+                            padding={{ x: 'spacing-16px' }}
+                            message="예약 코드를 찾을 수 없습니다. 고객 지원팀에 문의해 주세요."
+                          />
+                        </BaseFlex>
+                      )}
                     </BaseFlex>
                     {getDetailOrderData?.status === 'in-progress' ? (
                       <BaseFlex vertical gap="spacing-24px" align="center">
-                        <BaseFlex gap="spacing-24px" justify="space-between" align="center" style={{ minWidth: 266 }}>
-                          <BaseFlex vertical gap="spacing-8px">
-                            <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
-                              디자이너
-                            </BaseTypography>
-                            <BaseFlex gap="spacing-8px" align="center">
-                              <Avatar src={'/dummy/face03.png'} style={{ background: '#CFC3A7' }} size={40} />
-                              <BaseTypography as="p" size="body1" weight="medium">
-                                강남 살롱
+                        {getDetailOrderData.provider_type === 'designer' && (
+                          <BaseFlex gap="spacing-24px" justify="space-between" align="center" style={{ minWidth: 266 }}>
+                            <BaseFlex vertical gap="spacing-8px">
+                              <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
+                                디자이너
                               </BaseTypography>
+                              <BaseFlex gap="spacing-8px" align="center">
+                                <Avatar src={'/dummy/designer01.jpg'} style={{ background: '#CFC3A7' }} size={40} />
+                                <BaseTypography as="p" size="body1" weight="medium">
+                                  {getDetailOrderData.provider_name || '-'}
+                                </BaseTypography>
+                              </BaseFlex>
+                            </BaseFlex>
+                            <BaseFlex vertical gap="spacing-8px" align="flex-end">
+                              <BaseFlex gap="spacing-8px" align="center">
+                                <div>
+                                  <BuildingsIcon width={20} height={20} color="#292D32" />
+                                </div>
+                                <BaseTypography as="p" size="body1" weight="medium">
+                                  {getDetailOrderData.shop_name || '-'}
+                                </BaseTypography>
+                              </BaseFlex>
+                              {getDetailOrderData.address && (
+                                <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
+                                  {getDetailOrderData.address}
+                                </BaseTypography>
+                              )}
                             </BaseFlex>
                           </BaseFlex>
-                          <BaseFlex vertical gap="spacing-8px" align="flex-end">
+                        )}
+                        {getDetailOrderData.provider_type === 'shop' && (
+                          <BaseFlex vertical gap="spacing-8px" align="center">
                             <BaseFlex gap="spacing-8px" align="center">
                               <div>
                                 <BuildingsIcon width={20} height={20} color="#292D32" />
                               </div>
                               <BaseTypography as="p" size="body1" weight="medium">
-                                강남 살롱
+                                {getDetailOrderData.shop_name || '-'}
                               </BaseTypography>
                             </BaseFlex>
-                            <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
-                              서울 강남로 46
-                            </BaseTypography>
+                            {getDetailOrderData.address && (
+                              <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
+                                {getDetailOrderData.address}
+                              </BaseTypography>
+                            )}
                           </BaseFlex>
-                        </BaseFlex>
-                        <BaseButton
-                          outlined
-                          size="lg"
-                          color="tertiary"
-                          icon={<NavigationIcon width={16} height={16} />}
-                          iconPosition="end"
-                        >
-                          역삼역 3번 출구에서 도보 300m 입니다.
-                        </BaseButton>
+                        )}
+                        {getDetailOrderData.address && (
+                          <BaseButton
+                            outlined
+                            size="lg"
+                            color="tertiary"
+                            icon={<NavigationIcon width={16} height={16} />}
+                            iconPosition="end"
+                            onClick={() => {
+                              // Open navigation with address
+                              const address = encodeURIComponent(getDetailOrderData.address || '')
+                              window.open(`https://maps.google.com/?q=${address}`, '_blank')
+                            }}
+                          >
+                            길찾기
+                          </BaseButton>
+                        )}
                       </BaseFlex>
                     ) : (
                       <BaseFlex vertical={isMobile} gap="spacing-40px" align="center">
-                        <BaseFlex vertical gap="spacing-8px" align="flex-end">
+                        <BaseFlex vertical gap="spacing-8px" align={isMobile ? 'center' : 'flex-end'}>
                           <BaseFlex gap="spacing-8px" align="center">
                             <div>
                               <BuildingsIcon width={20} height={20} color="#292D32" />
                             </div>
                             <BaseTypography as="p" size="body1" weight="medium">
-                              강남 살롱
+                              {getDetailOrderData?.shop_name || '-'}
                             </BaseTypography>
                           </BaseFlex>
-                          <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
-                            서울 강남로 46
-                          </BaseTypography>
+                          {getDetailOrderData?.address && (
+                            <BaseTypography as="p" size="caption" weight="regular" color="neutral-500">
+                              {getDetailOrderData.address}
+                            </BaseTypography>
+                          )}
                         </BaseFlex>
-                        <BaseButton
-                          outlined
-                          size="lg"
-                          color="tertiary"
-                          icon={<NavigationIcon width={16} height={16} />}
-                          iconPosition="end"
-                        >
-                          역삼역 3번 출구에서 도보 300m 입니다.
-                        </BaseButton>
+                        {getDetailOrderData?.address && (
+                          <BaseButton
+                            outlined
+                            size="lg"
+                            color="tertiary"
+                            icon={<NavigationIcon width={16} height={16} />}
+                            iconPosition="end"
+                            onClick={() => {
+                              // Open navigation with address
+                              const address = encodeURIComponent(getDetailOrderData?.address || '')
+                              window.open(`https://maps.google.com/?q=${address}`, '_blank')
+                            }}
+                          >
+                            길찾기
+                          </BaseButton>
+                        )}
                       </BaseFlex>
                     )}
-                    <BaseButton size="lg" style={{ width: isMobile ? '100%' : 380 }}>
-                      체크인했습니다
-                    </BaseButton>
                   </div>
                 ) : null}
               </>

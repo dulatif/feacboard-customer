@@ -1,24 +1,20 @@
 'use client'
 import { BaseBreadcrumb, BaseBreadcrumbProps } from '@/shared/components/base-breadcrumb/BaseBreadcrumb'
 import { BaseContainer } from '@/shared/components/base-container/BaseContainer'
-import { useEffect, useState } from 'react'
+import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseFloatButton } from '@/shared/components/base-float-button/BaseFloatButton'
+import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import CartIcon from '@/shared/components/icons/CartIcon'
+import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useApp } from '@/shared/providers/AppProvider'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
 import { Banner } from './components/banner/Banner'
 import { Filter } from './components/filter/Filter'
+import { StakeHolderWrapper } from './components/stakeholder-wrapper/StakeHolderWrapper'
 import styles from './ShopView.module.scss'
-import { useSearchParams } from 'next/navigation'
-import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
-import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
-import { Hair } from './components/hair/Hair'
-import { BaseFloatButton } from '@/shared/components/base-float-button/BaseFloatButton'
-import CartIcon from '@/shared/components/icons/CartIcon'
-import { Makeup } from './components/makeup/Makeup'
-import { Nail } from './components/nail/Nail'
-import { Studio } from './components/studio/Studio'
-import { Suspense } from 'react'
-import { useApp } from '@/shared/providers/AppProvider'
 import { TCategoryLabel } from './ShopView.utils'
-import { useResponsive } from '@/shared/hooks/useResponsive'
-import Link from 'next/link'
 
 const categoryMap: Record<TCategoryLabel, string> = {
   nail: '네일',
@@ -74,15 +70,7 @@ const ShopViewContent = () => {
         <BaseContainer variant={1440}>
           <BaseFlex vertical gap={isMobile ? 'spacing-40px' : 'spacing-80px'}>
             <Banner />
-            {/^hair$/i.test(category) ? (
-              <Hair />
-            ) : /^makeup$/i.test(category) ? (
-              <Makeup />
-            ) : /^nail$/i.test(category) ? (
-              <Nail />
-            ) : /^studio$/i.test(category) ? (
-              <Studio />
-            ) : null}
+            <StakeHolderWrapper />
           </BaseFlex>
         </BaseContainer>
       </div>
@@ -101,7 +89,7 @@ const ShopViewContent = () => {
 
 export const ShopView = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>로딩 중...</div>}>
       <ShopViewContent />
     </Suspense>
   )

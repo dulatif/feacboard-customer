@@ -28,6 +28,9 @@ export interface DesignerCardProps {
   availableService: number
   specialties: string[]
   services: ServiceCardProps[]
+  handleAddToCart?: (serviceId: number) => void
+  handleDirectBuy?: (serviceId: number) => void
+  loading?: boolean
 }
 export const DesignerCard: React.FC<DesignerCardProps> = ({
   id,
@@ -40,6 +43,9 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
   rating,
   services,
   specialties,
+  handleAddToCart,
+  handleDirectBuy,
+  loading = false,
 }) => {
   const router = useRouter()
   const handleRedirectToDesignerProfile = (id: string) => {
@@ -64,36 +70,45 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
                 <BaseTypography as="h1" size="body1" weight="semibold">
                   {name}
                 </BaseTypography>
-                <BaseFlex gap="spacing-8px" align="center">
-                  <StarIcon width={20} height={20} />
-                  <BaseTypography as="span" size="caption" color="neutral-500">
-                    {rating} (129 리뷰)
-                  </BaseTypography>
-                </BaseFlex>
+                {rating > 0 && (
+                  <BaseFlex gap="spacing-8px" align="center">
+                    <StarIcon width={20} height={20} />
+                    <BaseTypography as="span" size="caption" color="neutral-500">
+                      {rating} (129 리뷰)
+                    </BaseTypography>
+                  </BaseFlex>
+                )}
               </BaseFlex>
               <BaseFlex
                 wrap={'wrap'}
                 justify={isMobile ? 'center' : undefined}
                 gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
               >
-                <BaseFlex gap="spacing-8px" align="center">
-                  <BuildingsIcon width={16} height={16} color="#667085" />
-                  <BaseTypography as="span" size="caption" color="neutral-500">
-                    {company}
-                  </BaseTypography>
-                </BaseFlex>
-                <BaseFlex gap="spacing-8px" align="center">
-                  <MapMarkerIcon width={16} height={16} color="#667085" />
-                  <BaseTypography as="span" size="caption" color="neutral-500">
-                    {location}
-                  </BaseTypography>
-                </BaseFlex>
-                <BaseFlex gap="spacing-8px" align="center">
-                  <ClockIcon width={16} height={16} color="#667085" />
-                  <BaseTypography as="span" size="caption" color="neutral-500">
-                    오늘 이용 가능 시간 : {availableHour}
-                  </BaseTypography>
-                </BaseFlex>
+                {company && (
+                  <BaseFlex gap="spacing-8px" align="center">
+                    <BuildingsIcon width={16} height={16} color="#667085" />
+                    <BaseTypography as="span" size="caption" color="neutral-500">
+                      {company}
+                    </BaseTypography>
+                  </BaseFlex>
+                )}
+                {location && (
+                  <BaseFlex gap="spacing-8px" align="center">
+                    <MapMarkerIcon width={16} height={16} color="#667085" />
+                    <BaseTypography as="span" size="caption" color="neutral-500">
+                      {location}
+                    </BaseTypography>
+                    w{' '}
+                  </BaseFlex>
+                )}
+                {availableHour && (
+                  <BaseFlex gap="spacing-8px" align="center">
+                    <ClockIcon width={16} height={16} color="#667085" />
+                    <BaseTypography as="span" size="caption" color="neutral-500">
+                      오늘 이용 가능 시간 : {availableHour}
+                    </BaseTypography>
+                  </BaseFlex>
+                )}
                 <BaseFlex gap="spacing-8px" align="center">
                   <DocumentIcon width={16} height={16} color="#667085" />
                   <BaseTypography as="span" size="caption" color="neutral-500">
@@ -118,27 +133,35 @@ export const DesignerCard: React.FC<DesignerCardProps> = ({
         {/* Body */}
         <div className={styles['service']}>
           {services.slice(0, 4).map((service, i) => (
-            <ServiceCard key={i} {...service} />
+            <ServiceCard
+              key={i}
+              {...service}
+              handleAddToCart={handleAddToCart}
+              handleDirectBuy={handleDirectBuy}
+              loading={loading}
+            />
           ))}
         </div>
 
         {/* Footer */}
-        <BaseFlex
-          gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
-          align={isMobile ? 'flex-start' : 'center'}
-          vertical={isMobile}
-        >
-          <BaseTypography as="p" size="body2" color="neutral-500">
-            디자이너 전문 분야 :
-          </BaseTypography>
-          <BaseFlex gap="spacing-8px" align="center" wrap="wrap">
-            {specialties.map((speciality, i) => (
-              <BaseBadge key={i} variant="neutral-100" padding={{ x: 'spacing-14px', y: 'spacing-8px' }}>
-                {speciality}
-              </BaseBadge>
-            ))}
+        {specialties.length > 0 && (
+          <BaseFlex
+            gap={isMobile ? 'spacing-12px' : 'spacing-24px'}
+            align={isMobile ? 'flex-start' : 'center'}
+            vertical={isMobile}
+          >
+            <BaseTypography as="p" size="body2" color="neutral-500">
+              디자이너 전문 분야 :
+            </BaseTypography>
+            <BaseFlex gap="spacing-8px" align="center" wrap="wrap">
+              {specialties.map((speciality, i) => (
+                <BaseBadge key={i} variant="neutral-100" padding={{ x: 'spacing-14px', y: 'spacing-8px' }}>
+                  {speciality}
+                </BaseBadge>
+              ))}
+            </BaseFlex>
           </BaseFlex>
-        </BaseFlex>
+        )}
       </BaseFlex>
     </BaseBox>
   )

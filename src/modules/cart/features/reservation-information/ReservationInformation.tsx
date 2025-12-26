@@ -14,7 +14,7 @@ import { BaseTextarea } from '@/shared/components/base-textarea/BaseTextarea'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useApp } from '@/shared/providers/AppProvider'
 import { formatNumberCurrency } from '@/shared/utils/number'
-import { UpdateCartBody } from '@/api/cart'
+import { UpdateCartBody } from '@/shared/interface/cart'
 import { useUpdateCartMutation } from '@/shared/hooks/cart/useCartMutation'
 
 export interface ReservationInformationProps {
@@ -33,15 +33,15 @@ export const ReservationInformation: React.FC<ReservationInformationProps> = ({ 
   const [form, setForm] = useState<UpdateCartBody>({
     name: '',
     phone: '',
-    notes: '',
+    note: '',
   })
   useEffect(() => {
     if (appointment?.data) {
-      const { name, phone } = appointment.data
+      const { name, phone, note } = appointment.data
       setForm({
         name,
         phone,
-        notes: '',
+        note: note || '',
       })
     }
   }, [appointment?.data])
@@ -105,8 +105,8 @@ export const ReservationInformation: React.FC<ReservationInformationProps> = ({ 
                   <BaseTextarea
                     placeholder="업체에 요청하실 내용을 적어주세요"
                     rows={3}
-                    value={form.notes}
-                    onChange={(e) => setForm((prev) => ({ ...prev, notes: e.target.value }))}
+                    value={form.note}
+                    onChange={(e) => setForm((prev) => ({ ...prev, note: e.target.value }))}
                   />
                 </BaseFlex>
               </BaseFlex>
