@@ -1,1 +1,1 @@
-export type Status = 'in-progress' | 'pending' | 'completed' | 'failed'
+export type Status = 'in-progress' | 'pending' | 'completed' | 'failed' | 'paid'

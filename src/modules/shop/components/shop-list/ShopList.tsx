@@ -20,7 +20,7 @@ export const ShopList: React.FC<ShopListProps> = ({ categoryId }) => {
     params: {
       category_id: categoryId ? Number(categoryId) : undefined,
       name: name,
-      with: ['designers', 'designers.services'],
+      with: ['designers', 'thumbnails'],
       paginate: 1,
       page: currentPage,
     },
@@ -46,20 +46,24 @@ export const ShopList: React.FC<ShopListProps> = ({ categoryId }) => {
         </Render>
         <Render in={shops.length > 0}>
           <BaseFlex vertical gap="spacing-80px">
-            {shops.map((item, i) => (
-              <StoreCard
-                key={item.id || i}
-                category="nail"
-                id={String(item.id)}
-                storeName={item.name}
-                location={item.address}
-                availableDesigners={item.designers?.length || item.designer_count || 0}
-                images={[]}
-                rating={item.rating || 0}
-                reviewersCount={item.review_count || 0}
-                open_and_close={item.open_hour_today || '-'}
-              />
-            ))}
+            {shops.map((item, i) => {
+              // Extract image URLs from thumbnails
+              const images = item.thumbnails?.map((thumbnail) => thumbnail.url) || []
+
+              return (
+                <StoreCard
+                  key={item.id || i}
+                  id={String(item.id)}
+                  storeName={item.name}
+                  location={item.address}
+                  availableDesigners={item.designers?.length || item.designer_count || 0}
+                  images={images}
+                  rating={item.rating || 0}
+                  reviewersCount={item.review_count || 0}
+                  open_and_close={item.open_hour_today || '-'}
+                />
+              )
+            })}
 
             {meta && meta.last_page > 1 && (
               <BasePagination

@@ -1,6 +1,11 @@
 import { Designer } from './designers'
 import { ID, MutationParams } from './general'
 
+export interface ShopThumbnail {
+  id: ID
+  url: string
+}
+
 export interface Shop {
   id: ID
   name: string
@@ -15,11 +20,12 @@ export interface Shop {
   open_hour_today?: string
   designers?: Designer[]
   designer_count?: number
+  thumbnails?: ShopThumbnail[]
 }
 
 export type ShopStatus = 'registering' | 'registered' | 'inactive' | 'withdrawal' | 'withdrew'
 
-export type ShopWithOption = 'openHours' | 'designers' | 'designers.services'
+export type ShopWithOption = 'openHours' | 'designers' | 'designers.services' | 'thumbnails'
 
 export interface GetAllShopQueryParams {
   status?: ShopStatus[]
@@ -69,10 +75,35 @@ export interface ShopOpenHour {
   active: number
 }
 
-export type ShopDetailWithOption = 'openHours'
+export interface ShopCategoryName {
+  en: string
+  ko: string
+}
+
+export interface ShopCategory {
+  id: ID
+  name: ShopCategoryName
+  localized_name: string
+  needs_designer: boolean
+}
+
+export type ShopDetailWithOption = 'openHours' | 'category'
 
 export interface GetDetailShopQueryParams {
   id: ID | string
   status?: 'all' | string
   with?: ShopDetailWithOption[]
+}
+
+export interface ShopServiceCategory {
+  id: ID
+  name: string
+}
+
+export interface GetShopServicesQueryParams {
+  shopId: ID | number
+  category_id?: ID | number
+  per_page?: number
+  name?: string
+  page?: number
 }

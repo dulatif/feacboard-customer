@@ -1,9 +1,10 @@
 'use client'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useApp } from '@/shared/providers/AppProvider'
 import { Avatar, MenuProps } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseButton } from '../base-button/BaseButton'
@@ -12,9 +13,10 @@ import { BaseDropdown } from '../base-dropdown/BaseDropdown'
 import { BaseFlex } from '../base-flex/BaseFlex'
 import { BaseTypography } from '../base-typography/BaseTypography'
 import BellIcon from '../icons/BellIcon'
+import ShoppingCart from '../icons/ShoppingCart'
 import './Navbar.scss'
 import { menuItems } from './Navbar.utils'
-import { useResponsive } from '@/shared/hooks/useResponsive'
+import CartIcon from '../icons/CartIcon'
 
 export interface NavbarProps {}
 
@@ -23,6 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const pathName = usePathname()
   const { language, setLanguage, isAuthenticated } = useApp()
   const { largeScreen, isDesktop, isTablet, isMobile } = useResponsive()
+  const router = useRouter()
 
   // START HANDLE SCROLL
   const [scrolled, setScrolled] = useState(false)
@@ -144,15 +147,12 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                     size={largeScreen ? 'lg' : 'sm'}
                     color="secondary-neutral"
                     shape="circle"
-                    icon={
-                      <Image
-                        src={`/icons/stamp.svg`}
-                        width={largeScreen ? 24 : 12}
-                        height={largeScreen ? 24 : 12}
-                        alt="Stamp"
-                      />
-                    }
+                    icon={<CartIcon width={largeScreen ? 24 : 12} height={largeScreen ? 24 : 12} />}
+                    onClick={() => {
+                      router.push('/cart')
+                    }}
                   />
+
                   <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
                     <BaseButton
                       size={largeScreen ? 'lg' : 'sm'}
@@ -163,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                           src={language === 'ko' ? `/icons/flags/korea.svg` : `/icons/flags/uk.svg`}
                           width={largeScreen ? 24 : 12}
                           height={largeScreen ? 24 : 12}
-                          alt="Stamp"
+                          alt="language"
                         />
                       }
                     />

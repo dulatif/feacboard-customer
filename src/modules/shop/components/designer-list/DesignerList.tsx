@@ -1,5 +1,7 @@
 import React from 'react'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
+import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { DesignerCard, DesignerCardProps } from '../designer-card/DesignerCard'
 import { useGetAllDesignerQuery } from '@/shared/hooks/designer/useDesignerQuery'
 import { Designer, DesignerService } from '@/app/interface/designers'
@@ -67,15 +69,31 @@ export const DesignerList: React.FC<DesignerListProps> = ({ categoryId }) => {
   })
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <BaseFlex justify="center" align="center" style={{ padding: '48px 0' }}>
+        <BaseSpin size="large" />
+      </BaseFlex>
+    )
   }
 
   if (isError) {
-    return <div>Error loading designers</div>
+    return (
+      <BaseFlex justify="center" align="center" style={{ padding: '48px 0' }}>
+        <BaseTypography as="p" size="body1" style={{ color: '#ff4d4f' }}>
+          디자이너를 불러오는 중 오류가 발생했습니다
+        </BaseTypography>
+      </BaseFlex>
+    )
   }
 
   if (!designers || designers.length === 0) {
-    return <div>No designers found</div>
+    return (
+      <BaseFlex justify="center" align="center" style={{ padding: '48px 0' }}>
+        <BaseTypography as="p" size="body1" color="neutral-500">
+          디자이너를 찾을 수 없습니다
+        </BaseTypography>
+      </BaseFlex>
+    )
   }
 
   return (

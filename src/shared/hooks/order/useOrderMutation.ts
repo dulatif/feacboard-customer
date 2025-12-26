@@ -1,4 +1,4 @@
-import { createOrder } from '@/api/order'
+import { createOrder, payOrder } from '@/api/order'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const useCreateOrderMutation = () => {
@@ -14,6 +14,27 @@ export const useCreateOrderMutation = () => {
       })
       queryClient.invalidateQueries({
         queryKey: ['get-order'],
+      })
+    },
+    onError: (error) => {},
+    onSettled: () => {},
+  })
+  return { mutate, mutateAsync, ...mutationStates }
+}
+
+export const usePayOrderMutation = () => {
+  const queryClient = useQueryClient()
+  const { mutate, mutateAsync, ...mutationStates } = useMutation({
+    mutationFn: async (orderId: number) => {
+      const response = await payOrder(orderId)
+      return response
+    },
+    onSuccess: (response, orderId) => {
+      queryClient.invalidateQueries({
+        queryKey: ['get-order'],
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['get-detail-order', orderId],
       })
     },
     onError: (error) => {},

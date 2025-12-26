@@ -89,7 +89,7 @@ const ShopViewContent = () => {
 
 export const ShopView = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>로딩 중...</div>}>
       <ShopViewContent />
     </Suspense>
   )

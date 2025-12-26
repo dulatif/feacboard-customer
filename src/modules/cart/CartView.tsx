@@ -9,6 +9,7 @@ import styles from './CartView.module.scss'
 import { ServiceInformation } from './features/service-information/ServiceInformation'
 import { ReservationInformation } from './features/reservation-information/ReservationInformation'
 import { Summary } from './features/summary/Summary'
+import { CartEmptyState } from './components/cart-empty-state/CartEmptyState'
 import { BaseSteps, BaseStepsProps } from '@/shared/components/base-steps/BaseSteps'
 import { useMemo, useState } from 'react'
 import { useResponsive } from '@/shared/hooks/useResponsive'
@@ -70,28 +71,33 @@ export const CartView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (
     <div className={styles['cart']}>
-      <div className={styles['cart__header']}>
-        <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
-          <BaseFlex vertical gap="spacing-24px">
-            <div>
-              <BaseButton onClick={() => router.back()} color="secondary-neutral" icon={<ChevronLeftIcon />}>
-                뒤로가기
-              </BaseButton>
-            </div>
-            <div>
-              <BaseTypography as="h4" size="subtitle1" weight="semibold">
-                장바구니 및 결제
-              </BaseTypography>
-            </div>
-            <BaseSteps items={stepsItems} />
-          </BaseFlex>
-        </BaseContainer>
-      </div>
+      {!appointment?.data || !appointment.data.items || appointment.data.items.length === 0 ? null : (
+        <div className={styles['cart__header']}>
+          <BaseContainer variant={1440} padding={{ y: 'spacing-40px' }}>
+            <BaseFlex vertical gap="spacing-24px">
+              <div>
+                <BaseButton onClick={() => router.back()} color="secondary-neutral" icon={<ChevronLeftIcon />}>
+                  뒤로가기
+                </BaseButton>
+              </div>
+              <div>
+                <BaseTypography as="h4" size="subtitle1" weight="semibold">
+                  장바구니 및 결제
+                </BaseTypography>
+              </div>
+              <BaseSteps items={stepsItems} />
+            </BaseFlex>
+          </BaseContainer>
+        </div>
+      )}
+
       <div className={styles['cart__body']}>
         {activeStep === 2 ? (
           <ReservationInformation onBack={() => setActiveStep(1)} onNext={() => setActiveStep(3)} />
         ) : activeStep === 3 ? (
           <Summary onBack={() => setActiveStep(2)} />
+        ) : !appointment?.data || !appointment.data.items || appointment.data.items.length === 0 ? (
+          <CartEmptyState />
         ) : (
           <BaseSpin spinning={isShopCalendarHourLoading}>
             {shopCalendarHourData ? (

@@ -3,43 +3,43 @@ import { BaseBreadcrumb } from '@/shared/components/base-breadcrumb/BaseBreadcru
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { CaretLeft } from 'phosphor-react'
 import { useEffect, useMemo, useState } from 'react'
 import { StoreCard } from '../../components/store-card/StoreCard'
-import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
-import { StoreInformation } from '../../components/store-information/StoreInformation'
-import { StoreReview } from '../../components/store-review/StoreReview'
-import { StoreTidings } from '../../components/store-tidings/StoreTidings'
-import { TCategoryLabel } from '../../ShopView.utils'
 import { StoreServices } from '../../components/store-services/StoreServices'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-import {
-  useGetShopCalendarHourQuery,
-  useGetShopDetailsQuery,
-  useGetShopServicesQuery,
-} from '@/shared/hooks/shop/useShopQuery'
 import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
-import { GetShopDetailsParams } from '@/api/shop'
+import { getDetailShop } from '@/api/shop'
+import { GetDetailShopQueryParams } from '@/app/interface/shop'
+import { useQuery } from '@tanstack/react-query'
+import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const router = useRouter()
   const { id } = useParams()
   const shopId = Number(id)
-  const searchParams = useSearchParams()
-  const category = searchParams.get('category') as unknown as TCategoryLabel
-  const shopServiceCategory = ['nail', 'studio']
-  const isServicesShopCategory = shopServiceCategory.includes(category)
-  const params: GetShopDetailsParams = useMemo(() => {
-    return {
-      shopId,
-      with: isServicesShopCategory ? 'services' : 'designers',
-    }
-  }, [isServicesShopCategory])
-  const { data: shopDetailsData, isLoading: isShopDetailsLoading } = useGetShopDetailsQuery(params)
-  const { data: shopCalendarHourData, isLoading: isShopCalendarHourLoading } = useGetShopCalendarHourQuery({ shopId })
-  const { data: shopServicesData, isLoading: isShopServicesLoading } = useGetShopServicesQuery({ shopId })
+
+  // Get shop details with category
+  const shopDetailsParams: GetDetailShopQueryParams = useMemo(
+    () => ({
+      id: shopId,
+      with: ['category'],
+    }),
+    [shopId],
+  )
+
+  const { data: shopDetailsData, isLoading: isShopDetailsLoading } = useQuery({
+    queryKey: ['get-shop-detail', shopDetailsParams],
+    queryFn: async () => await getDetailShop(shopDetailsParams),
+  })
+
+  // Validate if category is a designer service category using shop's category
+  const isDesignerServiceCategory = useMemo(() => {
+    if (!shopDetailsData?.category) return false
+    return shopDetailsData.category.needs_designer === true
+  }, [shopDetailsData?.category])
 
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ title: string }[]>([])
   useEffect(() => {
@@ -59,16 +59,8 @@ export const ShopDetailsView = () => {
     return [
       {
         key: '1',
-        label: isServicesShopCategory ? '서비스' : '디자이너',
-        children: isServicesShopCategory ? (
-          <StoreServices
-            data={shopServicesData?.data}
-            meta={shopServicesData?.meta}
-            calendarHour={shopCalendarHourData || {}}
-            loading={isShopServicesLoading || isShopCalendarHourLoading}
-          />
-        ) : null,
-        // <StoreDesigners data={data?.designers || []} />
+        label: isDesignerServiceCategory ? '디자이너' : '서비스',
+        children: isDesignerServiceCategory ? <StoreDesigners shopId={shopId} /> : <StoreServices shopId={shopId} />,
       },
       {
         key: '2',
@@ -86,7 +78,7 @@ export const ShopDetailsView = () => {
         // children: <StoreInformation data={{ storeName: data?.storeName || '' }} />,
       },
     ]
-  }, [shopDetailsData, shopServicesData, isShopServicesLoading, isShopCalendarHourLoading])
+  }, [isDesignerServiceCategory])
 
   return (
     <>
@@ -116,7 +108,6 @@ export const ShopDetailsView = () => {
               location={shopDetailsData?.address}
               rating={shopDetailsData?.rating || 0}
               reviewersCount={shopDetailsData?.review_count || 0}
-              category={category}
               images={[]}
               availableDesigners={shopDetailsData?.designers?.length || 0}
             />

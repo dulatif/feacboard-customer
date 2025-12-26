@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { Status } from '../../ReservationView.utils'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { BaseDivider } from '@/shared/components/base-divider/BaseDivider'
-import { GetOrderResponse } from '@/api/order'
+import { GetOrderResponse } from '@/app/interface/order'
 import { formatNumberCurrency } from '@/shared/utils/number'
 
 type Category = 'nail' | 'hair' | 'makeup'
@@ -36,6 +36,10 @@ const statusMap: Record<Status, { label: string; color: BaseBadgeProps['variant'
   failed: {
     label: '실패한',
     color: 'danger-100',
+  },
+  paid: {
+    label: '결제 완료',
+    color: 'success-100',
   },
 }
 interface Item {
@@ -83,10 +87,12 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                   {data.date}
                 </BaseTypography>
               </BaseFlex>
-              <BaseBadge variant={statusMap[data.status].color}>
-                {statusMap[data.status].label}
-                {data.status === 'pending' && data.start_at}
-              </BaseBadge>
+              {statusMap[data.status]?.color ? (
+                <BaseBadge variant={statusMap[data.status].color}>
+                  {statusMap[data.status].label}
+                  {data.status === 'pending' && data.start_at}
+                </BaseBadge>
+              ) : null}
             </BaseFlex>
 
             {/* Alert */}
@@ -179,9 +185,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
 
         {/* Footer */}
         <BaseFlex justify="flex-end">
-          {data.status === 'completed' && data.rate ? (
-            <BaseRate value={data.rate} disabled />
-          ) : data.status === 'completed' ? (
+          {data.status === 'completed' ? (
             <BaseFlex gap="spacing-8px" align="center">
               <BaseTypography as="p" size="body1" color="success-600">
                 + 100점

@@ -26,7 +26,6 @@ export interface StoreCardProps {
   instagram?: string
   containerProps?: BaseBoxProps
   metaInformationProps?: Omit<BaseFlexProps, 'children'>
-  category?: TCategoryLabel
 }
 export const StoreCard: React.FC<StoreCardProps> = ({
   id,
@@ -46,11 +45,10 @@ export const StoreCard: React.FC<StoreCardProps> = ({
     vertical: false,
     gap: 'spacing-24px',
   },
-  category,
 }) => {
   const router = useRouter()
   const handleRedirect = (id: string) => {
-    router.push(`/shop/${id}/details${category ? `?category=${category}` : ''}`)
+    router.push(`/shop/${id}/details`)
   }
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   return (

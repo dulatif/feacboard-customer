@@ -1,21 +1,35 @@
-import { GetShopCalendarHourResponse, GetShopServicesResponse } from '@/api/shop'
+import {
+  GetShopCalendarHourResponse,
+  GetShopServicesResponse,
+  isDesignerServicesResponse,
+  ShopService,
+} from '@/api/shop'
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
 import { BasePagination } from '@/shared/components/base-pagination/BasePagination'
 import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
-import { useStoreServiceToCartMutation } from '@/shared/hooks/cart/useCartMutation'
+import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-import { useApp } from '@/shared/providers/AppProvider'
+import { useAddToCart } from '@/shared/hooks/cart/useAddToCart'
+import {
+  useGetShopServicesQuery,
+  useGetShopServiceCategoriesQuery,
+  useGetShopCalendarHourQuery,
+} from '@/shared/hooks/shop/useShopQuery'
+import { ServiceCard, ServiceCardProps } from '../service-card/ServiceCard'
+import { ID } from '@/app/interface/general'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/navigation'
 import { MagnifyingGlass } from 'phosphor-react'
-import { useState } from 'react'
-import { ServiceCard } from '../service-card/ServiceCard'
+import { useState, useEffect, useMemo } from 'react'
 import styles from './StoreServices.module.scss'
 
 const AppointmentModal = dynamic(
   () => import('../appointment-modal/AppointmentModal').then((mod) => mod.AppointmentModal),
+  { ssr: false },
+)
+const DiffProviderConfirmModal = dynamic(
+  () => import('../diff-provider-confirm-modal/DiffProviderConfirmModal').then((mod) => mod.DiffProviderConfirmModal),
   { ssr: false },
 )
 const ServiceVariantModal = dynamic(
@@ -24,132 +38,195 @@ const ServiceVariantModal = dynamic(
 )
 
 export interface StoreServicesProps {
-  data?: GetShopServicesResponse['data']
-  meta?: GetShopServicesResponse['meta']
-  loading: boolean
-  calendarHour: GetShopCalendarHourResponse
+  shopId: ID | number
 }
-export const StoreServices: React.FC<StoreServicesProps> = ({ data, meta, calendarHour, loading }) => {
+
+// Helper function to get first available image from service images
+export const getServiceImage = (images: {
+  'image-1': string | null
+  'image-2': string | null
+  'image-3': string | null
+  'image-4': string | null
+  'image-5': string | null
+}): string => {
+  return (
+    images['image-1'] ||
+    images['image-2'] ||
+    images['image-3'] ||
+    images['image-4'] ||
+    images['image-5'] ||
+    '/dummy/service01.jpg' // fallback image
+  )
+}
+// Transform ShopService to ServiceCardProps
+const mapServiceToCardProps = (service: ShopService): ServiceCardProps => {
+  return {
+    id: service.id,
+    name: service.name,
+    price: service.price,
+    image: getServiceImage(service.images),
+    variants: [],
+  }
+}
+
+export const StoreServices: React.FC<StoreServicesProps> = ({ shopId }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
-  const router = useRouter()
-  const { appointment } = useApp()
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | string | undefined>(undefined)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [searchName, setSearchName] = useState<string>('')
 
-  const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false)
-  const [selectedServiceId, setSelectedServiceId] = useState<number>()
-  const handleAddToCart = (serviceId: number) => {
-    if (appointment?.data?.date && appointment?.data?.start_at) {
-      handleSubmitAppointment({
-        date: appointment.data?.date,
-        time: appointment.data?.start_at,
-        serviceId,
-      })
-    } else {
-      setSelectedServiceId(serviceId)
-      setIsAppointmentModalOpen(true)
+  // Fetch service categories
+  const { data: categories = [], isLoading: isLoadingCategories } = useGetShopServiceCategoriesQuery({
+    shopId: Number(shopId),
+  })
+
+  // Fetch calendar hour
+  const { data: calendarHour = {}, isLoading: isCalendarHourLoading } = useGetShopCalendarHourQuery({
+    shopId: Number(shopId),
+  })
+
+  // Fetch services with filters
+  const { data: servicesResponse, isLoading: isLoadingServices } = useGetShopServicesQuery({
+    shopId: Number(shopId),
+    category_id: selectedCategoryId ? Number(selectedCategoryId) : undefined,
+    name: searchName || undefined,
+    per_page: 15,
+    page: currentPage,
+  })
+
+  // Reset to page 1 when filter changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategoryId, searchName])
+
+  // Transform services data to ServiceCardProps
+  const services: ServiceCardProps[] = useMemo(() => {
+    if (!servicesResponse?.data) return []
+    // Only handle direct services (not designer services)
+    if (isDesignerServicesResponse(servicesResponse.data)) {
+      return []
     }
-  }
-  const handleDirectBuy = (serviceId: number) => {
-    if (appointment?.data?.date && appointment?.data?.start_at) {
-      handleSubmitAppointment({
-        date: appointment.data?.date,
-        time: appointment.data?.start_at,
-        serviceId,
-      })
-    } else {
-      setSelectedServiceId(serviceId)
-      setIsAppointmentModalOpen(true)
-    }
+    return (servicesResponse.data as ShopService[]).map(mapServiceToCardProps)
+  }, [servicesResponse?.data])
+
+  // Handle category filter click
+  const handleCategoryClick = (categoryId?: number | string) => {
+    setSelectedCategoryId(categoryId)
   }
 
-  const { mutate: storeServiceToCartMutate, isPending: isStoreServiceToCartPending } = useStoreServiceToCartMutation()
-  const handleSubmitAppointment = ({ date, time, serviceId }: { date: string; time: string; serviceId?: number }) => {
-    const id = serviceId || selectedServiceId
-    if (id) {
-      storeServiceToCartMutate(
-        {
-          body: {
-            date,
-            time,
-          },
-          serviceId: id,
-        },
-        {
-          onSuccess: () => {
-            setIsAppointmentModalOpen(false)
-            router.push('/cart')
-          },
-        },
-      )
-    }
+  // Handle pagination change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
   }
+
+  // Handle search
+  const handleSearch = () => {
+    setCurrentPage(1)
+  }
+
+  const {
+    handleAddToCart,
+    handleDirectBuy,
+    isAppointmentModalOpen,
+    isDiffProviderModalOpen,
+    isCheckingCartStatus,
+    isStoreServiceToCartPending,
+    handleSubmitAppointment,
+    handleDiffProviderConfirm,
+    handleDiffProviderCancel,
+    handleAppointmentModalCancel,
+  } = useAddToCart()
+
+  const isLoading = isLoadingServices || isLoadingCategories || isCalendarHourLoading
 
   return (
-    <BaseSpin spinning={loading}>
+    <BaseSpin spinning={isLoading}>
       <BaseFlex vertical gap={largeScreen ? 'spacing-80px' : 'spacing-24px'}>
         <BaseFlex vertical gap="spacing-24px">
           <BaseFlex gap="spacing-16px">
-            <BaseInput size="large" placeholder="디자이너 이름으로 검색" />
-            <BaseButton icon={<MagnifyingGlass size={24} />} size="xl">
+            <BaseInput
+              size="large"
+              placeholder="서비스 이름으로 검색"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              onPressEnter={handleSearch}
+            />
+            <BaseButton icon={<MagnifyingGlass size={24} />} size="xl" onClick={handleSearch}>
               검색
             </BaseButton>
           </BaseFlex>
-          <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap">
-            <BaseButton color="secondary-neutral">헤어</BaseButton>
-            <BaseButton color="secondary-neutral">할인</BaseButton>
-            <BaseButton color="secondary-neutral">신상품</BaseButton>
-            <BaseButton color="secondary-neutral">신상품</BaseButton>
-            <BaseButton color="secondary-neutral">신상품</BaseButton>
-            <BaseButton color="secondary-neutral">신상품</BaseButton>
-          </BaseFlex>
+          {categories.length > 0 && (
+            <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap">
+              <BaseButton
+                onClick={() => handleCategoryClick(undefined)}
+                color={selectedCategoryId === undefined ? 'primary' : 'secondary-neutral'}
+              >
+                전체
+              </BaseButton>
+              {categories.map((category) => (
+                <BaseButton
+                  key={category.id}
+                  onClick={() => handleCategoryClick(Number(category.id))}
+                  color={selectedCategoryId === Number(category.id) ? 'primary' : 'secondary-neutral'}
+                >
+                  {category.name}
+                </BaseButton>
+              ))}
+            </BaseFlex>
+          )}
         </BaseFlex>
         <BaseFlex vertical gap={largeScreen ? 'spacing-80px' : 'spacing-24px'}>
-          {data && (
-            <div className={styles['service']}>
-              {data.map((service, i) => (
-                <ServiceCard
-                  key={i}
-                  id={service.id}
-                  image={
-                    service.images['image-1'] ||
-                    service.images['image-2'] ||
-                    service.images['image-3'] ||
-                    service.images['image-4'] ||
-                    service.images['image-5']
-                  }
-                  name={service.name}
-                  price={service.price}
-                  variants={[]}
-                  handleDirectBuy={handleDirectBuy}
-                  handleAddToCart={handleAddToCart}
-                  loading={isStoreServiceToCartPending}
+          {isLoading ? (
+            <BaseFlex justify="center" padding={{ y: 'spacing-48px' }}>
+              <BaseTypography as="p" size="body1">
+                로딩 중...
+              </BaseTypography>
+            </BaseFlex>
+          ) : services.length === 0 ? (
+            <BaseFlex justify="center" padding={{ y: 'spacing-48px' }}>
+              <BaseTypography as="p" size="body1">
+                서비스를 찾을 수 없습니다.
+              </BaseTypography>
+            </BaseFlex>
+          ) : (
+            <>
+              <div className={styles['service']}>
+                {services.map((service) => (
+                  <ServiceCard
+                    key={service.id}
+                    {...service}
+                    handleDirectBuy={handleDirectBuy}
+                    handleAddToCart={handleAddToCart}
+                    loading={isStoreServiceToCartPending || isCheckingCartStatus}
+                  />
+                ))}
+              </div>
+              {servicesResponse?.meta && servicesResponse.meta.last_page > 1 && (
+                <BasePagination
+                  current={servicesResponse.meta.current_page}
+                  total={servicesResponse.meta.total}
+                  pageSize={servicesResponse.meta.per_page}
+                  onChange={handlePageChange}
                 />
-              ))}
-            </div>
-          )}
-          {meta && (
-            <BasePagination defaultCurrent={meta.current_page} pageSize={meta.per_page} total={meta.last_page} />
+              )}
+            </>
           )}
         </BaseFlex>
       </BaseFlex>
 
+      <DiffProviderConfirmModal
+        open={isDiffProviderModalOpen}
+        onCancel={handleDiffProviderCancel}
+        onConfirm={handleDiffProviderConfirm}
+      />
       <AppointmentModal
         width={880}
         calendarHour={calendarHour}
         open={isAppointmentModalOpen}
-        onCancel={() => setIsAppointmentModalOpen(false)}
+        onCancel={handleAppointmentModalCancel}
         onSubmit={handleSubmitAppointment}
         isSubmitting={isStoreServiceToCartPending}
       />
-      {/* {variants && variants?.length > 0 && (
-        <ServiceVariantModal
-          variants={variants}
-          zIndex={1100}
-          width={880}
-          open={isVariantModalOpen}
-          onCancel={() => setIsVariantModalOpen(false)}
-          onSubmit={handleSubmitSelectVariant}
-        />
-      )} */}
     </BaseSpin>
   )
 }

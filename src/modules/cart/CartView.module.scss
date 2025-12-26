@@ -1,6 +1,8 @@
 @use '@/styles/variables' as *;
+
 .cart {
   background-color: var(--color-neutral-50);
+
   .cart__header {
     background: var(--color-white);
     border-top: 0px;
@@ -11,9 +13,12 @@
     border-bottom-right-radius: 16px;
     overflow: hidden;
   }
+
   .cart__body {
     padding: 60px 0px;
     margin-bottom: -120px;
+    min-height: 70dvh;
+
     @media screen and (max-width: $laptopScreen) {
       padding: 30px 0px 120px 0px;
     }
