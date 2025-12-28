@@ -175,9 +175,9 @@ export const DesignerDetailView = () => {
         {activeTab === '1' ? (
           <Services designerId={designerId} />
         ) : activeTab === '2' ? (
-          <Portfolio data={data?.portfolio || []} />
+          <Portfolio />
         ) : activeTab === '3' ? (
-          <BeforeAfter data={data?.beforeAfter || []} />
+          <BeforeAfter />
         ) : activeTab === '4' ? (
           <PersonalHistory
             data={{

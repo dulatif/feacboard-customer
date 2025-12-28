@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:8000/v1
+@token = 20|RsIz2GkX0QpUaBmM2THkoAGyNPFDAZeqMS7OhcS8f796c214
+@designer_id = 2
+@portfolio_id = 4
+
+### Get Designer Portfolios
+# query param
+# - type: general , before_after
+GET {{baseUrl}}/designer/{{designer_id}}/portfolio?type=before_after
+Content-Type: application/json
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Find Portfolio by ID
+GET {{baseUrl}}/designer/{{designer_id}}/portfolio/{{portfolio_id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
