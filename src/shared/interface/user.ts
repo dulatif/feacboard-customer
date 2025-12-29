@@ -3,18 +3,17 @@ export interface User {
   role: string
   email: string
   email_verified: boolean
+  profile_image_url: string
   customer: Customer
 }
 
 export interface Customer {
   id: number
   name: string
-  phone: null
-  sex: null
-  birth_date: null
-  address: null
-  address_lat: null
-  address_long: null
-  personal_color: null
-  profile_image_url: string
+  phone: string
+  sex: string
+  birth_date: string
+  address: string
+  address_lat: string
+  address_long: string
 }

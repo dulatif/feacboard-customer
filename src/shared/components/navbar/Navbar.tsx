@@ -23,7 +23,7 @@ export interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const { t } = useTranslation()
   const pathName = usePathname()
-  const { language, setLanguage, isAuthenticated } = useApp()
+  const { language, setLanguage, isAuthenticated, profile } = useApp()
   const { largeScreen, isDesktop, isTablet, isMobile } = useResponsive()
   const router = useRouter()
 
@@ -122,7 +122,11 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             <div>
               <BaseFlex gap={isDesktop ? 'spacing-24px' : 'spacing-8px'} align="center">
                 <BaseFlex gap={isDesktop ? 'spacing-16px' : 'spacing-8px'} align="center">
-                  <Avatar size={largeScreen ? 48 : 36} src={`/dummy/navbar-profile.png`} shape="circle" />
+                  <Avatar
+                    size={largeScreen ? 48 : 36}
+                    src={profile?.profile_image_url || `/dummy/navbar-profile.png`}
+                    shape="circle"
+                  />
                   {largeScreen && (
                     <div className={`base-navbar__profile-info`}>
                       <BaseFlex vertical gap="spacing-0px">
@@ -130,7 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                           {t(`navbar.profile.hello`)}
                         </BaseTypography>
                         <BaseTypography as="span" size="body1" weight="semibold">
-                          텡쿠 후안샤 👋🏻
+                          {profile?.customer.name} 👋🏻
                         </BaseTypography>
                       </BaseFlex>
                     </div>
