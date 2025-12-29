@@ -1,3 +1,5 @@
+import { getToken } from '@/shared/utils/auth'
+import { API_URL } from '@/shared/utils/url'
 import type { GetProp, UploadFile, UploadProps } from 'antd'
 import { Image, Upload } from 'antd'
 import { Camera } from 'phosphor-react'
@@ -15,36 +17,14 @@ const getBase64 = (file: FileType): Promise<string> =>
 
 interface UploadReviewPhotosProps {
   maxLength?: number
+  orderId: number
+  type: 'before' | 'after' | 'images'
 }
-const UploadReviewPhotos: React.FC<UploadReviewPhotosProps> = ({ maxLength = 5 }) => {
+const UploadReviewPhotos: React.FC<UploadReviewPhotosProps> = ({ maxLength = 5, orderId, type }) => {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: '/dummy/review-hair-makeup.webp',
-    },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'done',
-      url: '/dummy/review-hair-makeup.webp',
-    },
-    {
-      uid: '-3',
-      name: 'image.png',
-      status: 'done',
-      url: '/dummy/review-hair-makeup.webp',
-    },
-    {
-      uid: '-4',
-      name: 'image.png',
-      status: 'done',
-      url: '/dummy/review-hair-makeup.webp',
-    },
-  ])
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const token = getToken() || ''
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -79,11 +59,19 @@ const UploadReviewPhotos: React.FC<UploadReviewPhotosProps> = ({ maxLength = 5 }
         />
       )}
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        action={`${API_URL}order/${orderId}/review-image`}
+        name="image"
+        data={{
+          type,
+        }}
+        headers={{
+          Authorization: `Bearer ${token}`,
+        }}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        accept="image/*"
         style={{ background: '#fff', borderStyle: 'solid' }}
       >
         {fileList.length >= maxLength ? null : uploadButton}

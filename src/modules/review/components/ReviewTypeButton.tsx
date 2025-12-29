@@ -1,9 +1,10 @@
 import { BaseButton } from '@/shared/components/base-button/BaseButton'
+import { StoreReviewBody } from '@/shared/interface/review'
 
-export const reviewTypes = [
+export const reviewTypes: { value: StoreReviewBody['type']; label: string }[] = [
   { value: 'text', label: '텍스트만' },
-  { value: 'media', label: '사진이나 영상으로' },
-  { value: 'both', label: '이전과 이후를 함께' },
+  { value: 'images', label: '사진이나 영상으로' },
+  { value: 'before-after', label: '이전과 이후를 함께' },
 ]
 
 interface ReviewTypeButtonProps {

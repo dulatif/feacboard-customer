@@ -1,7 +1,7 @@
 'use client'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useApp } from '@/shared/providers/AppProvider'
-import { Avatar, MenuProps } from 'antd'
+import { Avatar, Badge, MenuProps } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -23,7 +23,7 @@ export interface NavbarProps {}
 export const Navbar: React.FC<NavbarProps> = ({}) => {
   const { t } = useTranslation()
   const pathName = usePathname()
-  const { language, setLanguage, isAuthenticated, profile } = useApp()
+  const { language, setLanguage, isAuthenticated, profile, totalCart } = useApp()
   const { largeScreen, isDesktop, isTablet, isMobile } = useResponsive()
   const router = useRouter()
 
@@ -147,15 +147,17 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
                     shape="circle"
                     icon={<BellIcon width={largeScreen ? 24 : 12} height={largeScreen ? 24 : 12} />}
                   />
-                  <BaseButton
-                    size={largeScreen ? 'lg' : 'sm'}
-                    color="secondary-neutral"
-                    shape="circle"
-                    icon={<CartIcon width={largeScreen ? 24 : 12} height={largeScreen ? 24 : 12} />}
-                    onClick={() => {
-                      router.push('/cart')
-                    }}
-                  />
+                  <Badge count={totalCart}>
+                    <BaseButton
+                      size={largeScreen ? 'lg' : 'sm'}
+                      color="secondary-neutral"
+                      shape="circle"
+                      icon={<CartIcon width={largeScreen ? 24 : 12} height={largeScreen ? 24 : 12} />}
+                      onClick={() => {
+                        router.push('/cart')
+                      }}
+                    />
+                  </Badge>
 
                   <BaseDropdown menu={{ items }} trigger={['click']} placement="bottomRight">
                     <BaseButton
