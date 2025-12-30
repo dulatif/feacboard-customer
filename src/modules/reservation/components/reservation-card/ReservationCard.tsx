@@ -33,7 +33,7 @@ const statusMap: Record<Status, { label: string; color: BaseBadgeProps['variant'
     label: '완료',
     color: 'success-100',
   },
-  failed: {
+  canceled: {
     label: '실패한',
     color: 'danger-100',
   },
@@ -54,7 +54,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
 
   const total = useMemo(() => {
     return data.items.reduce((total, item) => {
-      return total + Number(item.service_price)
+      return total + Number(item.price)
     }, 0)
   }, [data?.items])
 
@@ -96,7 +96,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
             </BaseFlex>
 
             {/* Alert */}
-            {data.status === 'failed' && (
+            {data.status === 'canceled' && (
               <BaseAlert message="결제가 거부되었습니다. 다시 시도하거나 다른 결제 방법을 시도해 보세요." />
             )}
 
@@ -159,7 +159,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
                           {item.service_name}
                         </BaseTypography>
                         <BaseTypography as="p" size="body1" color="neutral-900">
-                          {formatNumberCurrency(Number(item.service_price))}원
+                          {formatNumberCurrency(Number(item.price))}원
                         </BaseTypography>
                       </div>
                     ))}
@@ -190,10 +190,7 @@ export const ReservationCard: React.FC<ReservationCardProps> = ({ data }) => {
               <BaseTypography as="p" size="body1" color="success-600">
                 + 100점
               </BaseTypography>
-              <BaseButton
-                icon={<Edit02Icon width={20} height={20} />}
-                href={`/review/${data.shop_category === 'Nail' ? 'nail-studio' : 'hair-makeup'}`}
-              >
+              <BaseButton icon={<Edit02Icon width={20} height={20} />} href={`/review/order/${data.id}`}>
                 리뷰를 쓰다
               </BaseButton>
             </BaseFlex>

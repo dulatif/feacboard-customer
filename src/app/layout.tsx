@@ -59,7 +59,7 @@ export default function RootLayout({
   ]
   const aiPaths = [`/ai-diagnosis`, `/ai-diagnosis/onboarding`, '/ai-diagnosis/manual/analysis-result']
   const communityPaths = [`/community`, `/community/posts/${id}`]
-  const reviewPaths = ['/review', '/review/hair-makeup', '/review/color-personality', '/review/nail-studio']
+  const reviewPaths = ['/review', '/review/color-personality', `/review/order/${id}`]
   const reservationPaths = [`/reservation`, `/reservation/${id}`]
   const useNavbar = [
     `/`,

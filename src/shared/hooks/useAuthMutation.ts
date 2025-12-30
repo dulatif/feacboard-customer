@@ -14,10 +14,10 @@ export const useLoginGoogle = () => {
       login(response.api_token).then((res) => {
         // TODO: handle email verification here
         /* if (!response.user.email_verified) {
-                  window.location.href = '/register/status'
-                  return
-                } */
-        router.push('/')
+          window.location.href = '/register/status'
+          return
+        } */
+        window.location.href = '/'
       })
     },
   })

@@ -93,7 +93,7 @@ export const ReservationDetail = () => {
                       지금 결제하세요
                     </BaseButton>
                   </div>
-                ) : getDetailOrderData?.status === 'failed' ? (
+                ) : getDetailOrderData?.status === 'canceled' ? (
                   <div className={styles['failed']}>
                     <BaseFlex vertical gap="spacing-24px" align="center">
                       <Image src="/icons/failed-payment.svg" width={48} height={48} alt="" />

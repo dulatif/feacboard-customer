@@ -1,17 +1,6 @@
 import { jwtDecode } from 'jwt-decode'
 
 const TOKEN_KEY = 'token'
-const REFRESH_KEY = 'refreshToken'
-
-export const isValidJwt = (token?: string): boolean => {
-  if (!token) return false
-  try {
-    const decoded = jwtDecode(token)
-    return typeof decoded === 'object' && decoded !== null
-  } catch {
-    return false
-  }
-}
 
 function setCookie(name: string, value: string, days = 7) {
   const maxAge = days * 24 * 60 * 60
@@ -26,9 +15,7 @@ export function login(token: string, refreshToken?: string): Promise<{ status: '
   return new Promise((resolve) => {
     try {
       localStorage.setItem(TOKEN_KEY, token)
-      if (refreshToken) localStorage.setItem(REFRESH_KEY, refreshToken)
       setCookie(TOKEN_KEY, token)
-      if (refreshToken) setCookie(REFRESH_KEY, refreshToken)
 
       resolve({ status: 'success' })
     } catch (err) {
@@ -63,9 +50,7 @@ export function logout(): Promise<{ status: 'success' | 'error' }> {
   return new Promise((resolve) => {
     try {
       localStorage.removeItem(TOKEN_KEY)
-      localStorage.removeItem(REFRESH_KEY)
       deleteCookie(TOKEN_KEY)
-      deleteCookie(REFRESH_KEY)
       resolve({ status: 'success' })
     } catch (err) {
       console.error('Logout error:', err)

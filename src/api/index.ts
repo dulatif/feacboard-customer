@@ -1,4 +1,4 @@
-import { getToken } from '@/shared/utils/auth'
+import { getToken, logout } from '@/shared/utils/auth'
 import { API_URL } from '@/shared/utils/url'
 import axios from 'axios'
 
@@ -26,7 +26,13 @@ instances.interceptors.response.use(
     return res.data
   },
   async (err) => {
-    return Promise.reject(err.response.data)
+    const status = err?.response?.status
+    const url = err?.config?.url ?? ''
+    if (status === 401 && !url.includes('/login')) {
+      logout()
+      return Promise.reject(err)
+    }
+    return Promise.reject(err?.response?.data ?? err)
   },
 )
 
