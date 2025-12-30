@@ -55,18 +55,20 @@ export const OrderReviewView = () => {
     !form.review ||
     (getDetailOrderData?.provider_type === 'designer' && !form.designer_rating)
   const handleSubmit = () => {
-    console.log('form', form)
-    // storeReviewMutate({ orderId: Number(id), body: form }, {
-    //   onSuccess: () => {
-    //     notificationApi.success({
-    //       placement: 'topRight',
-    //       message: '리뷰를 성공적으로 남겼어요! 감사합니다',
-    //     })
-    //     router.push('/reservation')
-    //   },
-    //   onError: () => {},
-    //   onSettled: () => {},
-    // })
+    storeReviewMutate(
+      { orderId: Number(id), body: form },
+      {
+        onSuccess: () => {
+          notificationApi.success({
+            placement: 'topRight',
+            message: '리뷰를 성공적으로 남겼어요! 감사합니다',
+          })
+          router.push('/reservation')
+        },
+        onError: () => {},
+        onSettled: () => {},
+      },
+    )
   }
 
   return (

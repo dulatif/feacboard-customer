@@ -1,3 +1,4 @@
+import { ReviewType } from '@/shared/interface/shop'
 import { getToken } from '@/shared/utils/auth'
 import { API_URL } from '@/shared/utils/url'
 import type { GetProp, UploadFile, UploadProps } from 'antd'
@@ -18,7 +19,7 @@ const getBase64 = (file: FileType): Promise<string> =>
 interface UploadReviewPhotosProps {
   maxLength?: number
   orderId: number
-  type: 'before' | 'after' | 'images'
+  type: ReviewType
 }
 const UploadReviewPhotos: React.FC<UploadReviewPhotosProps> = ({ maxLength = 5, orderId, type }) => {
   const [previewOpen, setPreviewOpen] = useState(false)

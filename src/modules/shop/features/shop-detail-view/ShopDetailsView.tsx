@@ -15,6 +15,7 @@ import { StoreCard } from '../../components/store-card/StoreCard'
 import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 import { StoreInformation } from '../../components/store-information/StoreInformation'
 import { StoreServices } from '../../components/store-services/StoreServices'
+import { StoreReview } from '../../components/store-review/StoreReview'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -71,7 +72,7 @@ export const ShopDetailsView = () => {
       {
         key: '3',
         label: '리뷰',
-        // children: <StoreReview designers={data?.designers || []} reviews={(data?.reviews as any) || []} />,
+        children: <StoreReview shopId={shopId} />,
       },
       {
         key: '4',

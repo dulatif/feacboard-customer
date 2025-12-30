@@ -10,73 +10,9 @@ import CreatePost from './components/CreatePost'
 import ModalPost from './components/ModalPost'
 import Post, { IPost, PostProps } from './components/Post'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-
-export const dummyPhotos = [
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-  '/dummy/community-post.jpg',
-]
-
-export const dummyPosts: PostProps[] = [
-  {
-    post: {
-      id: '1',
-      content: '방금 이 놀라운 한국식 스킨케어 루틴을 시도해 봤어요! 효과가 정말 놀랍네요 😍',
-      images: [],
-      likes: 245,
-      comments: 32,
-      time: '1시간 전',
-    },
-    isMine: true,
-  },
-  {
-    post: {
-      id: '2',
-      user: {
-        name: '김사라',
-        avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
-      },
-      content: '방금 이 놀라운 한국식 스킨케어 루틴을 시도해 봤어요! 효과가 정말 놀랍네요 😍',
-      images: [dummyPhotos[0]],
-      likes: 245,
-      comments: 32,
-      time: '1시간 전',
-    },
-  },
-  {
-    post: {
-      id: '3',
-      user: {
-        name: '미셸 파크',
-        avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
-      },
-      content: '완벽한 그라데이션 립 메이크업을 위한 단계별 튜토리얼을 소개합니다! 어떻게 생각하세요? 💄✨',
-      images: dummyPhotos.slice(0, 2),
-      likes: 178,
-      comments: 45,
-      time: '1시간 전',
-    },
-  },
-  {
-    post: {
-      id: '4',
-      user: {
-        name: '정지사',
-        avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-      },
-      content: '지역 마켓에서 찾은 놀라운 비즈니스 제품! 저렴하고 효과적이에요. 아래는 내 honest review입니다 👇',
-      images: dummyPhotos,
-      likes: 156,
-      comments: 28,
-      time: '1시간 전',
-    },
-  },
-]
+import { useGetPostQuery } from '@/shared/hooks/community/useCommunityQuery'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
+import dayjs from 'dayjs'
 
 const CommunityView = () => {
   const path = usePathname()
@@ -87,7 +23,7 @@ const CommunityView = () => {
   }>({
     showModal: false,
     post: {
-      id: postId,
+      id: 0,
       content: '방금 이 놀라운 한국식 스킨케어 루틴을 시도해 봤어요! 효과가 정말 놀랍네요',
       images: [],
       time: '1시간 전',
@@ -96,6 +32,8 @@ const CommunityView = () => {
     },
   })
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+
+  const { data: getPostData, isLoading: isGetPostLoading } = useGetPostQuery()
 
   return (
     <div className={styles['root']}>
@@ -119,25 +57,43 @@ const CommunityView = () => {
             {postId ? (
               <Post
                 post={{
-                  id: postId,
+                  id: 0,
                   user: {
                     name: '김사라',
                     avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
                   },
                   content: '방금 이 놀라운 한국식 스킨케어 루틴을 시도해 봤어요! 효과가 정말 놀랍네요 😍',
-                  images: [dummyPhotos[0]],
+                  images: [],
                   likes: 245,
-                  comments: 32,
+                  comments: 0,
                   time: '1시간 전',
                 }}
-                showComment
               />
             ) : (
               <>
                 <CreatePost />
-                {dummyPosts.map((post) => (
-                  <Post key={post.post.id} onEdit={(post) => setEditPost({ showModal: true, post: post })} {...post} />
-                ))}
+                <BaseSpin spinning={isGetPostLoading}>
+                  {getPostData?.map((post, i) => (
+                    <Post
+                      key={i}
+                      onEdit={(post) => setEditPost({ showModal: true, post: post })}
+                      bookmarked={false}
+                      isMine={false}
+                      post={{
+                        id: post.id,
+                        comments: 1,
+                        content: post.description,
+                        images: post.images.map((img) => img.url),
+                        likes: post.likes_count,
+                        time: dayjs(post.created_at).format('HH:mm DD MMM'),
+                        user: {
+                          name: post.owner.name,
+                          avatar: '',
+                        },
+                      }}
+                    />
+                  ))}
+                </BaseSpin>
               </>
             )}
           </div>
