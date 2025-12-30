@@ -6,6 +6,8 @@ import { BaseSpin } from '../components/base-spin/BaseSpin'
 import { checkToken } from '../utils/auth'
 import { GetCartResponse } from '@/shared/interface/cart'
 import { useGetCartQuery } from '../hooks/cart/useCartQuery'
+import { User } from '../interface/user'
+import { useProfileQuery } from '../hooks/profile/useProfileQuery'
 
 export interface AppContextType {
   language: string
@@ -15,6 +17,7 @@ export interface AppContextType {
   isAuthenticated: boolean
   setIsAuthenticated: Dispatch<SetStateAction<AppContextType['isAuthenticated']>>
   appointment?: GetCartResponse
+  profile?: User
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined)
@@ -30,6 +33,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const { data: getCartData, isLoading: isGetCartLoading } = useGetCartQuery({ enabled: isAuthenticated })
+  const { data: profileData, isLoading: isProfileLoading } = useProfileQuery()
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang')
@@ -57,7 +61,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     })()
   }, [])
 
-  if (!isLanguageReady || isGetCartLoading) {
+  if (!isLanguageReady || isGetCartLoading || isProfileLoading) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <BaseSpin size="large" />
@@ -74,6 +78,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         appointment: getCartData,
         isAuthenticated,
         setIsAuthenticated,
+        profile: profileData,
       }}
     >
       <I18nextProvider i18n={i18n}>{children}</I18nextProvider>

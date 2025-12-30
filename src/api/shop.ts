@@ -2,6 +2,8 @@ import {
   GetAllShopQueryParams,
   GetAllShopResponse,
   GetDetailShopQueryParams,
+  GetShopReviewsResponse,
+  RatingStats,
   Shop,
   ShopCategory,
   ShopOpenHour,
@@ -184,4 +186,12 @@ export interface ShopServiceCategory {
 
 export const getShopServiceCategories = async ({ shopId }: { shopId: number }) => {
   return (await api.get(`/shop/${shopId}/service/categories`)) as ShopServiceCategory[]
+}
+
+export const getShopRatingStats = async ({ shopId }: { shopId: number }) => {
+  return (await api.get(`/shop/${shopId}/review/stats`)) as RatingStats
+}
+
+export const getShopReviews = async ({ shopId }: { shopId: number }) => {
+  return (await api.get(`/shop/${shopId}/reviews`)) as GetShopReviewsResponse
 }

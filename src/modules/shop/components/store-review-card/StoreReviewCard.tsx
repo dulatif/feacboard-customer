@@ -7,6 +7,7 @@ import { BaseTypography } from '@/shared/components/base-typography/BaseTypograp
 import HeartOutlinedIcon02Icon from '@/shared/components/icons/HeartOutlinedIcon02Icon'
 import StarIcon from '@/shared/components/icons/StarIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { ReviewType } from '@/shared/interface/shop'
 import { formatNumber } from '@/shared/utils/number'
 import { Avatar } from 'antd'
 import React from 'react'
@@ -22,9 +23,13 @@ export interface StoreReviewCardProps {
   }
   description: string
   likes: number
-  category?: 'before-after' | 'default' | any
+  type?: ReviewType
   images?: string[]
+  imagesBefore?: string[]
+  imagesAfter?: string[]
   videoThumbnails?: string[]
+  is_mine: boolean
+  liked_by_me: boolean
 }
 export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
   date,
@@ -33,8 +38,11 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
   likes,
   name,
   rating,
-  category,
+  type,
   images,
+  liked_by_me,
+  imagesBefore,
+  imagesAfter,
   videoThumbnails,
   picture,
 }) => {
@@ -56,7 +64,6 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
                 {date}
               </BaseTypography>
             </BaseFlex>
-            :
           </BaseFlex>
           <BaseFlex gap="spacing-16px" justify="space-between" align="center">
             <BaseFlex gap="spacing-16px" align="center">
@@ -88,31 +95,37 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
         </BaseFlex>
 
         {/* Files */}
-        {category === 'default'
-          ? images && (
-              <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
-                <BaseImage src={images[0]} alt="" width={372} height={312} />
-                <BaseImage src={images[1]} alt="" width={372} height={312} />
-              </BaseFlex>
-            )
-          : category === 'before-after'
-            ? images && (
-                <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
-                  <div style={{ position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
-                      <BaseBadge variant="danger-100">Before</BaseBadge>
-                    </div>
-                    <BaseImage src={images[0]} alt="" width={372} height={312} />
-                  </div>
-                  <div style={{ position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
-                      <BaseBadge variant="success-100">After</BaseBadge>
-                    </div>
-                    <BaseImage src={images[1]} alt="" width={372} height={312} />
-                  </div>
-                </BaseFlex>
-              )
-            : null}
+        {type === 'images' ? (
+          images && (
+            <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
+              <BaseImage src={images[0]} alt="" width={372} height={312} />
+              <BaseImage src={images[1]} alt="" width={372} height={312} />
+            </BaseFlex>
+          )
+        ) : type === 'before_after' ? (
+          <BaseFlex gap="spacing-16px" style={{ overflow: 'scroll' }}>
+            {imagesBefore ? (
+              <div style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
+                  <BaseBadge variant="danger-100">Before</BaseBadge>
+                </div>
+                <BaseImage src={imagesBefore[0]} alt="" width={372} height={312} />
+              </div>
+            ) : (
+              <div />
+            )}
+            {imagesAfter ? (
+              <div style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 12, right: 20, zIndex: 2 }}>
+                  <BaseBadge variant="success-100">After</BaseBadge>
+                </div>
+                <BaseImage src={imagesAfter[1]} alt="" width={372} height={312} />
+              </div>
+            ) : (
+              <div />
+            )}
+          </BaseFlex>
+        ) : null}
 
         {/* Description */}
         <BaseTypography as="p" size="body1" color="neutral-500">
@@ -121,7 +134,7 @@ export const StoreReviewCard: React.FC<StoreReviewCardProps> = ({
 
         {/* Footer */}
         <BaseFlex gap="spacing-4px" align="center">
-          <HeartOutlinedIcon02Icon />
+          <HeartOutlinedIcon02Icon color={liked_by_me ? '#FF4D4F' : '#D0D5DD'} />
           <BaseTypography as="p" size="body1" color="neutral-900">
             {formatNumber(likes)}
           </BaseTypography>
