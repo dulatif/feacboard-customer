@@ -15,6 +15,7 @@ import { StoreCard } from '../../components/store-card/StoreCard'
 import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 import { StoreInformation } from '../../components/store-information/StoreInformation'
 import { StoreServices } from '../../components/store-services/StoreServices'
+import { StoreTidings } from '../../components/store-tidings/StoreTidings'
 
 export const ShopDetailsView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -66,7 +67,7 @@ export const ShopDetailsView = () => {
       {
         key: '2',
         label: '소식',
-        // children: <StoreTidings data={data?.tidings || []} />,
+        children: <StoreTidings shopId={shopId} />,
       },
       {
         key: '3',
@@ -79,7 +80,6 @@ export const ShopDetailsView = () => {
         children: (
           <StoreInformation
             data={{ storeName: shopDetailsData?.name || '' }}
-            shopId={shopId}
             description={shopDetailsData?.description || ''}
           />
         ),

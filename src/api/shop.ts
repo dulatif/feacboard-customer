@@ -31,7 +31,12 @@ export const getShop = async (params: GetAllShopQueryParams) => {
   }
   return (await api.get(`/shop?${queryParams.toString()}`)) as Shop[]
 }
-
+export interface ShopSocial {
+  social_name: string
+  social_displayname: string
+  social_username: string
+  social_url: string
+}
 export interface GetShopDetailsResponse {
   id: number
   name: string
@@ -51,6 +56,7 @@ export interface GetShopDetailsResponse {
   services?: Service[]
   designers?: any[]
   thumbnails?: { id: number; url: string }[]
+  socials?: ShopSocial[]
 }
 export interface Service {
   id: number
