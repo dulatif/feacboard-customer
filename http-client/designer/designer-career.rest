@@ -1,0 +1,89 @@
+@baseUrl = http://localhost:8000/v1
+@designer_token = 5|dSRQDCBkaPBm92lrzbWgxNLpecAngGG8RELyMp7O51f7d60f
+@designer_id = 2
+@career_id = 1
+
+##################################################
+#         DESIGNER CAREER ENDPOINTS              #
+#            (Designer Role Only)                #
+##################################################
+
+GET {{baseUrl}}/designer/{{designer_id}}/careers
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+# response file : ./responses/get-designer-career.http
+
+### Create Career
+# Add a new career entry to the authenticated designer's profile
+# Fields:
+# - company: string (required, max 255)
+# - start_at: date Y-m-d (required)
+# - end_at: date Y-m-d (optional, null for current job)
+# - description: string (required)
+POST {{baseUrl}}/user/profile/career
+Content-Type: application/json
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+{
+    "company": "Premium Salon Surabaya",
+    "start_at": "2020-01-15",
+    "end_at": "2023-06-30",
+    "description": "Senior hair stylist specializing in Korean-style haircuts and coloring."
+}
+
+### Create Career (Current Job - No End Date)
+POST {{baseUrl}}/user/profile/career
+Content-Type: application/json
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+{
+    "company": "Beauty Studio Bali",
+    "start_at": "2023-07-01",
+    "end_at": null,
+    "description": "Lead designer handling VIP clients and training junior stylists."
+}
+
+### Update Career
+# Update an existing career entry
+# All fields are optional
+PUT {{baseUrl}}/user/profile/career/{{career_id}}
+Content-Type: application/json
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+{
+    "company": "Updated Salon Name",
+    "start_at": "2020-02-01",
+    "end_at": "2023-07-15",
+    "description": "Updated job description with additional responsibilities."
+}
+
+### Update Career (Partial - End Job)
+# Mark a current job as ended
+PUT {{baseUrl}}/user/profile/career/{{career_id}}
+Content-Type: application/json
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+{
+    "end_at": "2025-12-29"
+}
+
+### Update Career (Partial - Update Company Name)
+PUT {{baseUrl}}/user/profile/career/{{career_id}}
+Content-Type: application/json
+Authorization: Bearer {{designer_token}}
+Accept: application/json
+
+{
+    "company": "New Company Name After Rebranding"
+}
+
+### Delete Career
+# Remove a career entry from the designer's profile
+DELETE {{baseUrl}}/user/profile/career/{{career_id}}
+Authorization: Bearer {{designer_token}}
+Accept: application/json

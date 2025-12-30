@@ -7,6 +7,8 @@ import React, { useMemo } from 'react'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { DesignerCertificatesTab } from './tabs/DesignerCertificatesTab'
 import { DesignerAwardsTab } from './tabs/DesignerAwardsTab'
+import { useGetDesignerCareersQuery } from '@/shared/hooks/career/useCareerQuery'
+import { Spin } from 'antd'
 
 export interface PersonalHistoryProps {
   designerId: number
@@ -38,6 +40,12 @@ export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data, designer
     ]
   }, [designerId, data.awards])
 
+  const { data: careers, isLoading } = useGetDesignerCareersQuery({ designerId })
+
+  const formattedCareers = useMemo(() => {
+    return careers || []
+  }, [careers])
+
   return (
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
       {/* Content Top */}
@@ -46,36 +54,41 @@ export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data, designer
           경력 및 수상
         </BaseTypography>
         <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-20px'}>
-          {data.career.map((e, i) => (
-            <BaseFlex key={i} vertical gap="spacing-16px">
-              <BaseFlex gap="spacing-16px" align="center">
-                <div>
-                  <BaseCircleWave>
-                    <BuildingsIcon width={24} height={24} color="#49C3D0" />
-                  </BaseCircleWave>
-                </div>
-                <BaseFlex vertical gap="spacing-8px">
-                  <BaseTypography
-                    as="h6"
-                    size="subtitle1"
-                    weight="semibold"
-                    color={i === 0 ? 'primary-600' : undefined}
-                  >
-                    {e.title}
-                  </BaseTypography>
-                  {e.in ||
-                    (e.out && (
-                      <BaseTypography as="p" size="subtitle1" weight="regular" color="neutral-500">
-                        {e.in} {e.out ? `- ${e.out}` : null}
-                      </BaseTypography>
-                    ))}
-                </BaseFlex>
-              </BaseFlex>
-              <BaseTypography as="p" size="subtitle2" weight="regular" color="neutral-500">
-                {e.description}
-              </BaseTypography>
+          {isLoading ? (
+            <BaseFlex justify="center">
+              <Spin />
             </BaseFlex>
-          ))}
+          ) : (
+            formattedCareers.map((e, i) => (
+              <BaseFlex key={i} vertical gap="spacing-16px">
+                <BaseFlex gap="spacing-16px" align="center">
+                  <div>
+                    <BaseCircleWave>
+                      <BuildingsIcon width={24} height={24} color="#49C3D0" />
+                    </BaseCircleWave>
+                  </div>
+                  <BaseFlex vertical gap="spacing-8px">
+                    <BaseTypography
+                      as="h6"
+                      size="subtitle1"
+                      weight="semibold"
+                      color={i === 0 ? 'primary-600' : undefined}
+                    >
+                      {e.company}
+                    </BaseTypography>
+                    {(e.start_at || e.end_at) && (
+                      <BaseTypography as="p" size="subtitle1" weight="regular" color="neutral-500">
+                        {e.start_at} {e.end_at ? `- ${e.end_at}` : null}
+                      </BaseTypography>
+                    )}
+                  </BaseFlex>
+                </BaseFlex>
+                <BaseTypography as="p" size="subtitle2" weight="regular" color="neutral-500">
+                  {e.description}
+                </BaseTypography>
+              </BaseFlex>
+            ))
+          )}
         </BaseFlex>
       </BaseFlex>
 

@@ -46,10 +46,10 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data, descri
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-32px'} className={styles['store-information']}>
       <BaseFlex vertical gap="spacing-24px">
         <BaseTypography as="h6" size="header6" weight="semibold">
-          {data.storeName}
+          {shopDetailsData?.name}
         </BaseTypography>
         <BaseFlex vertical gap="spacing-8px">
-          <div dangerouslySetInnerHTML={{ __html: description }}></div>
+          <div dangerouslySetInnerHTML={{ __html: shopDetailsData?.description || '' }}></div>
         </BaseFlex>
       </BaseFlex>
       <BaseDivider />
