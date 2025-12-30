@@ -7,17 +7,20 @@ import styles from './StoreInformation.module.scss'
 import OpenLinkIcon from '@/shared/components/icons/OpenLinkIcon'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useShopFacilitiesQuery } from '@/shared/hooks/facility/useFacilityQuery'
-import { Spin } from 'antd'
+import { useGetShopCertificatesQuery } from '@/shared/hooks/certificate/useCertificateQuery'
+import { Spin, Empty } from 'antd'
 
 export interface StoreInformationProps {
   data: {
     storeName: string
   }
+  description: string
   shopId: number
 }
-export const StoreInformation: React.FC<StoreInformationProps> = ({ data, shopId }) => {
+export const StoreInformation: React.FC<StoreInformationProps> = ({ data, description, shopId }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const { data: facilities, isLoading: isFacilitiesLoading } = useShopFacilitiesQuery({ shopId })
+  const { data: certificates, isLoading: isCertificatesLoading } = useGetShopCertificatesQuery({ shopId })
   return (
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-32px'} className={styles['store-information']}>
       <BaseFlex vertical gap="spacing-24px">
@@ -25,53 +28,7 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data, shopId
           {data.storeName}
         </BaseTypography>
         <BaseFlex vertical gap="spacing-8px">
-          <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-            고급스러운 강남 지역에 위치한 저희 강남 지점은 세련된 인테리어와 편안한 분위기 속에서 최고의 뷰티 서비스를
-            제공합니다. 고객 한 분 한 분에게 맞춤형 케어를 선사하며, 아름다움과 휴식을 동시에 경험할 수 있는 특별한
-            공간입니다.
-          </BaseTypography>
-          <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-            ✨ 제공 서비스 안내:
-          </BaseTypography>
-          <ul>
-            <li>
-              <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                헤어 스타일링 & 커트
-                <br />
-                전문 스타일리스트가 얼굴형과 트렌드를 고려하여 고객님만의 스타일을 완성해 드립니다. 클래식부터 모던까지
-                다양한 스타일을 연출해드립니다.
-              </BaseTypography>
-            </li>
-            <li>
-              <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                펌 & 컬 디자인
-                <br />
-                자연스러운 웨이브부터 세련된 컬 디자인까지, 오랜 유지력을 자랑하는 고품질 펌 서비스를 제공합니다.
-              </BaseTypography>
-            </li>
-            <li>
-              <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                염색 & 컬러 테라피
-                <br />
-                퍼스널 컬러 진단을 통해 고객님 피부 톤에 가장 잘 어울리는 컬러를 제안해드리며, 윤기 있고 건강한 머릿결을
-                지켜드립니다.
-              </BaseTypography>
-            </li>
-            <li>
-              <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                헤어 트리트먼트 프로그램
-                <br />
-                손상 모발 복구, 두피 케어 등 전문적인 관리 프로그램으로 머릿결과 두피 건강을 동시에 챙겨드립니다.
-              </BaseTypography>
-            </li>
-            <li>
-              <BaseTypography as="p" size="body1" weight="regular" color="neutral-500">
-                메이크업 & 스타일링 서비스
-                <br />
-                특별한 날을 위한 프로페셔널 메이크업과 스타일링 서비스로 최고의 순간을 완성해드립니다.
-              </BaseTypography>
-            </li>
-          </ul>
+          <div dangerouslySetInnerHTML={{ __html: description }}></div>
         </BaseFlex>
       </BaseFlex>
       <BaseDivider />
@@ -110,108 +67,59 @@ export const StoreInformation: React.FC<StoreInformationProps> = ({ data, shopId
         <BaseTypography as="h6" size="subtitle1" weight="semibold">
           성취
         </BaseTypography>
-        <BaseFlex vertical gap="spacing-40px">
-          <BaseFlex gap="spacing-24px">
-            <BaseFlex
-              vertical={isMobile}
-              gap="spacing-24px"
-              padding={{ y: 'spacing-20px' }}
-              justify="center"
-              align="center"
-              flex={1}
-              className={styles['store-information__achievement__item']}
-            >
-              <Image
-                src={`/images/store/trophy.svg`}
-                width={largeScreen ? 74 : 52}
-                height={largeScreen ? 74 : 52}
-                alt=""
-              />
-              <BaseTypography
-                as="h4"
-                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                weight="bold"
-                color="white"
-              >
-                최고의 디자이너
-              </BaseTypography>
-            </BaseFlex>
-            <BaseFlex
-              vertical={isMobile}
-              gap="spacing-24px"
-              padding={{ y: 'spacing-20px' }}
-              justify="center"
-              align="center"
-              flex={1}
-              className={styles['store-information__achievement__item']}
-            >
-              <Image
-                src={`/images/store/trophy.svg`}
-                width={largeScreen ? 74 : 52}
-                height={largeScreen ? 74 : 52}
-                alt=""
-              />
-              <BaseTypography
-                as="h4"
-                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                weight="bold"
-                color="white"
-              >
-                최고의 디자이너
-              </BaseTypography>
-            </BaseFlex>
+        {isCertificatesLoading ? (
+          <BaseFlex justify="center" padding={{ y: 'spacing-40px' }}>
+            <Spin />
           </BaseFlex>
-          <BaseFlex gap="spacing-24px">
-            <BaseFlex
-              vertical={isMobile}
-              gap="spacing-24px"
-              padding={{ y: 'spacing-20px' }}
-              justify="center"
-              align="center"
-              flex={1}
-              className={styles['store-information__achievement__item']}
-            >
-              <Image
-                src={`/images/store/trophy.svg`}
-                width={largeScreen ? 74 : 52}
-                height={largeScreen ? 74 : 52}
-                alt=""
-              />
-              <BaseTypography
-                as="h4"
-                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                weight="bold"
-                color="white"
-              >
-                최고의 디자이너
-              </BaseTypography>
-            </BaseFlex>
-            <BaseFlex
-              vertical={isMobile}
-              gap="spacing-24px"
-              padding={{ y: 'spacing-20px' }}
-              justify="center"
-              align="center"
-              flex={1}
-              className={styles['store-information__achievement__item']}
-            >
-              <Image
-                src={`/images/store/trophy.svg`}
-                width={largeScreen ? 74 : 52}
-                height={largeScreen ? 74 : 52}
-                alt=""
-              />
-              <BaseTypography
-                as="h4"
-                size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                weight="bold"
-                color="white"
-              >
-                최고의 디자이너
-              </BaseTypography>
-            </BaseFlex>
+        ) : certificates && certificates.length > 0 ? (
+          <BaseFlex vertical gap="spacing-24px">
+            {/* Render certificates in rows of 2 */}
+            {Array.from({ length: Math.ceil(certificates.length / 2) }, (_, rowIndex) => (
+              <BaseFlex key={rowIndex} gap="spacing-24px">
+                {certificates.slice(rowIndex * 2, rowIndex * 2 + 2).map((certificate) => (
+                  <BaseFlex
+                    key={certificate.id}
+                    vertical={isMobile}
+                    gap="spacing-24px"
+                    padding={{ y: 'spacing-20px' }}
+                    justify="center"
+                    align="center"
+                    flex={1}
+                    className={styles['store-information__achievement__item']}
+                  >
+                    <Image
+                      src={certificate.icon}
+                      width={largeScreen ? 74 : 52}
+                      height={largeScreen ? 74 : 52}
+                      alt={certificate.localized_name}
+                    />
+                    <BaseTypography
+                      as="h4"
+                      size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
+                      weight="bold"
+                      color="white"
+                    >
+                      {certificate.localized_name}
+                    </BaseTypography>
+                  </BaseFlex>
+                ))}
+                {/* Add empty placeholder if odd number of certificates in last row */}
+                {rowIndex === Math.ceil(certificates.length / 2) - 1 && certificates.length % 2 === 1 && (
+                  <BaseFlex flex={1} style={{ opacity: 0 }}>
+                    -
+                  </BaseFlex>
+                )}
+              </BaseFlex>
+            ))}
           </BaseFlex>
-        </BaseFlex>
+        ) : (
+          <BaseFlex justify="center" padding={{ y: 'spacing-20px' }}>
+            <Empty />
+            <BaseTypography as="p" size="body1" color="neutral-500">
+              인증서 정보가 없습니다.
+            </BaseTypography>
+          </BaseFlex>
+        )}
       </BaseFlex>
       <BaseDivider />
 

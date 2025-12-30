@@ -76,7 +76,13 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} shopId={shopId} />,
+        children: (
+          <StoreInformation
+            data={{ storeName: shopDetailsData?.name || '' }}
+            shopId={shopId}
+            description={shopDetailsData?.description || ''}
+          />
+        ),
       },
     ]
   }, [isDesignerServiceCategory])
@@ -109,7 +115,7 @@ export const ShopDetailsView = () => {
               location={shopDetailsData?.address}
               rating={shopDetailsData?.rating || 0}
               reviewersCount={shopDetailsData?.review_count || 0}
-              images={[]}
+              images={shopDetailsData?.thumbnails?.map((thumbnail) => thumbnail.url) || []}
               availableDesigners={shopDetailsData?.designers?.length || 0}
             />
           </BaseSpin>

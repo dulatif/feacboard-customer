@@ -3,13 +3,13 @@ import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseTabs, BaseTabsProps } from '@/shared/components/base-tabs/BaseTabs'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import BuildingsIcon from '@/shared/components/icons/BuildingsIcon'
-import { Col, Row } from 'antd'
 import React, { useMemo } from 'react'
-import Image from 'next/image'
-import styles from './PersonalHistory.module.scss'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { DesignerCertificatesTab } from './tabs/DesignerCertificatesTab'
+import { DesignerAwardsTab } from './tabs/DesignerAwardsTab'
 
 export interface PersonalHistoryProps {
+  designerId: number
   data: {
     career: {
       title: string
@@ -17,73 +17,27 @@ export interface PersonalHistoryProps {
       out?: string
       description?: string
     }[]
-    certificates: string[]
+    certificates?: string[]
     awards: string[]
   }
 }
-export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data }) => {
-  const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+export const PersonalHistory: React.FC<PersonalHistoryProps> = ({ data, designerId }) => {
+  const { largeScreen } = useResponsive()
   const tabItems: BaseTabsProps['items'] = useMemo(() => {
     return [
       {
         key: '1',
         label: '디자이너 인증',
-        children: (
-          <Row gutter={[24, 40]}>
-            {data.certificates.map((e, i) => (
-              <Col key={i} span={12}>
-                <div className={styles['certification-card']}>
-                  <BaseFlex vertical={isMobile} gap={isMobile ? 'spacing-12px' : 'spacing-24px'} align="center">
-                    <Image
-                      src="/dummy/certification.png"
-                      width={isMobile ? 70 : 100}
-                      height={isMobile ? 49 : 74}
-                      alt=""
-                    />
-                    <BaseTypography
-                      as="p"
-                      size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                      weight="bold"
-                      color="white"
-                      lineClamp={1}
-                    >
-                      {e}
-                    </BaseTypography>
-                  </BaseFlex>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        ),
+        children: <DesignerCertificatesTab designerId={designerId} />,
       },
       {
         key: '2',
         label: '디자이너상',
-        children: (
-          <Row gutter={[24, 40]}>
-            {data.awards.map((e, i) => (
-              <Col key={i} span={12}>
-                <div className={styles['award-card']}>
-                  <BaseFlex vertical={isMobile} gap={isMobile ? 'spacing-12px' : 'spacing-24px'} align="center">
-                    <Image src="/dummy/award.png" width={isMobile ? 70 : 100} height={isMobile ? 49 : 74} alt="" />
-                    <BaseTypography
-                      as="p"
-                      size={largeScreen ? 'header4' : isTablet ? 'header6' : 'body1'}
-                      weight="bold"
-                      color="white"
-                      lineClamp={1}
-                    >
-                      {e}
-                    </BaseTypography>
-                  </BaseFlex>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        ),
+        children: <DesignerAwardsTab awards={data.awards} />,
       },
     ]
-  }, [data.certificates, data.awards, isMobile])
+  }, [designerId, data.awards])
+
   return (
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
       {/* Content Top */}

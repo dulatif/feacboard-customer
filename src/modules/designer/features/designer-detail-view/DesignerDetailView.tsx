@@ -180,6 +180,7 @@ export const DesignerDetailView = () => {
           <BeforeAfter />
         ) : activeTab === '4' ? (
           <PersonalHistory
+            designerId={Number(designerId)}
             data={{
               career: data?.career || [],
               awards: data?.awards || [],

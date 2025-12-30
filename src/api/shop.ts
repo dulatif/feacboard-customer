@@ -50,6 +50,7 @@ export interface GetShopDetailsResponse {
   category?: ShopCategory
   services?: Service[]
   designers?: any[]
+  thumbnails?: { id: number; url: string }[]
 }
 export interface Service {
   id: number
@@ -84,7 +85,7 @@ export const getDetailShop = async (params: GetDetailShopQueryParams) => {
   })
 
   const queryString = urlParams.toString()
-  const url = `/shop/${id}${queryString ? `?${queryString}` : ''}`
+  const url = `/shop/${id}/detail${queryString ? `?${queryString}` : ''}`
 
   return (await api.get(url)) as GetShopDetailsResponse
 }
