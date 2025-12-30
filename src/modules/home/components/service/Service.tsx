@@ -52,7 +52,15 @@ export const Service = () => {
     <BaseBox radius="radius-24px" padding={{ x: containerPadding, y: containerPadding }} shadow="lg">
       <Row gutter={[largeScreen ? 120 : 0, 56]} className={styles['home__service']}>
         {featuredCategories.map((category, i) => (
-          <Col key={i} xs={8} sm={8} lg={6} xl={4} className={styles['service__item']}>
+          <Col
+            key={i}
+            xs={8}
+            sm={8}
+            lg={6}
+            xl={4}
+            className={styles['service__item']}
+            onClick={() => handleRedirect(category.link)}
+          >
             <BaseFlex vertical gap="spacing-12px" justify="center" align="center" style={{ cursor: 'pointer' }}>
               <Image src={category.icon} width={40} height={40} alt={category.labelKey} />
               <BaseTypography as="p" size="body1" textAlign="center">

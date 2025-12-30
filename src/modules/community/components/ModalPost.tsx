@@ -5,15 +5,20 @@ import UploadImageIcon from '@/shared/components/icons/UploadImageIcon'
 import type { UploadProps } from 'antd'
 import { Avatar, message, Modal, Space, Upload } from 'antd'
 import { XCircle } from 'phosphor-react'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../CommunityView.module.scss'
 import { IPost } from './Post'
+import { CreatePost } from '@/shared/interface/community'
+import { useCreatePost } from '@/shared/hooks/community/useCommunityMutation'
+import { API_URL } from '@/shared/utils/url'
+import { getToken } from '@/shared/utils/auth'
 
+const token = getToken() || ''
 const uploadProps: UploadProps = {
-  name: 'file',
-  action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+  name: 'image',
+  action: `${API_URL}community/post/image`,
   headers: {
-    authorization: 'authorization-text',
+    Authorization: `Bearer ${token}`,
   },
   onChange(info) {
     if (info.file.status !== 'uploading') {
@@ -33,8 +38,20 @@ export interface ModalPostProps {
   onClose: () => void
 }
 const ModalPost: React.FC<ModalPostProps> = ({ show, action, post, onClose }) => {
+  const [form, setForm] = useState<CreatePost>({ description: '' })
+
   const handleClose = () => {
     onClose()
+    setForm({ description: '' })
+  }
+
+  const { mutate: createPostMutate, isPending: isCreatePostPending } = useCreatePost()
+  const handleCreatePost = () => {
+    createPostMutate(form, {
+      onSuccess: () => {
+        handleClose()
+      },
+    })
   }
 
   return (
@@ -47,8 +64,11 @@ const ModalPost: React.FC<ModalPostProps> = ({ show, action, post, onClose }) =>
       onCancel={handleClose}
       footer={() => (
         <>
-          <BaseButton style={{ width: '100%' }}>
-            {' '}
+          <BaseButton
+            style={{ width: '100%' }}
+            onClick={action === 'create' ? handleCreatePost : () => null}
+            loading={isCreatePostPending}
+          >
             {action === 'create' ? '게시물 만들기' : '게시물 수정하기'}
           </BaseButton>
         </>
@@ -63,7 +83,8 @@ const ModalPost: React.FC<ModalPostProps> = ({ show, action, post, onClose }) =>
         </Space>
         <BaseTextarea
           placeholder="뭔가 신나는 걸 써봐"
-          defaultValue={post?.content || ''}
+          value={form.description}
+          onChange={(e) => setForm({ description: e.target.value })}
           autoSize={{ minRows: 4, maxRows: 5 }}
         />
         <Upload className={styles['post__upload_img']} {...uploadProps}>

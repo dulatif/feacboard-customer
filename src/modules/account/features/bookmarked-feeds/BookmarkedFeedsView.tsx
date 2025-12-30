@@ -1,5 +1,4 @@
 'use client'
-import { dummyPosts } from '@/modules/community/CommunityView'
 import Post from '@/modules/community/components/Post'
 import { BaseBox } from '@/shared/components/base-box/BaseBox'
 import { BaseInput } from '@/shared/components/base-input/BaseInput'
@@ -31,7 +30,7 @@ export const BookmarkedFeedsView = () => {
 }
 
 const Content = withMenu(() => {
-  const bookmarkedPost = dummyPosts.filter((post) => !post.isMine)
+  const bookmarkedPost: any[] = []
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const boxPadding = largeScreen ? 'spacing-48px' : isTablet ? 'spacing-24px' : 'spacing-16px'
   return (

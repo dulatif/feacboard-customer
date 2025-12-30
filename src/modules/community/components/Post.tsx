@@ -23,7 +23,7 @@ import { Spacing } from '@/shared/types/spacing'
 import './Post.scss'
 
 export interface IPost {
-  id?: string
+  id?: number
   user?: {
     name: string
     avatar?: string
@@ -37,16 +37,21 @@ export interface IPost {
 export interface PostProps {
   post: IPost
   isMine?: boolean
-  showComment?: boolean
+  // showComment?: boolean
   bookmarked?: boolean
   onEdit?: (post: IPost) => void
 }
 
-const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, bookmarked = false, onEdit }) => {
-  const postId = '123'
+const Post: React.FC<PostProps> = ({
+  post,
+  isMine = false,
+  // showComment = false,
+  bookmarked = false,
+  onEdit,
+}) => {
   const [showModalDelete, setShowModalDelete] = useState(false)
   const [liked, setLiked] = useState(false)
-  const padding: Spacing = bookmarked ? 'spacing-0px' : 'spacing-16px'
+  const padding: Spacing = 'spacing-16px'
   const settings = {
     className: 'center',
     centerMode: true,
@@ -153,14 +158,14 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
           >
             {post.likes}개 좋아요
           </Button>
-          <Link href={`/community/posts/${postId}`}>
+          {/* <Link href={`/community/posts/${postId}`}>
             <Button className={styles['button']} icon={<ChatCenteredText size={20} />}>
               {post.comments}개의 댓글
             </Button>
-          </Link>
+          </Link> */}
         </div>
 
-        {showComment && (
+        {/* {showComment && (
           <div className={styles['post__comment']}>
             <div className={styles['post__list_comments']}>
               <Comment name={post.user?.name || '나'} time="1시간 전" content="이번 주에 그를 방문할게요!" isMine />
@@ -182,7 +187,7 @@ const Post: React.FC<PostProps> = ({ post, isMine = false, showComment = false, 
               />
             </div>
           </div>
-        )}
+        )} */}
       </BaseBox>
       <ModalDelete
         isOpen={showModalDelete}

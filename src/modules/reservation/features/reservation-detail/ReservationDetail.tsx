@@ -45,10 +45,10 @@ export const ReservationDetail = () => {
   const { mutate: payOrderMutate, isPending: isPayingOrder } = usePayOrderMutation()
 
   const handlePayOrder = () => {
-    if (getDetailOrderData?.id) {
+    if (getDetailOrderData?.toss_payment_checkout_url) {
       payOrderMutate(getDetailOrderData.id, {
         onSuccess: () => {
-          // Optionally show success message or redirect
+          window.location.href = getDetailOrderData.toss_payment_checkout_url || ''
         },
         onError: (error) => {
           // Optionally show error message
@@ -93,7 +93,7 @@ export const ReservationDetail = () => {
                       지금 결제하세요
                     </BaseButton>
                   </div>
-                ) : getDetailOrderData?.status === 'failed' ? (
+                ) : getDetailOrderData?.status === 'canceled' ? (
                   <div className={styles['failed']}>
                     <BaseFlex vertical gap="spacing-24px" align="center">
                       <Image src="/icons/failed-payment.svg" width={48} height={48} alt="" />
