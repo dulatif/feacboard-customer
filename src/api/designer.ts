@@ -53,7 +53,7 @@ export const getDetailDesigner = async (params: GetDetailDesignerQueryParams) =>
   })
 
   const queryString = urlParams.toString()
-  const url = `/designer/${id}${queryString ? `?${queryString}` : ''}`
+  const url = `/designer/${id}/detail${queryString ? `?${queryString}` : ''}`
 
   return (await api.get(url)) as GetDetailDesignerResponse
 }
