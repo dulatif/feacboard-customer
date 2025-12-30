@@ -58,7 +58,7 @@ export interface UpdateCartBody {
   note?: string
 }
 
-export type CartStatus = 'no-cart' | 'diff-provider' | 'continue'
+export type CartStatus = 'no-cart' | 'diff-provider' | 'continue' | 'service-exists'
 
 export interface CheckCartStatusResponse {
   status: CartStatus

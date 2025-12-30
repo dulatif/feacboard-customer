@@ -31,6 +31,7 @@ export interface Order {
   status: Status
   checkin_qr_string?: string
   checkin_code?: string
+  toss_payment_checkout_url: string | null
   items: OrderItem[]
 }
 
