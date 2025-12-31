@@ -36,11 +36,17 @@ const mapDesignerToCardProps = (designer: Designer): DesignerCardProps => {
   // Get available hour - not available in current response structure
   const availableHour = ''
 
+  // Get picture from user.profile_image_url or use default
+  const picture = designer.user?.profile_image_url || ''
+
+  // Get rating from designer.rating or default to 0
+  const rating = designer.rating ? Number(designer.rating) : 0
+
   return {
     id: String(designer.id),
-    picture: '/dummy/designer01.jpg', // Default since not in response
+    picture,
     name: designer.name,
-    rating: 0, // Default since not in response
+    rating,
     company,
     location,
     availableHour,
@@ -63,7 +69,7 @@ export const DesignerList: React.FC<DesignerListProps> = ({ categoryId }) => {
     params: {
       ...(categoryId && { category_id: Number(categoryId) }),
       status: 'all',
-      with: ['services'],
+      with: ['services', 'user.profileImage'],
     },
     enabled: true,
   })

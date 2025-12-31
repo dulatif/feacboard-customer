@@ -7,6 +7,7 @@
     padding-top: 48px;
     padding-bottom: 64px;
     position: relative;
+
     .shop-view__banner__overlay {
       background: #00000059;
       position: absolute;
@@ -15,13 +16,17 @@
       bottom: 0px;
       right: 0px;
     }
+
     .shop-view__banner__content {
       position: relative;
+      min-height: 300px;
     }
+
     .shop-view__banner__breadcrumb {
       margin-bottom: 102px;
     }
   }
+
   .shop-view__content {
     position: relative;
     padding-top: 100px;
@@ -29,6 +34,7 @@
     border-top-right-radius: 24px;
     background-color: var(--color-white);
     margin-top: -24px;
+
     .shop-view__content__filter {
       padding: 24px 0px;
       position: fixed;

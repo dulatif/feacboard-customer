@@ -14,7 +14,7 @@ import {
 import { DesignerServiceDetail } from '@/shared/interface/designers'
 import { ID } from '@/shared/interface/general'
 import { useAddToCart } from '@/shared/hooks/cart/useAddToCart'
-import { GetShopCalendarHourResponse } from '@/api/shop'
+import { useGetShopCalendarHourQuery } from '@/shared/hooks/shop/useShopQuery'
 import { MagnifyingGlass } from 'phosphor-react'
 import dynamic from 'next/dynamic'
 
@@ -32,6 +32,7 @@ const DiffProviderConfirmModal = dynamic(
 
 export interface ServicesProps {
   designerId: ID | string
+  shopId?: ID | number
 }
 
 // Helper function to get first available image from service images
@@ -56,7 +57,7 @@ const mapServiceToCardProps = (service: DesignerServiceDetail): ServiceCardProps
   }
 }
 
-export const Services: React.FC<ServicesProps> = ({ designerId }) => {
+export const Services: React.FC<ServicesProps> = ({ designerId, shopId }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | string | undefined>(undefined)
   const [currentPage, setCurrentPage] = useState(1)
@@ -66,6 +67,12 @@ export const Services: React.FC<ServicesProps> = ({ designerId }) => {
   const { data: categories = [], isLoading: isLoadingCategories } = useGetDesignerServiceCategoriesQuery({
     designerId: String(designerId),
     enabled: !!designerId,
+  })
+
+  // Fetch calendar hour if shopId is provided
+  const { data: calendarHour = {}, isLoading: isCalendarHourLoading } = useGetShopCalendarHourQuery({
+    shopId: Number(shopId || 0),
+    enabled: !!shopId,
   })
 
   // Fetch services with filters
@@ -119,11 +126,7 @@ export const Services: React.FC<ServicesProps> = ({ designerId }) => {
     handleAppointmentModalCancel,
   } = useAddToCart()
 
-  // Empty calendar hour object since this is designer detail, not shop detail
-  // In a real scenario, you might need to fetch designer calendar separately
-  const calendarHour: GetShopCalendarHourResponse = {}
-
-  const isLoading = isLoadingServices || isLoadingCategories
+  const isLoading = isLoadingServices || isLoadingCategories || (shopId ? isCalendarHourLoading : false)
 
   return (
     <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-12px'}>

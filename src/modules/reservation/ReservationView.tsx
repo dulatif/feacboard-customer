@@ -10,7 +10,6 @@ import { ReservationList } from './features/reservation-list/ReservationList'
 import './ReservationView.scss'
 import { ColorAnalyst } from './features/color-analyst/ColorAnalyst'
 import { useResponsive } from '@/shared/hooks/useResponsive'
-import { useGetOrderQuery } from '@/shared/hooks/order/useOrderQuery'
 
 export const ReservationView = () => {
   const [breadcrumbItems, setBreadcrumbItems] = React.useState([
@@ -26,12 +25,11 @@ export const ReservationView = () => {
   ])
   const { largeScreen, isTablet, isMobile } = useResponsive()
 
-  const { data: getOrderData, isLoading: isGetOrderLoading } = useGetOrderQuery({ enabled: true })
   const tabItems: BaseTabsProps['items'] = [
     {
       key: '1',
       label: '예약',
-      children: <ReservationList data={getOrderData?.data || []} loading={isGetOrderLoading} />,
+      children: <ReservationList />,
     },
     {
       key: '2',
