@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Tue, 23 Dec 2025 12:11:09 GMT
+Content-Type: application/json
+Vary: Origin
+
+[
+  {
+    "id": 1,
+    "designer_id": 4,
+    "type": "general",
+    "photos": [
+      {
+        "id": 80,
+        "url": "http:\/\/localhost:8000\/storage\/portfolio\/BJfQJW19UPJJCSIujkEEMmPWYUfnMCMUiMfMfNPb.jpg"
+      },
+      {
+        "id": 81,
+        "url": "http:\/\/localhost:8000\/storage\/portfolio\/qxYQJSXs6zbWgLZ1ZexyFr2itiSu5UCRJK2LHYS8.jpg"
+      },
+      {
+        "id": 82,
+        "url": "http:\/\/localhost:8000\/storage\/portfolio\/Zcq0ojgZeOyBby1w1YxEfcwPy45IjoVqMMVI5gPZ.jpg"
+      }
+    ],
+    "created_at": "2025-12-23T12:09:10.000000Z",
+    "updated_at": "2025-12-23T12:09:10.000000Z"
+  }
+]

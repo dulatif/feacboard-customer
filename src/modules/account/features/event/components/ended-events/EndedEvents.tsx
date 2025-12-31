@@ -9,6 +9,7 @@ import { useEventListQuery } from '@/shared/hooks/event/useEventQuery'
 import { EventStatus, EventType } from '@/shared/interface/event'
 import { Spin } from 'antd'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
+import { Stickynote } from 'iconsax-reactjs'
 
 export const EndedEvents = () => {
   const router = useRouter()
@@ -61,7 +62,12 @@ export const EndedEvents = () => {
             <Spin />
           </BaseFlex>
         ) : paginatedEvents.length === 0 ? (
-          <BaseFlex justify="center" align="center" style={{ minHeight: '200px' }}>
+          <BaseFlex justify="center" vertical align="center" style={{ minHeight: '200px' }}>
+            <Stickynote
+              size={100}
+              variant="Bulk"
+              style={{ display: 'block', color: 'var(--color-neutral-400)', marginBottom: '16px' }}
+            />
             <BaseTypography as="p" size="body1" color="neutral-500">
               등록된 이벤트가 없습니다.
             </BaseTypography>

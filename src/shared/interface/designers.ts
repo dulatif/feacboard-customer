@@ -1,4 +1,5 @@
 import { ID, MutationParams } from './general'
+import { Shop } from './shop'
 
 export interface DesignerEmployment {
   employed_at: string
@@ -54,12 +55,24 @@ export interface GetAllDesignerQueryParams {
 
 export interface GetAllDesignerMutationParams extends MutationParams<Designer[], GetAllDesignerQueryParams> {}
 
+export interface DesignerSocial {
+  social_name: string
+  social_displayname: string
+  social_username: string
+  social_url: string
+}
 export interface GetDetailDesignerResponse {
   id: ID
   name: string
   phone: string
   bio: string
   status: 'employed' | 'unemployed'
+  profile_image_url: string | null
+  socials: DesignerSocial[]
+  employment: {
+    id: number
+    shop: Shop
+  }
 }
 
 export interface GetDetailDesignerQueryParams {

@@ -1,0 +1,29 @@
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Tue, 30 Dec 2025 16:23:47 GMT
+Content-Type: application/json
+Vary: Origin
+
+[
+  {
+    "company": "Premium Salon Jakarta",
+    "start_at": "2020-01-15",
+    "end_at": "2023-06-30",
+    "description": "Senior hair stylist specializing in Korean-style haircuts and coloring."
+  },
+  {
+    "company": "Premium Salon Bandung",
+    "start_at": "2020-01-15",
+    "end_at": "2023-06-30",
+    "description": "Senior hair stylist specializing in Korean-style haircuts and coloring."
+  },
+  {
+    "company": "Premium Salon Surabaya",
+    "start_at": "2020-01-15",
+    "end_at": "2023-06-30",
+    "description": "Senior hair stylist specializing in Korean-style haircuts and coloring."
+  }
+]

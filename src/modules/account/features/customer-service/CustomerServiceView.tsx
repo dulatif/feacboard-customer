@@ -46,7 +46,7 @@ const Content = withMenu(() => {
               페이스보드 고객센터입니다. 무엇을 도와드릴까요?
             </BaseTypography>
             <BaseFlex vertical gap={largeScreen ? 'spacing-48px' : 'spacing-24px'}>
-              <Link href={'/my-account/customer-service/inquiry'}>
+              <Link href={'/my-account/customer-service/inquiry?category=inquiry'}>
                 <BaseBox
                   padding={{ x: 'spacing-20px', y: 'spacing-20px' }}
                   borderWidth={0}
@@ -72,7 +72,7 @@ const Content = withMenu(() => {
                   </BaseFlex>
                 </BaseBox>
               </Link>
-              <Link href={'/my-account/customer-service'}>
+              <Link href={'/my-account/customer-service/inquiry?category=comments-and-suggestions'}>
                 <BaseBox
                   padding={{ x: 'spacing-20px', y: 'spacing-20px' }}
                   borderWidth={0}
@@ -98,7 +98,7 @@ const Content = withMenu(() => {
                   </BaseFlex>
                 </BaseBox>
               </Link>
-              <Link href={'/my-account/customer-service'}>
+              <Link href={'/my-account/customer-service/inquiry?category=advertising-affiliate-inquiries'}>
                 <BaseBox
                   padding={{ x: 'spacing-20px', y: 'spacing-20px' }}
                   borderWidth={0}

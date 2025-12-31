@@ -1,0 +1,50 @@
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.2.12
+Cache-Control: no-cache, private
+Date: Tue, 23 Dec 2025 13:31:26 GMT
+Content-Type: application/json
+Vary: Origin
+
+{
+  "id": 5,
+  "designer_id": 4,
+  "type": "before_after",
+  "created_at": "2025-12-23T13:30:48.000000Z",
+  "updated_at": "2025-12-23T13:30:48.000000Z",
+  "before_photos": [
+    {
+      "id": "qghSiYRINbM1iQL8qcPi",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/yyiMNgGJz5VZ52TKu8Vajb7glVd91CmPi2rhxe2B.jpg",
+      "photo_type": "before"
+    },
+    {
+      "id": "o8H1lWF97vUXHD50iuZv",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/L47k2BZ1qK96pkyoAnK3fozAfREcZ3Pz7anYDR1k.jpg",
+      "photo_type": "before"
+    },
+    {
+      "id": "fXZVSTqljR7K5idIPQLF",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/3u3dhDjxdgIUnTLXwQZRT3dYe3SqJi5GbdQemVhS.jpg",
+      "photo_type": "before"
+    }
+  ],
+  "after_photos": [
+    {
+      "id": "Hq5tKHANwVJEAk4XtMBR",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/SRCrnWP4Tfr0O1ajGnU2eafvQ3drGCOITbYQeab6.jpg",
+      "photo_type": "after"
+    },
+    {
+      "id": "C2x6uW92u6xXrNLpuiEj",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/N10BChVrADA9GOlfXMdBkbKFjXmSojVuThueMvfM.jpg",
+      "photo_type": "after"
+    },
+    {
+      "id": "hbChtQVWd3w6mMjYapxQ",
+      "url": "http:\/\/localhost:8000\/storage\/portfolio\/glEu2Hkzu7KubD1TIcOj6QpgZ9yn7ejnkQuW7pMF.jpg",
+      "photo_type": "after"
+    }
+  ]
+}
