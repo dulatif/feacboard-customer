@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './StoreReview.module.scss'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { StoreReels } from '../store-reels/StoreReels'
@@ -19,12 +19,16 @@ import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useGetShopRatingStatsQuery, useGetShopReviewsQuery } from '@/shared/hooks/shop/useShopQuery'
 import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import dayjs from 'dayjs'
+import { ReviewType } from '@/shared/interface/shop'
 
 export interface StoreReviewProps {
   shopId: number
 }
 export const StoreReview: React.FC<StoreReviewProps> = ({ shopId }) => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
+
+  const [selectedType, setSelectedType] = useState<ReviewType | undefined>(undefined)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const { data: shopRatingStatsData, isLoading: isShopRatingStatsLoading } = useGetShopRatingStatsQuery({ shopId })
   const totalRatings = shopRatingStatsData
@@ -35,7 +39,25 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ shopId }) => {
       shopRatingStatsData['1_stars']
     : 0
 
-  const { data: shopReviewsData, isLoading: isShopReviewsLoading } = useGetShopReviewsQuery({ shopId })
+  const { data: shopReviewsData, isLoading: isShopReviewsLoading } = useGetShopReviewsQuery({
+    shopId,
+    type: selectedType,
+    page: currentPage,
+    per_page: 10,
+  })
+
+  const handleTypeClick = (type: ReviewType | 'all' | undefined) => {
+    if (type === 'all') {
+      setSelectedType(undefined)
+    } else {
+      setSelectedType(selectedType === type ? undefined : type)
+    }
+    setCurrentPage(1)
+  }
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   return (
     <div className={styles['store-review']}>
@@ -212,7 +234,7 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ shopId }) => {
       </BaseSpin>
       <div className={styles['store-review__right']}>
         <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-24px'}>
-          <StoreReels
+          {/* <StoreReels
             thumbnails={[
               '/dummy/reel01.jpg',
               '/dummy/reel02.jpg',
@@ -222,14 +244,35 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ shopId }) => {
               '/dummy/reel03.jpg',
               '/dummy/reel04.jpg',
             ]}
-          />
+          /> */}
           <BaseSpin spinning={isShopReviewsLoading}>
             <BaseFlex vertical gap={largeScreen ? 'spacing-40px' : 'spacing-24px'}>
               <BaseFlex gap={largeScreen ? 'spacing-16px' : 'spacing-8px'} wrap="wrap">
-                <BaseButton>헤어</BaseButton>
-                <BaseButton color="secondary-neutral">사진/영상 리뷰만</BaseButton>
-                <BaseButton color="secondary-neutral">비포&애프터 리뷰만</BaseButton>
-                <BaseButton color="secondary-neutral">텍스트만</BaseButton>
+                {/* Type Filters */}
+                <BaseButton
+                  onClick={() => handleTypeClick('all')}
+                  color={selectedType === undefined ? undefined : 'secondary-neutral'}
+                >
+                  전체
+                </BaseButton>
+                <BaseButton
+                  onClick={() => handleTypeClick('images')}
+                  color={selectedType === 'images' ? undefined : 'secondary-neutral'}
+                >
+                  사진/영상 리뷰만
+                </BaseButton>
+                <BaseButton
+                  onClick={() => handleTypeClick('before_after')}
+                  color={selectedType === 'before_after' ? undefined : 'secondary-neutral'}
+                >
+                  비포&애프터 리뷰만
+                </BaseButton>
+                <BaseButton
+                  onClick={() => handleTypeClick('text')}
+                  color={selectedType === 'text' ? undefined : 'secondary-neutral'}
+                >
+                  텍스트만
+                </BaseButton>
               </BaseFlex>
               {shopReviewsData?.data.map((review, i) => (
                 <StoreReviewCard
@@ -249,7 +292,12 @@ export const StoreReview: React.FC<StoreReviewProps> = ({ shopId }) => {
                   imagesAfter={review.after ? review.after.map((img) => img.url) : []}
                 />
               ))}
-              <BasePagination defaultCurrent={1} pageSize={10} total={shopReviewsData?.meta.last_page} />
+              <BasePagination
+                current={currentPage}
+                pageSize={10}
+                total={shopReviewsData?.meta.total || 0}
+                onChange={handlePageChange}
+              />
             </BaseFlex>
           </BaseSpin>
         </BaseFlex>

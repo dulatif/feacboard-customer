@@ -48,7 +48,7 @@ const ShopViewContent = () => {
       <div className={styles['shop-view__banner']}>
         <div className={styles['shop-view__banner__overlay']}></div>
         <div className={styles['shop-view__banner__content']}>
-          <BaseContainer variant={1440}>
+          {/* <BaseContainer variant={1440}>
             <BaseBreadcrumb color="white" items={breadcrumbItems} className={styles['shop-view__banner__breadcrumb']} />
             <BaseFlex vertical gap="spacing-48px">
               <BaseTypography as="h4" size="header4" weight="semibold" color="white">
@@ -56,20 +56,20 @@ const ShopViewContent = () => {
               </BaseTypography>
               <Filter />
             </BaseFlex>
-          </BaseContainer>
+          </BaseContainer> */}
         </div>
       </div>
       <div className={styles['shop-view__content']}>
-        {!isMobile && scrollY > 260 && (
+        {/* {!isMobile && scrollY > 260 && (
           <div className={styles['shop-view__content__filter']}>
             <BaseContainer variant={1440}>
               <Filter compact />
             </BaseContainer>
           </div>
-        )}
+        )} */}
         <BaseContainer variant={1440}>
           <BaseFlex vertical gap={isMobile ? 'spacing-40px' : 'spacing-80px'}>
-            <Banner />
+            {/* <Banner /> */}
             <StakeHolderWrapper />
           </BaseFlex>
         </BaseContainer>

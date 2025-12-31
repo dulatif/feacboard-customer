@@ -16,6 +16,8 @@ export interface ServiceCardProps {
   name: string
   id: number
   variants: any[]
+  originalPrice?: string
+  discountPercent?: number
   handleAddToCart?: (serviceId: number) => void
   handleDirectBuy?: (serviceId: number) => void
   loading?: boolean
@@ -26,6 +28,8 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   name,
   id,
   variants,
+  originalPrice,
+  discountPercent,
   handleAddToCart,
   handleDirectBuy,
   loading = false,
@@ -57,20 +61,35 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             <BaseTypography as="h1" size="body1" weight="medium" lineClamp={2}>
               {name}
             </BaseTypography>
-            <div>
-              <BaseBadge variant="danger-100">
-                <BaseTypography as="span" size="caption" weight="semibold" color="inherit">
-                  10% 할인
-                </BaseTypography>
-              </BaseBadge>
-            </div>
+            {discountPercent && discountPercent > 0 ? (
+              <div>
+                <BaseBadge variant="danger-100">
+                  <BaseTypography as="span" size="caption" weight="semibold" color="inherit">
+                    {discountPercent}% 할인
+                  </BaseTypography>
+                </BaseBadge>
+              </div>
+            ) : null}
           </div>
           <BaseFlex vertical gap="spacing-8px">
             <BaseFlex vertical={isMobile} justify="end" align={isMobile ? 'flex-start' : 'center'} gap="spacing-8px">
-              <BaseTypography as="h1" size="body2" weight="medium" color="danger-500">
-                {formatNumberCurrency(Number(price))} 원
-              </BaseTypography>
-              <BaseTypography as="h1" size="subtitle2" weight="semibold">
+              {originalPrice && (
+                <BaseTypography
+                  as="h1"
+                  size="body2"
+                  weight="medium"
+                  color="neutral-500"
+                  style={{ textDecoration: 'line-through' }}
+                >
+                  {formatNumberCurrency(Number(originalPrice))} 원
+                </BaseTypography>
+              )}
+              <BaseTypography
+                as="h1"
+                size="subtitle2"
+                weight="semibold"
+                color={discountPercent && discountPercent > 0 ? 'danger-500' : undefined}
+              >
                 {formatNumberCurrency(Number(price))} 원
               </BaseTypography>
             </BaseFlex>

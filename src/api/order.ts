@@ -5,8 +5,18 @@ export const createOrder = async () => {
   return await api.post(`/order/checkout`)
 }
 
-export const getOrder = async () => {
-  return (await api.get(`/order`)) as GetOrderResponse
+export interface GetOrderParams {
+  status?: 'pending' | 'paid' | 'cancelled' | 'completed' | 'expired'
+}
+
+export const getOrder = async (params?: GetOrderParams) => {
+  const queryParams = new URLSearchParams()
+  if (params?.status) {
+    queryParams.append('status', params.status)
+  }
+  const queryString = queryParams.toString()
+  const url = `/order${queryString ? `?${queryString}` : ''}`
+  return (await api.get(url)) as GetOrderResponse
 }
 
 export const getDetailOrder = async (orderId: number) => {

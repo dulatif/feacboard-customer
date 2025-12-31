@@ -118,11 +118,11 @@ export const DesignerDetailView = () => {
             >
               <div>
                 <Avatar
-                  src={designerDetail?.profile_image_url}
+                  src={designerDetail?.user?.profile_image_url || designerDetail?.profile_image_url}
                   style={{ background: '#dededee0' }}
                   size={largeScreen ? 168 : 120}
                 >
-                  <Render in={!designerDetail?.profile_image_url}>
+                  <Render in={!designerDetail?.user?.profile_image_url && !designerDetail?.profile_image_url}>
                     <BaseTypography as="p" size="header2" color="white">
                       {designerDetail?.name?.slice(0, 1).toUpperCase()}
                     </BaseTypography>
@@ -182,12 +182,12 @@ export const DesignerDetailView = () => {
                 </BaseFlex>
               </BaseFlex>
             </BaseFlex>
-            {data && (
+            {(designerDetail?.rating || data?.rating) && (
               <BaseFlex vertical gap="spacing-8px" align="center">
                 <BaseFlex align="center" gap="spacing-8px">
                   <StarIcon width={32} height={32} />
                   <BaseTypography as="h5" size="header5" weight="bold">
-                    {data.rating}
+                    {designerDetail?.rating ? Number(designerDetail.rating).toFixed(1) : data?.rating}
                     <BaseTypography as="span" size="body1" color="neutral-500" weight="bold">
                       /5.0
                     </BaseTypography>
@@ -204,7 +204,7 @@ export const DesignerDetailView = () => {
           <BaseTabs defaultActiveKey="1" onChange={(key) => setActiveTab(key)} gapContent="0px" items={tabItems} />
         </div>
         {activeTab === '1' ? (
-          <Services designerId={designerId} />
+          <Services designerId={designerId} shopId={designerDetail?.employment?.shop?.id} />
         ) : activeTab === '2' ? (
           <Portfolio />
         ) : activeTab === '3' ? (

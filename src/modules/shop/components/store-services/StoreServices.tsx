@@ -63,7 +63,9 @@ const mapServiceToCardProps = (service: ShopService): ServiceCardProps => {
   return {
     id: service.id,
     name: service.name,
-    price: service.price,
+    price: service.price_after_discount ? String(service.price_after_discount) : service.price,
+    originalPrice: service.price_after_discount ? service.price : undefined,
+    discountPercent: service.discount_percent,
     image: getServiceImage(service.images),
     variants: [],
   }
