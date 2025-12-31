@@ -20,6 +20,7 @@ import { BeforeAfter } from '../../components/before-after/BeforeAfter'
 import { hair } from '@/shared/dummy/data'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { useGetDetailDesignerQuery } from '@/shared/hooks/designer/useDesignerQuery'
+import Render from '@/shared/components/base-render/Render'
 
 export const DesignerDetailView = () => {
   const { largeScreen, isDesktop, isLaptop, isTablet, isMobile } = useResponsive()
@@ -117,23 +118,29 @@ export const DesignerDetailView = () => {
             >
               <div>
                 <Avatar
-                  src={data?.picture || '/dummy/designer01.jpg'}
-                  style={{ background: '#CFC3A7' }}
+                  src={designerDetail?.user?.profile_image_url || designerDetail?.profile_image_url}
+                  style={{ background: '#dededee0' }}
                   size={largeScreen ? 168 : 120}
-                />
+                >
+                  <Render in={!designerDetail?.user?.profile_image_url && !designerDetail?.profile_image_url}>
+                    <BaseTypography as="p" size="header2" color="white">
+                      {designerDetail?.name?.slice(0, 1).toUpperCase()}
+                    </BaseTypography>
+                  </Render>
+                </Avatar>
               </div>
               <BaseFlex gap="spacing-16px" vertical>
                 <BaseFlex gap="spacing-16px" vertical>
                   <BaseTypography as="h1" size="subtitle1" weight="semibold" color="neutral-900">
                     {designerDetail?.name || data?.name}
                   </BaseTypography>
-                  {data?.company && (
+                  {designerDetail?.employment?.shop?.name && (
                     <BaseFlex gap="spacing-8px">
                       <div>
                         <BuildingsIcon width={24} height={24} color="#344054" />
                       </div>
                       <BaseTypography as="p" size="body1" weight="regular" color="neutral-700">
-                        {data.company}
+                        {designerDetail.employment?.shop?.name}
                       </BaseTypography>
                     </BaseFlex>
                   )}
@@ -142,21 +149,45 @@ export const DesignerDetailView = () => {
                   {designerDetail?.bio || data?.bio || '-'}
                 </BaseTypography>
                 <BaseFlex gap="spacing-8px">
-                  <BaseButton href="#" target="_blank" icon={<LinkSimpleHorizontal size={20} />} color="secondary">
-                    Litt.ly/hanbyeol
-                  </BaseButton>
-                  <BaseButton href="#" target="_blank" icon={<InstagramLogo size={20} />} color="secondary">
-                    @hyanbyeol
-                  </BaseButton>
+                  {(() => {
+                    const socials = designerDetail?.socials || []
+                    const tiktok = socials.find((s) => s.social_name === 'tiktok')
+                    const instagram = socials.find((s) => s.social_name === 'instagram')
+
+                    return (
+                      <>
+                        {tiktok && (
+                          <BaseButton
+                            href={tiktok.social_url}
+                            target="_blank"
+                            icon={<LinkSimpleHorizontal size={20} />}
+                            color="secondary"
+                          >
+                            {tiktok.social_displayname}
+                          </BaseButton>
+                        )}
+                        {instagram && (
+                          <BaseButton
+                            href={instagram.social_url}
+                            target="_blank"
+                            icon={<InstagramLogo size={20} />}
+                            color="secondary"
+                          >
+                            {instagram.social_displayname}
+                          </BaseButton>
+                        )}
+                      </>
+                    )
+                  })()}
                 </BaseFlex>
               </BaseFlex>
             </BaseFlex>
-            {data && (
+            {(designerDetail?.rating || data?.rating) && (
               <BaseFlex vertical gap="spacing-8px" align="center">
                 <BaseFlex align="center" gap="spacing-8px">
                   <StarIcon width={32} height={32} />
                   <BaseTypography as="h5" size="header5" weight="bold">
-                    {data.rating}
+                    {designerDetail?.rating ? Number(designerDetail.rating).toFixed(1) : data?.rating}
                     <BaseTypography as="span" size="body1" color="neutral-500" weight="bold">
                       /5.0
                     </BaseTypography>
@@ -173,13 +204,14 @@ export const DesignerDetailView = () => {
           <BaseTabs defaultActiveKey="1" onChange={(key) => setActiveTab(key)} gapContent="0px" items={tabItems} />
         </div>
         {activeTab === '1' ? (
-          <Services designerId={designerId} />
+          <Services designerId={designerId} shopId={designerDetail?.employment?.shop?.id} />
         ) : activeTab === '2' ? (
           <Portfolio />
         ) : activeTab === '3' ? (
           <BeforeAfter />
         ) : activeTab === '4' ? (
           <PersonalHistory
+            designerId={Number(designerId)}
             data={{
               career: data?.career || [],
               awards: data?.awards || [],

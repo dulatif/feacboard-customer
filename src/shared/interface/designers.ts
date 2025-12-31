@@ -1,4 +1,5 @@
 import { ID, MutationParams } from './general'
+import { Shop } from './shop'
 
 export interface DesignerEmployment {
   employed_at: string
@@ -29,12 +30,22 @@ export interface Designer {
   id: ID
   name: string
   phone: string
+  bio: string | null
   status: 'employed' | 'unemployed'
-  category: DesignerCategory
-  employment: DesignerEmployment | null
+  rating: string | number | null
+  category?: DesignerCategory
+  employment?: DesignerEmployment | null
   services: DesignerService[]
-  designer_identification_url: string | null
-  certificate_of_cometence_url: string | null
+  designer_identification_url?: string | null
+  certificate_of_cometence_url?: string | null
+  user?: {
+    id: number
+    role: string
+    email: string
+    email_verified: boolean
+    profile_image_url: string | null
+    designer?: Designer
+  }
 }
 
 export type DesignerWithOption =
@@ -43,6 +54,7 @@ export type DesignerWithOption =
   | 'competenceCertificate'
   | 'designerIdentification'
   | 'category'
+  | 'user.profileImage'
 
 export interface GetAllDesignerQueryParams {
   name?: string
@@ -54,12 +66,43 @@ export interface GetAllDesignerQueryParams {
 
 export interface GetAllDesignerMutationParams extends MutationParams<Designer[], GetAllDesignerQueryParams> {}
 
+export interface DesignerSocial {
+  social_name: string
+  social_displayname: string
+  social_username: string
+  social_url: string
+}
 export interface GetDetailDesignerResponse {
   id: ID
   name: string
   phone: string
   bio: string
   status: 'employed' | 'unemployed'
+  rating: string | number | null
+  profile_image_url?: string | null
+  socials: DesignerSocial[]
+  employment: {
+    id: number
+    employed_at: string
+    resigned_at: string | null
+    fired_at: string | null
+    shop: Shop
+  }
+  user?: {
+    id: number
+    role: string
+    email: string
+    email_verified: boolean
+    profile_image_url: string | null
+    designer?: {
+      id: number
+      name: string
+      phone: string
+      bio: string
+      status: string
+      rating: string | number | null
+    }
+  }
 }
 
 export interface GetDetailDesignerQueryParams {

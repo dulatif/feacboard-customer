@@ -33,16 +33,24 @@ const mapDesignerToCardProps = (designer: ShopServicesDesigner): DesignerCardPro
   const services: ServiceCardProps[] = (designer.services || []).map((service) => ({
     id: service.id,
     name: service.name,
-    price: service.price,
+    price: service.price_after_discount ? String(service.price_after_discount) : service.price,
+    originalPrice: service.price_after_discount ? service.price : undefined,
+    discountPercent: service.discount_percent,
     image: getServiceImage(service.images),
     variants: [],
   }))
 
+  // Get picture from user.profile_image_url or use default
+  const picture = designer.user?.profile_image_url || ''
+
+  // Get rating from designer.rating or default to 0
+  const rating = designer.rating ? Number(designer.rating) : 0
+
   return {
     id: String(designer.id),
-    picture: '/dummy/designer01.jpg', // Default since not in response
+    picture,
     name: designer.name,
-    rating: 0, // Default since not in response
+    rating,
     company: '', // Not available in response
     location: '', // Not available in response
     availableHour: '', // Not available in response

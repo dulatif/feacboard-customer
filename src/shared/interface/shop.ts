@@ -12,12 +12,15 @@ export interface Shop {
   status: string
   phone: string
   person_in_charge: string
+  description?: string
   address: string
   address_lat: string
   address_long: string
-  rating?: number
+  rating?: number | null
   review_count?: number
   open_hour_today?: string
+  open_hours?: ShopOpenHour[]
+  open_hours_calendar?: Record<string, Record<string, boolean>>
   designers?: Designer[]
   designer_count?: number
   thumbnails?: ShopThumbnail[]

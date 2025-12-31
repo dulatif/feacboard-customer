@@ -9,6 +9,7 @@ import {
   getShopServiceCategories,
   getShopRatingStats,
   getShopReviews,
+  GetShopReviewsParams,
 } from '@/api/shop'
 import { GetAllShopQueryParams } from '@/shared/interface/shop'
 import { useQuery } from '@tanstack/react-query'
@@ -54,10 +55,10 @@ export const useGetShopServiceCategoriesQuery = ({ shopId }: { shopId: number })
   return useQuery({ queryKey, queryFn })
 }
 
-export const useGetShopCalendarHourQuery = ({ shopId }: { shopId: number }) => {
+export const useGetShopCalendarHourQuery = ({ shopId, enabled = true }: { shopId: number; enabled?: boolean }) => {
   const queryKey = ['get-shop-detail-calendar', shopId]
   const queryFn = async () => await getShopCalendarHour({ shopId })
-  return useQuery({ queryKey, queryFn })
+  return useQuery({ queryKey, queryFn, enabled: enabled && !!shopId })
 }
 
 export const useGetShopRatingStatsQuery = ({ shopId }: { shopId: number }) => {
@@ -66,8 +67,8 @@ export const useGetShopRatingStatsQuery = ({ shopId }: { shopId: number }) => {
   return useQuery({ queryKey, queryFn })
 }
 
-export const useGetShopReviewsQuery = ({ shopId }: { shopId: number }) => {
-  const queryKey = ['get-shop-detail-reviews', shopId]
-  const queryFn = async () => await getShopReviews({ shopId })
+export const useGetShopReviewsQuery = (params: GetShopReviewsParams) => {
+  const queryKey = ['get-shop-detail-reviews', params]
+  const queryFn = async () => await getShopReviews(params)
   return useQuery({ queryKey, queryFn })
 }

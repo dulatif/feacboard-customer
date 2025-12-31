@@ -4,6 +4,7 @@ import {
   GetDetailShopQueryParams,
   GetShopReviewsResponse,
   RatingStats,
+  ReviewType,
   Shop,
   ShopCategory,
   ShopOpenHour,
@@ -33,7 +34,12 @@ export const getShop = async (params: GetAllShopQueryParams) => {
   }
   return (await api.get(`/shop?${queryParams.toString()}`)) as Shop[]
 }
-
+export interface ShopSocial {
+  social_name: string
+  social_displayname: string
+  social_username: string
+  social_url: string
+}
 export interface GetShopDetailsResponse {
   id: number
   name: string
@@ -52,6 +58,8 @@ export interface GetShopDetailsResponse {
   category?: ShopCategory
   services?: Service[]
   designers?: any[]
+  thumbnails?: { id: number; url: string }[]
+  socials?: ShopSocial[]
 }
 export interface Service {
   id: number
@@ -86,7 +94,7 @@ export const getDetailShop = async (params: GetDetailShopQueryParams) => {
   })
 
   const queryString = urlParams.toString()
-  const url = `/shop/${id}${queryString ? `?${queryString}` : ''}`
+  const url = `/shop/${id}/detail${queryString ? `?${queryString}` : ''}`
 
   return (await api.get(url)) as GetShopDetailsResponse
 }
@@ -107,6 +115,9 @@ export interface ShopService {
   id: number
   name: string
   price: string
+  discount?: string
+  price_after_discount?: number
+  discount_percent?: number
   images: ShopServiceImage
 }
 
@@ -114,13 +125,30 @@ export interface ShopServicesDesigner {
   id: number
   name: string
   phone: string
-  bio: string
+  bio: string | null
   status: string
+  rating: string | number | null
+  user?: {
+    id: number
+    role: string
+    email: string
+    email_verified: boolean
+    profile_image_url: string | null
+    designer?: {
+      id: number
+      name: string
+      phone: string
+      bio: string | null
+      status: string
+      rating: string | number | null
+    }
+  }
   services: ShopService[]
 }
 
 export interface GetShopServicesResponse {
   data: ShopServicesDesigner[] | ShopService[]
+  type?: 'designer' | 'service'
   links: {
     first: string | null
     last: string | null
@@ -192,6 +220,26 @@ export const getShopRatingStats = async ({ shopId }: { shopId: number }) => {
   return (await api.get(`/shop/${shopId}/review/stats`)) as RatingStats
 }
 
-export const getShopReviews = async ({ shopId }: { shopId: number }) => {
-  return (await api.get(`/shop/${shopId}/reviews`)) as GetShopReviewsResponse
+export interface GetShopReviewsParams {
+  shopId: number
+  category_id?: number
+  type?: ReviewType
+  page?: number
+  per_page?: number
+}
+
+export const getShopReviews = async ({ shopId, ...queryParams }: GetShopReviewsParams) => {
+  const cleanedParams = cleanObj(queryParams)
+
+  const urlParams = new URLSearchParams()
+  Object.entries(cleanedParams).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      urlParams.append(key, String(value))
+    }
+  })
+
+  const queryString = urlParams.toString()
+  const url = `/shop/${shopId}/reviews${queryString ? `?${queryString}` : ''}`
+
+  return (await api.get(url)) as GetShopReviewsResponse
 }

@@ -15,6 +15,7 @@ import { StoreCard } from '../../components/store-card/StoreCard'
 import { StoreDesigners } from '../../components/store-designers/StoreDesigners'
 import { StoreInformation } from '../../components/store-information/StoreInformation'
 import { StoreServices } from '../../components/store-services/StoreServices'
+import { StoreTidings } from '../../components/store-tidings/StoreTidings'
 import { StoreReview } from '../../components/store-review/StoreReview'
 
 export const ShopDetailsView = () => {
@@ -67,7 +68,7 @@ export const ShopDetailsView = () => {
       {
         key: '2',
         label: '소식',
-        // children: <StoreTidings data={data?.tidings || []} />,
+        children: <StoreTidings shopId={shopId} />,
       },
       {
         key: '3',
@@ -77,7 +78,12 @@ export const ShopDetailsView = () => {
       {
         key: '4',
         label: '정보',
-        children: <StoreInformation data={{ storeName: shopDetailsData?.name || '' }} shopId={shopId} />,
+        children: (
+          <StoreInformation
+            data={{ storeName: shopDetailsData?.name || '' }}
+            description={shopDetailsData?.description || ''}
+          />
+        ),
       },
     ]
   }, [isDesignerServiceCategory])
@@ -110,7 +116,7 @@ export const ShopDetailsView = () => {
               location={shopDetailsData?.address}
               rating={shopDetailsData?.rating || 0}
               reviewersCount={shopDetailsData?.review_count || 0}
-              images={[]}
+              images={shopDetailsData?.thumbnails?.map((thumbnail) => thumbnail.url) || []}
               availableDesigners={shopDetailsData?.designers?.length || 0}
             />
           </BaseSpin>

@@ -1,0 +1,21 @@
+@localhost = http://localhost:8000
+@apiVersion = v1
+
+@shop_id = 2
+@designer_id = 1
+
+# ==========================================================
+# PUBLIC ENDPOINTS
+# ==========================================================
+
+### Public: Get Shop Certificates
+GET {{localhost}}/{{apiVersion}}/certificate/{{shop_id}}/certificates
+Accept: application/json
+
+# response file : certificate.http
+
+### Public: Get Designer Certificates
+GET {{localhost}}/{{apiVersion}}/certificate/{{designer_id}}/certificates
+Accept: application/json
+
+# response file : certificate.http

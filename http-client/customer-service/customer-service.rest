@@ -1,0 +1,24 @@
+@baseUrl = http://localhost:8000/v1
+@customer_token = 23|3vWM0GjMNCOHj25zUpYETEx0UaDxYspZ5Tv2WtyU8b6a8363
+@admin_token = 24|4VrLyRvokXW0sDISMKFhOgGOoQ4FMvbsFAQGssys833476fa
+@ticket_id = 2
+
+##################################################
+#               CUSTOMER ROLE                    #
+##################################################
+
+### [CUSTOMER] Create Ticket (Inquiry Form)
+# Create a new customer service ticket
+# category: inquiry-form, comments-and-suggestions, advertising-affiliate-inquiries
+POST {{baseUrl}}/customer-service
+Content-Type: application/json
+Authorization: Bearer {{customer_token}}
+Accept: application/json
+
+{
+    "category": "inquiry-form",
+    "title": "Issue with my order",
+    "description": "I placed an order yesterday but haven't received any confirmation email. Order was for haircut service at 10:00 AM."
+}
+
+# Response File: ./responses/customer-create-ticket.http
