@@ -79,3 +79,70 @@ export const getDesignerServices = async (params: GetDesignerServicesQueryParams
 export const getDesignerServiceCategories = async (designerId: ID | string) => {
   return (await api.get(`/designer/${designerId}/service/categories`)) as DesignerServiceCategory[]
 }
+
+export interface GetPopularDesignerResponse {
+  data: {
+    id: number
+    name: string
+    phone: string
+    bio: any
+    status: string
+    rating: any
+    employment: Employment
+    user: User
+    before_afters: BeforeAfter[]
+  }[]
+}
+export interface Employment {
+  id: number
+  shop: Shop
+  employed_at: string
+  resigned_at: any
+  fired_at: any
+}
+
+export interface Shop {
+  id: number
+  name: string
+  status: string
+  phone: string
+  person_in_charge: string
+  description: any
+  address: string
+  address_lat: string
+  address_long: string
+  rating: any
+  review_count: number
+  open_hour_today: string
+}
+export interface User {
+  id: number
+  role: string
+  email: string
+  email_verified: boolean
+  profile_image_url: any
+  designer: {
+    id: number
+    name: string
+    phone: string
+    bio: any
+    status: string
+    rating: any
+  }
+}
+export interface BeforeAfter {
+  id: number
+  designer_id: number
+  type: string
+  created_at: string
+  updated_at: string
+  service_title: string
+}
+export interface GetPopularDesignerParams {
+  before_after_only?: number
+}
+export const getPopularDesigner = async ({ before_after_only }: GetPopularDesignerParams) => {
+  return (await api.get(
+    `/designer/popular?limit=4${before_after_only ? `&before_after_only=${before_after_only}` : ''}`,
+  )) as GetPopularDesignerResponse
+}

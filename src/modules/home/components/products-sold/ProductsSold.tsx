@@ -2,9 +2,11 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseCard } from '@/shared/components/base-card/BaseCard'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseSection } from '@/shared/components/base-section/BaseSection'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 import { BaseTypography } from '@/shared/components/base-typography/BaseTypography'
 import ChevronRightIcon from '@/shared/components/icons/ChevronRightIcon'
 import StarIcon from '@/shared/components/icons/StarIcon'
+import { useGetPopularShopQuery } from '@/shared/hooks/shop/useShopQuery'
 import { useResponsive } from '@/shared/hooks/useResponsive'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
@@ -12,6 +14,9 @@ import React from 'react'
 
 export const ProductsSold = () => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
+
+  const { data: popularShopData, isLoading: isGetPopularShopLoading } = useGetPopularShopQuery()
+
   return (
     <div>
       <BaseSection
@@ -30,31 +35,37 @@ export const ProductsSold = () => {
           illust: <Image src={'/icons/shop.svg'} width={40} height={40} alt="Diagnostic history" />,
         }}
       >
-        <div>
+        <BaseSpin spinning={isGetPopularShopLoading}>
           <Row gutter={largeScreen ? 20 : 12}>
-            {Array.from({ length: largeScreen ? 4 : isTablet ? 3 : 2 }).map((e, i) => (
+            {(popularShopData?.data || []).map((shop, i) => (
               <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <BaseCard
-                  image="/dummy/product01.png"
-                  title={'플럼 세럼'}
+                  image={shop.thumbnails[0]?.url || ''}
+                  title={shop.name}
                   subtitle={
-                    <BaseFlex gap="spacing-8px" align="center">
-                      <StarIcon width={20} height={20} />
-                      <BaseTypography as="p" color="neutral-500" size="body1">
-                        4.8 (129 리뷰)
-                      </BaseTypography>
-                    </BaseFlex>
+                    <BaseTypography as="p" color="neutral-500" size="body1">
+                      {shop.address}
+                    </BaseTypography>
                   }
                   footer={
-                    <BaseTypography as="p" color="neutral-900" size="header6" weight="bold">
-                      43,000 원
-                    </BaseTypography>
+                    shop.rating ? (
+                      <BaseFlex gap="spacing-8px" align="center">
+                        <StarIcon width={20} height={20} />
+                        <BaseTypography as="p" color="neutral-500" size="body1">
+                          {Number(shop.rating)} ({shop.review_count} 리뷰)
+                        </BaseTypography>
+                      </BaseFlex>
+                    ) : (
+                      <BaseTypography as="p" color="neutral-500" size="body1">
+                        평가 없음
+                      </BaseTypography>
+                    )
                   }
                 />
               </Col>
             ))}
           </Row>
-        </div>
+        </BaseSpin>
       </BaseSection>
     </div>
   )

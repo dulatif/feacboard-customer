@@ -3,15 +3,22 @@ import { BaseButton } from '@/shared/components/base-button/BaseButton'
 import { BaseCard } from '@/shared/components/base-card/BaseCard'
 import { BaseFlex } from '@/shared/components/base-flex/BaseFlex'
 import { BaseSection } from '@/shared/components/base-section/BaseSection'
+import StarIcon from '@/shared/components/icons/StarIcon'
+import { useGetPopularDesignerQuery } from '@/shared/hooks/designer/useDesignerQuery'
+import { useResponsive } from '@/shared/hooks/useResponsive'
 import { Col, Row } from 'antd'
 import Image from 'next/image'
 import styles from './PopularDesigner.module.scss'
-import StarIcon from '@/shared/components/icons/StarIcon'
-import { useResponsive } from '@/shared/hooks/useResponsive'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
 
 export const PopularDesigner = () => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
   const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
+
+  const { data: popularDesignerData, isLoading: isGetPopularDesignerLoading } = useGetPopularDesignerQuery({
+    before_after_only: undefined,
+  })
+
   return (
     <div className={styles['popular-designer']}>
       <BaseSection
@@ -30,24 +37,28 @@ export const PopularDesigner = () => {
         padding={{ x: boxPadding, y: boxPadding }}
         radius="radius-8px"
       >
-        <div>
+        <BaseSpin spinning={isGetPopularDesignerLoading}>
           <Row gutter={largeScreen ? 20 : 12}>
-            {Array.from({ length: largeScreen ? 4 : isTablet ? 3 : 2 }).map((e, i) => (
+            {(popularDesignerData?.data || []).map((designer, i) => (
               <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
                 <BaseCard
-                  image="/dummy/face02.png"
-                  title={'한별 팀장'}
-                  subtitle={'글래드 뷰티, 강남'}
+                  image={designer.user.profile_image_url || ''}
+                  title={designer.name}
+                  subtitle={designer.employment.shop.name}
                   footer={
-                    <BaseBadge variant={'warning-25'} icon={<StarIcon width={20} height={20} />}>
-                      4.8 (129 리뷰)
-                    </BaseBadge>
+                    designer.rating ? (
+                      <BaseBadge variant={'warning-25'} icon={<StarIcon width={20} height={20} />}>
+                        {Number(designer.rating)}
+                      </BaseBadge>
+                    ) : (
+                      <BaseBadge variant={'warning-25'}>평가 없음</BaseBadge>
+                    )
                   }
                 />
               </Col>
             ))}
           </Row>
-        </div>
+        </BaseSpin>
       </BaseSection>
     </div>
   )

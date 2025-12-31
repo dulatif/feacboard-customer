@@ -58,22 +58,18 @@ export const BaseCardPost = ({ header, fileSource, description, footer }: BaseCa
         )}
         {footer && (
           <BaseFlex justify="space-between" gap="spacing-8px">
-            {footer.like && (
-              <BaseFlex justify="space-between" gap="spacing-8px" align="center">
-                <HeartOutlinedIcon />
-                <BaseTypography as="p" color="neutral-500" size="body2">
-                  {footer.like}개 좋아요
-                </BaseTypography>
-              </BaseFlex>
-            )}
-            {footer.comment && (
-              <BaseFlex justify="space-between" gap="spacing-8px" align="center">
-                <CommentOutlinedIcon />
-                <BaseTypography as="p" color="neutral-500" size="body2">
-                  {footer.comment}개의 댓글
-                </BaseTypography>
-              </BaseFlex>
-            )}
+            <BaseFlex justify="space-between" gap="spacing-8px" align="center">
+              <HeartOutlinedIcon />
+              <BaseTypography as="p" color="neutral-500" size="body2">
+                {footer.like}개 좋아요
+              </BaseTypography>
+            </BaseFlex>
+            <BaseFlex justify="space-between" gap="spacing-8px" align="center">
+              <CommentOutlinedIcon />
+              <BaseTypography as="p" color="neutral-500" size="body2">
+                {footer.comment}개의 댓글
+              </BaseTypography>
+            </BaseFlex>
           </BaseFlex>
         )}
       </BaseFlex>

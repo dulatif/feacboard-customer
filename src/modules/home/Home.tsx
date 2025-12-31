@@ -44,9 +44,9 @@ export const Home = () => {
       >
         <Service />
         <Banner />
-        {isAuthenticated && <DiagnosticHistory />}
+        {/* {isAuthenticated && <DiagnosticHistory />} */}
         <BeforeAfter />
-        <NearbyService />
+        {/* <NearbyService /> */}
         <Community />
         <PopularDesigner />
         <ProductsSold />

@@ -4,6 +4,8 @@ import {
   getDetailDesigner,
   getDesignerServices,
   getDesignerServiceCategories,
+  getPopularDesigner,
+  GetPopularDesignerParams,
 } from '@/api/designer'
 import {
   GetAllDesignerQueryParams,
@@ -65,4 +67,10 @@ export const useGetDesignerServiceCategoriesQuery = ({
   const queryKey = ['get-designer-service-categories', designerId]
   const queryFn = async () => await getDesignerServiceCategories(designerId)
   return useQuery({ queryKey, queryFn, enabled })
+}
+
+export const useGetPopularDesignerQuery = (params: GetPopularDesignerParams) => {
+  const queryKey = ['get-designer-popular']
+  const queryFn = async () => await getPopularDesigner(params)
+  return useQuery({ queryKey, queryFn })
 }

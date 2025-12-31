@@ -10,6 +10,7 @@ import {
   getShopRatingStats,
   getShopReviews,
   GetShopReviewsParams,
+  getPopularShop,
 } from '@/api/shop'
 import { GetAllShopQueryParams } from '@/shared/interface/shop'
 import { useQuery } from '@tanstack/react-query'
@@ -70,5 +71,11 @@ export const useGetShopRatingStatsQuery = ({ shopId }: { shopId: number }) => {
 export const useGetShopReviewsQuery = (params: GetShopReviewsParams) => {
   const queryKey = ['get-shop-detail-reviews', params]
   const queryFn = async () => await getShopReviews(params)
+  return useQuery({ queryKey, queryFn })
+}
+
+export const useGetPopularShopQuery = () => {
+  const queryKey = ['get-shop-popular']
+  const queryFn = async () => await getPopularShop()
   return useQuery({ queryKey, queryFn })
 }

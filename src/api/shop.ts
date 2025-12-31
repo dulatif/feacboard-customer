@@ -243,3 +243,29 @@ export const getShopReviews = async ({ shopId, ...queryParams }: GetShopReviewsP
 
   return (await api.get(url)) as GetShopReviewsResponse
 }
+
+export interface GetPopularShopResponse {
+  data: {
+    id: number
+    name: string
+    status: string
+    phone: string
+    person_in_charge: string
+    description: string
+    address: string
+    address_lat: string
+    address_long: string
+    rating: any
+    review_count: number
+    open_hour_today: string
+    thumbnails: Thumbnail[]
+  }[]
+}
+export interface Thumbnail {
+  id: any
+  url: string
+  photo_type: any
+}
+export const getPopularShop = async () => {
+  return (await api.get(`/shop/popular?limit=4`)) as GetPopularShopResponse
+}
