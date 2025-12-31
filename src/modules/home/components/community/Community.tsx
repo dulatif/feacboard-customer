@@ -7,9 +7,14 @@ import Image from 'next/image'
 import styles from './Community.module.scss'
 import { BaseCardPost } from '@/shared/components/base-card-post/BaseCardPost'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useGetPopularCommunityQuery } from '@/shared/hooks/community/useCommunityQuery'
+import { BaseSpin } from '@/shared/components/base-spin/BaseSpin'
+import dayjs from 'dayjs'
 
 export const Community = () => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
+
+  const { data: popularCommunityData, isLoading: isGetPopularCommunityLoading } = useGetPopularCommunityQuery()
   return (
     <div>
       <Row gutter={largeScreen ? 20 : 12}>
@@ -28,19 +33,19 @@ export const Community = () => {
             </div>
           </BaseFlex>
         </Col>
-        {Array.from({ length: largeScreen ? 3 : isTablet ? 2 : 1 }).map((e, i) => (
+        {(popularCommunityData?.data || []).map((post, i) => (
           <Col span={largeScreen ? 6 : isTablet ? 8 : 12} key={i}>
             <BaseCardPost
               header={{
-                avatar: '/dummy/face01.png',
-                date: '9월 29일',
-                name: '박보영',
+                avatar: post.owner.user.profile_image_url,
+                date: dayjs(post.created_at).format('DD MMM'),
+                name: post.owner.name,
               }}
-              fileSource="/dummy/face02.png"
-              description="안녕하세요 여러분! 💖 오늘은 피부 관리에 대해 이야기해볼게요. 매일 작은 습관이 모여 건강하고 빛나는 피부를 만든답니다! ✨ 여러분의 최애 스킨케어 루틴은 무엇인가요? 😊💆‍♀️💖"
+              fileSource={post.images[0]?.url || ''}
+              description={post.description}
               footer={{
-                like: 405,
-                comment: 302,
+                like: post.likes_count,
+                comment: 0,
               }}
             />
           </Col>
