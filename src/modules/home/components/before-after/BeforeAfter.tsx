@@ -14,12 +14,17 @@ import { BaseBadge } from '@/shared/components/base-badge/BaseBadge'
 import { useState } from 'react'
 import Link from 'next/link'
 import { useResponsive } from '@/shared/hooks/useResponsive'
+import { useGetPopularDesignerQuery } from '@/shared/hooks/designer/useDesignerQuery'
 
 export const BeforeAfter = () => {
   const { largeScreen, isTablet, isMobile } = useResponsive()
   const [beforePosition, setBeforePosition] = useState(0)
   const [afterPosition, setAfterPosition] = useState(0)
   const boxPadding = largeScreen ? 'spacing-24px' : 'spacing-12px'
+
+  const { data: popularDesignerData, isLoading: isGetPopularDesignerLoading } = useGetPopularDesignerQuery({
+    before_after_only: 1,
+  })
   return (
     <div className={styles['container']}>
       <BaseSection
@@ -39,21 +44,21 @@ export const BeforeAfter = () => {
         }}
       >
         <BaseFlex gap="spacing-20px" flex={1} className={styles['content']}>
-          {(largeScreen ? [nail.designer[0], nail.designer[1]] : [nail.designer[0]]).map((e, i) => (
+          {(popularDesignerData?.data || []).map((designer, i) => (
             <BaseBox key={i} borderColor="neutral-300" radius="radius-16px" padding={{ x: boxPadding, y: boxPadding }}>
               <BaseFlex vertical gap="spacing-24px">
-                <Link href={`/designer/${e.id}`}>
+                <Link href={`/designer/${designer.id}`}>
                   <BaseFlex gap="spacing-16px" align="center">
                     <div>
-                      <Avatar src={e.picture} style={{ background: '#CFC3A7' }} size={48} />
+                      <Avatar src={designer.user.profile_image_url} style={{ background: '#CFC3A7' }} size={48} />
                     </div>
                     <BaseTypography as="p" size="body1" weight="medium" color="neutral-900">
-                      {e.name}
+                      {designer.name}
                     </BaseTypography>
                   </BaseFlex>
                 </Link>
                 <Row gutter={largeScreen ? 24 : 12}>
-                  <Col key={`before-${i}`} span={12}>
+                  {/* <Col key={`before-${i}`} span={12}>
                     <div className={styles['before']}>
                       <BaseImageCarousel
                         imageStyle={{ height: 270 }}
@@ -78,7 +83,7 @@ export const BeforeAfter = () => {
                         <BaseBadge variant="success-100">After</BaseBadge>
                       </div>
                     </div>
-                  </Col>
+                  </Col> */}
                 </Row>
               </BaseFlex>
             </BaseBox>
